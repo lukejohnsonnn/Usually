@@ -1101,7 +1101,8 @@
             "Wash their face",
             "Wash face",
             "Splash water on my face",
-            "Clean my face"
+            "Clean my face",
+            "Wash my hands and face"
           ]
         },
         {
@@ -1560,8 +1561,7 @@
         {
           "rank": 76,
           "texts": [
-            "Wash my hands",
-            "Wash my hands and face"
+            "Wash my hands"
           ]
         },
         {
@@ -1680,7 +1680,8 @@
             "Wallet",
             "Purse",
             "My wallet",
-            "My billfold"
+            "My billfold",
+            "Money"
           ]
         },
         {
@@ -1885,7 +1886,6 @@
           "texts": [
             "Their lunch money",
             "Lunch money",
-            "Money",
             "Lunch money for the kids",
             "Cash for lunch"
           ]
@@ -2327,8 +2327,7 @@
           "rank": 74,
           "texts": [
             "Baby wipes",
-            "Wipes",
-            "Diapers"
+            "Wipes"
           ]
         },
         {
@@ -2500,7 +2499,6 @@
           "rank": 7,
           "texts": [
             "Bacon",
-            "Canadian bacon",
             "Bacon bits",
             "Crispy bacon"
           ]
@@ -2766,8 +2764,7 @@
           "texts": [
             "Red pepper flakes",
             "Chili flakes",
-            "Crushed red pepper",
-            "Hot sauce"
+            "Crushed red pepper"
           ]
         },
         {
@@ -3164,7 +3161,8 @@
             "Alarm clock didn't ring",
             "My alarm never went off",
             "Alarm failed",
-            "Alarm didn't ring"
+            "Alarm didn't ring",
+            "Kids hid my alarm"
           ]
         },
         {
@@ -3347,16 +3345,6 @@
         {
           "rank": 19,
           "texts": [
-            "Overslept because of kids",
-            "Kids changed the clocks",
-            "Kids woke me up",
-            "Kids woke me up early",
-            "Kids hid my alarm"
-          ]
-        },
-        {
-          "rank": 20,
-          "texts": [
             "Power outage",
             "No power",
             "Electricity went out",
@@ -3365,7 +3353,7 @@
           ]
         },
         {
-          "rank": 21,
+          "rank": 20,
           "texts": [
             "Stuck in an elevator",
             "Elevator broke",
@@ -3375,7 +3363,7 @@
           ]
         },
         {
-          "rank": 22,
+          "rank": 21,
           "texts": [
             "Slept through the alarm",
             "Didn't hear the alarm",
@@ -3384,7 +3372,7 @@
           ]
         },
         {
-          "rank": 23,
+          "rank": 22,
           "texts": [
             "Carpool was late",
             "My ride was late",
@@ -3395,7 +3383,7 @@
           ]
         },
         {
-          "rank": 24,
+          "rank": 23,
           "texts": [
             "Parking problems",
             "Couldn't find parking",
@@ -3405,7 +3393,7 @@
           ]
         },
         {
-          "rank": 25,
+          "rank": 24,
           "texts": [
             "Running late from the gym",
             "Gym ran over",
@@ -3414,7 +3402,7 @@
           ]
         },
         {
-          "rank": 26,
+          "rank": 25,
           "texts": [
             "Had to help a neighbor",
             "Helped someone",
@@ -3424,7 +3412,7 @@
           ]
         },
         {
-          "rank": 27,
+          "rank": 26,
           "texts": [
             "Traffic light was out",
             "Broken traffic light",
@@ -3433,7 +3421,7 @@
           ]
         },
         {
-          "rank": 28,
+          "rank": 27,
           "texts": [
             "Bridge was up",
             "Drawbridge",
@@ -3442,7 +3430,7 @@
           ]
         },
         {
-          "rank": 29,
+          "rank": 28,
           "texts": [
             "Train crossing",
             "Stuck at a train crossing",
@@ -3452,7 +3440,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 29,
           "texts": [
             "Forgot it was Monday",
             "Thought it was the weekend",
@@ -3462,7 +3450,7 @@
           ]
         },
         {
-          "rank": 31,
+          "rank": 30,
           "texts": [
             "Spilled coffee on my clothes",
             "Had to change clothes",
@@ -3473,7 +3461,7 @@
           ]
         },
         {
-          "rank": 32,
+          "rank": 31,
           "texts": [
             "My cat sat on me",
             "The dog wouldn't let me leave",
@@ -3483,7 +3471,7 @@
           ]
         },
         {
-          "rank": 33,
+          "rank": 32,
           "texts": [
             "Ran out of gas",
             "Out of gas",
@@ -3492,7 +3480,7 @@
           ]
         },
         {
-          "rank": 34,
+          "rank": 33,
           "texts": [
             "Stuck behind a school bus",
             "School bus was slow",
@@ -3500,7 +3488,7 @@
           ]
         },
         {
-          "rank": 35,
+          "rank": 34,
           "texts": [
             "Stuck behind a slow truck",
             "Stuck behind a garbage truck",
@@ -3508,7 +3496,7 @@
           ]
         },
         {
-          "rank": 36,
+          "rank": 35,
           "texts": [
             "Missed my bus",
             "Missed the bus",
@@ -3517,7 +3505,7 @@
           ]
         },
         {
-          "rank": 37,
+          "rank": 36,
           "texts": [
             "My Uber was late",
             "Uber was late",
@@ -3527,7 +3515,7 @@
           ]
         },
         {
-          "rank": 38,
+          "rank": 37,
           "texts": [
             "Road was closed",
             "Street was closed",
@@ -3535,7 +3523,7 @@
           ]
         },
         {
-          "rank": 39,
+          "rank": 38,
           "texts": [
             "Flooding",
             "Flooded roads",
@@ -3543,7 +3531,7 @@
           ]
         },
         {
-          "rank": 40,
+          "rank": 39,
           "texts": [
             "School was delayed",
             "School delay",
@@ -3551,7 +3539,7 @@
           ]
         },
         {
-          "rank": 41,
+          "rank": 40,
           "texts": [
             "Babysitter cancelled",
             "No childcare",
@@ -3560,7 +3548,7 @@
           ]
         },
         {
-          "rank": 42,
+          "rank": 41,
           "texts": [
             "My kid was sick",
             "Sick child",
@@ -3569,7 +3557,7 @@
           ]
         },
         {
-          "rank": 43,
+          "rank": 42,
           "texts": [
             "Sick family member",
             "Had to care for a sick parent",
@@ -3577,21 +3565,21 @@
           ]
         },
         {
-          "rank": 44,
+          "rank": 43,
           "texts": [
             "Food poisoning",
             "I had food poisoning"
           ]
         },
         {
-          "rank": 45,
+          "rank": 44,
           "texts": [
             "Vet appointment",
             "Had to take my pet to the vet"
           ]
         },
         {
-          "rank": 46,
+          "rank": 45,
           "texts": [
             "Jury duty",
             "Had jury duty",
@@ -3600,7 +3588,7 @@
           ]
         },
         {
-          "rank": 47,
+          "rank": 46,
           "texts": [
             "Waiting for a repairman",
             "Waiting for the plumber",
@@ -3609,7 +3597,7 @@
           ]
         },
         {
-          "rank": 48,
+          "rank": 47,
           "texts": [
             "Pipes burst",
             "Water pipes burst",
@@ -3618,7 +3606,7 @@
           ]
         },
         {
-          "rank": 49,
+          "rank": 48,
           "texts": [
             "Locked myself out",
             "Locked out of the house",
@@ -3626,7 +3614,7 @@
           ]
         },
         {
-          "rank": 50,
+          "rank": 49,
           "texts": [
             "Lost my wallet",
             "Couldn't find my wallet",
@@ -3634,7 +3622,7 @@
           ]
         },
         {
-          "rank": 51,
+          "rank": 50,
           "texts": [
             "Couldn't find my phone",
             "Lost my phone at home",
@@ -3642,7 +3630,7 @@
           ]
         },
         {
-          "rank": 52,
+          "rank": 51,
           "texts": [
             "My clothes weren't ready",
             "Had to iron my clothes",
@@ -3651,7 +3639,7 @@
           ]
         },
         {
-          "rank": 53,
+          "rank": 52,
           "texts": [
             "Bad hair day",
             "Hair disaster",
@@ -3659,7 +3647,7 @@
           ]
         },
         {
-          "rank": 54,
+          "rank": 53,
           "texts": [
             "Took too long getting ready",
             "Getting ready took too long",
@@ -3667,7 +3655,7 @@
           ]
         },
         {
-          "rank": 55,
+          "rank": 54,
           "texts": [
             "Got pulled over",
             "Pulled over by the police",
@@ -3675,7 +3663,7 @@
           ]
         },
         {
-          "rank": 56,
+          "rank": 55,
           "texts": [
             "Internet went out",
             "No internet",
@@ -3684,7 +3672,7 @@
           ]
         },
         {
-          "rank": 57,
+          "rank": 56,
           "texts": [
             "Computer crashed",
             "My laptop died",
@@ -3692,7 +3680,7 @@
           ]
         },
         {
-          "rank": 58,
+          "rank": 57,
           "texts": [
             "Stayed up too late",
             "Was up too late",
@@ -3700,7 +3688,7 @@
           ]
         },
         {
-          "rank": 59,
+          "rank": 58,
           "texts": [
             "Was hungover",
             "Hungover",
@@ -3708,7 +3696,7 @@
           ]
         },
         {
-          "rank": 60,
+          "rank": 59,
           "texts": [
             "Couldn't sleep last night",
             "Insomnia",
@@ -3716,7 +3704,7 @@
           ]
         },
         {
-          "rank": 61,
+          "rank": 60,
           "texts": [
             "Thought I had the day off",
             "Thought I was off today",
@@ -3724,7 +3712,7 @@
           ]
         },
         {
-          "rank": 62,
+          "rank": 61,
           "texts": [
             "Mixed up my schedule",
             "Wrong shift time",
@@ -3733,7 +3721,7 @@
           ]
         },
         {
-          "rank": 63,
+          "rank": 62,
           "texts": [
             "Daylight saving time",
             "Clocks changed",
@@ -3742,7 +3730,7 @@
           ]
         },
         {
-          "rank": 64,
+          "rank": 63,
           "texts": [
             "Set my alarm wrong",
             "Set my alarm for PM instead of AM",
@@ -3750,7 +3738,7 @@
           ]
         },
         {
-          "rank": 65,
+          "rank": 64,
           "texts": [
             "Phone was on silent",
             "Phone was on do not disturb",
@@ -3758,7 +3746,7 @@
           ]
         },
         {
-          "rank": 66,
+          "rank": 65,
           "texts": [
             "Street blocked for an event",
             "Parade blocked the road",
@@ -3766,7 +3754,7 @@
           ]
         },
         {
-          "rank": 67,
+          "rank": 66,
           "texts": [
             "Protest blocked traffic",
             "March blocked the road",
@@ -3774,7 +3762,7 @@
           ]
         },
         {
-          "rank": 68,
+          "rank": 67,
           "texts": [
             "Ferry was late",
             "Missed the ferry",
@@ -3782,21 +3770,21 @@
           ]
         },
         {
-          "rank": 69,
+          "rank": 68,
           "texts": [
             "Had to stop for gas",
             "Stopped for gas on the way"
           ]
         },
         {
-          "rank": 70,
+          "rank": 69,
           "texts": [
             "Stopped for coffee",
             "Had to get coffee first"
           ]
         },
         {
-          "rank": 71,
+          "rank": 70,
           "texts": [
             "Got lost",
             "Took a wrong turn",
@@ -3804,7 +3792,7 @@
           ]
         },
         {
-          "rank": 72,
+          "rank": 71,
           "texts": [
             "GPS sent me the wrong way",
             "GPS was wrong",
@@ -3812,7 +3800,7 @@
           ]
         },
         {
-          "rank": 73,
+          "rank": 72,
           "texts": [
             "My bike broke down",
             "Bike had a flat",
@@ -3820,7 +3808,7 @@
           ]
         },
         {
-          "rank": 74,
+          "rank": 73,
           "texts": [
             "Fell back asleep",
             "Went back to sleep",
@@ -3828,7 +3816,7 @@
           ]
         },
         {
-          "rank": 75,
+          "rank": 74,
           "texts": [
             "Babysitter was late",
             "Nanny was late",
@@ -3836,7 +3824,7 @@
           ]
         },
         {
-          "rank": 76,
+          "rank": 75,
           "texts": [
             "Kids missed the bus",
             "Kids missed their bus",
@@ -3844,7 +3832,7 @@
           ]
         },
         {
-          "rank": 77,
+          "rank": 76,
           "texts": [
             "Had to shovel snow",
             "Shoveling snow",
@@ -3853,7 +3841,7 @@
           ]
         },
         {
-          "rank": 78,
+          "rank": 77,
           "texts": [
             "Car was covered in snow",
             "Had to dig my car out",
@@ -3861,7 +3849,7 @@
           ]
         },
         {
-          "rank": 79,
+          "rank": 78,
           "texts": [
             "Had to feed the baby",
             "Baby needed feeding",
@@ -3869,7 +3857,7 @@
           ]
         },
         {
-          "rank": 80,
+          "rank": 79,
           "texts": [
             "Partner took the car",
             "My wife took the car",
@@ -3878,7 +3866,7 @@
           ]
         },
         {
-          "rank": 81,
+          "rank": 80,
           "texts": [
             "Someone was in the bathroom",
             "Bathroom was occupied",
@@ -3886,7 +3874,7 @@
           ]
         },
         {
-          "rank": 82,
+          "rank": 81,
           "texts": [
             "Shower was cold",
             "No hot water",
@@ -3894,7 +3882,7 @@
           ]
         },
         {
-          "rank": 83,
+          "rank": 82,
           "texts": [
             "Had to take my kid to the doctor",
             "Child had a doctor appointment",
@@ -3902,7 +3890,7 @@
           ]
         },
         {
-          "rank": 84,
+          "rank": 83,
           "texts": [
             "Car was in the shop",
             "Car is at the mechanic",
@@ -3910,11 +3898,20 @@
           ]
         },
         {
-          "rank": 85,
+          "rank": 84,
           "texts": [
             "Forgot to set my alarm",
             "Didn't set my alarm",
             "Forgot to set an alarm"
+          ]
+        },
+        {
+          "rank": 85,
+          "texts": [
+            "My car got towed",
+            "Car was towed",
+            "My car was towed",
+            "Had to get my car from impound"
           ]
         }
       ],
@@ -3972,7 +3969,10 @@
             "AA battery",
             "AAA batteries",
             "Battery",
-            "Spare AA batteries"
+            "Spare AA batteries",
+            "Dead AA batteries",
+            "Old dead batteries",
+            "Used batteries"
           ]
         },
         {
@@ -4151,15 +4151,6 @@
         {
           "rank": 20,
           "texts": [
-            "Batteries that don't work",
-            "Dead AA batteries",
-            "Old dead batteries",
-            "Used batteries"
-          ]
-        },
-        {
-          "rank": 21,
-          "texts": [
             "A tape measure",
             "Tape measure",
             "Measuring tape",
@@ -4167,7 +4158,7 @@
           ]
         },
         {
-          "rank": 22,
+          "rank": 21,
           "texts": [
             "Chapstick",
             "Lip balm",
@@ -4175,7 +4166,7 @@
           ]
         },
         {
-          "rank": 23,
+          "rank": 22,
           "texts": [
             "A lighter",
             "Lighters",
@@ -4183,7 +4174,7 @@
           ]
         },
         {
-          "rank": 24,
+          "rank": 23,
           "texts": [
             "Safety pins",
             "Pins",
@@ -4194,7 +4185,7 @@
           ]
         },
         {
-          "rank": 25,
+          "rank": 24,
           "texts": [
             "A deck of cards",
             "Playing cards",
@@ -4203,7 +4194,7 @@
           ]
         },
         {
-          "rank": 26,
+          "rank": 25,
           "texts": [
             "Sticky notes",
             "Post-it notes",
@@ -4213,7 +4204,7 @@
           ]
         },
         {
-          "rank": 27,
+          "rank": 26,
           "texts": [
             "A notepad",
             "Scratch paper",
@@ -4223,7 +4214,7 @@
           ]
         },
         {
-          "rank": 28,
+          "rank": 27,
           "texts": [
             "Magnets",
             "Fridge magnets",
@@ -4233,7 +4224,7 @@
           ]
         },
         {
-          "rank": 29,
+          "rank": 28,
           "texts": [
             "A pocket knife",
             "A multitool",
@@ -4243,7 +4234,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 29,
           "texts": [
             "Buttons",
             "Spare buttons",
@@ -4254,7 +4245,7 @@
           ]
         },
         {
-          "rank": 31,
+          "rank": 30,
           "texts": [
             "A keychain",
             "Keyrings",
@@ -4266,7 +4257,7 @@
           ]
         },
         {
-          "rank": 32,
+          "rank": 31,
           "texts": [
             "A random remote",
             "Old remote",
@@ -4277,7 +4268,7 @@
           ]
         },
         {
-          "rank": 33,
+          "rank": 32,
           "texts": [
             "Instruction manuals",
             "Appliance manuals",
@@ -4287,7 +4278,7 @@
           ]
         },
         {
-          "rank": 34,
+          "rank": 33,
           "texts": [
             "Pencils",
             "A pencil",
@@ -4295,7 +4286,7 @@
           ]
         },
         {
-          "rank": 35,
+          "rank": 34,
           "texts": [
             "Markers",
             "Sharpies",
@@ -4304,14 +4295,14 @@
           ]
         },
         {
-          "rank": 36,
+          "rank": 35,
           "texts": [
             "Highlighters",
             "A highlighter"
           ]
         },
         {
-          "rank": 37,
+          "rank": 36,
           "texts": [
             "Stapler",
             "Staples",
@@ -4319,7 +4310,7 @@
           ]
         },
         {
-          "rank": 38,
+          "rank": 37,
           "texts": [
             "Box cutter",
             "Utility knife",
@@ -4328,7 +4319,7 @@
           ]
         },
         {
-          "rank": 39,
+          "rank": 38,
           "texts": [
             "Allen wrench",
             "Allen keys",
@@ -4337,14 +4328,14 @@
           ]
         },
         {
-          "rank": 40,
+          "rank": 39,
           "texts": [
             "Pliers",
             "Needle-nose pliers"
           ]
         },
         {
-          "rank": 41,
+          "rank": 40,
           "texts": [
             "WD-40",
             "Lubricant spray",
@@ -4352,7 +4343,7 @@
           ]
         },
         {
-          "rank": 42,
+          "rank": 41,
           "texts": [
             "String",
             "Twine",
@@ -4360,7 +4351,7 @@
           ]
         },
         {
-          "rank": 43,
+          "rank": 42,
           "texts": [
             "Push pins",
             "Thumbtacks",
@@ -4369,7 +4360,7 @@
           ]
         },
         {
-          "rank": 44,
+          "rank": 43,
           "texts": [
             "Command strips",
             "Adhesive strips",
@@ -4377,14 +4368,14 @@
           ]
         },
         {
-          "rank": 45,
+          "rank": 44,
           "texts": [
             "Business cards",
             "Old business cards"
           ]
         },
         {
-          "rank": 46,
+          "rank": 45,
           "texts": [
             "Gift cards",
             "Loyalty cards",
@@ -4393,7 +4384,7 @@
           ]
         },
         {
-          "rank": 47,
+          "rank": 46,
           "texts": [
             "Old headphones",
             "Earbuds",
@@ -4402,7 +4393,7 @@
           ]
         },
         {
-          "rank": 48,
+          "rank": 47,
           "texts": [
             "Old phone",
             "Broken phone",
@@ -4411,7 +4402,7 @@
           ]
         },
         {
-          "rank": 49,
+          "rank": 48,
           "texts": [
             "Band-Aids",
             "Band aids",
@@ -4420,7 +4411,7 @@
           ]
         },
         {
-          "rank": 50,
+          "rank": 49,
           "texts": [
             "Painkillers",
             "Medicine",
@@ -4430,14 +4421,14 @@
           ]
         },
         {
-          "rank": 51,
+          "rank": 50,
           "texts": [
             "Hand sanitizer",
             "Sanitizer gel"
           ]
         },
         {
-          "rank": 52,
+          "rank": 51,
           "texts": [
             "Hair ties",
             "Bobby pins",
@@ -4446,7 +4437,7 @@
           ]
         },
         {
-          "rank": 53,
+          "rank": 52,
           "texts": [
             "Sunglasses",
             "Old sunglasses",
@@ -4454,7 +4445,7 @@
           ]
         },
         {
-          "rank": 54,
+          "rank": 53,
           "texts": [
             "Cash",
             "Dollar bills",
@@ -4463,7 +4454,7 @@
           ]
         },
         {
-          "rank": 55,
+          "rank": 54,
           "texts": [
             "Lottery tickets",
             "Scratch-offs",
@@ -4472,28 +4463,28 @@
           ]
         },
         {
-          "rank": 56,
+          "rank": 55,
           "texts": [
             "Dice",
             "A pair of dice"
           ]
         },
         {
-          "rank": 57,
+          "rank": 56,
           "texts": [
             "Ruler",
             "A ruler"
           ]
         },
         {
-          "rank": 58,
+          "rank": 57,
           "texts": [
             "Calculator",
             "A small calculator"
           ]
         },
         {
-          "rank": 59,
+          "rank": 58,
           "texts": [
             "Dead pens",
             "Pens that don't work",
@@ -4501,7 +4492,7 @@
           ]
         },
         {
-          "rank": 60,
+          "rank": 59,
           "texts": [
             "Crayons",
             "Colored pencils",
@@ -4509,14 +4500,14 @@
           ]
         },
         {
-          "rank": 61,
+          "rank": 60,
           "texts": [
             "Chalk",
             "Sidewalk chalk"
           ]
         },
         {
-          "rank": 62,
+          "rank": 61,
           "texts": [
             "Wet wipes",
             "Baby wipes",
@@ -4524,21 +4515,21 @@
           ]
         },
         {
-          "rank": 63,
+          "rank": 62,
           "texts": [
             "Nail clippers",
             "Clippers"
           ]
         },
         {
-          "rank": 64,
+          "rank": 63,
           "texts": [
             "Tweezers",
             "A pair of tweezers"
           ]
         },
         {
-          "rank": 65,
+          "rank": 64,
           "texts": [
             "Cotton swabs",
             "Q-tips",
@@ -4547,7 +4538,7 @@
           ]
         },
         {
-          "rank": 66,
+          "rank": 65,
           "texts": [
             "Shopping lists",
             "Grocery lists",
@@ -4555,7 +4546,7 @@
           ]
         },
         {
-          "rank": 67,
+          "rank": 66,
           "texts": [
             "Mystery cables",
             "Random cords",
@@ -4565,7 +4556,7 @@
           ]
         },
         {
-          "rank": 68,
+          "rank": 67,
           "texts": [
             "Adapters",
             "Dongles",
@@ -4574,7 +4565,7 @@
           ]
         },
         {
-          "rank": 69,
+          "rank": 68,
           "texts": [
             "SD cards",
             "Memory cards",
@@ -4582,7 +4573,7 @@
           ]
         },
         {
-          "rank": 70,
+          "rank": 69,
           "texts": [
             "Flash drives",
             "USB sticks",
@@ -4590,7 +4581,7 @@
           ]
         },
         {
-          "rank": 71,
+          "rank": 70,
           "texts": [
             "Spare light bulbs",
             "Light bulbs",
@@ -4598,7 +4589,7 @@
           ]
         },
         {
-          "rank": 72,
+          "rank": 71,
           "texts": [
             "Wine opener",
             "Corkscrew",
@@ -4606,14 +4597,14 @@
           ]
         },
         {
-          "rank": 73,
+          "rank": 72,
           "texts": [
             "Bottle opener",
             "A bottle opener"
           ]
         },
         {
-          "rank": 74,
+          "rank": 73,
           "texts": [
             "Chip clips",
             "Bag clips",
@@ -4621,7 +4612,7 @@
           ]
         },
         {
-          "rank": 75,
+          "rank": 74,
           "texts": [
             "Erasers",
             "A rubber eraser",
@@ -4629,7 +4620,7 @@
           ]
         },
         {
-          "rank": 76,
+          "rank": 75,
           "texts": [
             "Old glasses",
             "Reading glasses",
@@ -4637,21 +4628,21 @@
           ]
         },
         {
-          "rank": 77,
+          "rank": 76,
           "texts": [
             "Nail polish",
             "Nail polish bottles"
           ]
         },
         {
-          "rank": 78,
+          "rank": 77,
           "texts": [
             "Dental floss",
             "Floss"
           ]
         },
         {
-          "rank": 79,
+          "rank": 78,
           "texts": [
             "Rubber gloves",
             "Cleaning gloves",
@@ -4659,14 +4650,14 @@
           ]
         },
         {
-          "rank": 80,
+          "rank": 79,
           "texts": [
             "Lint roller",
             "A lint roller"
           ]
         },
         {
-          "rank": 81,
+          "rank": 80,
           "texts": [
             "Condiment packets",
             "Soy sauce packets",
@@ -4675,14 +4666,14 @@
           ]
         },
         {
-          "rank": 82,
+          "rank": 81,
           "texts": [
             "Fortune cookie fortunes",
             "Fortunes from fortune cookies"
           ]
         },
         {
-          "rank": 83,
+          "rank": 82,
           "texts": [
             "Ticket stubs",
             "Old ticket stubs",
@@ -4690,7 +4681,7 @@
           ]
         },
         {
-          "rank": 84,
+          "rank": 83,
           "texts": [
             "Screen protectors",
             "Spare screen protector",
@@ -4698,14 +4689,14 @@
           ]
         },
         {
-          "rank": 85,
+          "rank": 84,
           "texts": [
             "Earplugs",
             "A pair of earplugs"
           ]
         },
         {
-          "rank": 86,
+          "rank": 85,
           "texts": [
             "A padlock",
             "Padlocks",
@@ -4714,7 +4705,7 @@
           ]
         },
         {
-          "rank": 87,
+          "rank": 86,
           "texts": [
             "Velcro strips",
             "Velcro",
@@ -4722,10 +4713,18 @@
           ]
         },
         {
-          "rank": 88,
+          "rank": 87,
           "texts": [
             "Magnifying glass",
             "A magnifying glass"
+          ]
+        },
+        {
+          "rank": 88,
+          "texts": [
+            "Hammer",
+            "A small hammer",
+            "Claw hammer"
           ]
         }
       ],
@@ -4774,18 +4773,6 @@
         {
           "rank": 3,
           "texts": [
-            "Spiders",
-            "A spider",
-            "Spiders and insects",
-            "Arachnophobia",
-            "Spider",
-            "A big spider",
-            "Tarantulas"
-          ]
-        },
-        {
-          "rank": 4,
-          "texts": [
             "Public speaking",
             "Speaking in front of people",
             "Talking in public",
@@ -4794,6 +4781,17 @@
             "Presenting",
             "Speaking to a crowd",
             "Stage fright"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Spiders",
+            "A spider",
+            "Arachnophobia",
+            "Spider",
+            "A big spider",
+            "Tarantulas"
           ]
         },
         {
@@ -5551,8 +5549,8 @@
         "running out of money",
         "identity theft"
       ],
-      "source": "YouGov US poll (2014, 1,000 adults): snakes 64% at least a little afraid, heights 57%, spiders next; Gallup (2001, 1,016 adults): snakes 51% #1, heights 36%, public speaking 40% #2. Chapman Survey of American Fears Wave 9 (2023) confirms heights 33.2% 'afraid/very afraid' vs public speaking 28.7% and insects/spiders 25.3% among personal fears — but Chapman’s overall #1s are societal fears (corrupt government), so this prompt is framed as phobias, where snakes lead.",
-      "sourceUrl": "https://www.chapman.edu/wilkinson/research-centers/babbie-center/_files/2023%20Fear/23csaf-9_high-to-low.pdf"
+      "source": "YouGov US poll (2014, 1,000 US adults): snakes 64% at least a little afraid #1, heights 57% #2, public speaking 56% #3 — \"Snakes, heights and public speaking are the top three fears in the Home of the Brave\". Gallup (2001, 1,016 adults) agrees snakes #1 (51%). Chapman Survey of American Fears Wave 9 (2023) also ranks public speaking (28.7% afraid/very afraid) above insects/spiders (25.3%) among personal fears. RESOLVED: the n=2,088 poll that puts Heights #1 is YouGov GB, 18-19 Mar 2014 (Heights 58% total afraid, Public speaking 56%, Snakes 52%) — a British sample, not American. For this US-facing game the US poll governs, so Snakes stays #1; Spiders drops to #4 behind Public speaking per the US top three. No change below #4: no full published US ranking for the remaining fears could be verified.",
+      "sourceUrl": "https://yougov.com/en-us/articles/8983-argh-snakes"
     },
     {
       "id": 109,
@@ -5593,6 +5591,16 @@
         {
           "rank": 3,
           "texts": [
+            "Dodge Charger",
+            "Charger",
+            "Charger Hellcat",
+            "Hellcat Charger",
+            "Dodge Charger SRT"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
             "Tesla Model 3",
             "Tesla",
             "A Tesla",
@@ -5602,24 +5610,11 @@
           ]
         },
         {
-          "rank": 4,
-          "texts": [
-            "Dodge Charger",
-            "Charger",
-            "Charger Hellcat",
-            "Hellcat Charger",
-            "Dodge Charger SRT"
-          ]
-        },
-        {
           "rank": 5,
           "texts": [
-            "BMW M3",
-            "BMW",
-            "A BMW",
-            "M3",
-            "A BMW M3",
-            "M3 Competition"
+            "Ford Bronco",
+            "Bronco",
+            "A Bronco"
           ]
         },
         {
@@ -5634,33 +5629,31 @@
         {
           "rank": 7,
           "texts": [
-            "Lamborghini",
-            "A Lamborghini",
-            "Lambo",
-            "Lamborghini Gallardo",
-            "Lamborghini Diablo"
+            "BMW M3",
+            "BMW",
+            "A BMW",
+            "M3",
+            "A BMW M3",
+            "M3 Competition"
           ]
         },
         {
           "rank": 8,
           "texts": [
-            "Ferrari",
-            "A Ferrari",
-            "Ferrari F40",
-            "Ferrari 458",
-            "Ferrari California"
+            "Porsche Cayenne",
+            "Cayenne",
+            "A Cayenne"
           ]
         },
         {
           "rank": 9,
           "texts": [
-            "Chevrolet Corvette",
-            "Corvette",
-            "A Corvette",
-            "Corvette Stingray",
-            "Corvette Z06",
-            "C8 Corvette",
-            "Vette"
+            "Toyota Supra",
+            "Toyota",
+            "A Supra",
+            "GR Supra",
+            "Supra MK4",
+            "A Toyota Supra"
           ]
         },
         {
@@ -5676,6 +5669,38 @@
         {
           "rank": 11,
           "texts": [
+            "Lamborghini",
+            "A Lamborghini",
+            "Lambo",
+            "Lamborghini Gallardo",
+            "Lamborghini Diablo"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Ferrari",
+            "A Ferrari",
+            "Ferrari F40",
+            "Ferrari 458",
+            "Ferrari California"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Chevrolet Corvette",
+            "Corvette",
+            "A Corvette",
+            "Corvette Stingray",
+            "Corvette Z06",
+            "C8 Corvette",
+            "Vette"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
             "Mercedes-Benz",
             "Mercedes",
             "A Mercedes",
@@ -5685,7 +5710,7 @@
           ]
         },
         {
-          "rank": 12,
+          "rank": 15,
           "texts": [
             "Range Rover",
             "Land Rover",
@@ -5694,7 +5719,7 @@
           ]
         },
         {
-          "rank": 13,
+          "rank": 16,
           "texts": [
             "Ford F-150",
             "A pickup truck",
@@ -5705,7 +5730,7 @@
           ]
         },
         {
-          "rank": 14,
+          "rank": 17,
           "texts": [
             "Jeep Wrangler",
             "Jeep",
@@ -5715,18 +5740,7 @@
           ]
         },
         {
-          "rank": 15,
-          "texts": [
-            "Toyota Supra",
-            "Toyota",
-            "A Supra",
-            "GR Supra",
-            "Supra MK4",
-            "A Toyota Supra"
-          ]
-        },
-        {
-          "rank": 16,
+          "rank": 18,
           "texts": [
             "Nissan GT-R",
             "GT-R",
@@ -5737,7 +5751,7 @@
           ]
         },
         {
-          "rank": 17,
+          "rank": 19,
           "texts": [
             "McLaren",
             "A McLaren",
@@ -5749,7 +5763,7 @@
           ]
         },
         {
-          "rank": 18,
+          "rank": 20,
           "texts": [
             "Bugatti",
             "A Bugatti",
@@ -5759,7 +5773,7 @@
           ]
         },
         {
-          "rank": 19,
+          "rank": 21,
           "texts": [
             "Rolls-Royce",
             "A Rolls-Royce",
@@ -5770,7 +5784,7 @@
           ]
         },
         {
-          "rank": 20,
+          "rank": 22,
           "texts": [
             "Bentley",
             "A Bentley",
@@ -5780,7 +5794,7 @@
           ]
         },
         {
-          "rank": 21,
+          "rank": 23,
           "texts": [
             "Aston Martin",
             "An Aston Martin",
@@ -5790,7 +5804,7 @@
           ]
         },
         {
-          "rank": 22,
+          "rank": 24,
           "texts": [
             "Maserati",
             "A Maserati",
@@ -5800,7 +5814,7 @@
           ]
         },
         {
-          "rank": 23,
+          "rank": 25,
           "texts": [
             "Cadillac Escalade",
             "Cadillac",
@@ -5810,7 +5824,7 @@
           ]
         },
         {
-          "rank": 24,
+          "rank": 26,
           "texts": [
             "Tesla Model S",
             "Model S",
@@ -5819,7 +5833,7 @@
           ]
         },
         {
-          "rank": 25,
+          "rank": 27,
           "texts": [
             "Lamborghini Urus",
             "Urus",
@@ -5827,7 +5841,7 @@
           ]
         },
         {
-          "rank": 26,
+          "rank": 28,
           "texts": [
             "Chevrolet Camaro",
             "Camaro",
@@ -5837,7 +5851,7 @@
           ]
         },
         {
-          "rank": 27,
+          "rank": 29,
           "texts": [
             "Dodge Challenger",
             "Challenger",
@@ -5847,16 +5861,14 @@
           ]
         },
         {
-          "rank": 28,
+          "rank": 30,
           "texts": [
             "Ford GT",
-            "GT40",
-            "Ford GT40",
             "Ford GT supercar"
           ]
         },
         {
-          "rank": 29,
+          "rank": 31,
           "texts": [
             "Koenigsegg",
             "A Koenigsegg",
@@ -5866,7 +5878,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 32,
           "texts": [
             "Pagani",
             "A Pagani",
@@ -5876,7 +5888,7 @@
           ]
         },
         {
-          "rank": 31,
+          "rank": 33,
           "texts": [
             "Lexus",
             "A Lexus",
@@ -5886,7 +5898,7 @@
           ]
         },
         {
-          "rank": 32,
+          "rank": 34,
           "texts": [
             "Jaguar",
             "A Jaguar",
@@ -5895,15 +5907,7 @@
           ]
         },
         {
-          "rank": 33,
-          "texts": [
-            "Ford Bronco",
-            "Bronco",
-            "A Bronco"
-          ]
-        },
-        {
-          "rank": 34,
+          "rank": 35,
           "texts": [
             "Mercedes G-Wagon",
             "G-Wagon",
@@ -5911,14 +5915,6 @@
             "Mercedes G-Class",
             "G-Class",
             "A G-Wagon"
-          ]
-        },
-        {
-          "rank": 35,
-          "texts": [
-            "Porsche Cayenne",
-            "Cayenne",
-            "A Cayenne"
           ]
         },
         {
@@ -6033,9 +6029,7 @@
           "texts": [
             "Audi RS6",
             "RS6",
-            "Audi RS6 Avant",
-            "RS7",
-            "Audi RS7"
+            "Audi RS6 Avant"
           ]
         },
         {
@@ -6187,8 +6181,6 @@
           "texts": [
             "Lotus Elise",
             "Elise",
-            "Lotus Emira",
-            "Emira",
             "A Lotus"
           ]
         },
@@ -6357,9 +6349,7 @@
           "texts": [
             "Nissan 370Z",
             "370Z",
-            "Nissan Z",
-            "350Z",
-            "Nissan 350Z"
+            "Nissan Z"
           ]
         },
         {
@@ -6375,7 +6365,7 @@
         "a DeLorean",
         "a Batmobile"
       ],
-      "source": "MoneySuperMarket global dream-car study (Dec 2025 data, 4,000-driver survey + 5-year Google search volume): Ford Mustang #1 worldwide with 116,686,707 searches; Porsche 911 #2, Dodge Charger #3, Tesla Model 3 #4, BMW M3 #5, Tesla Model Y #6. Tinting Chicago US survey (2,000+ Americans, 2024): Ford #1 overall dream-car brand, Toyota #2, Tesla #3. Family Feud board (2024, 'car men want but can't afford'): Lamborghini 25, Ferrari 14, Corvette 13, Porsche 10 — consistent tail, not top.",
+      "source": "MoneySuperMarket global dream-car study (Dec 2025 data, 5-year Google search volume + 4,000-driver survey): 1. Ford Mustang 116,686,707 searches, 2. Porsche 911 91,616,454, 3. Dodge Charger 87,045,992, 4. Tesla Model 3 82,352,518, 5. Ford Bronco 66,679,533, 6. Tesla Model Y 64,254,969, 7. BMW M3 64,253,540, 8. Porsche Cayenne 54,514,477, 9. Toyota Supra 48,073,643, 10. Audi R8 40,949,539. Note: Model Y vs M3 is effectively tied (separated by 1,429 searches in 64.25m). Ranks 11+ keep their previous relative order in this pass (not re-sorted to the MSM top 20, which also has Ford GT #11, Cadillac Escalade #12, Porsche Macan #13, Land Rover Defender #14, Lamborghini Urus #15, Mitsubishi Lancer #16, Audi Quattro #17, Tesla Model S #18, Nissan Skyline #19, Land Rover Discovery #20).",
       "sourceUrl": "https://www.moneysupermarket.com/car-insurance/news/world-dream-cars/"
     },
     {
@@ -6387,21 +6377,32 @@
       "note": null,
       "finale": false,
       "votable": false,
-      "top1": "Invisibility",
+      "top1": "Healing others",
       "textAnswers": [
         {
           "rank": 1,
           "texts": [
-            "Invisibility",
-            "Being invisible",
-            "Turning invisible",
-            "Invisible",
-            "Being able to turn invisible",
-            "Invisibility power"
+            "Healing others",
+            "Healing",
+            "Healing powers",
+            "Healing other people",
+            "Healing people",
+            "The power to heal",
+            "Healing ability"
           ]
         },
         {
           "rank": 2,
+          "texts": [
+            "Teleportation",
+            "Teleporting",
+            "Teleport",
+            "Teleporting anywhere",
+            "Instant teleportation"
+          ]
+        },
+        {
+          "rank": 3,
           "texts": [
             "Flying",
             "Flight",
@@ -6409,16 +6410,6 @@
             "Fly",
             "I can fly",
             "Super flight"
-          ]
-        },
-        {
-          "rank": 3,
-          "texts": [
-            "Teleportation",
-            "Teleporting",
-            "Teleport",
-            "Teleporting anywhere",
-            "Instant teleportation"
           ]
         },
         {
@@ -6435,17 +6426,68 @@
         {
           "rank": 5,
           "texts": [
-            "Healing",
-            "Healing powers",
-            "Healing other people",
-            "Healing yourself",
-            "Healing people",
-            "The power to heal",
-            "Healing ability"
+            "Invisibility",
+            "Being invisible",
+            "Turning invisible",
+            "Invisible",
+            "Being able to turn invisible",
+            "Invisibility power"
           ]
         },
         {
           "rank": 6,
+          "texts": [
+            "Animal communication",
+            "Talking to animals",
+            "Understanding animals",
+            "Talking with animals"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Magic",
+            "Magical powers",
+            "Being able to do magic",
+            "Wielding magic",
+            "Casting spells",
+            "Doing magic"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Immortality",
+            "Living forever",
+            "Never dying",
+            "Not aging",
+            "Never aging",
+            "Eternal life"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Time manipulation",
+            "Manipulating time",
+            "Controlling time",
+            "Time control",
+            "Manipulate time"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Super intelligence",
+            "Being super smart",
+            "Superhuman intelligence",
+            "Genius intelligence",
+            "Being a genius",
+            "Super smart"
+          ]
+        },
+        {
+          "rank": 11,
           "texts": [
             "Mind reading",
             "Reading minds",
@@ -6456,7 +6498,7 @@
           ]
         },
         {
-          "rank": 7,
+          "rank": 12,
           "texts": [
             "Super strength",
             "Being super strong",
@@ -6466,7 +6508,7 @@
           ]
         },
         {
-          "rank": 8,
+          "rank": 13,
           "texts": [
             "Seeing the future",
             "Predicting the future",
@@ -6478,7 +6520,7 @@
           ]
         },
         {
-          "rank": 9,
+          "rank": 14,
           "texts": [
             "Super speed",
             "Running super fast",
@@ -6488,18 +6530,7 @@
           ]
         },
         {
-          "rank": 10,
-          "texts": [
-            "Immortality",
-            "Living forever",
-            "Never dying",
-            "Not aging",
-            "Never aging",
-            "Eternal life"
-          ]
-        },
-        {
-          "rank": 11,
+          "rank": 15,
           "texts": [
             "Telekinesis",
             "Moving things with my mind",
@@ -6508,7 +6539,7 @@
           ]
         },
         {
-          "rank": 12,
+          "rank": 16,
           "texts": [
             "Shapeshifting",
             "Changing shape",
@@ -6520,7 +6551,7 @@
           ]
         },
         {
-          "rank": 13,
+          "rank": 17,
           "texts": [
             "X-ray vision",
             "Seeing through walls",
@@ -6530,18 +6561,7 @@
           ]
         },
         {
-          "rank": 14,
-          "texts": [
-            "Super intelligence",
-            "Being super smart",
-            "Superhuman intelligence",
-            "Genius intelligence",
-            "Being a genius",
-            "Super smart"
-          ]
-        },
-        {
-          "rank": 15,
+          "rank": 18,
           "texts": [
             "Mind control",
             "Controlling minds",
@@ -6551,7 +6571,7 @@
           ]
         },
         {
-          "rank": 16,
+          "rank": 19,
           "texts": [
             "Freezing time",
             "Stopping time",
@@ -6560,7 +6580,7 @@
           ]
         },
         {
-          "rank": 17,
+          "rank": 20,
           "texts": [
             "Invincibility",
             "Being invincible",
@@ -6571,7 +6591,7 @@
           ]
         },
         {
-          "rank": 18,
+          "rank": 21,
           "texts": [
             "Speaking any language",
             "Speaking every language",
@@ -6581,7 +6601,7 @@
           ]
         },
         {
-          "rank": 19,
+          "rank": 22,
           "texts": [
             "Super hearing",
             "Hearing everything",
@@ -6590,7 +6610,7 @@
           ]
         },
         {
-          "rank": 20,
+          "rank": 23,
           "texts": [
             "Laser eyes",
             "Shooting lasers from my eyes",
@@ -6600,7 +6620,7 @@
           ]
         },
         {
-          "rank": 21,
+          "rank": 24,
           "texts": [
             "Superhuman senses",
             "Enhanced senses",
@@ -6609,7 +6629,7 @@
           ]
         },
         {
-          "rank": 22,
+          "rank": 25,
           "texts": [
             "Elasticity",
             "Stretching like rubber",
@@ -6620,7 +6640,7 @@
           ]
         },
         {
-          "rank": 23,
+          "rank": 26,
           "texts": [
             "Underwater breathing",
             "Breathing underwater",
@@ -6629,7 +6649,7 @@
           ]
         },
         {
-          "rank": 24,
+          "rank": 27,
           "texts": [
             "Walking through walls",
             "Phasing through walls",
@@ -6639,7 +6659,7 @@
           ]
         },
         {
-          "rank": 25,
+          "rank": 28,
           "texts": [
             "Controlling the weather",
             "Weather control",
@@ -6649,7 +6669,7 @@
           ]
         },
         {
-          "rank": 26,
+          "rank": 29,
           "texts": [
             "Controlling fire",
             "Fire powers",
@@ -6660,7 +6680,7 @@
           ]
         },
         {
-          "rank": 27,
+          "rank": 30,
           "texts": [
             "Controlling water",
             "Water powers",
@@ -6670,7 +6690,7 @@
           ]
         },
         {
-          "rank": 28,
+          "rank": 31,
           "texts": [
             "Controlling electricity",
             "Lightning powers",
@@ -6681,7 +6701,7 @@
           ]
         },
         {
-          "rank": 29,
+          "rank": 32,
           "texts": [
             "Regeneration",
             "Healing instantly",
@@ -6692,7 +6712,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 33,
           "texts": [
             "Cloning yourself",
             "Making copies of myself",
@@ -6703,16 +6723,7 @@
           ]
         },
         {
-          "rank": 31,
-          "texts": [
-            "Talking to animals",
-            "Understanding animals",
-            "Talking with animals",
-            "Animal communication"
-          ]
-        },
-        {
-          "rank": 32,
+          "rank": 34,
           "texts": [
             "World peace",
             "Ending all wars",
@@ -6722,7 +6733,7 @@
           ]
         },
         {
-          "rank": 33,
+          "rank": 35,
           "texts": [
             "Superhuman agility",
             "Agility",
@@ -6732,7 +6743,7 @@
           ]
         },
         {
-          "rank": 34,
+          "rank": 36,
           "texts": [
             "Night vision",
             "Seeing in the dark",
@@ -6740,7 +6751,7 @@
           ]
         },
         {
-          "rank": 35,
+          "rank": 37,
           "texts": [
             "Controlling ice",
             "Ice powers",
@@ -6750,7 +6761,7 @@
           ]
         },
         {
-          "rank": 36,
+          "rank": 38,
           "texts": [
             "Controlling earth",
             "Earth powers",
@@ -6760,7 +6771,7 @@
           ]
         },
         {
-          "rank": 37,
+          "rank": 39,
           "texts": [
             "Controlling air",
             "Air powers",
@@ -6770,7 +6781,7 @@
           ]
         },
         {
-          "rank": 38,
+          "rank": 40,
           "texts": [
             "Controlling metal",
             "Metal powers",
@@ -6780,7 +6791,7 @@
           ]
         },
         {
-          "rank": 39,
+          "rank": 41,
           "texts": [
             "Controlling plants",
             "Plant powers",
@@ -6790,7 +6801,7 @@
           ]
         },
         {
-          "rank": 40,
+          "rank": 42,
           "texts": [
             "Superhuman reflexes",
             "Super fast reflexes",
@@ -6799,7 +6810,7 @@
           ]
         },
         {
-          "rank": 41,
+          "rank": 43,
           "texts": [
             "Photographic memory",
             "Perfect memory",
@@ -6808,7 +6819,7 @@
           ]
         },
         {
-          "rank": 42,
+          "rank": 44,
           "texts": [
             "Lie detection",
             "Knowing when someone is lying",
@@ -6817,7 +6828,7 @@
           ]
         },
         {
-          "rank": 43,
+          "rank": 45,
           "texts": [
             "Dream control",
             "Controlling dreams",
@@ -6826,7 +6837,7 @@
           ]
         },
         {
-          "rank": 44,
+          "rank": 46,
           "texts": [
             "Astral projection",
             "Leaving your body",
@@ -6835,7 +6846,7 @@
           ]
         },
         {
-          "rank": 45,
+          "rank": 47,
           "texts": [
             "Superhuman stamina",
             "Never getting tired",
@@ -6844,7 +6855,7 @@
           ]
         },
         {
-          "rank": 46,
+          "rank": 48,
           "texts": [
             "Controlling gravity",
             "Gravity powers",
@@ -6853,7 +6864,7 @@
           ]
         },
         {
-          "rank": 47,
+          "rank": 49,
           "texts": [
             "Growing and shrinking",
             "Growing huge",
@@ -6863,7 +6874,7 @@
           ]
         },
         {
-          "rank": 48,
+          "rank": 50,
           "texts": [
             "Resurrection",
             "Bringing the dead back to life",
@@ -6872,7 +6883,7 @@
           ]
         },
         {
-          "rank": 49,
+          "rank": 51,
           "texts": [
             "Talking to ghosts",
             "Talking to the dead",
@@ -6881,7 +6892,7 @@
           ]
         },
         {
-          "rank": 50,
+          "rank": 52,
           "texts": [
             "Shadow powers",
             "Controlling shadows",
@@ -6890,7 +6901,7 @@
           ]
         },
         {
-          "rank": 51,
+          "rank": 53,
           "texts": [
             "Light powers",
             "Controlling light",
@@ -6900,7 +6911,7 @@
           ]
         },
         {
-          "rank": 52,
+          "rank": 54,
           "texts": [
             "Never getting sick",
             "Poison immunity",
@@ -6909,7 +6920,7 @@
           ]
         },
         {
-          "rank": 53,
+          "rank": 55,
           "texts": [
             "Super persuasion",
             "Superhuman persuasion",
@@ -6919,7 +6930,7 @@
           ]
         },
         {
-          "rank": 54,
+          "rank": 56,
           "texts": [
             "Slowing down time",
             "Slowing time",
@@ -6927,7 +6938,7 @@
           ]
         },
         {
-          "rank": 55,
+          "rank": 57,
           "texts": [
             "Technopathy",
             "Controlling technology",
@@ -6937,7 +6948,7 @@
           ]
         },
         {
-          "rank": 56,
+          "rank": 58,
           "texts": [
             "Superhuman luck",
             "Being super lucky",
@@ -6946,7 +6957,7 @@
           ]
         },
         {
-          "rank": 57,
+          "rank": 59,
           "texts": [
             "Controlling animals",
             "Commanding animals",
@@ -6954,7 +6965,7 @@
           ]
         },
         {
-          "rank": 58,
+          "rank": 60,
           "texts": [
             "Being bulletproof",
             "Bulletproof skin",
@@ -6963,7 +6974,7 @@
           ]
         },
         {
-          "rank": 59,
+          "rank": 61,
           "texts": [
             "Super jumping",
             "Jumping really high",
@@ -6972,7 +6983,7 @@
           ]
         },
         {
-          "rank": 60,
+          "rank": 62,
           "texts": [
             "Sonic scream",
             "Super scream",
@@ -6981,7 +6992,7 @@
           ]
         },
         {
-          "rank": 61,
+          "rank": 63,
           "texts": [
             "Shooting webs",
             "Web-slinging",
@@ -6991,7 +7002,7 @@
           ]
         },
         {
-          "rank": 62,
+          "rank": 64,
           "texts": [
             "Force fields",
             "Creating force fields",
@@ -7000,7 +7011,7 @@
           ]
         },
         {
-          "rank": 63,
+          "rank": 65,
           "texts": [
             "Energy blasts",
             "Shooting energy beams",
@@ -7009,7 +7020,7 @@
           ]
         },
         {
-          "rank": 64,
+          "rank": 66,
           "texts": [
             "Superhuman smell",
             "Super smell",
@@ -7017,7 +7028,7 @@
           ]
         },
         {
-          "rank": 65,
+          "rank": 67,
           "texts": [
             "Telescopic vision",
             "Super vision",
@@ -7026,7 +7037,7 @@
           ]
         },
         {
-          "rank": 66,
+          "rank": 68,
           "texts": [
             "Microscopic vision",
             "Seeing tiny things",
@@ -7034,7 +7045,7 @@
           ]
         },
         {
-          "rank": 67,
+          "rank": 69,
           "texts": [
             "Controlling emotions",
             "Controlling other people's emotions",
@@ -7043,7 +7054,7 @@
           ]
         },
         {
-          "rank": 68,
+          "rank": 70,
           "texts": [
             "Creating anything",
             "Making anything appear",
@@ -7053,14 +7064,14 @@
           ]
         },
         {
-          "rank": 69,
+          "rank": 71,
           "texts": [
             "Walking on water",
             "Water walking"
           ]
         },
         {
-          "rank": 70,
+          "rank": 72,
           "texts": [
             "Controlling sound",
             "Sound powers",
@@ -7069,7 +7080,7 @@
           ]
         },
         {
-          "rank": 71,
+          "rank": 73,
           "texts": [
             "Breathing in space",
             "Surviving in space",
@@ -7077,7 +7088,7 @@
           ]
         },
         {
-          "rank": 72,
+          "rank": 74,
           "texts": [
             "Being fireproof",
             "Fireproof",
@@ -7086,7 +7097,7 @@
           ]
         },
         {
-          "rank": 73,
+          "rank": 75,
           "texts": [
             "Erasing memories",
             "Wiping memories",
@@ -7095,7 +7106,7 @@
           ]
         },
         {
-          "rank": 74,
+          "rank": 76,
           "texts": [
             "Controlling insects",
             "Controlling bugs",
@@ -7103,7 +7114,7 @@
           ]
         },
         {
-          "rank": 75,
+          "rank": 77,
           "texts": [
             "Seeing the past",
             "Seeing into the past",
@@ -7112,7 +7123,7 @@
           ]
         },
         {
-          "rank": 76,
+          "rank": 78,
           "texts": [
             "Wall-crawling",
             "Climbing walls",
@@ -7121,7 +7132,7 @@
           ]
         },
         {
-          "rank": 77,
+          "rank": 79,
           "texts": [
             "Elemental control",
             "Controlling all elements",
@@ -7130,7 +7141,7 @@
           ]
         },
         {
-          "rank": 78,
+          "rank": 80,
           "texts": [
             "Instant learning",
             "Learning anything instantly",
@@ -7138,7 +7149,7 @@
           ]
         },
         {
-          "rank": 79,
+          "rank": 81,
           "texts": [
             "Never needing sleep",
             "Not needing sleep",
@@ -7146,7 +7157,7 @@
           ]
         },
         {
-          "rank": 80,
+          "rank": 82,
           "texts": [
             "Sixth sense",
             "Superhuman sixth sense",
@@ -7156,7 +7167,7 @@
           ]
         },
         {
-          "rank": 81,
+          "rank": 83,
           "texts": [
             "Super intuition",
             "Superhuman intuition",
@@ -7165,7 +7176,7 @@
           ]
         },
         {
-          "rank": 82,
+          "rank": 84,
           "texts": [
             "Superhuman swimming",
             "Swimming super fast",
@@ -7173,7 +7184,7 @@
           ]
         },
         {
-          "rank": 83,
+          "rank": 85,
           "texts": [
             "Perfect sense of direction",
             "Never getting lost",
@@ -7181,7 +7192,7 @@
           ]
         },
         {
-          "rank": 84,
+          "rank": 86,
           "texts": [
             "Changing my age",
             "Changing age",
@@ -7190,7 +7201,7 @@
           ]
         },
         {
-          "rank": 85,
+          "rank": 87,
           "texts": [
             "Dimension travel",
             "Travelling to other dimensions",
@@ -7203,8 +7214,8 @@
         "being rich",
         "not wanting a power"
       ],
-      "source": "YouGov UK open-ended poll, 12-13 Mar 2025 (n=2,223 GB adults, free-text answers): Invisibility 19% #1, Ability to fly 15% #2, Teleportation 7% and Time travel 7% tied #3, Healing powers 6% #5, Reading minds 5%, Seeing the future 3%, Super strength 2%. NOTE: US closed-menu polls differ — YouGov US 2017 put Healing 37% #1; Marist US 2018 put Time travel 29% #1 — so the open-ended (free-choice) framing is the one used here.",
-      "sourceUrl": "https://today.yougov.com/topics/politics/survey-results/daily/2017/02/11/a1000/1"
+      "source": "PixlParade nationwide survey, Jul-Aug 2026 (n=2,405 US adults, chose from 42 superpowers): 1. Healing Others 10.81% (260 votes), 2. Teleportation 9.60%, 3. Flight 9.06%, 4. Time Travel 8.02%, 5. Invisibility 6.94%, 6. Animal Communication 6.15%, 7. Magic 4.99%, 8. Immortality 4.95%, 9. Time Manipulation 3.74%, 10. Super Intelligence 3.04%. Corroborated by Morning Consult (reported on Freakonomics): heal others #1, heal yourself #2. Replaces the YouGov UK open-ended poll, 12-13 Mar 2025 (n=2,223 GB adults), which had Invisibility 19% #1 — a UK result; this game is US-facing and two recent US polls agree healing is #1.",
+      "sourceUrl": "https://pixlparade.com/poll-what-is-the-best-superpower/"
     },
     {
       "id": 111,
@@ -7239,7 +7250,11 @@
             "Childcare",
             "Baby sitting",
             "Babysitting job",
-            "Childminder"
+            "Childminder",
+            "Babysitting for family",
+            "Watching my siblings",
+            "Babysitting my little brother",
+            "Babysitting my siblings"
           ]
         },
         {
@@ -7339,11 +7354,8 @@
           "rank": 11,
           "texts": [
             "Dishwasher",
-            "Busboy",
-            "Bussing tables",
             "Kitchen helper",
-            "Washing dishes",
-            "Busser"
+            "Washing dishes"
           ]
         },
         {
@@ -7470,15 +7482,6 @@
         {
           "rank": 24,
           "texts": [
-            "Babysitting for family",
-            "Watching my siblings",
-            "Babysitting my little brother",
-            "Babysitting my siblings"
-          ]
-        },
-        {
-          "rank": 25,
-          "texts": [
             "Cleaning houses",
             "House cleaning",
             "Janitor",
@@ -7487,7 +7490,7 @@
           ]
         },
         {
-          "rank": 26,
+          "rank": 25,
           "texts": [
             "Delivery driver",
             "Pizza delivery",
@@ -7498,7 +7501,7 @@
           ]
         },
         {
-          "rank": 27,
+          "rank": 26,
           "texts": [
             "Sales associate at a clothing store",
             "Working at a mall store",
@@ -7508,7 +7511,7 @@
           ]
         },
         {
-          "rank": 28,
+          "rank": 27,
           "texts": [
             "Amusement park worker",
             "Working at a theme park",
@@ -7519,7 +7522,7 @@
           ]
         },
         {
-          "rank": 29,
+          "rank": 28,
           "texts": [
             "Swim instructor",
             "Teaching swimming",
@@ -7529,7 +7532,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 29,
           "texts": [
             "Front desk clerk",
             "Hotel front desk",
@@ -7538,7 +7541,7 @@
           ]
         },
         {
-          "rank": 31,
+          "rank": 30,
           "texts": [
             "Intern",
             "Unpaid intern",
@@ -7548,7 +7551,7 @@
           ]
         },
         {
-          "rank": 32,
+          "rank": 31,
           "texts": [
             "Working for my parents",
             "Family business",
@@ -7559,7 +7562,7 @@
           ]
         },
         {
-          "rank": 33,
+          "rank": 32,
           "texts": [
             "Bartender",
             "Bartending",
@@ -7568,7 +7571,7 @@
           ]
         },
         {
-          "rank": 34,
+          "rank": 33,
           "texts": [
             "Construction worker",
             "Construction",
@@ -7578,7 +7581,7 @@
           ]
         },
         {
-          "rank": 35,
+          "rank": 34,
           "texts": [
             "Warehouse worker",
             "Warehouse",
@@ -7587,7 +7590,7 @@
           ]
         },
         {
-          "rank": 36,
+          "rank": 35,
           "texts": [
             "Mechanic's assistant",
             "Working in a garage",
@@ -7596,7 +7599,7 @@
           ]
         },
         {
-          "rank": 37,
+          "rank": 36,
           "texts": [
             "Hair salon assistant",
             "Salon assistant",
@@ -7605,7 +7608,7 @@
           ]
         },
         {
-          "rank": 38,
+          "rank": 37,
           "texts": [
             "Bakery assistant",
             "Working in a bakery",
@@ -7613,7 +7616,7 @@
           ]
         },
         {
-          "rank": 39,
+          "rank": 38,
           "texts": [
             "Florist assistant",
             "Working at a florist",
@@ -7621,7 +7624,7 @@
           ]
         },
         {
-          "rank": 40,
+          "rank": 39,
           "texts": [
             "Daycare worker",
             "Childcare center worker",
@@ -7630,7 +7633,7 @@
           ]
         },
         {
-          "rank": 41,
+          "rank": 40,
           "texts": [
             "Vet assistant",
             "Working at a vet",
@@ -7639,7 +7642,7 @@
           ]
         },
         {
-          "rank": 42,
+          "rank": 41,
           "texts": [
             "Bank teller",
             "Teller",
@@ -7647,7 +7650,7 @@
           ]
         },
         {
-          "rank": 43,
+          "rank": 42,
           "texts": [
             "Security guard",
             "Security",
@@ -7656,7 +7659,7 @@
           ]
         },
         {
-          "rank": 44,
+          "rank": 43,
           "texts": [
             "Valet",
             "Valet parking",
@@ -7664,7 +7667,7 @@
           ]
         },
         {
-          "rank": 45,
+          "rank": 44,
           "texts": [
             "Stadium worker",
             "Working at a stadium",
@@ -7673,7 +7676,7 @@
           ]
         },
         {
-          "rank": 46,
+          "rank": 45,
           "texts": [
             "Tour guide",
             "Giving tours",
@@ -7681,7 +7684,7 @@
           ]
         },
         {
-          "rank": 47,
+          "rank": 46,
           "texts": [
             "Photographer's assistant",
             "Photography assistant",
@@ -7689,7 +7692,7 @@
           ]
         },
         {
-          "rank": 48,
+          "rank": 47,
           "texts": [
             "DJ",
             "DJing",
@@ -7698,7 +7701,7 @@
           ]
         },
         {
-          "rank": 49,
+          "rank": 48,
           "texts": [
             "Gym worker",
             "Working at a gym",
@@ -7708,7 +7711,7 @@
           ]
         },
         {
-          "rank": 50,
+          "rank": 49,
           "texts": [
             "Bowling alley worker",
             "Working at a bowling alley",
@@ -7716,7 +7719,7 @@
           ]
         },
         {
-          "rank": 51,
+          "rank": 50,
           "texts": [
             "Skating rink worker",
             "Working at a skating rink",
@@ -7725,7 +7728,7 @@
           ]
         },
         {
-          "rank": 52,
+          "rank": 51,
           "texts": [
             "Zoo worker",
             "Working at a zoo",
@@ -7733,7 +7736,7 @@
           ]
         },
         {
-          "rank": 53,
+          "rank": 52,
           "texts": [
             "Museum worker",
             "Working at a museum",
@@ -7742,7 +7745,7 @@
           ]
         },
         {
-          "rank": 54,
+          "rank": 53,
           "texts": [
             "Bookstore clerk",
             "Working at a bookstore",
@@ -7750,7 +7753,7 @@
           ]
         },
         {
-          "rank": 55,
+          "rank": 54,
           "texts": [
             "Pet store worker",
             "Working at a pet store",
@@ -7758,14 +7761,14 @@
           ]
         },
         {
-          "rank": 56,
+          "rank": 55,
           "texts": [
             "Hardware store clerk",
             "Working at a hardware store"
           ]
         },
         {
-          "rank": 57,
+          "rank": 56,
           "texts": [
             "Pharmacy assistant",
             "Working at a pharmacy",
@@ -7773,7 +7776,7 @@
           ]
         },
         {
-          "rank": 58,
+          "rank": 57,
           "texts": [
             "Electronics store clerk",
             "Working at an electronics store",
@@ -7781,14 +7784,14 @@
           ]
         },
         {
-          "rank": 59,
+          "rank": 58,
           "texts": [
             "Toy store clerk",
             "Working at a toy store"
           ]
         },
         {
-          "rank": 60,
+          "rank": 59,
           "texts": [
             "Gas station attendant",
             "Working at a gas station",
@@ -7796,7 +7799,7 @@
           ]
         },
         {
-          "rank": 61,
+          "rank": 60,
           "texts": [
             "Car dealership worker",
             "Working at a car dealership",
@@ -7805,7 +7808,7 @@
           ]
         },
         {
-          "rank": 62,
+          "rank": 61,
           "texts": [
             "Housekeeping",
             "Hotel housekeeper",
@@ -7814,7 +7817,7 @@
           ]
         },
         {
-          "rank": 63,
+          "rank": 62,
           "texts": [
             "Donut shop worker",
             "Working at a donut shop",
@@ -7822,7 +7825,7 @@
           ]
         },
         {
-          "rank": 64,
+          "rank": 63,
           "texts": [
             "Sandwich shop worker",
             "Working at a sandwich shop",
@@ -7831,7 +7834,7 @@
           ]
         },
         {
-          "rank": 65,
+          "rank": 64,
           "texts": [
             "Church worker",
             "Working at a church",
@@ -7840,7 +7843,7 @@
           ]
         },
         {
-          "rank": 66,
+          "rank": 65,
           "texts": [
             "Teacher's aide",
             "Teacher aide",
@@ -7850,7 +7853,7 @@
           ]
         },
         {
-          "rank": 67,
+          "rank": 66,
           "texts": [
             "Hospital worker",
             "Working at a hospital",
@@ -7860,7 +7863,7 @@
           ]
         },
         {
-          "rank": 68,
+          "rank": 67,
           "texts": [
             "Nursing home aide",
             "Working at a nursing home",
@@ -7868,7 +7871,7 @@
           ]
         },
         {
-          "rank": 69,
+          "rank": 68,
           "texts": [
             "Factory worker",
             "Working at a factory",
@@ -7876,7 +7879,7 @@
           ]
         },
         {
-          "rank": 70,
+          "rank": 69,
           "texts": [
             "Call center worker",
             "Working at a call center",
@@ -7885,7 +7888,7 @@
           ]
         },
         {
-          "rank": 71,
+          "rank": 70,
           "texts": [
             "Lemonade stand",
             "Selling lemonade",
@@ -7893,7 +7896,7 @@
           ]
         },
         {
-          "rank": 72,
+          "rank": 71,
           "texts": [
             "Snow shoveling",
             "Shoveling snow",
@@ -7901,7 +7904,7 @@
           ]
         },
         {
-          "rank": 73,
+          "rank": 72,
           "texts": [
             "Raking leaves",
             "Leaf raking",
@@ -7909,7 +7912,7 @@
           ]
         },
         {
-          "rank": 74,
+          "rank": 73,
           "texts": [
             "Selling things online",
             "Selling on eBay",
@@ -7918,14 +7921,14 @@
           ]
         },
         {
-          "rank": 75,
+          "rank": 74,
           "texts": [
             "House sitting",
             "House sitter"
           ]
         },
         {
-          "rank": 76,
+          "rank": 75,
           "texts": [
             "Farmers market worker",
             "Working at a farmers market",
@@ -7933,7 +7936,7 @@
           ]
         },
         {
-          "rank": 77,
+          "rank": 76,
           "texts": [
             "Fair worker",
             "Carnival worker",
@@ -7942,7 +7945,7 @@
           ]
         },
         {
-          "rank": 78,
+          "rank": 77,
           "texts": [
             "Referee",
             "Youth sports referee",
@@ -7951,7 +7954,7 @@
           ]
         },
         {
-          "rank": 79,
+          "rank": 78,
           "texts": [
             "Post office worker",
             "Working at a post office",
@@ -7960,11 +7963,20 @@
           ]
         },
         {
-          "rank": 80,
+          "rank": 79,
           "texts": [
             "Laundromat attendant",
             "Working at a laundromat",
             "Laundromat worker"
+          ]
+        },
+        {
+          "rank": 80,
+          "texts": [
+            "Busboy",
+            "Busser",
+            "Bussing tables",
+            "Clearing tables"
           ]
         }
       ],
@@ -8009,7 +8021,8 @@
             "My keys",
             "My house keys",
             "Keys to my house",
-            "Key"
+            "Key",
+            "Keychain"
           ]
         },
         {
@@ -8145,7 +8158,6 @@
           "texts": [
             "Receipts",
             "A receipt",
-            "Vouchers",
             "My receipts",
             "Till receipt"
           ]
@@ -8277,7 +8289,6 @@
           "texts": [
             "Key fob",
             "Remote key",
-            "Keychain",
             "Car key fob",
             "Fob"
           ]
@@ -8534,9 +8545,7 @@
         {
           "rank": 58,
           "texts": [
-            "Library card",
-            "Membership card",
-            "Loyalty card"
+            "Library card"
           ]
         },
         {
@@ -8618,8 +8627,7 @@
         {
           "rank": 68,
           "texts": [
-            "Toothbrush",
-            "Toothpaste"
+            "Toothbrush"
           ]
         },
         {
@@ -9665,7 +9673,6 @@
           "texts": [
             "Fondue set",
             "Fondue pot",
-            "Chocolate fountain",
             "Fondue"
           ]
         },
@@ -9823,8 +9830,7 @@
         {
           "rank": 37,
           "texts": [
-            "Cupcake maker",
-            "Cake pop maker"
+            "Cupcake maker"
           ]
         },
         {
@@ -10024,8 +10030,7 @@
         {
           "rank": 64,
           "texts": [
-            "Wine rack",
-            "Wine cooler"
+            "Wine rack"
           ]
         },
         {
@@ -10213,8 +10218,8 @@
         {
           "rank": 2,
           "texts": [
-            "Fried chicken",
             "Chicken",
+            "Fried chicken",
             "Roast chicken",
             "Southern fried chicken"
           ]
@@ -10357,8 +10362,8 @@
         {
           "rank": 18,
           "texts": [
-            "Coconut cream pie",
             "Pie",
+            "Coconut cream pie",
             "Apple pie",
             "Pumpkin pie",
             "Cream pie"
@@ -10413,10 +10418,10 @@
         {
           "rank": 24,
           "texts": [
+            "Bread",
             "Rolls",
             "Dinner rolls",
             "Biscuits",
-            "Bread",
             "Bread rolls"
           ]
         },
@@ -10440,6 +10445,7 @@
         {
           "rank": 27,
           "texts": [
+            "Burgers and hot dogs",
             "Hamburgers",
             "Burgers",
             "Hot dogs",
@@ -10458,9 +10464,9 @@
         {
           "rank": 29,
           "texts": [
+            "Drinks",
             "Lemonade",
             "Sweet tea",
-            "Drinks",
             "Soda",
             "Iced tea"
           ]
@@ -10468,6 +10474,7 @@
         {
           "rank": 30,
           "texts": [
+            "Jambalaya and gumbo",
             "Jambalaya",
             "Gumbo",
             "Creole jambalaya"
@@ -10759,8 +10766,7 @@
           "rank": 69,
           "texts": [
             "Chicken and dumplings",
-            "Chicken & dumplings",
-            "Dumplings"
+            "Chicken & dumplings"
           ]
         },
         {
@@ -10919,7 +10925,11 @@
             "Charging cable",
             "USB cable",
             "USB charger",
-            "Car charger"
+            "Car charger",
+            "Car adapter",
+            "Car charger adapter",
+            "Cigarette lighter adapter",
+            "USB adapter"
           ]
         },
         {
@@ -10936,7 +10946,6 @@
         {
           "rank": 4,
           "texts": [
-            "Car maintenance accessories",
             "Tire pressure gauge",
             "Tyre pressure gauge",
             "Tire gauge",
@@ -11164,7 +11173,6 @@
           "rank": 28,
           "texts": [
             "A hairbrush",
-            "Hair ties",
             "Hairbrush",
             "Hair brush",
             "Comb"
@@ -11420,21 +11428,12 @@
         {
           "rank": 60,
           "texts": [
-            "Car adapter",
-            "Car charger adapter",
-            "Cigarette lighter adapter",
-            "USB adapter"
-          ]
-        },
-        {
-          "rank": 61,
-          "texts": [
             "Reading glasses",
             "Spare glasses"
           ]
         },
         {
-          "rank": 62,
+          "rank": 61,
           "texts": [
             "Contact lens case",
             "Spare contacts",
@@ -11442,44 +11441,45 @@
           ]
         },
         {
-          "rank": 63,
+          "rank": 62,
           "texts": [
             "Bobby pins",
             "Hair clips",
             "Hair pins",
-            "Hair bands"
+            "Hair bands",
+            "Hair ties"
           ]
         },
         {
-          "rank": 64,
+          "rank": 63,
           "texts": [
             "Safety pins",
             "Safety pin"
           ]
         },
         {
-          "rank": 65,
+          "rank": 64,
           "texts": [
             "Sewing kit",
             "Needle and thread"
           ]
         },
         {
-          "rank": 66,
+          "rank": 65,
           "texts": [
             "Super glue",
             "Superglue"
           ]
         },
         {
-          "rank": 67,
+          "rank": 66,
           "texts": [
             "Lighter",
             "Cigarette lighter"
           ]
         },
         {
-          "rank": 68,
+          "rank": 67,
           "texts": [
             "Cigarettes",
             "Ciggies",
@@ -11487,35 +11487,35 @@
           ]
         },
         {
-          "rank": 69,
+          "rank": 68,
           "texts": [
             "Toothpicks",
             "Toothpick"
           ]
         },
         {
-          "rank": 70,
+          "rank": 69,
           "texts": [
             "Floss",
             "Dental floss"
           ]
         },
         {
-          "rank": 71,
+          "rank": 70,
           "texts": [
             "Nail clippers",
             "Nail file"
           ]
         },
         {
-          "rank": 72,
+          "rank": 71,
           "texts": [
             "Tweezers",
             "Tweezer"
           ]
         },
         {
-          "rank": 73,
+          "rank": 72,
           "texts": [
             "Spare mask",
             "Face mask",
@@ -11523,14 +11523,14 @@
           ]
         },
         {
-          "rank": 74,
+          "rank": 73,
           "texts": [
             "Spare socks",
             "Extra socks"
           ]
         },
         {
-          "rank": 75,
+          "rank": 74,
           "texts": [
             "Spare hat",
             "Beanie",
@@ -11538,7 +11538,7 @@
           ]
         },
         {
-          "rank": 76,
+          "rank": 75,
           "texts": [
             "Rain poncho",
             "Poncho",
@@ -11546,7 +11546,7 @@
           ]
         },
         {
-          "rank": 77,
+          "rank": 76,
           "texts": [
             "Service records",
             "Service history",
@@ -11556,7 +11556,7 @@
           ]
         },
         {
-          "rank": 78,
+          "rank": 77,
           "texts": [
             "Parking permits",
             "Parking permit",
@@ -11565,7 +11565,7 @@
           ]
         },
         {
-          "rank": 79,
+          "rank": 78,
           "texts": [
             "Toll tag",
             "Toll pass",
@@ -11574,11 +11574,20 @@
           ]
         },
         {
-          "rank": 80,
+          "rank": 79,
           "texts": [
             "Spare bulbs",
             "Spare bulb",
             "Spare headlight bulb"
+          ]
+        },
+        {
+          "rank": 80,
+          "texts": [
+            "Tire sealant",
+            "Fix-a-flat",
+            "Tire repair kit",
+            "Flat tire sealant"
           ]
         }
       ],
@@ -12529,8 +12538,7 @@
           "rank": 32,
           "texts": [
             "A toaster",
-            "Toaster",
-            "Toaster oven"
+            "Toaster"
           ]
         },
         {
@@ -12624,8 +12632,7 @@
           "rank": 44,
           "texts": [
             "Can opener",
-            "Tin opener",
-            "Bottle opener"
+            "Tin opener"
           ]
         },
         {
@@ -12757,7 +12764,6 @@
           "texts": [
             "Smoke alarm",
             "Smoke detector",
-            "Carbon monoxide detector",
             "Smoke alarms"
           ]
         },
@@ -12767,16 +12773,16 @@
             "Tool kit",
             "Toolbox",
             "A toolkit",
-            "Basic tools"
+            "Basic tools",
+            "Screwdriver",
+            "Screwdrivers"
           ]
         },
         {
           "rank": 62,
           "texts": [
             "Hammer",
-            "A hammer",
-            "Screwdriver",
-            "Screwdrivers"
+            "A hammer"
           ]
         },
         {
@@ -14250,16 +14256,14 @@
           "rank": 61,
           "texts": [
             "The bus",
-            "Bus",
-            "The bus driver"
+            "Bus"
           ]
         },
         {
           "rank": 62,
           "texts": [
             "The train",
-            "Train",
-            "The train driver"
+            "Train"
           ]
         },
         {
@@ -14465,8 +14469,7 @@
           "rank": 4,
           "texts": [
             "Lip balm",
-            "Chapstick",
-            "Lip gloss"
+            "Chapstick"
           ]
         },
         {
@@ -14573,7 +14576,8 @@
             "Lipstick",
             "Mascara",
             "Eyeliner",
-            "Foundation"
+            "Foundation",
+            "Lip gloss"
           ]
         },
         {
@@ -14706,7 +14710,6 @@
           "rank": 29,
           "texts": [
             "A nail file",
-            "Nail clippers",
             "Emery board"
           ]
         },
@@ -14788,8 +14791,7 @@
           "rank": 38,
           "texts": [
             "Nail polish",
-            "Nail varnish",
-            "Nail polish remover"
+            "Nail varnish"
           ]
         },
         {
@@ -14848,8 +14850,7 @@
           "rank": 45,
           "texts": [
             "Lighter",
-            "A lighter",
-            "Matches"
+            "A lighter"
           ]
         },
         {
@@ -14911,9 +14912,7 @@
           "rank": 52,
           "texts": [
             "Highlighter",
-            "Highlighters",
-            "Marker",
-            "Markers"
+            "Highlighters"
           ]
         },
         {
@@ -14990,8 +14989,7 @@
           "rank": 61,
           "texts": [
             "Toothbrush",
-            "A toothbrush",
-            "Toothpaste"
+            "A toothbrush"
           ]
         },
         {
@@ -15050,8 +15048,7 @@
           "texts": [
             "Sewing kit",
             "A sewing kit",
-            "Needle and thread",
-            "Safety pins"
+            "Needle and thread"
           ]
         },
         {
@@ -15108,8 +15105,7 @@
           "texts": [
             "Pacifier",
             "A pacifier",
-            "Dummy",
-            "Baby bottle"
+            "Dummy"
           ]
         },
         {
@@ -15127,8 +15123,7 @@
           "texts": [
             "Magazine",
             "A magazine",
-            "Magazines",
-            "Newspaper"
+            "Magazines"
           ]
         },
         {
@@ -15185,8 +15180,7 @@
           "rank": 84,
           "texts": [
             "Banana",
-            "A banana",
-            "Fruit"
+            "A banana"
           ]
         },
         {
@@ -15286,7 +15280,8 @@
             "Toys",
             "Kids' toys",
             "Children's toys",
-            "Stuffed toys"
+            "Stuffed toys",
+            "Action figures"
           ]
         },
         {
@@ -15329,6 +15324,7 @@
         {
           "rank": 13,
           "texts": [
+            "A weapon",
             "A gun",
             "A baseball bat",
             "Shotgun",
@@ -15361,8 +15357,7 @@
           "texts": [
             "Board games",
             "Games",
-            "Board game",
-            "Jigsaw puzzles"
+            "Board game"
           ]
         },
         {
@@ -15797,12 +15792,7 @@
           "texts": [
             "Junk",
             "Random junk",
-            "Stuff"
-          ]
-        },
-        {
-          "rank": 68,
-          "texts": [
+            "Stuff",
             "Clutter",
             "Mess",
             "Random stuff",
@@ -15810,7 +15800,7 @@
           ]
         },
         {
-          "rank": 69,
+          "rank": 68,
           "texts": [
             "Empty boxes",
             "Cardboard boxes",
@@ -15818,14 +15808,14 @@
           ]
         },
         {
-          "rank": 70,
+          "rank": 69,
           "texts": [
             "Gift bags",
             "Gift wrap supplies"
           ]
         },
         {
-          "rank": 71,
+          "rank": 70,
           "texts": [
             "Halloween costumes",
             "Fancy dress",
@@ -15834,7 +15824,7 @@
           ]
         },
         {
-          "rank": 72,
+          "rank": 71,
           "texts": [
             "Halloween decorations",
             "Halloween stuff",
@@ -15842,7 +15832,7 @@
           ]
         },
         {
-          "rank": 73,
+          "rank": 72,
           "texts": [
             "Backpack",
             "A backpack",
@@ -15851,7 +15841,7 @@
           ]
         },
         {
-          "rank": 74,
+          "rank": 73,
           "texts": [
             "Duffle bag",
             "A duffle bag",
@@ -15859,7 +15849,7 @@
           ]
         },
         {
-          "rank": 75,
+          "rank": 74,
           "texts": [
             "Stuffed animals",
             "Teddy bears",
@@ -15868,16 +15858,15 @@
           ]
         },
         {
-          "rank": 76,
+          "rank": 75,
           "texts": [
             "Dolls",
             "A doll",
-            "Barbie dolls",
-            "Action figures"
+            "Barbie dolls"
           ]
         },
         {
-          "rank": 77,
+          "rank": 76,
           "texts": [
             "Lego",
             "Lego sets",
@@ -15886,7 +15875,7 @@
           ]
         },
         {
-          "rank": 78,
+          "rank": 77,
           "texts": [
             "Crumbs",
             "Food crumbs",
@@ -15894,7 +15883,7 @@
           ]
         },
         {
-          "rank": 79,
+          "rank": 78,
           "texts": [
             "Food wrappers",
             "Sweet wrappers",
@@ -15903,12 +15892,20 @@
           ]
         },
         {
-          "rank": 80,
+          "rank": 79,
           "texts": [
             "The cat",
             "Cat",
-            "My cat",
-            "The dog"
+            "My cat"
+          ]
+        },
+        {
+          "rank": 80,
+          "texts": [
+            "The dog",
+            "Dog",
+            "My dog",
+            "Dog sleeping under the bed"
           ]
         }
       ],
@@ -16370,8 +16367,7 @@
           "rank": 51,
           "texts": [
             "Applesauce",
-            "Apple sauce",
-            "Apple butter"
+            "Apple sauce"
           ]
         },
         {
@@ -16487,8 +16483,7 @@
           "rank": 65,
           "texts": [
             "Almond milk",
-            "Almond milk carton",
-            "Soy milk"
+            "Almond milk carton"
           ]
         },
         {
@@ -17656,9 +17651,6 @@
           "rank": 23,
           "texts": [
             "Baby powder",
-            "Baby smell",
-            "Baby",
-            "New baby smell",
             "Baby lotion"
           ]
         },
@@ -17936,7 +17928,10 @@
             "Newborn baby",
             "A new baby",
             "Baby's skin",
-            "New baby"
+            "New baby",
+            "Baby",
+            "Baby smell",
+            "New baby smell"
           ]
         },
         {
@@ -18262,7 +18257,8 @@
             "A leaky faucet",
             "Dripping faucet",
             "Drip drip",
-            "Leaky tap"
+            "Leaky tap",
+            "Water dripping"
           ]
         },
         {
@@ -18335,7 +18331,8 @@
             "Kids waking up",
             "Children",
             "Child crying",
-            "A child crying"
+            "A child crying",
+            "Kid crying"
           ]
         },
         {
@@ -18681,7 +18678,6 @@
           "texts": [
             "Water running",
             "Running water",
-            "Water dripping",
             "Tap running"
           ]
         },
@@ -18861,12 +18857,6 @@
         {
           "rank": 73,
           "texts": [
-            "Kid crying"
-          ]
-        },
-        {
-          "rank": 74,
-          "texts": [
             "Ringing in ears",
             "Tinnitus",
             "Ears ringing",
@@ -18874,7 +18864,7 @@
           ]
         },
         {
-          "rank": 75,
+          "rank": 74,
           "texts": [
             "Sneezing",
             "Someone sneezing",
@@ -18882,7 +18872,7 @@
           ]
         },
         {
-          "rank": 76,
+          "rank": 75,
           "texts": [
             "Dog scratching at door",
             "Dog scratching",
@@ -18890,7 +18880,7 @@
           ]
         },
         {
-          "rank": 77,
+          "rank": 76,
           "texts": [
             "Mice in the walls",
             "Mice scratching",
@@ -18899,31 +18889,7 @@
           ]
         },
         {
-          "rank": 78,
-          "texts": [
-            "Chainsaw",
-            "A chainsaw",
-            "Chainsaw noise"
-          ]
-        },
-        {
-          "rank": 79,
-          "texts": [
-            "Leaf blower",
-            "Leafblower",
-            "Blower"
-          ]
-        },
-        {
-          "rank": 80,
-          "texts": [
-            "Lawn mower",
-            "Lawnmower",
-            "Mowing the lawn"
-          ]
-        },
-        {
-          "rank": 81,
+          "rank": 77,
           "texts": [
             "Party next door",
             "A party",
@@ -18932,7 +18898,7 @@
           ]
         },
         {
-          "rank": 82,
+          "rank": 78,
           "texts": [
             "Microwave beeping",
             "Microwave beep",
@@ -18940,7 +18906,7 @@
           ]
         },
         {
-          "rank": 83,
+          "rank": 79,
           "texts": [
             "Dryer buzzing",
             "Dryer beeping",
@@ -18949,7 +18915,7 @@
           ]
         },
         {
-          "rank": 84,
+          "rank": 80,
           "texts": [
             "Dishwasher running",
             "Dishwasher noise",
@@ -18957,11 +18923,47 @@
           ]
         },
         {
-          "rank": 85,
+          "rank": 81,
           "texts": [
             "Baby monitor",
             "Baby monitor noise",
             "Monitor crackling"
+          ]
+        },
+        {
+          "rank": 82,
+          "texts": [
+            "My partner's alarm",
+            "Partner's alarm going off",
+            "My partner's alarm going off",
+            "Someone else's alarm"
+          ]
+        },
+        {
+          "rank": 83,
+          "texts": [
+            "Front door opening",
+            "Someone coming home late",
+            "Keys in the front door",
+            "The front door opening"
+          ]
+        },
+        {
+          "rank": 84,
+          "texts": [
+            "Creaking door",
+            "A door creaking",
+            "Door creaking open",
+            "A creaky door"
+          ]
+        },
+        {
+          "rank": 85,
+          "texts": [
+            "Something falling over",
+            "A crash in the night",
+            "Something crashing downstairs",
+            "Something falling downstairs"
           ]
         }
       ],
@@ -19049,9 +19051,7 @@
           "rank": 7,
           "texts": [
             "Lip balm",
-            "Chapstick",
-            "Lipstick",
-            "Lip gloss"
+            "Chapstick"
           ]
         },
         {
@@ -19478,8 +19478,11 @@
         {
           "rank": 54,
           "texts": [
+            "Makeup",
             "Mascara",
-            "Mascara tube"
+            "Mascara tube",
+            "Lipstick",
+            "Lip gloss"
           ]
         },
         {
@@ -19630,8 +19633,7 @@
           "rank": 72,
           "texts": [
             "Pocket watch",
-            "A pocketwatch",
-            "Watch"
+            "A pocketwatch"
           ]
         },
         {
@@ -19721,8 +19723,6 @@
           "rank": 83,
           "texts": [
             "Playing card",
-            "A card",
-            "Cards",
             "A deck of cards"
           ]
         },
@@ -20124,8 +20124,7 @@
           "rank": 39,
           "texts": [
             "Toaster",
-            "The toaster",
-            "Toaster oven"
+            "The toaster"
           ]
         },
         {
@@ -20314,8 +20313,7 @@
           "rank": 61,
           "texts": [
             "Can opener",
-            "Tin opener",
-            "Bottle opener"
+            "Tin opener"
           ]
         },
         {
@@ -21290,19 +21288,13 @@
           "texts": [
             "I thought it was due tomorrow",
             "I thought it was due next week",
-            "I got the date wrong"
+            "I got the date wrong",
+            "I mixed up the due date",
+            "I thought it was due Friday"
           ]
         },
         {
           "rank": 83,
-          "texts": [
-            "I mixed up the due date",
-            "I thought it was due Friday",
-            "Wrong due date"
-          ]
-        },
-        {
-          "rank": 84,
           "texts": [
             "I did the wrong assignment",
             "I did the wrong homework",
@@ -21310,11 +21302,20 @@
           ]
         },
         {
-          "rank": 85,
+          "rank": 84,
           "texts": [
             "I couldn't read the teacher's handwriting",
             "I couldn't read the handwriting",
             "The writing was illegible"
+          ]
+        },
+        {
+          "rank": 85,
+          "texts": [
+            "The teacher never explained it",
+            "The teacher didn't explain it",
+            "I didn't understand the lesson",
+            "We never learned how to do it"
           ]
         }
       ],
@@ -21414,7 +21415,6 @@
           "rank": 9,
           "texts": [
             "IPAs",
-            "Craft beer",
             "IPA beer",
             "IPA",
             "India pale ale",
@@ -21688,7 +21688,6 @@
           "texts": [
             "Green smoothies",
             "Green smoothie",
-            "Kale smoothies",
             "Healthy smoothies"
           ]
         },
@@ -21769,7 +21768,6 @@
           "rank": 49,
           "texts": [
             "Almond milk",
-            "Oat milk",
             "Plant milk",
             "Non-dairy milk"
           ]
@@ -21822,7 +21820,6 @@
           "rank": 55,
           "texts": [
             "Marmite",
-            "Vegemite",
             "Marmite on toast"
           ]
         },
@@ -22043,8 +22040,7 @@
           "texts": [
             "Ice baths",
             "Cold plunges",
-            "Ice bath",
-            "Cold showers"
+            "Ice bath"
           ]
         },
         {
@@ -22143,7 +22139,6 @@
           "texts": [
             "Car keys",
             "Car key",
-            "Car fob",
             "Auto key",
             "Vehicle key",
             "Car door key"
@@ -22167,7 +22162,9 @@
             "Remote key",
             "Keyless remote",
             "Car key remote",
-            "Remote fob"
+            "Remote fob",
+            "Car fob",
+            "Garage door opener"
           ]
         },
         {
@@ -22190,7 +22187,13 @@
             "Mini torch",
             "Small flashlight",
             "Torch",
-            "Keychain torch"
+            "Keychain torch",
+            "An LED light",
+            "LED light",
+            "LED",
+            "Small LED light",
+            "Keychain light",
+            "Mini light"
           ]
         },
         {
@@ -22403,17 +22406,6 @@
         {
           "rank": 28,
           "texts": [
-            "An LED light",
-            "LED light",
-            "LED",
-            "Small LED light",
-            "Keychain light",
-            "Mini light"
-          ]
-        },
-        {
-          "rank": 29,
-          "texts": [
             "A key cover",
             "Key cap",
             "Key cover",
@@ -22422,7 +22414,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 29,
           "texts": [
             "A souvenir",
             "Souvenir keychain",
@@ -22432,7 +22424,7 @@
           ]
         },
         {
-          "rank": 31,
+          "rank": 30,
           "texts": [
             "A mini wallet",
             "Card holder",
@@ -22443,7 +22435,7 @@
           ]
         },
         {
-          "rank": 32,
+          "rank": 31,
           "texts": [
             "Hand sanitizer",
             "Mini hand sanitizer",
@@ -22453,7 +22445,7 @@
           ]
         },
         {
-          "rank": 33,
+          "rank": 32,
           "texts": [
             "Office keys",
             "Office key",
@@ -22462,7 +22454,7 @@
           ]
         },
         {
-          "rank": 34,
+          "rank": 33,
           "texts": [
             "Mailbox key",
             "Mailbox keys",
@@ -22470,30 +22462,28 @@
           ]
         },
         {
-          "rank": 35,
+          "rank": 34,
           "texts": [
             "Bike key",
-            "Bicycle key",
-            "Bike lock"
+            "Bicycle key"
           ]
         },
         {
-          "rank": 36,
+          "rank": 35,
           "texts": [
             "Padlock key",
-            "Padlock",
             "Lock key"
           ]
         },
         {
-          "rank": 37,
+          "rank": 36,
           "texts": [
             "Safe key",
             "Safe keys"
           ]
         },
         {
-          "rank": 38,
+          "rank": 37,
           "texts": [
             "Key ring",
             "Keyring",
@@ -22501,7 +22491,7 @@
           ]
         },
         {
-          "rank": 39,
+          "rank": 38,
           "texts": [
             "Spare key",
             "Spare house key",
@@ -22509,15 +22499,14 @@
           ]
         },
         {
-          "rank": 40,
+          "rank": 39,
           "texts": [
             "Garage key",
-            "Garage door key",
-            "Garage door opener"
+            "Garage door key"
           ]
         },
         {
-          "rank": 41,
+          "rank": 40,
           "texts": [
             "Locker key",
             "Gym locker key",
@@ -22525,7 +22514,7 @@
           ]
         },
         {
-          "rank": 42,
+          "rank": 41,
           "texts": [
             "A small figurine",
             "A figurine",
@@ -22535,7 +22524,7 @@
           ]
         },
         {
-          "rank": 43,
+          "rank": 42,
           "texts": [
             "AirTag",
             "Apple AirTag",
@@ -22547,7 +22536,7 @@
           ]
         },
         {
-          "rank": 44,
+          "rank": 43,
           "texts": [
             "A pocket knife",
             "Pocketknife",
@@ -22556,7 +22545,7 @@
           ]
         },
         {
-          "rank": 45,
+          "rank": 44,
           "texts": [
             "A plush toy",
             "Plush keychain",
@@ -22566,7 +22555,7 @@
           ]
         },
         {
-          "rank": 46,
+          "rank": 45,
           "texts": [
             "A tassel",
             "Tassel keychain",
@@ -22574,7 +22563,7 @@
           ]
         },
         {
-          "rank": 47,
+          "rank": 46,
           "texts": [
             "A pom pom",
             "Pom-pom",
@@ -22583,7 +22572,7 @@
           ]
         },
         {
-          "rank": 48,
+          "rank": 47,
           "texts": [
             "A Lego figure",
             "Lego keychain",
@@ -22592,7 +22581,7 @@
           ]
         },
         {
-          "rank": 49,
+          "rank": 48,
           "texts": [
             "A corkscrew",
             "Mini corkscrew",
@@ -22600,7 +22589,7 @@
           ]
         },
         {
-          "rank": 50,
+          "rank": 49,
           "texts": [
             "A mini tape measure",
             "Tape measure",
@@ -22608,7 +22597,7 @@
           ]
         },
         {
-          "rank": 51,
+          "rank": 50,
           "texts": [
             "A seatbelt cutter",
             "Seat belt cutter",
@@ -22618,7 +22607,7 @@
           ]
         },
         {
-          "rank": 52,
+          "rank": 51,
           "texts": [
             "A mini lighter",
             "Lighter",
@@ -22626,7 +22615,7 @@
           ]
         },
         {
-          "rank": 53,
+          "rank": 52,
           "texts": [
             "A phone charm",
             "Phone strap",
@@ -22634,7 +22623,7 @@
           ]
         },
         {
-          "rank": 54,
+          "rank": 53,
           "texts": [
             "A coin purse",
             "Small coin purse",
@@ -22642,7 +22631,7 @@
           ]
         },
         {
-          "rank": 55,
+          "rank": 54,
           "texts": [
             "A mini first aid kit",
             "First aid kit",
@@ -22650,7 +22639,7 @@
           ]
         },
         {
-          "rank": 56,
+          "rank": 55,
           "texts": [
             "A mini mirror",
             "Small mirror",
@@ -22658,7 +22647,7 @@
           ]
         },
         {
-          "rank": 57,
+          "rank": 56,
           "texts": [
             "A personal alarm",
             "Personal alarm",
@@ -22668,14 +22657,14 @@
           ]
         },
         {
-          "rank": 58,
+          "rank": 57,
           "texts": [
             "A mini compass",
             "Compass"
           ]
         },
         {
-          "rank": 59,
+          "rank": 58,
           "texts": [
             "A guitar pick",
             "Guitar pick holder",
@@ -22683,7 +22672,7 @@
           ]
         },
         {
-          "rank": 60,
+          "rank": 59,
           "texts": [
             "A shopping cart token",
             "Cart token",
@@ -22692,7 +22681,7 @@
           ]
         },
         {
-          "rank": 61,
+          "rank": 60,
           "texts": [
             "A fidget toy",
             "Fidget spinner",
@@ -22700,7 +22689,7 @@
           ]
         },
         {
-          "rank": 62,
+          "rank": 61,
           "texts": [
             "A name keychain",
             "Name keychain",
@@ -22710,7 +22699,7 @@
           ]
         },
         {
-          "rank": 63,
+          "rank": 62,
           "texts": [
             "A cross",
             "Cross keychain",
@@ -22719,7 +22708,7 @@
           ]
         },
         {
-          "rank": 64,
+          "rank": 63,
           "texts": [
             "A parking tag",
             "Parking pass",
@@ -22728,14 +22717,14 @@
           ]
         },
         {
-          "rank": 65,
+          "rank": 64,
           "texts": [
             "A library card",
             "Library tag"
           ]
         },
         {
-          "rank": 66,
+          "rank": 65,
           "texts": [
             "A mini pry bar",
             "Mini pry bar",
@@ -22743,7 +22732,7 @@
           ]
         },
         {
-          "rank": 67,
+          "rank": 66,
           "texts": [
             "A mini comb",
             "Comb",
@@ -22751,7 +22740,7 @@
           ]
         },
         {
-          "rank": 68,
+          "rank": 67,
           "texts": [
             "A pill holder",
             "Pill case",
@@ -22760,7 +22749,7 @@
           ]
         },
         {
-          "rank": 69,
+          "rank": 68,
           "texts": [
             "A hair tie",
             "Hair tie holder",
@@ -22768,7 +22757,7 @@
           ]
         },
         {
-          "rank": 70,
+          "rank": 69,
           "texts": [
             "A mini hand lotion",
             "Lotion",
@@ -22776,7 +22765,7 @@
           ]
         },
         {
-          "rank": 71,
+          "rank": 70,
           "texts": [
             "Mini scissors",
             "Small scissors",
@@ -22784,35 +22773,35 @@
           ]
         },
         {
-          "rank": 72,
+          "rank": 71,
           "texts": [
             "Mini tweezers",
             "Tweezers"
           ]
         },
         {
-          "rank": 73,
+          "rank": 72,
           "texts": [
             "A mini can opener",
             "Can opener"
           ]
         },
         {
-          "rank": 74,
+          "rank": 73,
           "texts": [
             "A mini wrench",
             "Wrench"
           ]
         },
         {
-          "rank": 75,
+          "rank": 74,
           "texts": [
             "A mini ruler",
             "Ruler"
           ]
         },
         {
-          "rank": 76,
+          "rank": 75,
           "texts": [
             "An ID badge",
             "Work ID",
@@ -22822,7 +22811,7 @@
           ]
         },
         {
-          "rank": 77,
+          "rank": 76,
           "texts": [
             "A mini perfume",
             "Perfume",
@@ -22830,7 +22819,7 @@
           ]
         },
         {
-          "rank": 78,
+          "rank": 77,
           "texts": [
             "A beaded keychain",
             "Beaded keychain",
@@ -22838,7 +22827,7 @@
           ]
         },
         {
-          "rank": 79,
+          "rank": 78,
           "texts": [
             "A paracord keychain",
             "Paracord",
@@ -22846,10 +22835,19 @@
           ]
         },
         {
-          "rank": 80,
+          "rank": 79,
           "texts": [
             "A small padlock",
             "Mini padlock"
+          ]
+        },
+        {
+          "rank": 80,
+          "texts": [
+            "Dog poop bag holder",
+            "Poop bag holder",
+            "Dog waste bag holder",
+            "Poop bag dispenser"
           ]
         }
       ],
@@ -24147,66 +24145,15 @@
         {
           "rank": 6,
           "texts": [
-            "Mint chocolate chip",
-            "Mint chip",
-            "Mint choc chip",
-            "Mint chocolate chip ice cream",
-            "Mint choc",
-            "Green mint"
+            "Brownie",
+            "Brownie ice cream",
+            "Brownie sundae",
+            "Chocolate brownie",
+            "Brownie batter"
           ]
         },
         {
           "rank": 7,
-          "texts": [
-            "Cookie dough",
-            "Chocolate chip cookie dough",
-            "Cookie dough ice cream",
-            "Choc chip cookie dough"
-          ]
-        },
-        {
-          "rank": 8,
-          "texts": [
-            "Strawberry",
-            "Strawberry ice cream",
-            "Fresh strawberry"
-          ]
-        },
-        {
-          "rank": 9,
-          "texts": [
-            "Coffee",
-            "Coffee ice cream",
-            "Espresso",
-            "Coffee flavour"
-          ]
-        },
-        {
-          "rank": 10,
-          "texts": [
-            "Pistachio",
-            "Pistachio ice cream",
-            "Pistachio nut"
-          ]
-        },
-        {
-          "rank": 11,
-          "texts": [
-            "Neapolitan",
-            "Neapolitan ice cream",
-            "Neapolitan ice creams"
-          ]
-        },
-        {
-          "rank": 12,
-          "texts": [
-            "Rocky road",
-            "Rocky road ice cream",
-            "Rocky road ice creams"
-          ]
-        },
-        {
-          "rank": 13,
           "texts": [
             "Chocolate chip",
             "Choc chip",
@@ -24216,7 +24163,16 @@
           ]
         },
         {
-          "rank": 14,
+          "rank": 8,
+          "texts": [
+            "Cookie dough",
+            "Chocolate chip cookie dough",
+            "Cookie dough ice cream",
+            "Choc chip cookie dough"
+          ]
+        },
+        {
+          "rank": 9,
           "texts": [
             "Birthday cake",
             "Cake batter",
@@ -24224,6 +24180,52 @@
             "Birthday cake ice creams",
             "Funfetti",
             "Confetti cake"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Mint chocolate chip",
+            "Mint chip",
+            "Mint choc chip",
+            "Mint chocolate chip ice cream",
+            "Mint choc",
+            "Green mint"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Strawberry",
+            "Strawberry ice cream",
+            "Fresh strawberry"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Banana",
+            "Banana split",
+            "Banana ice cream"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Coffee",
+            "Coffee ice cream",
+            "Espresso",
+            "Coffee flavour"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Black cherry",
+            "Cherry",
+            "Cherry vanilla",
+            "Black cherry ice cream",
+            "Cherry ice cream"
           ]
         },
         {
@@ -24241,95 +24243,20 @@
         {
           "rank": 16,
           "texts": [
-            "Mango",
-            "Mango sorbet",
-            "Mango ice cream",
-            "Mango sorbets"
+            "Rocky road",
+            "Rocky road ice cream",
+            "Rocky road ice creams"
           ]
         },
         {
           "rank": 17,
           "texts": [
-            "Rainbow sherbet",
-            "Sherbet",
-            "Rainbow sherbet ice cream",
-            "Rainbow sorbet"
+            "Moose tracks",
+            "Moose tracks ice cream"
           ]
         },
         {
           "rank": 18,
-          "texts": [
-            "Black cherry",
-            "Cherry",
-            "Cherry vanilla",
-            "Black cherry ice cream",
-            "Cherry ice cream"
-          ]
-        },
-        {
-          "rank": 19,
-          "texts": [
-            "Coconut",
-            "Coconut ice cream",
-            "Coconut ice creams"
-          ]
-        },
-        {
-          "rank": 20,
-          "texts": [
-            "Lemon",
-            "Lemon sorbet",
-            "Lemon ice cream",
-            "Lemon sorbets"
-          ]
-        },
-        {
-          "rank": 21,
-          "texts": [
-            "Bubblegum",
-            "Bubble gum",
-            "Bubblegum ice cream",
-            "Bubble gum ice cream"
-          ]
-        },
-        {
-          "rank": 22,
-          "texts": [
-            "Cotton candy",
-            "Candy floss",
-            "Cotton candy ice cream"
-          ]
-        },
-        {
-          "rank": 23,
-          "texts": [
-            "Pumpkin spice",
-            "Pumpkin",
-            "Pumpkin pie",
-            "Pumpkin spice ice cream",
-            "Pumpkin ice cream"
-          ]
-        },
-        {
-          "rank": 24,
-          "texts": [
-            "Maple walnut",
-            "Maple",
-            "Maple walnut ice cream",
-            "Maple ice cream"
-          ]
-        },
-        {
-          "rank": 25,
-          "texts": [
-            "Rum raisin",
-            "Rum and raisin",
-            "Rum raisin ice cream",
-            "Rum & raisin"
-          ]
-        },
-        {
-          "rank": 26,
           "texts": [
             "Fudge",
             "Hot fudge",
@@ -24340,7 +24267,103 @@
           ]
         },
         {
+          "rank": 19,
+          "texts": [
+            "Mango",
+            "Mango sorbet",
+            "Mango ice cream",
+            "Mango sorbets"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Neapolitan",
+            "Neapolitan ice cream",
+            "Neapolitan ice creams"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Pistachio",
+            "Pistachio ice cream",
+            "Pistachio nut"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Rainbow sherbet",
+            "Sherbet",
+            "Rainbow sherbet ice cream",
+            "Rainbow sorbet"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Coconut",
+            "Coconut ice cream",
+            "Coconut ice creams"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Lemon",
+            "Lemon sorbet",
+            "Lemon ice cream",
+            "Lemon sorbets"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Bubblegum",
+            "Bubble gum",
+            "Bubblegum ice cream",
+            "Bubble gum ice cream"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Cotton candy",
+            "Candy floss",
+            "Cotton candy ice cream"
+          ]
+        },
+        {
           "rank": 27,
+          "texts": [
+            "Pumpkin spice",
+            "Pumpkin",
+            "Pumpkin pie",
+            "Pumpkin spice ice cream",
+            "Pumpkin ice cream"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Maple walnut",
+            "Maple",
+            "Maple walnut ice cream",
+            "Maple ice cream"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Rum raisin",
+            "Rum and raisin",
+            "Rum raisin ice cream",
+            "Rum & raisin"
+          ]
+        },
+        {
+          "rank": 30,
           "texts": [
             "Toffee",
             "English toffee",
@@ -24349,16 +24372,7 @@
           ]
         },
         {
-          "rank": 28,
-          "texts": [
-            "Banana",
-            "Banana split",
-            "Banana ice cream",
-            "Banana pudding ice cream"
-          ]
-        },
-        {
-          "rank": 29,
+          "rank": 31,
           "texts": [
             "Blueberry",
             "Blueberry ice cream",
@@ -24366,7 +24380,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 32,
           "texts": [
             "Key lime pie",
             "Key lime",
@@ -24374,7 +24388,7 @@
           ]
         },
         {
-          "rank": 31,
+          "rank": 33,
           "texts": [
             "S'mores",
             "Smores",
@@ -24384,30 +24398,13 @@
           ]
         },
         {
-          "rank": 32,
+          "rank": 34,
           "texts": [
             "Green tea",
             "Matcha",
             "Green tea ice cream",
             "Matcha ice cream",
             "Matcha green tea"
-          ]
-        },
-        {
-          "rank": 33,
-          "texts": [
-            "Moose tracks",
-            "Moose tracks ice cream"
-          ]
-        },
-        {
-          "rank": 34,
-          "texts": [
-            "Brownie",
-            "Brownie ice cream",
-            "Brownie sundae",
-            "Chocolate brownie",
-            "Brownie batter"
           ]
         },
         {
@@ -24430,9 +24427,7 @@
           "texts": [
             "Double chocolate",
             "Double chocolate ice cream",
-            "Double choc",
-            "Dark chocolate",
-            "Chocolate dark"
+            "Double choc"
           ]
         },
         {
@@ -24440,8 +24435,7 @@
           "texts": [
             "Mint",
             "Mint ice cream",
-            "Peppermint",
-            "Mint chocolate"
+            "Peppermint"
           ]
         },
         {
@@ -24633,7 +24627,6 @@
           "texts": [
             "Nutella",
             "Nutella ice cream",
-            "Hazelnut",
             "Chocolate hazelnut"
           ]
         },
@@ -24665,8 +24658,7 @@
           "texts": [
             "Mocha",
             "Mocha ice cream",
-            "Mocha chip",
-            "Cappuccino"
+            "Mocha chip"
           ]
         },
         {
@@ -24769,7 +24761,7 @@
       "unlisted": [
         "vanilla is #1 in retail sales (Instacart/Circana) — preference polls and sales disagree, noted in source"
       ],
-      "source": "IDFA National Ice Cream & Frozen Novelty Trends Survey, Apr 2026 (Morning Consult, 2,205 US adults): Top 5 favourite flavours — 1. Chocolate (38% put it in top 5), 2. Butter Pecan (27%), 3. Vanilla (25%), 4. Cookies & Cream/Oreo (23%), 5. Caramel/Salted caramel (22%). Verasight (May 2026, n=1,000) found 50% name vanilla the most popular flavour — preference vs perceived-popularity split, flagged in unlisted note.",
+      "source": "IDFA National Ice Cream & Frozen Novelty Trends Survey, Apr 2026 (Morning Consult, 2,205 US adults). IDFA top-10 favourite flavours list: 1. Chocolate, 2. Butter Pecan, 3. Vanilla, 4. Cookies and Cream/Oreo, 5. Caramel/Salted Caramel, 6. Brownie, 7. Chocolate Chip, 8. Cookie Dough, 9. Birthday Cake, 10. Mint Chocolate Chip. Stacker analysis of the same survey (published Jul-Aug 2026, single-favourite %): Chocolate 38%, Butter Pecan 27%, Vanilla 25%, Cookies and Cream 23%, Caramel / Chocolate Chip / Brownie tied at 22% (#5 tie), Cookie Dough 21% #8, Birthday Cake 19% #9, Mint Chocolate Chip 18% #10, Strawberry 16% and Banana 16% tied #11, Coffee 14% #13, Cherry/Black Cherry 13% #14, Peanut Butter 11% #15, Rocky Road / Moose Tracks / Fudge tied 9% #16, Neapolitan 8% #20. Pistachio is NOT in the Stacker/IDFA top 20, so it drops out of the top 10 (placed #21, first slot outside the published top 20). Coffee is #13, not #9.",
       "sourceUrl": "https://www.idfa.org/news/chocolate-returns-to-the-top-as-americas-favorite-flavor-according-to-idfas-national-ice-cream-trends-survey"
     },
     {
@@ -24819,12 +24811,12 @@
         {
           "rank": 4,
           "texts": [
-            "Bird",
-            "A bird",
-            "Parrot",
-            "Parakeet",
-            "Budgie",
-            "Pet bird"
+            "Reptile",
+            "Lizard",
+            "Snake",
+            "Gecko",
+            "Bearded dragon",
+            "Pet reptile"
           ]
         },
         {
@@ -24841,12 +24833,12 @@
         {
           "rank": 6,
           "texts": [
-            "Reptile",
-            "Lizard",
-            "Snake",
-            "Gecko",
-            "Bearded dragon",
-            "Pet reptile"
+            "Bird",
+            "A bird",
+            "Parrot",
+            "Parakeet",
+            "Budgie",
+            "Pet bird"
           ]
         },
         {
@@ -24854,7 +24846,6 @@
           "texts": [
             "Horse",
             "A horse",
-            "Pony",
             "Horses"
           ]
         },
@@ -24879,7 +24870,6 @@
           "texts": [
             "Turtle",
             "A turtle",
-            "Tortoise",
             "Turtles"
           ]
         },
@@ -24932,9 +24922,7 @@
           "texts": [
             "Frog",
             "A frog",
-            "Toad",
-            "Frogs",
-            "Toads"
+            "Frogs"
           ]
         },
         {
@@ -25035,7 +25023,6 @@
           "texts": [
             "Donkey",
             "A donkey",
-            "Mule",
             "Donkeys"
           ]
         },
@@ -25061,8 +25048,6 @@
           "texts": [
             "Llama",
             "A llama",
-            "Alpaca",
-            "Alpacas",
             "Llamas"
           ]
         },
@@ -25329,8 +25314,7 @@
         {
           "rank": 67,
           "texts": [
-            "Millipede",
-            "Centipede"
+            "Millipede"
           ]
         },
         {
@@ -25434,8 +25418,8 @@
         "a pet rock",
         "a Tamagotchi (a toy, not a pet)"
       ],
-      "source": "APPA 2025-2026 National Pet Owners Survey (reported 2025-2026): most popular pets by US households — Dog 69.8m households #1, Cat 49.2m #2, Fish 11.9m #3, Bird 6.9m #4, Small mammal 6.7m #5, Reptile 6.1m #6, Horse 3.5m #7, Guinea pig 2.4m, Hamster 2.3m, Turtle 1.9m. YouGov Jan 2025 (2,223 adults): 48% currently own a dog, 36% a cat — same top 2.",
-      "sourceUrl": "https://yougov.com/en-us/articles/51499-most-dog-and-cat-owners-say-their-pets-know-them-well?"
+      "source": "APPA 2026 State of the Industry Report (released 26 Mar 2026, based on the 2025 National Pet Owners Survey): 95 million US households own a pet; Dog 71m households (53%) #1, Cat 53m (39%) #2, Freshwater fish 9m #3 (+ Saltwater fish 1m), Reptile 6m #4, Small animal 5m #5, Bird 5m #6, Horse 2m #7. Species breakdown as presented by APPA (APPA Instagram reel, May 2026) and corroborated by Spots / World Animal Foundation summaries of the same report. NOTE: Bird and Small animal are effectively tied at ~5m rounded; their order follows APPA's own presentation (small animal listed before bird). SUPERSEDED: the figures previously cited here (Dog 69.8m, Cat 49.2m, Fish 11.9m, Bird 6.9m, Small mammal 6.7m, Reptile 6.1m) trace only to a Facebook infographic (Oct 2026) claiming the APPA 2025-2026 survey and could not be confirmed against APPA's published summary; APPA's own Mar 2026 release gives Dog 71m / Cat 53m. YouGov Jan 2025 (2,223 adults): 48% currently own a dog, 36% a cat — same top 2.",
+      "sourceUrl": "https://americanpetproducts.org/news/u.s.-pet-industry-reaches-158-billion-in-2025-poised-for-continued-growth-in-2026?hs_amp=true"
     },
     {
       "id": 178,
@@ -25575,12 +25559,7 @@
         {
           "rank": 13,
           "texts": [
-            "Potato salad",
-            "Potato casserole",
-            "Scalloped potatoes",
-            "Au gratin potatoes",
-            "Cheesy potato casserole",
-            "Potatoes au gratin"
+            "Potato salad"
           ]
         },
         {
@@ -25604,15 +25583,6 @@
         {
           "rank": 16,
           "texts": [
-            "Sweet potato pie",
-            "Pumpkin pie",
-            "Pecan pie",
-            "Apple pie"
-          ]
-        },
-        {
-          "rank": 17,
-          "texts": [
             "Collard greens",
             "Greens",
             "Turnip greens",
@@ -25622,7 +25592,7 @@
           ]
         },
         {
-          "rank": 18,
+          "rank": 17,
           "texts": [
             "Rice",
             "Wild rice",
@@ -25633,7 +25603,7 @@
           ]
         },
         {
-          "rank": 19,
+          "rank": 18,
           "texts": [
             "Asparagus",
             "Roasted asparagus",
@@ -25642,7 +25612,7 @@
           ]
         },
         {
-          "rank": 20,
+          "rank": 19,
           "texts": [
             "Broccoli casserole",
             "Broccoli",
@@ -25652,7 +25622,7 @@
           ]
         },
         {
-          "rank": 21,
+          "rank": 20,
           "texts": [
             "Squash",
             "Butternut squash",
@@ -25662,7 +25632,7 @@
           ]
         },
         {
-          "rank": 22,
+          "rank": 21,
           "texts": [
             "Casserole",
             "Chicken casserole",
@@ -25670,7 +25640,7 @@
           ]
         },
         {
-          "rank": 23,
+          "rank": 22,
           "texts": [
             "Fruit salad",
             "Fruit tray",
@@ -25679,7 +25649,7 @@
           ]
         },
         {
-          "rank": 24,
+          "rank": 23,
           "texts": [
             "Coleslaw",
             "Slaw",
@@ -25687,7 +25657,7 @@
           ]
         },
         {
-          "rank": 25,
+          "rank": 24,
           "texts": [
             "Baked beans",
             "Beans",
@@ -25695,7 +25665,7 @@
           ]
         },
         {
-          "rank": 26,
+          "rank": 25,
           "texts": [
             "Jell-O salad",
             "Jello",
@@ -25705,18 +25675,16 @@
           ]
         },
         {
-          "rank": 27,
+          "rank": 26,
           "texts": [
             "Pickles",
             "Relish tray",
-            "Olives",
             "Relish",
-            "Pickle tray",
-            "Olive tray"
+            "Pickle tray"
           ]
         },
         {
-          "rank": 28,
+          "rank": 27,
           "texts": [
             "Soup",
             "Butternut squash soup",
@@ -25725,33 +25693,27 @@
           ]
         },
         {
-          "rank": 29,
+          "rank": 28,
           "texts": [
             "Baked apples",
-            "Apple sauce",
-            "Applesauce",
-            "Baked apple",
-            "Apple butter"
+            "Baked apple"
           ]
         },
         {
-          "rank": 30,
+          "rank": 29,
           "texts": [
             "Hash brown casserole",
             "Hash browns",
-            "Hashbrown casserole"
-          ]
-        },
-        {
-          "rank": 31,
-          "texts": [
+            "Hashbrown casserole",
+            "Cheesy potato casserole",
+            "Potato casserole",
             "Cheesy potatoes",
             "Funeral potatoes",
             "Cheesy hash browns"
           ]
         },
         {
-          "rank": 32,
+          "rank": 30,
           "texts": [
             "Honey glazed ham",
             "Ham (as a side)",
@@ -25761,7 +25723,7 @@
           ]
         },
         {
-          "rank": 33,
+          "rank": 31,
           "texts": [
             "Corn pudding",
             "Corn pudding casserole",
@@ -25769,28 +25731,28 @@
           ]
         },
         {
-          "rank": 34,
+          "rank": 32,
           "texts": [
             "Scalloped corn",
             "Scalloped corn casserole"
           ]
         },
         {
-          "rank": 35,
+          "rank": 33,
           "texts": [
             "Oyster dressing",
             "Oyster stuffing"
           ]
         },
         {
-          "rank": 36,
+          "rank": 34,
           "texts": [
             "Sausage stuffing",
             "Sausage dressing"
           ]
         },
         {
-          "rank": 37,
+          "rank": 35,
           "texts": [
             "Stuffed mushrooms",
             "Mushrooms",
@@ -25798,7 +25760,7 @@
           ]
         },
         {
-          "rank": 38,
+          "rank": 36,
           "texts": [
             "Creamed spinach",
             "Spinach casserole",
@@ -25807,7 +25769,7 @@
           ]
         },
         {
-          "rank": 39,
+          "rank": 37,
           "texts": [
             "Cauliflower",
             "Roasted cauliflower",
@@ -25816,7 +25778,7 @@
           ]
         },
         {
-          "rank": 40,
+          "rank": 38,
           "texts": [
             "Glazed carrots",
             "Honey carrots",
@@ -25825,7 +25787,7 @@
           ]
         },
         {
-          "rank": 41,
+          "rank": 39,
           "texts": [
             "Zucchini",
             "Roasted zucchini",
@@ -25833,7 +25795,7 @@
           ]
         },
         {
-          "rank": 42,
+          "rank": 40,
           "texts": [
             "Eggplant",
             "Eggplant casserole",
@@ -25841,7 +25803,7 @@
           ]
         },
         {
-          "rank": 43,
+          "rank": 41,
           "texts": [
             "Cabbage",
             "Cooked cabbage",
@@ -25850,7 +25812,7 @@
           ]
         },
         {
-          "rank": 44,
+          "rank": 42,
           "texts": [
             "Okra",
             "Fried okra",
@@ -25858,21 +25820,21 @@
           ]
         },
         {
-          "rank": 45,
+          "rank": 43,
           "texts": [
             "Turnips",
             "Mashed turnips"
           ]
         },
         {
-          "rank": 46,
+          "rank": 44,
           "texts": [
             "Parsnips",
             "Roasted parsnips"
           ]
         },
         {
-          "rank": 47,
+          "rank": 45,
           "texts": [
             "Beets",
             "Roasted beets",
@@ -25880,7 +25842,7 @@
           ]
         },
         {
-          "rank": 48,
+          "rank": 46,
           "texts": [
             "Peas",
             "Green peas",
@@ -25889,7 +25851,7 @@
           ]
         },
         {
-          "rank": 49,
+          "rank": 47,
           "texts": [
             "Lima beans",
             "Butter beans",
@@ -25897,7 +25859,7 @@
           ]
         },
         {
-          "rank": 50,
+          "rank": 48,
           "texts": [
             "Black-eyed peas",
             "Hoppin' John",
@@ -25905,56 +25867,56 @@
           ]
         },
         {
-          "rank": 51,
+          "rank": 49,
           "texts": [
             "Field peas",
             "Purple hull peas"
           ]
         },
         {
-          "rank": 52,
+          "rank": 50,
           "texts": [
             "Macaroni salad",
             "Pasta salad"
           ]
         },
         {
-          "rank": 53,
+          "rank": 51,
           "texts": [
             "Cucumber salad",
             "Cucumber tomato salad"
           ]
         },
         {
-          "rank": 54,
+          "rank": 52,
           "texts": [
             "Waldorf salad",
             "Waldorf"
           ]
         },
         {
-          "rank": 55,
+          "rank": 53,
           "texts": [
             "Seven layer salad",
             "Layered salad"
           ]
         },
         {
-          "rank": 56,
+          "rank": 54,
           "texts": [
             "Broccoli salad",
             "Broccoli slaw"
           ]
         },
         {
-          "rank": 57,
+          "rank": 55,
           "texts": [
             "Cranberry fluff",
             "Cranberry salad"
           ]
         },
         {
-          "rank": 58,
+          "rank": 56,
           "texts": [
             "Watergate salad",
             "Pistachio fluff",
@@ -25962,7 +25924,7 @@
           ]
         },
         {
-          "rank": 59,
+          "rank": 57,
           "texts": [
             "Orange fluff",
             "Orange jello salad",
@@ -25970,14 +25932,14 @@
           ]
         },
         {
-          "rank": 60,
+          "rank": 58,
           "texts": [
             "Congealed salad",
             "Aspic"
           ]
         },
         {
-          "rank": 61,
+          "rank": 59,
           "texts": [
             "Cheese plate",
             "Cheese tray",
@@ -25986,7 +25948,7 @@
           ]
         },
         {
-          "rank": 62,
+          "rank": 60,
           "texts": [
             "Shrimp cocktail",
             "Shrimp",
@@ -25994,7 +25956,7 @@
           ]
         },
         {
-          "rank": 63,
+          "rank": 61,
           "texts": [
             "Meatballs",
             "Swedish meatballs",
@@ -26002,7 +25964,7 @@
           ]
         },
         {
-          "rank": 64,
+          "rank": 62,
           "texts": [
             "Celery",
             "Stuffed celery",
@@ -26010,7 +25972,7 @@
           ]
         },
         {
-          "rank": 65,
+          "rank": 63,
           "texts": [
             "Twice baked potatoes",
             "Twice-baked potatoes",
@@ -26019,7 +25981,7 @@
           ]
         },
         {
-          "rank": 66,
+          "rank": 64,
           "texts": [
             "Roasted potatoes",
             "Roasted potato",
@@ -26028,7 +25990,7 @@
           ]
         },
         {
-          "rank": 67,
+          "rank": 65,
           "texts": [
             "Pumpkin bread",
             "Pumpkin muffins",
@@ -26036,27 +25998,27 @@
           ]
         },
         {
-          "rank": 68,
+          "rank": 66,
           "texts": [
             "Hush puppies",
             "Hushpuppies"
           ]
         },
         {
-          "rank": 69,
+          "rank": 67,
           "texts": [
             "Fried chicken",
             "Chicken"
           ]
         },
         {
-          "rank": 70,
+          "rank": 68,
           "texts": [
             "Cornbread salad"
           ]
         },
         {
-          "rank": 71,
+          "rank": 69,
           "texts": [
             "Yellow squash",
             "Yellow squash casserole",
@@ -26064,7 +26026,7 @@
           ]
         },
         {
-          "rank": 72,
+          "rank": 70,
           "texts": [
             "Green beans almondine",
             "Green bean almondine",
@@ -26072,30 +26034,48 @@
           ]
         },
         {
-          "rank": 73,
+          "rank": 71,
           "texts": [
             "Brussels sprouts with bacon",
             "Bacon Brussels sprouts"
           ]
         },
         {
-          "rank": 74,
+          "rank": 72,
           "texts": [
             "Apple salad",
             "Apple walnut salad"
           ]
         },
         {
-          "rank": 75,
+          "rank": 73,
           "texts": [
             "Pear salad",
             "Pear and walnut salad"
           ]
         },
         {
-          "rank": 76,
+          "rank": 74,
           "texts": [
             "Grape salad"
+          ]
+        },
+        {
+          "rank": 75,
+          "texts": [
+            "Sautéed mushrooms",
+            "Sauteed mushrooms",
+            "Fried mushrooms",
+            "Mushrooms sautéed"
+          ]
+        },
+        {
+          "rank": 76,
+          "texts": [
+            "Scalloped potatoes",
+            "Scalloped potato casserole",
+            "Potatoes au gratin",
+            "Au gratin potatoes"
           ]
         }
       ],
@@ -26103,7 +26083,7 @@
         "turkey (the main, not a side)",
         "pumpkin spice latte"
       ],
-      "source": "Campbell's State of the Sides Report 2026 (Reputation Leaders, Aug-Sep 2026, 5,017 US adults who celebrate Thanksgiving, 100/state): America's 5 favourite Thanksgiving sides — 1. Stuffing/dressing (favourite in 38 states), 2. Mashed potatoes, 3. Sweet potatoes, 4. Mac and cheese, 5. Green bean casserole. Mac and cheese is Gen Z's #1 side for the second straight year; 57% say it is the dish everyone can agree on.",
+      "source": "Campbell's State of the Sides Report 2026 (Reputation Leaders, Aug-Sep 2026, 5,017 US adults who celebrate Thanksgiving, 100/state): America's 5 favourite Thanksgiving sides — 1. Stuffing/dressing (favourite in 38 states), 2. Mashed potatoes, 3. Sweet potatoes, 4. Mac and cheese, 5. Green bean casserole. Mac and cheese is Gen Z's #1 side for the second straight year; 57% say it is the dish everyone can agree on. CONFLICT NOTE: YouGov's 2020 head-to-head dish poll (about 1,300 US adults) put mashed potatoes #1 with a 78% win rate vs stuffing 77%, and bread/rolls #3 (74%); YouGov's Nov 2025 expect-to-eat poll tied mashed potatoes and stuffing at 61% each. Campbell's is kept as primary: it is newer (2026 vs 2020), four times larger (5,017 vs ~1,300), and asks directly for the favourite side, while the YouGov margin is a single point on a derived win rate. Pies were removed from the list (rank 16 was sweet potato/pumpkin/pecan/apple pie — desserts, not sides).",
       "sourceUrl": "https://news.lee.net/life-entertainment/nation-world/food-drink/do-you-agree-these-are-americas-5-favorite-thanksgiving-sides/article_8dc6598d-ffd5-5c73-aa98-ed8e50e0a2df.html"
     },
     {
@@ -26154,23 +26134,11 @@
             "German Shepherd Dog",
             "Alsatian",
             "German Shepherds",
-            "GSD",
-            "Shepherd"
+            "GSD"
           ]
         },
         {
           "rank": 5,
-          "texts": [
-            "Poodle",
-            "Poodle dog",
-            "Toy Poodle",
-            "Miniature Poodle",
-            "Standard Poodle",
-            "Poodles"
-          ]
-        },
-        {
-          "rank": 6,
           "texts": [
             "Dachshund",
             "Wiener dog",
@@ -26178,6 +26146,17 @@
             "Doxie",
             "Dachshunds",
             "Mini Dachshund"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Poodle",
+            "Poodle dog",
+            "Toy Poodle",
+            "Miniature Poodle",
+            "Standard Poodle",
+            "Poodles"
           ]
         },
         {
@@ -26200,15 +26179,6 @@
         {
           "rank": 9,
           "texts": [
-            "Bulldog",
-            "English Bulldog",
-            "British Bulldog",
-            "Bulldogs"
-          ]
-        },
-        {
-          "rank": 10,
-          "texts": [
             "German Shorthaired Pointer",
             "GSP",
             "Shorthaired Pointer",
@@ -26216,7 +26186,33 @@
           ]
         },
         {
+          "rank": 10,
+          "texts": [
+            "Bulldog",
+            "English Bulldog",
+            "British Bulldog",
+            "Bulldogs"
+          ]
+        },
+        {
           "rank": 11,
+          "texts": [
+            "Cane Corso",
+            "Cane Corso dog",
+            "Italian Mastiff"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Cavalier King Charles Spaniel",
+            "Cavalier",
+            "King Charles Spaniel",
+            "Cavalier Spaniel"
+          ]
+        },
+        {
+          "rank": 13,
           "texts": [
             "Yorkshire Terrier",
             "Yorkie",
@@ -26225,83 +26221,7 @@
           ]
         },
         {
-          "rank": 12,
-          "texts": [
-            "Boxer",
-            "Boxer dog",
-            "Boxers"
-          ]
-        },
-        {
-          "rank": 13,
-          "texts": [
-            "Siberian Husky",
-            "Husky",
-            "Siberian Huskies",
-            "Huskies"
-          ]
-        },
-        {
           "rank": 14,
-          "texts": [
-            "Corgi",
-            "Welsh Corgi",
-            "Pembroke Corgi",
-            "Corgis"
-          ]
-        },
-        {
-          "rank": 15,
-          "texts": [
-            "Chihuahua",
-            "Chihuahua dog",
-            "Chihuahuas"
-          ]
-        },
-        {
-          "rank": 16,
-          "texts": [
-            "Shih Tzu",
-            "Shih Tzu dog",
-            "Shih Tzus"
-          ]
-        },
-        {
-          "rank": 17,
-          "texts": [
-            "Pug",
-            "Pug dog",
-            "Pugs"
-          ]
-        },
-        {
-          "rank": 18,
-          "texts": [
-            "Pomeranian",
-            "Pom",
-            "Pom dog",
-            "Pomeranians",
-            "Poms"
-          ]
-        },
-        {
-          "rank": 19,
-          "texts": [
-            "Great Dane",
-            "Great Dane dog",
-            "Great Danes"
-          ]
-        },
-        {
-          "rank": 20,
-          "texts": [
-            "Border Collie",
-            "Border Collie dog",
-            "Border Collies"
-          ]
-        },
-        {
-          "rank": 21,
           "texts": [
             "Australian Shepherd",
             "Aussie",
@@ -26311,15 +26231,7 @@
           ]
         },
         {
-          "rank": 22,
-          "texts": [
-            "Dalmatian",
-            "Dalmatian dog",
-            "Dalmatians"
-          ]
-        },
-        {
-          "rank": 23,
+          "rank": 15,
           "texts": [
             "Doberman",
             "Doberman Pinscher",
@@ -26328,34 +26240,42 @@
           ]
         },
         {
-          "rank": 24,
+          "rank": 16,
           "texts": [
-            "Cocker Spaniel",
-            "Cocker Spaniel dog",
-            "Cocker Spaniels",
-            "Cockers"
+            "Corgi",
+            "Welsh Corgi",
+            "Pembroke Corgi",
+            "Corgis"
           ]
         },
         {
-          "rank": 25,
+          "rank": 17,
           "texts": [
-            "Maltese",
-            "Maltese dog",
-            "Maltese dogs",
-            "Malteses"
+            "Miniature Schnauzer",
+            "Mini Schnauzer",
+            "Miniature Schnauzer dog"
           ]
         },
         {
-          "rank": 26,
+          "rank": 18,
           "texts": [
-            "Shiba Inu",
-            "Shiba",
-            "Shiba Inus",
-            "Shibas"
+            "Boxer",
+            "Boxer dog",
+            "Boxers"
           ]
         },
         {
-          "rank": 27,
+          "rank": 19,
+          "texts": [
+            "Pomeranian",
+            "Pom",
+            "Pom dog",
+            "Pomeranians",
+            "Poms"
+          ]
+        },
+        {
+          "rank": 20,
           "texts": [
             "Bernese Mountain Dog",
             "Bernese",
@@ -26364,7 +26284,145 @@
           ]
         },
         {
+          "rank": 21,
+          "texts": [
+            "Shih Tzu",
+            "Shih Tzu dog",
+            "Shih Tzus"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Great Dane",
+            "Great Dane dog",
+            "Great Danes"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Boston Terrier",
+            "Boston Terrier dog"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Chihuahua",
+            "Chihuahua dog",
+            "Chihuahuas"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Havanese",
+            "Havanese dog"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Border Collie",
+            "Border Collie dog",
+            "Border Collies"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "English Springer Spaniel",
+            "Springer Spaniel",
+            "English Springer",
+            "Springer"
+          ]
+        },
+        {
           "rank": 28,
+          "texts": [
+            "Miniature American Shepherd",
+            "Mini American Shepherd",
+            "Mini American"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Shetland Sheepdog",
+            "Sheltie",
+            "Shetland Sheepdog dog"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Siberian Husky",
+            "Husky",
+            "Siberian Huskies",
+            "Huskies"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Brittany",
+            "Brittany Spaniel",
+            "Brittany dog"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Belgian Malinois",
+            "Malinois"
+          ]
+        },
+        {
+          "rank": 33,
+          "texts": [
+            "Pug",
+            "Pug dog",
+            "Pugs"
+          ]
+        },
+        {
+          "rank": 34,
+          "texts": [
+            "Dalmatian",
+            "Dalmatian dog",
+            "Dalmatians"
+          ]
+        },
+        {
+          "rank": 35,
+          "texts": [
+            "Cocker Spaniel",
+            "Cocker Spaniel dog",
+            "Cocker Spaniels",
+            "Cockers"
+          ]
+        },
+        {
+          "rank": 36,
+          "texts": [
+            "Maltese",
+            "Maltese dog",
+            "Maltese dogs",
+            "Malteses"
+          ]
+        },
+        {
+          "rank": 37,
+          "texts": [
+            "Shiba Inu",
+            "Shiba",
+            "Shiba Inus",
+            "Shibas"
+          ]
+        },
+        {
+          "rank": 38,
           "texts": [
             "Pit Bull",
             "Pitbull",
@@ -26374,7 +26432,7 @@
           ]
         },
         {
-          "rank": 29,
+          "rank": 39,
           "texts": [
             "Jack Russell Terrier",
             "Jack Russell",
@@ -26383,7 +26441,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 40,
           "texts": [
             "Basset Hound",
             "Basset",
@@ -26392,7 +26450,7 @@
           ]
         },
         {
-          "rank": 31,
+          "rank": 41,
           "texts": [
             "Akita",
             "Akita dog",
@@ -26400,7 +26458,7 @@
           ]
         },
         {
-          "rank": 32,
+          "rank": 42,
           "texts": [
             "Saint Bernard",
             "St Bernard",
@@ -26409,107 +26467,27 @@
           ]
         },
         {
-          "rank": 33,
+          "rank": 43,
           "texts": [
             "Goldendoodle",
             "Golden doodle"
           ]
         },
         {
-          "rank": 34,
+          "rank": 44,
           "texts": [
             "Labradoodle",
             "Lab doodle"
           ]
         },
         {
-          "rank": 35,
+          "rank": 45,
           "texts": [
             "Mixed breed",
             "Mutt",
             "Mixed breed dog",
             "Mongrel",
             "Heinz 57"
-          ]
-        },
-        {
-          "rank": 36,
-          "texts": [
-            "Cane Corso",
-            "Cane Corso dog",
-            "Italian Mastiff"
-          ]
-        },
-        {
-          "rank": 37,
-          "texts": [
-            "Cavalier King Charles Spaniel",
-            "Cavalier",
-            "King Charles Spaniel",
-            "Cavalier Spaniel"
-          ]
-        },
-        {
-          "rank": 38,
-          "texts": [
-            "Miniature Schnauzer",
-            "Mini Schnauzer",
-            "Miniature Schnauzer dog",
-            "Schnauzer"
-          ]
-        },
-        {
-          "rank": 39,
-          "texts": [
-            "Boston Terrier",
-            "Boston Terrier dog"
-          ]
-        },
-        {
-          "rank": 40,
-          "texts": [
-            "Havanese",
-            "Havanese dog"
-          ]
-        },
-        {
-          "rank": 41,
-          "texts": [
-            "English Springer Spaniel",
-            "Springer Spaniel",
-            "English Springer",
-            "Springer"
-          ]
-        },
-        {
-          "rank": 42,
-          "texts": [
-            "Miniature American Shepherd",
-            "Mini American Shepherd",
-            "Mini American"
-          ]
-        },
-        {
-          "rank": 43,
-          "texts": [
-            "Shetland Sheepdog",
-            "Sheltie",
-            "Shetland Sheepdog dog"
-          ]
-        },
-        {
-          "rank": 44,
-          "texts": [
-            "Brittany",
-            "Brittany Spaniel",
-            "Brittany dog"
-          ]
-        },
-        {
-          "rank": 45,
-          "texts": [
-            "Belgian Malinois",
-            "Malinois"
           ]
         },
         {
@@ -26609,7 +26587,6 @@
           "rank": 58,
           "texts": [
             "Wirehaired Pointing Griffon",
-            "Griffon",
             "Wirehaired Griffon"
           ]
         },
@@ -26929,8 +26906,8 @@
         }
       ],
       "unlisted": [],
-      "source": "American Kennel Club registration statistics, 2025 rankings (released March 2026): French Bulldog #1 for the 4th straight year, Labrador Retriever #2, Golden Retriever #3, German Shepherd #4, Dachshund #5, Poodle #6, Beagle #7, Rottweiler #8, German Shorthaired Pointer #9, Bulldog #10. 2024 top 5 identical except Poodle #5.",
-      "sourceUrl": "https://www.akc.org/expert-advice/news/most-popular-dog-breeds-2024/"
+      "source": "American Kennel Club registration statistics, 2025 rankings (released 18 Mar 2026, 202 breeds): French Bulldog #1 for the 4th straight year, Labrador Retriever #2, Golden Retriever #3, German Shepherd Dog #4, Dachshund #5, Poodle #6, Beagle #7, Rottweiler #8, German Shorthaired Pointer #9, Bulldog #10; 11. Cane Corso, 12. Cavalier King Charles Spaniel, 13. Yorkshire Terrier, 14. Australian Shepherd, 15. Doberman Pinscher, 16. Pembroke Welsh Corgi, 17. Miniature Schnauzer, 18. Boxer, 19. Pomeranian, 20. Bernese Mountain Dog, 21. Shih Tzu, 22. Great Dane, 23. Boston Terrier, 24. Chihuahua, 25. Havanese, 26. Border Collie, 27. English Springer Spaniel, 28. Miniature American Shepherd, 29. Shetland Sheepdog, 30. Siberian Husky, 31. Brittany, 32. Belgian Malinois. Ranks 1-32 reordered to this list; ranks 33+ keep their previous relative order (not re-sorted to AKC 33-96 in this pass).",
+      "sourceUrl": "https://www.akc.org/expert-advice/dog-breeds/most-popular-dog-breeds-2025/"
     },
     {
       "id": 180,

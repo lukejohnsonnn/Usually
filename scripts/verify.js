@@ -77,9 +77,54 @@ const MATCH_CASES = [
   [105, "pepperoni pizza", 1], [103, "make coffee", 5],
   [180, "light blue", 31], [176, "chocolate ice cream", 1],
   [179, "frenchie", 1], [106, "overslept", 2], [116, "manual", 1],
-  [110, "flying", 2], [110, "being able to fly", 2], [110, "fly", 2],
+  [110, "flying", 3], [110, "being able to fly", 3], [110, "fly", 3],
+  [110, "flight", 3], [110, "flew", 3], [110, "flown", 3],
   [110, "time travelling", 4], [110, "traveling in time", 4],
-  [110, "living forever", 10], [110, "never dying", 10],
+  [110, "living forever", 8], [110, "never dying", 8],
+  [110, "live forever", 8], [110, "never die", 8],
+  [110, "controlling wind", 39], [110, "control wind", 39],
+  [110, "manipulating time", 9], [110, "manipulate time", 9],
+  // Verb-form unification (2026-11-17): base/-ing/-ed/irregular/noun forms of
+  // the same verb match the same rank; distinct words are NOT merged —
+  // rose stays rose (not rise), dove stays dove (not dive), tired stays
+  // tired (not tire), bedding stays bedding (not bed).
+  [103, "meditating", 25], [103, "meditation", 25],
+  [103, "taking a shower", 7], [103, "took a shower", 7],
+  [103, "going for a walk", 31], [103, "went for a walk", 31],
+  [103, "doing yoga", 39], [103, "did yoga", 39],
+  [103, "making coffee", 5], [103, "having breakfast", 8], [103, "ate breakfast", 8],
+  [103, "exercising", 19],
+  [103, "stare at the ceiling", 60], [103, "staring at the ceiling", 60],
+  [106, "missed my bus", 35], [106, "miss my bus", 35], [106, "ran out of gas", 32],
+  [106, "my cat sat on me", 31], [106, "my cat sitting on me", 31],
+  [106, "lost my phone", 17], [106, "lose my phone", 17],
+  [106, "flat tire", 5], [106, "flat tyre", 5], [106, "tired", null],
+  [106, "taking kids to school", 9],
+  [129, "i fell asleep", 17], [129, "i forgot", 2],
+  [129, "i was gaming", 67], [129, "i was game", 67],
+  [129, "i lost it", 4], [129, "i lose it", 4],
+  [132, "dancing", 4], [132, "danced", 4], [132, "eating", 5], [132, "ate", 5],
+  [132, "crying", 11], [132, "cried", 11],
+  [132, "meditating", 21], [132, "meditation", 21],
+  [132, "applying lipstick", 18], [132, "apply lipstick", 18],
+  [132, "cursing at other drivers", 10], [132, "swear", 10],
+  [104, "reading glasses", 30], [104, "driving licence", 10],
+  [104, "shopping bag", 27], [104, "running shoes", 26], [104, "charging cable", 6],
+  [104, "flash drive", 66], [104, "usb drive", 66], [104, "flash driving", null],
+  [105, "grilled chicken", 5], [105, "grill chicken", 5], [105, "fried chicken", 5],
+  [125, "fresh bake bread", 1], [125, "fresh baking bread", 1], [125, "rose", 12],
+  [131, "key ring", 37], [131, "keyring", 37],
+  [120, "wash machine", 20], [120, "washing machine", 20], [120, "washer", 20],
+  [120, "sat nav", 14], [120, "cash machine", 19],
+  [124, "debate", 54], [124, "debating", 54],
+  [127, "vape", 39], [127, "vaping", 39],
+  [114, "piping bag", 53], [114, "icing bag", 53], [114, "ice bag", 53],
+  [115, "iced tea", 29], [115, "ice tea", 29],
+  [108, "being lost", 85], [108, "being lose", 85], [108, "getting lost", 85],
+  [108, "dove", null], [110, "dove", null], [110, "tired", null],
+  [111, "baby sitting", 2], [111, "baby sat", 2],
+  [119, "rose", 2], [119, "dove", 21], [119, "dive", null],
+  [118, "bedding", 8], [118, "bed", 2], [118, "bed sheets", 8],
   [111, "fast food", 1],
   [131, "keys", null], [131, "keychain", null],
   [177, "hot dog", null], [177, "dog", 1],
@@ -195,6 +240,44 @@ check("audit: 10-vote live-answer flip is gone (no setLiveAnswer anywhere)",
 check("audit: seed upserts bank.json and clears votes on answer change",
   fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("ON CONFLICT (id) DO UPDATE") &&
   fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("DELETE FROM votes WHERE question_id=$1"));
+// 2026-11-17 fix-everything pass: the reordered top 10s (researched sources) and
+// the sense-sweep merges are pinned here so a future bank edit can't silently
+// revert them. Q110 healing #1 (PixlParade 2026 + Morning Consult); Q179 2025
+// AKC; Q176 IDFA 2026 (pistachio out of the top 10, brownie/choc chip in);
+// Q178 Campbell's 2026 kept over YouGov (near-tie), pies removed as desserts;
+// Q177 APPA 2026 State of the Industry; Q108 US YouGov (Snakes #1);
+// Q109 MoneySuperMarket (Charger #3, Bronco #5, Cayenne #8).
+const topHeads = (id, n) => byId.get(id).textAnswers.slice(0, n).map((a) => a.texts[0]);
+check("reorder Q110: healing #1",
+  byId.get(110).top1 === "Healing others" &&
+  JSON.stringify(topHeads(110, 5)) === JSON.stringify(["Healing others", "Teleportation", "Flying", "Time travel", "Invisibility"]));
+check("reorder Q179: 2025 AKC order",
+  JSON.stringify(topHeads(179, 10)) === JSON.stringify(["French Bulldog", "Labrador Retriever", "Golden Retriever", "German Shepherd", "Dachshund", "Poodle", "Beagle", "Rottweiler", "German Shorthaired Pointer", "Bulldog"]));
+check("reorder Q176: brownie + choc chip in top 10, pistachio out",
+  topHeads(176, 10).includes("Brownie") && topHeads(176, 10).includes("Chocolate chip") &&
+  !topHeads(176, 10).includes("Pistachio") &&
+  byId.get(176).textAnswers.find((a) => a.texts[0] === "Pistachio")?.rank === 21);
+check("reorder Q178: stuffing #1, no pies in the sides list",
+  byId.get(178).top1 === "Stuffing" &&
+  !byId.get(178).textAnswers.some((a) => /\bpie\b/i.test(a.texts[0])) &&
+  byId.get(178).textAnswers.find((a) => a.texts[0] === "Scalloped potatoes")?.rank === 76);
+check("reorder Q177: reptile #4 ahead of small mammal and bird",
+  JSON.stringify(topHeads(177, 6)) === JSON.stringify(["Dog", "Cat", "Fish", "Reptile", "Small mammal", "Bird"]));
+check("reorder Q108: snakes #1, public speaking #3",
+  byId.get(108).top1 === "Snakes" && topHeads(108, 3)[2] === "Public speaking");
+check("reorder Q109: charger #3, bronco #5, cayenne #8",
+  JSON.stringify(topHeads(109, 8)) === JSON.stringify(["Ford Mustang", "Porsche 911", "Dodge Charger", "Tesla Model 3", "Ford Bronco", "Tesla Model Y", "BMW M3", "Porsche Cayenne"]));
+check("sense Q105: Canadian bacon is not a Bacon variant",
+  !byId.get(105).textAnswers.find((a) => a.rank === 7).texts.includes("Canadian bacon"));
+check("sense Q111: babysitting merged, busboy is its own rank",
+  byId.get(111).textAnswers.find((a) => a.texts[0] === "Busboy")?.rank === 80 &&
+  byId.get(111).textAnswers.find((a) => a.rank === 2).texts.includes("Babysitting for family"));
+check("sense Q107: no dead-batteries rank; Q106: no overslept-because-of-kids rank",
+  !byId.get(107).textAnswers.some((a) => a.texts[0] === "Batteries that don't work") &&
+  !byId.get(106).textAnswers.some((a) => a.texts[0] === "Overslept because of kids"));
+check("sense Q178: potato salad is just potato salad; hash-brown family at 29",
+  byId.get(178).textAnswers.find((a) => a.rank === 13).texts.length === 1 &&
+  byId.get(178).textAnswers.find((a) => a.rank === 29).texts.includes("Cheesy potatoes"));
 let ausInDaily = false;
 for (let d = 0; d < 365; d++) {
   for (const id of composeSet(bank.questions, `daily:${addDays(today, d)}`)) {
