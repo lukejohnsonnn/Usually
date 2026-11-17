@@ -32,7 +32,7 @@ function skeleton() {
 function sliderFill(el) {
   const min = +el.min, max = +el.max, v = +el.value;
   const pct = ((v - min) / (max - min)) * 100;
-  el.style.background = `linear-gradient(to right, #232c42 0%, #232c42 ${pct}%, #e7dcc4 ${pct}%, #e7dcc4 100%)`;
+  el.style.background = `linear-gradient(to right, var(--navy) 0%, var(--navy) ${pct}%, var(--line) ${pct}%, var(--line) 100%)`;
 }
 
 // ------------------------------------------------------------ grid rendering
