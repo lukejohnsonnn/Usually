@@ -15,7 +15,7 @@ export function loadBank() {
 }
 
 function emptyState() {
-  return { dailySets: {}, plays: {}, votes: {}, qstats: {}, overrides: {} };
+  return { dailySets: {}, plays: {}, votes: {}, qstats: {} };
 }
 
 // ---------------------------------------------------------------- file store
@@ -24,6 +24,8 @@ class FileStore {
     this.kind = "file";
     try { this.state = JSON.parse(fs.readFileSync(LOCAL_PATH, "utf8")); }
     catch { this.state = emptyState(); }
+    // Drop any pre-audit live-answer overrides: researched answers are authoritative.
+    if (this.state.overrides) { delete this.state.overrides; this.save(); }
     this.saveTimer = null;
   }
   save() {
@@ -41,8 +43,6 @@ class FileStore {
   async init() { /* nothing to create */ }
   async seedBank(bank) { this.bank = bank; return { inserted: 0, note: "file store reads bank.json directly" }; }
   async getBank() { return this.bank.questions; }
-  async getLiveAnswer(id) { return this.state.overrides[id] ?? null; }
-  async setLiveAnswer(id, answer) { this.state.overrides[id] = answer; this.save(); }
   async getDailySet(date) { return this.state.dailySets[date] || null; }
   async saveDailySet(date, ids) { this.state.dailySets[date] = ids; this.save(); return ids; }
   async getDailyPlay(playerId, date) {
@@ -102,19 +102,47 @@ class PgStore {
       question_id INT PRIMARY KEY, yes INT NOT NULL DEFAULT 0, no INT NOT NULL DEFAULT 0,
       left_votes INT NOT NULL DEFAULT 0, right_votes INT NOT NULL DEFAULT 0, total INT NOT NULL DEFAULT 0)`);
   }
+  // bank.json is authoritative: upsert every question, and when a stored answer
+  // changes, clear that question's votes + stats (old votes judged the old answer).
+  // Questions dropped from bank.json are deleted with their votes/stats; frozen
+  // daily sets only store ids and are never rewritten here.
   async seedBank(bank) {
-    let inserted = 0;
+    let inserted = 0, updated = 0, votesCleared = 0;
+    const ids = bank.questions.map((q) => q.id);
     for (const q of bank.questions) {
+      const cur = await this.pool.query(`SELECT answer FROM questions WHERE id=$1`, [q.id]);
+      const oldAnswer = cur.rows[0] ? cur.rows[0].answer : null;
+      const changed = cur.rows[0] && (oldAnswer == null
+        ? q.answer != null
+        : q.answer == null || Number(oldAnswer) !== Number(q.answer));
+      if (changed) {
+        await this.pool.query(`DELETE FROM votes WHERE question_id=$1`, [q.id]);
+        await this.pool.query(`DELETE FROM question_stats WHERE question_id=$1`, [q.id]);
+        votesCleared++;
+      }
       const r = await this.pool.query(
         `INSERT INTO questions(id,kind,category,text,answer,note,left_label,right_label,finale,votable,vote_prompt,text_answers,unlisted)
-         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) ON CONFLICT (id) DO NOTHING`,
+         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+         ON CONFLICT (id) DO UPDATE SET kind=EXCLUDED.kind, category=EXCLUDED.category,
+           text=EXCLUDED.text, answer=EXCLUDED.answer, note=EXCLUDED.note,
+           left_label=EXCLUDED.left_label, right_label=EXCLUDED.right_label,
+           finale=EXCLUDED.finale, votable=EXCLUDED.votable, vote_prompt=EXCLUDED.vote_prompt,
+           text_answers=EXCLUDED.text_answers, unlisted=EXCLUDED.unlisted`,
         [q.id, q.kind, q.category, q.text, q.answer, q.note, q.leftLabel || null, q.rightLabel || null,
          q.finale, q.votable, q.votePrompt || null,
          q.textAnswers ? JSON.stringify(q.textAnswers) : null,
          q.unlisted ? JSON.stringify(q.unlisted) : null]);
-      inserted += r.rowCount;
+      if (r.rowCount) { if (cur.rows[0]) updated++; else inserted++; }
     }
-    return { inserted };
+    const existing = await this.pool.query(`SELECT id FROM questions`);
+    const keep = new Set(ids);
+    const staleIds = existing.rows.map((r) => r.id).filter((id) => !keep.has(id));
+    for (const id of staleIds) {
+      await this.pool.query(`DELETE FROM votes WHERE question_id=$1`, [id]);
+      await this.pool.query(`DELETE FROM question_stats WHERE question_id=$1`, [id]);
+      await this.pool.query(`DELETE FROM questions WHERE id=$1`, [id]);
+    }
+    return { inserted, updated, votesCleared, staleRemoved: staleIds.length };
   }
   async getBank() {
     const r = await this.pool.query(`SELECT * FROM questions ORDER BY id`);
@@ -125,13 +153,6 @@ class PgStore {
       votable: row.votable, votePrompt: row.vote_prompt,
       textAnswers: row.text_answers || undefined, unlisted: row.unlisted || undefined,
     }));
-  }
-  async getLiveAnswer(id) {
-    const r = await this.pool.query(`SELECT answer FROM questions WHERE id=$1`, [id]);
-    return r.rows[0] ? Number(r.rows[0].answer) : null;
-  }
-  async setLiveAnswer(id, answer) {
-    await this.pool.query(`UPDATE questions SET answer=$2 WHERE id=$1`, [id, answer]);
   }
   async getDailySet(date) {
     const r = await this.pool.query(`SELECT question_ids FROM daily_sets WHERE date=$1`, [date]);

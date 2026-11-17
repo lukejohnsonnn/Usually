@@ -53,8 +53,8 @@ check("exact match pepperoni rank 1", matchTextAnswer(q105, "Pepperoni").rank ==
 check("case-insensitive", matchTextAnswer(q105, "PEPPERONI").rank === 1);
 check("typo forgiven (peperoni)", matchTextAnswer(q105, "peperoni").rank === 1);
 check("plural forgiven", matchTextAnswer(byId.get(127), "phones").rank === 1);
-check("unlisted stays unlisted", matchTextAnswer(byId.get(106), "sick").rank === null);
-check("alias: my car broke down = rank 3", matchTextAnswer(byId.get(106), "my car broke down").rank === 3);
+check("unlisted stays unlisted", matchTextAnswer(byId.get(106), "my horoscope told me not to go").rank === null);
+check("alias: my car broke down = rank 5", matchTextAnswer(byId.get(106), "my car broke down").rank === 5);
 check("normalize strips articles", normalizeText("A phone screen") === "phone screen");
 
 console.log("== unit: daily composition / freeze ==");
@@ -74,16 +74,42 @@ check("vote prompt for split", deriveVotePrompt(byId.get(44)) === "Pick your sid
 
 console.log("== unit: 2026-11-16 sync fixes ==");
 check("Australia finale retired from bank", !bank.questions.some((q) => /australian/i.test(q.text)));
-check("half-court reads 'within 5 tries', answer 28",
-  byId.get(142)?.text === "What % of people think they could sink a half-court shot within 5 tries?" && byId.get(142)?.answer === 28);
-check("half-court vote prompt updated",
-  byId.get(142)?.votePrompt === "Could you sink a half-court shot within 5 tries?");
-check("bank is 119 questions (60 guess, 19 split, 10 finale, 30 text)",
-  bank.questions.length === 119 &&
-  bank.questions.filter((q) => q.kind === "guess" && !q.finale).length === 60 &&
-  bank.questions.filter((q) => q.kind === "split").length === 19 &&
+check("half-court reframed to NBA fans, answer 41 (2026-11-16 audit)",
+  byId.get(142)?.text === "What % of NBA fans think they could sink a half-court shot?" && byId.get(142)?.answer === 41);
+check("half-court vote prompt matches reframed text",
+  byId.get(142)?.votePrompt === "Could you sink a half-court shot?");
+check("bank is 142 questions (72 guess, 25 split, 10 finale, 35 text) after 2026-11-16 audit",
+  bank.questions.length === 142 &&
+  bank.questions.filter((q) => q.kind === "guess" && !q.finale).length === 72 &&
+  bank.questions.filter((q) => q.kind === "split").length === 25 &&
   bank.questions.filter((q) => q.finale).length === 10 &&
-  bank.questions.filter((q) => q.kind === "text").length === 30);
+  bank.questions.filter((q) => q.kind === "text").length === 35);
+// 2026-11-16 research audit — researched answers are authoritative, never voted:
+check("audit: every guess/split answer is representable (0.01–100)",
+  bank.questions.filter((q) => q.kind !== "text").every((q) => q.answer != null && q.answer >= 0.01 && q.answer <= 100));
+check("audit: every question has a cited source",
+  bank.questions.every((q) => typeof q.source === "string" && q.source.length > 10));
+check("audit: meta counts match the bank",
+  bank.meta.counts.total === bank.questions.length &&
+  bank.meta.counts.guess === bank.questions.filter((q) => q.kind === "guess" && !q.finale).length &&
+  bank.meta.counts.split === bank.questions.filter((q) => q.kind === "split").length &&
+  bank.meta.counts.finale === bank.questions.filter((q) => q.finale).length &&
+  bank.meta.counts.text === bank.questions.filter((q) => q.kind === "text").length &&
+  bank.meta.counts.votable === bank.questions.filter((q) => q.votable).length);
+check("audit: every text list is 32 contiguous ranks with top1 at rank 1",
+  bank.questions.filter((q) => q.kind === "text").every((q) => {
+    const ranks = (q.textAnswers || []).map((a) => a.rank);
+    return ranks.length === 32 && ranks.every((r, i) => r === i + 1) &&
+      q.top1 === (q.textAnswers.find((a) => a.rank === 1)?.texts || [])[0] &&
+      q.textAnswers.every((a) => a.texts && a.texts.length > 0);
+  }));
+check("audit: 10-vote live-answer flip is gone (no setLiveAnswer anywhere)",
+  !fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8").includes("setLiveAnswer") &&
+  !fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("setLiveAnswer") &&
+  !fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("getLiveAnswer"));
+check("audit: seed upserts bank.json and clears votes on answer change",
+  fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("ON CONFLICT (id) DO UPDATE") &&
+  fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("DELETE FROM votes WHERE question_id=$1"));
 let ausInDaily = false;
 for (let d = 0; d < 365; d++) {
   for (const id of composeSet(bank.questions, `daily:${addDays(today, d)}`)) {
@@ -300,7 +326,7 @@ check("server boots and /health is ok", healthOk);
 if (!healthOk) { child.kill(); process.exit(1); }
 
 const h = await api("/health");
-check("health reports bankQuestions 119", h.body.bankQuestions === 119, JSON.stringify(h.body));
+check("health reports bankQuestions 142", h.body.bankQuestions === 142, JSON.stringify(h.body));
 
 const t1 = await api("/api/today");
 const t2 = await api("/api/today");
@@ -502,6 +528,23 @@ check("real DOM: entry grid has 100 children, right classes, on every Guess/Spli
 check("real DOM: reveal grid has 100 children after every submit", domRevealOk);
 check("real DOM: no JS errors during the full Endless play", jsdomErrors.length === 0, jsdomErrors.join(" | "));
 dom.window.close();
+
+// ------------------------------------------------- integration: seed upsert (pg-mem)
+// The seed must upsert bank.json over an existing Postgres DB (the live Render
+// path): answers update, votes for changed answers clear, votes for unchanged
+// answers survive, removed questions + their votes/stats are deleted.
+console.log("== integration: seed upsert (pg-mem) ==");
+const seedTest = await new Promise((resolve) => {
+  const p = spawn("node", ["--loader", "./scripts/pg-mem-loader.mjs", "scripts/test-seed-upsert.mjs"], {
+    cwd: path.resolve(__dirname, ".."), stdio: "pipe",
+  });
+  let out = "";
+  p.stdout.on("data", (d) => { out += d; });
+  p.stderr.on("data", (d) => { out += d; });
+  p.on("close", (code) => resolve({ code, out }));
+});
+check("seed upsert: old answers update, changed votes clear, unchanged kept, removed deleted (pg-mem)",
+  seedTest.code === 0, seedTest.out.split("\n").filter((l) => l.startsWith("FAIL")).join(" | "));
 
 child.kill();
 try { fs.unlinkSync(TMP); } catch {}

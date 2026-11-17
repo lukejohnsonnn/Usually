@@ -1,0 +1,4788 @@
+{
+  "group": "text-a",
+  "results": [
+    {
+      "id": 103,
+      "verdict": "keep",
+      "top1": "Check their phone",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Check their phone",
+            "Check phone",
+            "Look at my phone",
+            "Grab my phone"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Snooze the alarm",
+            "Hit snooze",
+            "Snooze",
+            "Hit the snooze button"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Go to the bathroom",
+            "Use the bathroom",
+            "Pee",
+            "Go pee",
+            "Use the toilet"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Brush their teeth",
+            "Brush teeth",
+            "Brush my teeth"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Make coffee",
+            "Brew coffee",
+            "Make a coffee",
+            "Get coffee"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Check the time",
+            "Look at the clock",
+            "Check what time it is"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Take a shower",
+            "Shower",
+            "Get in the shower"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Eat breakfast",
+            "Have breakfast",
+            "Eat"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Get dressed",
+            "Get out of bed",
+            "Get up"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Stretch",
+            "Stretching",
+            "Stretch out"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Check social media",
+            "Scroll social media",
+            "Check Instagram",
+            "Check Facebook"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Check email",
+            "Check emails",
+            "Read email"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Check the news",
+            "Read the news",
+            "Check headlines"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Check the weather",
+            "Look at the weather",
+            "Check weather app"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Feed the pet",
+            "Feed the dog",
+            "Feed the cat"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Make the bed",
+            "Make my bed"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Drink water",
+            "Get a glass of water",
+            "Drink some water"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Turn off the alarm",
+            "Turn the alarm off",
+            "Silence the alarm"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Exercise",
+            "Go for a run",
+            "Work out",
+            "Go to the gym"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Check messages",
+            "Check texts",
+            "Read my texts"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Wash their face",
+            "Wash face",
+            "Splash water on my face"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Put on glasses",
+            "Put my glasses on",
+            "Put in contacts",
+            "Put my contacts in"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Open the curtains",
+            "Open the blinds",
+            "Let the light in"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Pray",
+            "Say a prayer"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Meditate",
+            "Meditate for a bit"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Check the calendar",
+            "Check my schedule",
+            "Look at today's plans"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Scroll TikTok",
+            "Watch TikTok",
+            "Scroll through TikTok"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Get the kids up",
+            "Wake the kids",
+            "Get kids ready"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Let the dog out",
+            "Walk the dog",
+            "Take the dog out"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Make tea",
+            "Brew tea",
+            "Make a cup of tea"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Go for a walk",
+            "Go running",
+            "Take a walk"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Check the mirror",
+            "Look in the mirror"
+          ]
+        }
+      ],
+      "unlisted": [
+        "open my eyes",
+        "yawn"
+      ],
+      "source": "PrepScholar Family Feud questions: 'What's something you do when you wake up in the morning?' — Check your phone 27, Hit snooze 20, Go to the bathroom 15, Eat breakfast 12, Get dressed 11 (survey format, n=100 per question). Corroborated by the game's own guess bank id 3 (84% check phone within 5 minutes of waking).",
+      "sourceUrl": "https://blog.prepscholar.com/family-feud-questions-and-answers-game",
+      "reason": "Top 1 confirmed. Thin list (ranks 1,2,6,7 only) expanded to 32; 'make coffee' promoted from unlisted to rank 5 per PrepScholar. Tail ranks are ordinary morning routines."
+    },
+    {
+      "id": 104,
+      "verdict": "correct",
+      "top1": "Phone",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Phone",
+            "Cell phone",
+            "My phone",
+            "Cellphone",
+            "Mobile phone"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Keys",
+            "House keys",
+            "Car keys",
+            "My keys"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Wallet",
+            "Purse",
+            "My wallet"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Lunch",
+            "My lunch",
+            "Lunchbox",
+            "Packed lunch"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Sunglasses",
+            "My sunglasses",
+            "Shades"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Charger",
+            "Phone charger",
+            "My charger"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Water bottle",
+            "My water bottle",
+            "Water"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Umbrella",
+            "My umbrella"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Jacket",
+            "My coat",
+            "A jacket",
+            "Coat"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "ID",
+            "Driver's license",
+            "My ID",
+            "License",
+            "Wallet card"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Coffee",
+            "My coffee",
+            "Coffee cup",
+            "Travel mug"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Backpack",
+            "My bag",
+            "School bag",
+            "Work bag"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Laptop",
+            "My laptop",
+            "Computer"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Headphones",
+            "Earbuds",
+            "My headphones",
+            "AirPods"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Homework",
+            "My homework",
+            "School books"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Gym bag",
+            "Gym clothes",
+            "Workout bag"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Hat",
+            "My hat",
+            "Cap"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Gloves",
+            "My gloves"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Medication",
+            "My medicine",
+            "My pills"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Book",
+            "My book",
+            "Textbook"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Snacks",
+            "A snack",
+            "Food"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Their lunch money",
+            "Lunch money",
+            "Money"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "A pen",
+            "Pen",
+            "Pens"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Their badge",
+            "Work badge",
+            "ID badge",
+            "Key card"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "A mask",
+            "Face mask"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Their gym shoes",
+            "Gym shoes",
+            "Sneakers"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "A reusable bag",
+            "Shopping bag",
+            "Tote bag"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Their watch",
+            "Watch"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "A notebook",
+            "Notebook",
+            "Notepad"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Their glasses",
+            "Glasses",
+            "Reading glasses"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "A reusable coffee cup",
+            "Keep cup",
+            "Thermos"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Their keys to the office",
+            "Office keys"
+          ]
+        }
+      ],
+      "unlisted": [
+        "their car",
+        "themselves"
+      ],
+      "source": "Shane Co. survey of 2,000+ people across 44 states (2023): phones were the most commonly misplaced item in almost every state; keys (41%) and wallets (40%) close behind. GoCountry 105 community poll (Feb 2026), 'What item is most forgotten when leaving the house?': cell phone confirmed by the page admin as the #1 answer, ahead of wallets, sunglasses, keys.",
+      "sourceUrl": "https://chipolo.net/en-us/blogs/lost-and-missing-items-what-we-lose-the-most-and-where-we-lose-it",
+      "reason": "Top 1 CORRECTED Keys -> Phone. No dedicated 'forgot at home' survey exists; the closest real data (misplaced-item surveys + a direct forget-when-leaving poll) both put phone first, keys second. Keys/wallet/sunglasses order preserved below phone."
+    },
+    {
+      "id": 105,
+      "verdict": "keep",
+      "top1": "Pepperoni",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Pepperoni",
+            "Pepperoni pizza"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Sausage",
+            "Italian sausage",
+            "Pork sausage"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Extra cheese",
+            "Cheese",
+            "More cheese",
+            "Double cheese"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Mushroom",
+            "Mushrooms"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Chicken",
+            "Grilled chicken",
+            "BBQ chicken"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Pineapple",
+            "Ham and pineapple",
+            "Hawaiian"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Bacon",
+            "Canadian bacon"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Peppers",
+            "Bell peppers",
+            "Green peppers",
+            "Red peppers"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Meatballs",
+            "Meatball"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Onions",
+            "Red onion",
+            "Sweet onion"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Salami",
+            "Pepperoni and salami"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Olives",
+            "Black olives",
+            "Green olives"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Fresh tomato",
+            "Tomatoes",
+            "Tomato slices"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Ham",
+            "Canadian ham"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Fresh garlic",
+            "Garlic"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Fresh basil",
+            "Basil"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Jalapeños",
+            "Jalapenos",
+            "Hot peppers"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Anchovies",
+            "Anchovy"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Spinach",
+            "Fresh spinach"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Artichokes",
+            "Artichoke hearts"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Eggplant",
+            "Aubergine"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Broccoli",
+            "Broccoli florets"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Corn",
+            "Sweetcorn",
+            "Sweet corn"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Beef",
+            "Ground beef",
+            "Hamburger"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Steak",
+            "Philly steak",
+            "Steak slices"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Shrimp",
+            "Prawns"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Feta cheese",
+            "Feta"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Goat cheese",
+            "Goat's cheese"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Ricotta",
+            "Ricotta cheese"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Pesto",
+            "Pesto sauce"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "BBQ sauce",
+            "Barbecue sauce"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Ranch",
+            "Ranch dressing"
+          ]
+        }
+      ],
+      "unlisted": [
+        "ketchup",
+        "mustard"
+      ],
+      "source": "YouGov US survey of 1,000 adults, Apr 2023 (reported The Focus, 9 Feb 2024): favourite topping Pepperoni 24%, Sausage 13%, Extra cheese 11%, Mushrooms 9%, Chicken 6%, Pineapple 4%, Bacon 4%, Peppers 4%, Meatballs 3%, then Onions/Salami/Olives/Fresh tomato/Ham/Fresh garlic/Fresh basil/Jalapeños at 2% each; anchovies least favourite (29% say no).",
+      "sourceUrl": "https://www.thefocus.news/lifestyle/survey-reveals-most-popular-pizza-toppings-in-america-and-pineapple-is-surprisingly-high/",
+      "reason": "Top 1 confirmed, but rank order CORRECTED within the keep: current bank had Cheese #2 and Mushroom #3; YouGov puts Sausage #2 (13%), Extra cheese #3 (11%), Mushroom #4 (9%). Tail ranks 18-32 are the sub-2% 'Other' toppings named in the YouGov write-up (anchovies, artichokes, spinach, eggplant, broccoli) plus other standard menu toppings."
+    },
+    {
+      "id": 106,
+      "verdict": "keep",
+      "top1": "Traffic",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Traffic",
+            "Bad traffic",
+            "Traffic jam",
+            "Stuck in traffic"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Overslept",
+            "Oversleeping",
+            "Slept in",
+            "Slept through my alarm"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Alarm didn't go off",
+            "My alarm didn't go off",
+            "Alarm never went off",
+            "Alarm clock didn't ring"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Bad weather",
+            "Weather",
+            "Rain",
+            "Snow",
+            "Bad weather conditions"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Car trouble",
+            "My car broke down",
+            "Car broke down",
+            "Car wouldn't start",
+            "Flat tire"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Too tired to get up",
+            "Too tired",
+            "Couldn't get out of bed",
+            "Didn't sleep well"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Forgot something",
+            "Forgot something at home",
+            "Had to go back home",
+            "Left something at home"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Public transportation delays",
+            "Bus was late",
+            "Train was late",
+            "Subway delay"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Dropping kids off",
+            "Taking kids to school",
+            "Kids were slow",
+            "Getting the kids ready"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Procrastination",
+            "Lost track of time",
+            "Was running behind",
+            "Got distracted"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Sick",
+            "Feeling sick",
+            "Wasn't feeling well",
+            "Felt ill"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Family emergency",
+            "Emergency at home",
+            "Something came up at home"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Doctor's appointment",
+            "Had a doctor appointment",
+            "Dentist appointment"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Road construction",
+            "Road work",
+            "Construction",
+            "Detour"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Accident on the road",
+            "There was an accident",
+            "Car accident"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Pet emergency",
+            "My dog was sick",
+            "Pet got out"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Phone died",
+            "My phone died",
+            "Lost my phone"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Couldn't find my keys",
+            "Lost my keys",
+            "Couldn't find keys"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Overslept because of kids",
+            "Kids changed the clocks",
+            "Kids woke me up"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Power outage",
+            "No power",
+            "Electricity went out"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Stuck in an elevator",
+            "Elevator broke"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Slept through the alarm",
+            "Didn't hear the alarm"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Carpool was late",
+            "My ride was late",
+            "Ride didn't show up"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Parking problems",
+            "Couldn't find parking"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Running late from the gym",
+            "Gym ran over"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Had to help a neighbor",
+            "Helped someone"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Traffic light was out",
+            "Broken traffic light"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Bridge was up",
+            "Drawbridge"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Train crossing",
+            "Stuck at a train crossing"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Forgot it was Monday",
+            "Thought it was the weekend"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Spilled coffee on my clothes",
+            "Had to change clothes"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "My cat sat on me",
+            "The dog wouldn't let me leave"
+          ]
+        }
+      ],
+      "unlisted": [
+        "my horoscope told me not to go",
+        "a zebra was running down the highway"
+      ],
+      "source": "CareerBuilder/Harris Poll survey (2014-2016 waves, 3,008 workers + 2,201 hiring managers): Traffic 39-51% #1, Oversleeping/lack of sleep 19-31% #2, Bad weather 7-28% #3, Too tired 23-25%, Forgetting something 13%, Public transport 8%, Dropping kids off 6-10%. Top-3 order stable across every wave.",
+      "sourceUrl": "https://www.liveabout.com/best-and-worst-excuses-for-being-late-to-work-2059789",
+      "reason": "Top 1 confirmed. Current thin list (Traffic, Overslept, Car trouble) expanded to 32 using CareerBuilder's ranked reasons for ranks 1-10; tail is the survey's own memorable/real excuses plus other common ones. 'Sick' moved from unlisted to rank 11 — it is a real reason in the data, just not top 5."
+    },
+    {
+      "id": 107,
+      "verdict": "correct",
+      "top1": "Tape",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Tape",
+            "Scotch tape",
+            "Duct tape",
+            "Packing tape",
+            "Electrical tape"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Pens",
+            "Pen",
+            "Ballpoint pens",
+            "Ink pens"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Batteries",
+            "Spare batteries",
+            "AA batteries",
+            "Dead batteries"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Scissors",
+            "A pair of scissors"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Flashlight",
+            "Torch",
+            "A flashlight"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Glue",
+            "Super glue",
+            "Glue stick",
+            "Wood glue"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Paper clips",
+            "Paperclips",
+            "Binder clips"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Matches",
+            "Matchbooks",
+            "A box of matches"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Rubber bands",
+            "Elastic bands",
+            "Rubber band"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Keys",
+            "Spare keys",
+            "Old keys",
+            "Keys I don't recognize",
+            "Mystery keys"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Screws",
+            "Nails",
+            "Screws and nails",
+            "Hardware"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Screwdriver",
+            "Screwdrivers",
+            "A screwdriver"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Chargers",
+            "Phone chargers",
+            "Old chargers",
+            "Charging cables"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Coins",
+            "Loose change",
+            "Spare change",
+            "Foreign coins"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Takeout menus",
+            "Restaurant menus",
+            "Takeaway menus"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Coupons",
+            "Expired coupons",
+            "Vouchers"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Twist ties",
+            "Bread ties",
+            "Zip ties",
+            "Cable ties"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Birthday candles",
+            "Candles"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Stamps",
+            "Postage stamps",
+            "Envelopes"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Batteries that don't work",
+            "Dead AA batteries"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "A tape measure",
+            "Tape measure",
+            "Measuring tape"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Chapstick",
+            "Lip balm"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "A lighter",
+            "Lighters"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Safety pins",
+            "Pins",
+            "Needles and thread"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "A deck of cards",
+            "Playing cards"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Sticky notes",
+            "Post-it notes",
+            "Notepads"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "A notepad",
+            "Scratch paper",
+            "Old receipts"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Magnets",
+            "Fridge magnets"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "A pocket knife",
+            "A multitool",
+            "A knife"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Buttons",
+            "Spare buttons",
+            "Sewing kit"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "A keychain",
+            "Keyrings",
+            "Lanyards"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "A random remote",
+            "Old remote",
+            "TV remote"
+          ]
+        }
+      ],
+      "unlisted": [
+        "a blood pressure monitor",
+        "an umbilical cord"
+      ],
+      "source": "Joybird survey of 1,900 Americans (2020): top-10 junk-drawer items in order — Tape 55.4%, Pens 54.8%, Spare batteries 53.1%, Scissors 50.7%, Flashlights 44.6%, Glue 43.6%, Paper clips 38.8%, Matches 37.0%, Rubber bands 36.0%, Keys 33.1%. Divert.co.uk poll of 1,800 (2023) also lists batteries first in the UK, confirming batteries is a top-3 answer either way.",
+      "sourceUrl": "https://www.taylorintime.com/do-you-really-need-a-junk-drawer/",
+      "reason": "Top 1 CORRECTED Batteries -> Tape. Joybird (n=1,900) is the largest published junk-drawer survey and puts tape first by a nose (55.4% vs batteries 53.1%); batteries stays rank 3. Ranks 1-10 follow Joybird exactly; tail is the standard junk-drawer inventory from the same sources."
+    },
+    {
+      "id": 108,
+      "verdict": "correct",
+      "top1": "Snakes",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Snakes",
+            "A snake",
+            "Snake"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Heights",
+            "Falling from heights",
+            "Being up high",
+            "Acrophobia"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Spiders",
+            "A spider",
+            "Spiders and insects",
+            "Arachnophobia"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Public speaking",
+            "Speaking in front of people",
+            "Talking in public",
+            "Glossophobia"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Flying",
+            "Flying in a plane",
+            "Being on a plane",
+            "Aerophobia"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "The dark",
+            "Darkness",
+            "Being in the dark"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Dying",
+            "Death",
+            "Dying or death"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Dogs",
+            "A dog",
+            "Being bitten by a dog"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Needles",
+            "Getting a shot",
+            "Injections",
+            "Trypanophobia"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Clowns",
+            "A clown"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Small spaces",
+            "Being trapped",
+            "Claustrophobia",
+            "Enclosed spaces"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Water",
+            "Drowning",
+            "Deep water",
+            "Swimming"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Failure",
+            "Failing",
+            "Failing at something"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Being alone",
+            "Loneliness",
+            "Being by myself"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Thunder and lightning",
+            "Thunderstorms",
+            "Lightning"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Ghosts",
+            "The supernatural",
+            "Haunted houses"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Sharks",
+            "A shark",
+            "Shark attack"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Blood",
+            "Seeing blood",
+            "Blood tests"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Germs",
+            "Getting sick",
+            "Illness",
+            "Disease"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Insects",
+            "Bees",
+            "Wasps",
+            "Bugs"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Rats",
+            "Mice",
+            "Rodents"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Being judged",
+            "Embarrassment",
+            "Humiliation"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Losing a loved one",
+            "Someone I love dying"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "The unknown",
+            "The future",
+            "What happens next"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Fire",
+            "Burning",
+            "A house fire"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Being buried alive",
+            "Being trapped underground"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Vomiting",
+            "Throwing up",
+            "Being sick in public"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Dentists",
+            "Going to the dentist",
+            "Dental work"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Heights in a car",
+            "Driving over bridges",
+            "High bridges"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Creepy crawlies",
+            "Cockroaches",
+            "Ants"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Monsters",
+            "Monsters under the bed"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Rejection",
+            "Being rejected"
+          ]
+        }
+      ],
+      "unlisted": [
+        "corrupt government officials",
+        "running out of money",
+        "identity theft"
+      ],
+      "source": "YouGov US poll (2014, 1,000 adults): snakes 64% at least a little afraid, heights 57%, spiders next; Gallup (2001, 1,016 adults): snakes 51% #1, heights 36%, public speaking 40% #2. Chapman Survey of American Fears Wave 9 (2023) confirms heights 33.2% 'afraid/very afraid' vs public speaking 28.7% and insects/spiders 25.3% among personal fears — but Chapman’s overall #1s are societal fears (corrupt government), so this prompt is framed as phobias, where snakes lead.",
+      "sourceUrl": "https://www.chapman.edu/wilkinson/research-centers/babbie-center/_files/2023%20Fear/23csaf-9_high-to-low.pdf",
+      "reason": "Top 1 CORRECTED Heights -> Snakes. In every phobia-only poll (Gallup 1998/2001, YouGov 2014/2022) snakes rank #1 and heights #2-3; heights was only #1 if the list is restricted to Chapman’s personal-fear subset and snakes are excluded. Societal fears (corrupt government, loved ones dying) are excluded as unlisted — they would dominate a literal 'most common fear' list and are not what players mean by 'fear'."
+    },
+    {
+      "id": 109,
+      "verdict": "correct",
+      "top1": "Ford Mustang",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Ford Mustang",
+            "Mustang",
+            "A Mustang"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Porsche 911",
+            "A 911",
+            "Porsche"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Tesla Model 3",
+            "Tesla",
+            "A Tesla"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Dodge Charger",
+            "Charger"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "BMW M3",
+            "BMW",
+            "A BMW"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Tesla Model Y",
+            "Model Y"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Lamborghini",
+            "A Lamborghini",
+            "Lambo"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Ferrari",
+            "A Ferrari"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Chevrolet Corvette",
+            "Corvette",
+            "A Corvette"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Audi R8",
+            "Audi"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Mercedes-Benz",
+            "Mercedes",
+            "A Mercedes"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Range Rover",
+            "Land Rover",
+            "A Range Rover"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Ford F-150",
+            "A pickup truck",
+            "A truck"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Jeep Wrangler",
+            "Jeep"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Toyota Supra",
+            "Toyota",
+            "A Supra"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Nissan GT-R",
+            "GT-R",
+            "GTR",
+            "Nissan"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "McLaren",
+            "A McLaren"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Bugatti",
+            "A Bugatti",
+            "Bugatti Chiron"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Rolls-Royce",
+            "A Rolls-Royce",
+            "Rolls Royce"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Bentley",
+            "A Bentley"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Aston Martin",
+            "An Aston Martin"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Maserati",
+            "A Maserati"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Cadillac Escalade",
+            "Cadillac",
+            "Escalade"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Tesla Model S",
+            "Model S"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Lamborghini Urus",
+            "Urus"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Chevrolet Camaro",
+            "Camaro"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Dodge Challenger",
+            "Challenger"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Ford GT",
+            "GT40"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Koenigsegg",
+            "A Koenigsegg"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Pagani",
+            "A Pagani"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Lexus",
+            "A Lexus"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Jaguar",
+            "A Jaguar"
+          ]
+        }
+      ],
+      "unlisted": [
+        "a DeLorean",
+        "a Batmobile"
+      ],
+      "source": "MoneySuperMarket global dream-car study (Dec 2025 data, 4,000-driver survey + 5-year Google search volume): Ford Mustang #1 worldwide with 116,686,707 searches; Porsche 911 #2, Dodge Charger #3, Tesla Model 3 #4, BMW M3 #5, Tesla Model Y #6. Tinting Chicago US survey (2,000+ Americans, 2024): Ford #1 overall dream-car brand, Toyota #2, Tesla #3. Family Feud board (2024, 'car men want but can't afford'): Lamborghini 25, Ferrari 14, Corvette 13, Porsche 10 — consistent tail, not top.",
+      "sourceUrl": "https://www.moneysupermarket.com/car-insurance/news/world-dream-cars/",
+      "reason": "Top 1 CORRECTED Tesla -> Ford Mustang. Tesla is the most-Googled car BRAND to buy (Auto Trader), but the prompt asks for a car, and by model the Mustang leads globally by search volume and Ford leads the US dream-car survey. Tesla Model 3 kept at rank 3 and Model Y at rank 6 per the same study. Ranks 1-6 follow MoneySuperMarket exactly."
+    },
+    {
+      "id": 110,
+      "verdict": "correct",
+      "top1": "Invisibility",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Invisibility",
+            "Being invisible",
+            "Turning invisible"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Flying",
+            "Flight",
+            "Being able to fly",
+            "Fly"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Teleportation",
+            "Teleporting",
+            "Teleport"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Time travel",
+            "Traveling in time",
+            "Going back in time",
+            "Time travelling"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Healing",
+            "Healing powers",
+            "Healing other people",
+            "Healing yourself"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Mind reading",
+            "Reading minds",
+            "Telepathy",
+            "Reading people's minds"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Super strength",
+            "Being super strong",
+            "Strength"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Seeing the future",
+            "Predicting the future",
+            "Seeing what's coming",
+            "Precognition"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Super speed",
+            "Running super fast",
+            "Being super fast"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Immortality",
+            "Living forever",
+            "Never dying",
+            "Not aging"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Telekinesis",
+            "Moving things with my mind",
+            "Moving objects with your mind"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Shapeshifting",
+            "Changing shape",
+            "Turning into animals",
+            "Shapeshifting into anything"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "X-ray vision",
+            "Seeing through walls",
+            "X-ray eyes"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Super intelligence",
+            "Being super smart",
+            "Superhuman intelligence"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Mind control",
+            "Controlling minds",
+            "Controlling people"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Freezing time",
+            "Stopping time",
+            "Pausing time"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Invincibility",
+            "Being invincible",
+            "Never getting hurt"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Speaking any language",
+            "Speaking every language",
+            "Understanding all languages"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Super hearing",
+            "Hearing everything",
+            "Superhuman hearing"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Laser eyes",
+            "Shooting lasers from my eyes",
+            "Heat vision"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Superhuman senses",
+            "Enhanced senses"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Elasticity",
+            "Stretching like rubber",
+            "Being stretchy"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Underwater breathing",
+            "Breathing underwater"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Walking through walls",
+            "Phasing through walls",
+            "Going through walls"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Controlling the weather",
+            "Weather control",
+            "Controlling storms"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Controlling fire",
+            "Fire powers",
+            "Pyrokinesis"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Controlling water",
+            "Water powers"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Controlling electricity",
+            "Lightning powers",
+            "Shooting lightning"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Regeneration",
+            "Healing instantly",
+            "Regrowing limbs"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Cloning yourself",
+            "Making copies of myself",
+            "Duplicating"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Talking to animals",
+            "Understanding animals"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "World peace",
+            "Ending all wars"
+          ]
+        }
+      ],
+      "unlisted": [
+        "being rich",
+        "not wanting a power"
+      ],
+      "source": "YouGov UK open-ended poll, 12-13 Mar 2025 (n=2,223 GB adults, free-text answers): Invisibility 19% #1, Ability to fly 15% #2, Teleportation 7% and Time travel 7% tied #3, Healing powers 6% #5, Reading minds 5%, Seeing the future 3%, Super strength 2%. NOTE: US closed-menu polls differ — YouGov US 2017 put Healing 37% #1; Marist US 2018 put Time travel 29% #1 — so the open-ended (free-choice) framing is the one used here.",
+      "sourceUrl": "https://today.yougov.com/topics/politics/survey-results/daily/2017/02/11/a1000/1",
+      "reason": "Top 1 CORRECTED Flying -> Invisibility. The only recent open-ended poll (YouGov UK 2025, free text, not a menu) has invisibility #1 and flying #2; flying only wins in older/limited menus. Flagged honestly in source: US closed-menu polls crown healing/time travel instead, so this list is the free-choice ranking and the game should expect US players to argue — that is normal for this prompt."
+    },
+    {
+      "id": 111,
+      "verdict": "keep",
+      "top1": "Fast food",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Fast food",
+            "Fast food worker",
+            "Working at McDonald's",
+            "McDonald's"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Babysitting",
+            "Babysitter",
+            "Nanny",
+            "Childcare"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Retail",
+            "Retail sales associate",
+            "Working in a store",
+            "Shop assistant"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Restaurant server",
+            "Waiter",
+            "Waitress",
+            "Server"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Grocery store cashier",
+            "Cashier",
+            "Grocery clerk",
+            "Bagging groceries"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Lifeguard",
+            "Lifeguarding"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Movie theater attendant",
+            "Working at the movies",
+            "Usher",
+            "Concessions"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Camp counselor",
+            "Summer camp counselor"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Lawn care",
+            "Mowing lawns",
+            "Yard work",
+            "Landscaping"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Paper route",
+            "Delivering newspapers",
+            "Newspaper delivery"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Dishwasher",
+            "Busboy",
+            "Bussing tables",
+            "Kitchen helper"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Barista",
+            "Coffee shop worker",
+            "Working at Starbucks"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Host / hostess",
+            "Restaurant host",
+            "Greeter"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Cook",
+            "Line cook",
+            "Fast food cook",
+            "Kitchen cook"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Stock clerk",
+            "Stocking shelves",
+            "Stocker"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Ice cream scooper",
+            "Working at an ice cream shop",
+            "Scooping ice cream"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Car wash attendant",
+            "Washing cars",
+            "Detailing cars"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Pet sitter",
+            "Dog walker",
+            "Walking dogs"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Tutor",
+            "Tutoring"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Farm work",
+            "Working on a farm",
+            "Picking fruit"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Office assistant",
+            "Filing clerk",
+            "Receptionist"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Library assistant",
+            "Working at the library",
+            "Shelving books"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Golf caddy",
+            "Caddie",
+            "Working at a golf course"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Babysitting for family",
+            "Watching my siblings"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Cleaning houses",
+            "House cleaning",
+            "Janitor"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Delivery driver",
+            "Pizza delivery",
+            "Delivering food"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Sales associate at a clothing store",
+            "Working at a mall store"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Amusement park worker",
+            "Working at a theme park",
+            "Ride operator"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Swim instructor",
+            "Teaching swimming",
+            "Swim teacher"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Front desk clerk",
+            "Hotel front desk"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Intern",
+            "Unpaid intern",
+            "Summer intern"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Working for my parents",
+            "Family business",
+            "My dad's shop"
+          ]
+        }
+      ],
+      "unlisted": [
+        "newspaper route as a formal job is now rare",
+        "professional athlete"
+      ],
+      "source": "Moneypenny nationwide survey (published 28 Oct 2024, updated 2026): most common first jobs — Fast food 15% #1, Babysitting 12% #2, Retail 11% #3, Restaurant server 8% #4, Grocery store cashier 7% #5. BLS/CPS 2024 analysis (DesignRush, May 2025) corroborates the same cluster for 16-24s: cashiers 1.28m, waiters 877k, retail salespersons 739k, cooks ~600k.",
+      "sourceUrl": "https://www.moneypenny.com/us/resources/blog/first-job-experiences-what-motivates-americans",
+      "reason": "Top 1 confirmed; ranks 1-5 follow Moneypenny exactly. 'Newspaper route' moved from unlisted to rank 10 — it is a real classic first job (and was in the original unlisted), just rarer now than the top 5."
+    },
+    {
+      "id": 112,
+      "verdict": "correct",
+      "top1": "Phone",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Phone",
+            "Cell phone",
+            "My phone",
+            "Mobile phone",
+            "Smartphone"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Keys",
+            "House keys",
+            "Car keys",
+            "My keys"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Wallet",
+            "Purse",
+            "My wallet"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "TV remote",
+            "Remote control",
+            "The remote",
+            "Remote"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Glasses",
+            "Sunglasses",
+            "My glasses",
+            "Reading glasses"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Headphones",
+            "Earbuds",
+            "AirPods",
+            "My headphones"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Charger",
+            "Phone charger",
+            "Charging cable",
+            "Charger cable"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Umbrella",
+            "My umbrella"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Jacket",
+            "Coat",
+            "My jacket"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Socks",
+            "A sock",
+            "One sock"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Shoes",
+            "A shoe",
+            "My shoes"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Hat",
+            "Cap",
+            "My hat"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Book",
+            "My book"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Pen",
+            "Pens",
+            "A pen"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Receipts",
+            "A receipt",
+            "Vouchers"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Bank card",
+            "Credit card",
+            "Debit card",
+            "My card"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Passport",
+            "My passport"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Laptop",
+            "My laptop"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Watch",
+            "My watch"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Jewelry",
+            "A ring",
+            "Earrings",
+            "A necklace"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Luggage",
+            "A suitcase",
+            "My bag"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Water bottle",
+            "My water bottle"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Gloves",
+            "A glove",
+            "My gloves"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Scarf",
+            "My scarf"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Lunchbox",
+            "Lunch bag",
+            "My lunch"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "ID",
+            "Driver's license",
+            "My ID"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Medication",
+            "My medicine",
+            "My pills"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Key fob",
+            "Remote key",
+            "Keychain"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Backpack",
+            "My backpack",
+            "My bag"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Dog leash",
+            "The dog's lead",
+            "Leash"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Homework",
+            "My homework"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Phone case",
+            "My phone case"
+          ]
+        }
+      ],
+      "unlisted": [
+        "my mind",
+        "my temper",
+        "my virginity"
+      ],
+      "source": "Shane Co. survey (2023, 2,000+ people, 44 states): phones the most commonly misplaced item in almost every state; keys 41% and wallets 40% close behind. Esure UK behavioural study (2,000+ participants): average person misplaces something 9x/day; top items Phone 45%, Keys 37%, Wallet/Cardholder 29%. Chipolo US/UK roundup: US top 5 are TV remote, phones, car & house keys, glasses, wallets; UK top 5 keys, phone, pens, glasses/sunglasses, remotes. Uber Lost & Found Index 2026: Phone #1 most forgotten in Ubers (1M+ reports), Wallet #2, Luggage #3, Keys #4.",
+      "sourceUrl": "https://www.uber.com/us/en/newsroom/the-2026-uber-lost-found-index/",
+      "reason": "Top 1 CORRECTED Keys -> Phone. Three independent sources (Shane Co, Esure, Uber) put phone first or joint-first; keys is #1 only in the UK-only Chipolo ranking. Sunglasses (current rank 7) kept in top 5 per Chipolo/Esure. This prompt deliberately differs from 104 (forgetting at home vs losing anywhere) but the data converges on the same top 3, in the same order."
+    },
+    {
+      "id": 113,
+      "verdict": "keep",
+      "top1": "Paris",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Paris",
+            "Paris, France",
+            "The Eiffel Tower",
+            "France"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Rome",
+            "Rome, Italy",
+            "Italy"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Tokyo",
+            "Tokyo, Japan",
+            "Japan"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "London",
+            "London, England",
+            "The UK",
+            "England"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "New York",
+            "New York City",
+            "NYC",
+            "America"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Hawaii",
+            "Hawaii, USA"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "The Maldives",
+            "Maldives"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Santorini",
+            "Greece",
+            "Santorini, Greece"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Venice",
+            "Venice, Italy"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Bali",
+            "Bali, Indonesia",
+            "Indonesia"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "The Great Wall of China",
+            "China",
+            "Beijing"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Egypt",
+            "The Pyramids",
+            "Cairo",
+            "Giza"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Australia",
+            "Sydney",
+            "The Great Barrier Reef"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Iceland",
+            "Reykjavik"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Thailand",
+            "Bangkok",
+            "Phuket"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Barcelona",
+            "Spain",
+            "Madrid"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "The Northern Lights",
+            "Aurora Borealis",
+            "Lapland",
+            "Norway"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Machu Picchu",
+            "Peru"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Las Vegas",
+            "Vegas"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Dubai",
+            "UAE"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Ireland",
+            "Dublin"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Switzerland",
+            "The Swiss Alps"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "New Zealand",
+            "Auckland"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "South Africa",
+            "Cape Town",
+            "Safari"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "The Caribbean",
+            "Jamaica",
+            "Bahamas"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Brazil",
+            "Rio de Janeiro"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Alaska",
+            "Alaska, USA"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Antarctica",
+            "The South Pole"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "India",
+            "The Taj Mahal",
+            "Agra"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Canada",
+            "Banff",
+            "Vancouver"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Amsterdam",
+            "Netherlands",
+            "Holland"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Disney World",
+            "Disneyland",
+            "Florida"
+          ]
+        }
+      ],
+      "unlisted": [
+        "the moon",
+        "Mars",
+        "heaven"
+      ],
+      "source": "British Airways poll of 2,000 UK residents (reported Stylist): top-30 'places to visit before you die' — #1 Eiffel Tower, Paris; Big Ben/London #3. Korean survey of 1,700 (age 13+): Paris 11% #1 dream destination, Sydney and New York 7% each. Budget Direct/Pureprofile survey of 1,002 Australians (Mar 2025): Tokyo 57% #1, Rome and London 47% tied #2, Paris 41% — Paris is top-4 in every national sample, #1 in the UK/Korean ones, which is the basis for keeping it.",
+      "sourceUrl": "https://www.stylist.co.uk/travel/poll-reveals-britons-top-bucket-list-destinations-of-places-want-to-visit-before-they-die-travel-sighs/4641",
+      "reason": "Top 1 kept with a caveat: there is no single global #1 — Australians pick Tokyo (57%), Brits/Koreans pick Paris. Paris is kept because it is #1 in the two largest 'before you die' polls found and top-4 everywhere; the list is ordered Paris/Rome/Tokyo/London to reflect the combined polls rather than any one country. Italy/Japan kept at ranks 3-4 per current bank, reordered to country level."
+    },
+    {
+      "id": 114,
+      "verdict": "correct",
+      "top1": "Toasted sandwich maker",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Toasted sandwich maker",
+            "Sandwich maker",
+            "Sandwich toaster",
+            "Panini press",
+            "Toastie maker"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Food processor",
+            "A food processor"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Slow cooker",
+            "Crock pot",
+            "Crockpot"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Blender",
+            "A blender"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Bread maker",
+            "Bread machine",
+            "Breadmaker"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Juicer",
+            "A juicer",
+            "Juice extractor"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "George Foreman grill",
+            "Foreman grill",
+            "Electric grill"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Kitchen scales",
+            "Food scales",
+            "Scales"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Hand blender",
+            "Immersion blender",
+            "Stick blender"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Coffee machine",
+            "Espresso machine",
+            "Coffee maker"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Bamboo steamer",
+            "Steamer",
+            "Bamboo steamers"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Tagine",
+            "A tagine"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Sushi mat",
+            "Sushi rolling mat"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Spiraliser",
+            "Spiralizer",
+            "Veggie spiralizer"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Pasta maker",
+            "Pasta machine"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Waffle maker",
+            "Waffle iron"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Ice cream maker",
+            "Ice cream machine"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Fondue set",
+            "Fondue pot",
+            "Chocolate fountain"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Deep fryer",
+            "Deep fat fryer",
+            "Fryer"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Egg poacher",
+            "Poached egg maker"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Mandoline",
+            "Mandoline slicer"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Salad spinner",
+            "Lettuce spinner"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Electric can opener",
+            "Can opener"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Stand mixer",
+            "Mixer",
+            "KitchenAid"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Pressure cooker",
+            "Instant Pot"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Air fryer",
+            "An air fryer"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Sous vide",
+            "Sous vide machine",
+            "Water bath"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Tapas dishes",
+            "Tapas plates"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Pestle and mortar",
+            "Mortar and pestle"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Avocado slicer",
+            "Avocado tool"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Garlic press",
+            "Garlic crusher"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Egg slicer",
+            "Egg cutter"
+          ]
+        }
+      ],
+      "unlisted": [
+        "a bread maker is not #1 — it is #8 in Direct Line",
+        "a microwave (used daily)"
+      ],
+      "source": "Direct Line Home Insurance / Opinium survey, 4-7 Jan 2013, 2,013 UK adults: most commonly owned-but-unused kitchen gadgets — Toasted sandwich maker 26% #1, Food processor, Slow cooker, George Foreman grill, Blender, Kitchen scales, Juicer, Bread maker 16% #8, Hand blender, Coffee machine. HelloFresh study of 1,500 adults: bamboo steamers/tagines 53% never used, sushi mats 52%, spiralisers 52%, pasta makers 49% — corroborates the same single-purpose-appliance cluster.",
+      "sourceUrl": "https://www.aviva.com/newsroom/news-and-research-overview/news-releases/2025/07/123-million-kitchen-gadgets-gather-dust-in-uk-homes/",
+      "reason": "Top 1 CORRECTED Bread maker -> Toasted sandwich maker. Direct Line is the only ranked 'owned but rarely used' survey found and puts the sandwich maker #1 (26%) with bread maker only #8 (16%). Ranks 1-10 follow Direct Line exactly; HelloFresh's never-used percentages supply ranks 11-15. Caveat: Direct Line is 2013 — the oldest source in this audit — but no newer ranked survey exists; the HelloFresh data (undated, 1,500 adults) agrees on the appliance types."
+    },
+    {
+      "id": 115,
+      "verdict": "keep",
+      "top1": "Mac and cheese",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Mac and cheese",
+            "Macaroni and cheese",
+            "Mac & cheese",
+            "Baked mac and cheese"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Fried chicken",
+            "Chicken",
+            "Roast chicken"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Deviled eggs",
+            "Devilled eggs",
+            "Eggs"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Potato salad",
+            "Potato salad"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Baked beans",
+            "Beans"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Meatballs",
+            "Swedish meatballs",
+            "BBQ meatballs",
+            "Little smokies"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Brownies",
+            "Chocolate brownies"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Mashed potatoes",
+            "Mash",
+            "Mashed potato"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Coleslaw",
+            "Slaw"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Cornbread",
+            "Corn muffins"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Green bean casserole",
+            "Green beans"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Salad",
+            "Garden salad",
+            "Pasta salad",
+            "Caesar salad"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Lasagna",
+            "Baked ziti",
+            "Pasta bake"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Chips and dip",
+            "Chips",
+            "Dip",
+            "Taco dip",
+            "Seven-layer dip"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Cookies",
+            "Chocolate chip cookies"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Fruit salad",
+            "Fruit tray",
+            "Fruit platter"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Banana pudding",
+            "Pudding"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Coconut cream pie",
+            "Pie",
+            "Apple pie",
+            "Pumpkin pie"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Sandwiches",
+            "Subs",
+            "Hoagies",
+            "Sliders"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Pulled pork",
+            "BBQ pork",
+            "Pulled pork sandwiches"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Stuffing",
+            "Dressing",
+            "Stuffing/dressing"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Sweet potato casserole",
+            "Sweet potatoes",
+            "Candied yams"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Vegetable tray",
+            "Veggie platter",
+            "Crudités"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Rolls",
+            "Dinner rolls",
+            "Biscuits",
+            "Bread"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Casserole",
+            "Tuna casserole",
+            "Chicken casserole"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Rice",
+            "Chicken and rice",
+            "Rice dish"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Hamburgers",
+            "Burgers",
+            "Hot dogs"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Cake",
+            "Sheet cake",
+            "Cupcakes"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Lemonade",
+            "Sweet tea",
+            "Drinks",
+            "Soda"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Jambalaya",
+            "Gumbo"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Chili",
+            "Chili con carne"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Corn on the cob",
+            "Corn"
+          ]
+        }
+      ],
+      "unlisted": [
+        "salad was already unlisted in the bank — now rank 13",
+        "keys (was unlisted; not a food, excluded)"
+      ],
+      "source": "Napa Cellars Friendsgiving survey (reported Sporked, Nov 2026): mac and cheese is the #1 most essential Friendsgiving side, ahead of mashed potatoes and stuffing. Campbell's State of the Sides Report 2026 (5,017 US adults, Reputation Leaders, Aug-Sep 2026): mac and cheese is Gen Z's #1 side for the second straight year, 57% say it is the dish everyone can agree on, 42% say there are never leftovers; overall Thanksgiving top 5 are Stuffing, Mashed potatoes, Sweet potatoes, Mac and cheese #4, Green bean casserole.",
+      "sourceUrl": "https://sporked.com/article/mashed-potatoes-arent-the-1-friendsgiving-side-according-to-this-survey/",
+      "reason": "Top 1 kept. Note the context split, stated honestly: for Thanksgiving overall Campbell's puts stuffing #1 and mac & cheese #4, but for potluck/Friendsgiving (the prompt's actual setting) Napa Cellars puts mac & cheese #1 and it is Gen Z's #1 side. Deviled eggs kept high (rank 3) — a 230-comment AllThingsMamma thread (Jul 2026) named deviled eggs the first dish to vanish at potlucks, mac & cheese second. 'Salad' promoted from unlisted to rank 13; 'keys' in the old unlisted was a joke/non-food and is dropped, not scored."
+    },
+    {
+      "id": 116,
+      "verdict": "correct",
+      "top1": "Owner's manual",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Owner's manual",
+            "Car manual",
+            "The manual",
+            "Vehicle handbook"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Phone charger",
+            "Charger",
+            "Phone chargers",
+            "Charging cable",
+            "USB cable"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "First aid kit",
+            "First-aid kit",
+            "Bandages",
+            "Plasters"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Car maintenance accessories",
+            "Tire pressure gauge",
+            "Tyre pressure gauge",
+            "Tire gauge"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Registration",
+            "Car registration",
+            "Vehicle registration",
+            "Registration documents"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Insurance documents",
+            "Insurance card",
+            "Proof of insurance",
+            "Insurance papers"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Flashlight",
+            "Torch",
+            "A flashlight"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Napkins",
+            "Tissues",
+            "Paper napkins",
+            "Wet wipes"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Pen",
+            "A pen",
+            "Pens"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Notepad",
+            "Notebook",
+            "Paper"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Sunglasses",
+            "My sunglasses",
+            "Spare sunglasses"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Old receipts",
+            "Receipts",
+            "Parking tickets"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "A map",
+            "Paper map",
+            "Road map",
+            "Atlas"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Snacks",
+            "Mints",
+            "Gum",
+            "Candy"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Hand sanitizer",
+            "Sanitizer",
+            "Hand wipes"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Gloves",
+            "Driving gloves",
+            "Disposable gloves"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Multitool",
+            "Multi-tool",
+            "Pocket knife",
+            "Swiss Army knife"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Spare batteries",
+            "Batteries"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Coins",
+            "Loose change",
+            "Change for parking"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "CDs",
+            "Old CDs",
+            "Music CDs"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "A spare key",
+            "Spare car key",
+            "House key"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Emergency contact card",
+            "Emergency contacts",
+            "ICE card"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "A blanket",
+            "Emergency blanket"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Jumper cables",
+            "Jump leads"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "A tire inflator",
+            "Portable air compressor"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "A phone mount",
+            "Phone holder"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Lip balm",
+            "Chapstick"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "A hairbrush",
+            "Hair ties",
+            "Hairbrush"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "A reusable bag",
+            "Shopping bags"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "A water bottle",
+            "Water"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "An umbrella",
+            "Umbrella"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "A first aid manual",
+            "Accident checklist"
+          ]
+        }
+      ],
+      "unlisted": [
+        "a gun",
+        "the car title (advised against — theft risk)",
+        "a spare tire (does not fit in a glove box)"
+      ],
+      "source": "Aviva survey of 4,000 nationally representative Brits aged 16+ (reported 2025, 'Miles of Memories'): top safety items in the glove box — Owner's manual and warranty information 42% #1, Phone chargers and tech gadgets 35% #2, First aid kit 29% #3, Car maintenance accessories like tyre pressure gauge 27% #4, Car registration and insurance documents 25% #5. Mechanic roundups (Morning Carpool, 2024) agree on the same document/tool cluster.",
+      "sourceUrl": "http://www.aviva.co.uk/insurance/motor/car-insurance/miles-of-memories/",
+      "reason": "Top 1 CORRECTED Registration -> Owner's manual. Aviva is the only ranked glove-box survey found (n=4,000) and puts the manual first at 42%; registration/insurance is only 25% (#5, split here into ranks 5 and 6 as separate answers since players type them separately). Ranks 1-5 follow Aviva exactly."
+    },
+    {
+      "id": 117,
+      "verdict": "keep",
+      "top1": "Hide and seek",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Hide and seek",
+            "Hide-and-seek",
+            "Hide and go seek"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Tag",
+            "Tag / You're It",
+            "You're it",
+            "Tig",
+            "It"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Skipping rope",
+            "Jump rope",
+            "Skipping ropes",
+            "Double Dutch"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Marbles",
+            "Playing marbles"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Hopscotch",
+            "Hop scotch"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Conkers",
+            "Conker"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "British Bulldog",
+            "Bulldog"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "What's the Time, Mr Wolf",
+            "Mr Wolf",
+            "What time is it Mr Wolf"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Football",
+            "Soccer",
+            "Kick a ball"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Dodgeball",
+            "Dodge ball"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Duck Duck Goose",
+            "Duck, duck, goose"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Four square",
+            "Foursquare"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Kickball",
+            "Kick ball"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Hide and seek in the dark",
+            "Sardines"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Red Light Green Light",
+            "Red light, green light",
+            "Statues"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Simon Says",
+            "Simon says"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Rock Paper Scissors",
+            "Rock, paper, scissors"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Cops and robbers",
+            "Cops and robbers"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Marco Polo",
+            "Marco polo"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Tug of war",
+            "Tug-of-war"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Blind Man's Bluff",
+            "Blind man's buff"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Capture the flag",
+            "Capture the flag"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "I Spy",
+            "I spy"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Cat's Cradle",
+            "Cat's cradle"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Yo-yo",
+            "Yo-yo tricks"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Leapfrog",
+            "Leap frog"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Follow the leader",
+            "Follow the leader"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Musical chairs",
+            "Musical statues"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Freeze tag",
+            "Freeze"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Man hunt",
+            "Manhunt",
+            "Ghost in the graveyard"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Handball",
+            "Wall ball"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "King of the hill",
+            "King of the castle"
+          ]
+        }
+      ],
+      "unlisted": [
+        "monopoly (board game, not a playground game — excluded from this list; see new board-game prompt if wanted)",
+        "roblox (not a childhood game for most adults)"
+      ],
+      "source": "Right to Play / Express survey of 2,000 adults (published 10 Jun 2025, for International Day of Play, 11 Jun 2025): Top 30 playground games of all time — #1 Hide and Seek, #2 Tag/You're It, #3 Skipping ropes, #4 Marbles, #5 Hopscotch, #6 Conkers, #7 British Bulldog, #8 What's the Time, Mr Wolf. A Family Feud-style recess board (2026) agrees on the same cluster: Tag, Hopscotch, Hide & Seek, Four Square, Kickball, Soccer.",
+      "sourceUrl": "https://d1dagyb1ctngx1.cloudfront.net/life-style/life/2066748/top-30-childrens-games",
+      "reason": "Top 1 confirmed; ranks 1-8 follow the Right to Play survey exactly. Current bank had Hopscotch #3 — corrected to #5 per the survey. 'Monopoly' (old unlisted) is a board game, not a playground game, so it is excluded from this list rather than ranked; Cops and robbers (old rank 23) kept at rank 18, Marco Polo (old rank 12) at rank 19 — both are in the survey's top 30."
+    }
+  ],
+  "newQuestions": [
+    {
+      "kind": "text",
+      "text": "What's America's favorite ice cream flavor?",
+      "top1": "Chocolate",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Chocolate",
+            "Chocolate ice cream"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Butter pecan",
+            "Butter pecan ice cream"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Vanilla",
+            "Vanilla ice cream",
+            "Vanilla bean"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Cookies and cream",
+            "Cookies & cream",
+            "Oreo",
+            "Cookies n cream"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Caramel",
+            "Salted caramel",
+            "Caramel swirl"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Mint chocolate chip",
+            "Mint chip",
+            "Mint choc chip"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Cookie dough",
+            "Chocolate chip cookie dough"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Strawberry",
+            "Strawberry ice cream"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Coffee",
+            "Coffee ice cream",
+            "Espresso"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Pistachio",
+            "Pistachio ice cream"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Neapolitan",
+            "Neapolitan ice cream"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Rocky road",
+            "Rocky road ice cream"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Chocolate chip",
+            "Choc chip",
+            "Chocolate chip ice cream"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Birthday cake",
+            "Cake batter",
+            "Birthday cake ice cream"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Peanut butter",
+            "Peanut butter cup",
+            "Reese's"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Mango",
+            "Mango sorbet",
+            "Mango ice cream"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Rainbow sherbet",
+            "Sherbet",
+            "Rainbow sherbet ice cream"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Black cherry",
+            "Cherry",
+            "Cherry vanilla"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Coconut",
+            "Coconut ice cream"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Lemon",
+            "Lemon sorbet",
+            "Lemon ice cream"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Bubblegum",
+            "Bubble gum"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Cotton candy",
+            "Candy floss"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Pumpkin spice",
+            "Pumpkin",
+            "Pumpkin pie"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Maple walnut",
+            "Maple"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Rum raisin",
+            "Rum and raisin"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Fudge",
+            "Hot fudge",
+            "Chocolate fudge"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Toffee",
+            "English toffee",
+            "Butter toffee"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Banana",
+            "Banana split",
+            "Banana ice cream"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Blueberry",
+            "Blueberry ice cream"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Key lime pie",
+            "Key lime"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "S'mores",
+            "Smores"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Green tea",
+            "Matcha",
+            "Green tea ice cream"
+          ]
+        }
+      ],
+      "unlisted": [
+        "vanilla is #1 in retail sales (Instacart/Circana) — preference polls and sales disagree, noted in source"
+      ],
+      "source": "IDFA National Ice Cream & Frozen Novelty Trends Survey, Apr 2026 (Morning Consult, 2,205 US adults): Top 5 favourite flavours — 1. Chocolate (38% put it in top 5), 2. Butter Pecan (27%), 3. Vanilla (25%), 4. Cookies & Cream/Oreo (23%), 5. Caramel/Salted caramel (22%). Verasight (May 2026, n=1,000) found 50% name vanilla the most popular flavour — preference vs perceived-popularity split, flagged in unlisted note.",
+      "sourceUrl": "https://www.idfa.org/news/chocolate-returns-to-the-top-as-americas-favorite-flavor-according-to-idfas-national-ice-cream-trends-survey"
+    },
+    {
+      "kind": "text",
+      "text": "Name the most common pet people have",
+      "top1": "Dog",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Dog",
+            "A dog",
+            "Dogs"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Cat",
+            "A cat",
+            "Cats"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Fish",
+            "Freshwater fish",
+            "Goldfish",
+            "Tropical fish"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Bird",
+            "A bird",
+            "Parrot",
+            "Parakeet",
+            "Budgie"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Small mammal",
+            "Hamster",
+            "Guinea pig",
+            "Rabbit",
+            "Gerbil",
+            "Mouse",
+            "Rat"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Reptile",
+            "Lizard",
+            "Snake",
+            "Turtle",
+            "Gecko",
+            "Bearded dragon"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Horse",
+            "A horse",
+            "Pony"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Guinea pig",
+            "A guinea pig"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Hamster",
+            "A hamster"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Turtle",
+            "A turtle",
+            "Tortoise"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Rabbit",
+            "A rabbit",
+            "Bunny"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Saltwater fish",
+            "Saltwater fish",
+            "Marine fish"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Chicken",
+            "Chickens",
+            "Hens"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Ferret",
+            "A ferret"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Hermit crab",
+            "Hermit crabs"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Frog",
+            "A frog",
+            "Toad"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Spider",
+            "Tarantula",
+            "A spider"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Scorpion",
+            "A scorpion"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Goat",
+            "A goat"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Pig",
+            "A pig",
+            "Pot-bellied pig"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Duck",
+            "A duck",
+            "Duckling"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Chinchilla",
+            "A chinchilla"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Hedgehog",
+            "A hedgehog"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Sugar glider",
+            "Sugar gliders"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Axolotl",
+            "An axolotl"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Snail",
+            "A snail"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Crab",
+            "A crab"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Donkey",
+            "A donkey",
+            "Mule"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Sheep",
+            "A sheep",
+            "Lamb"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Cow",
+            "A cow",
+            "Calf"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Llama",
+            "A llama",
+            "Alpaca"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Turkey",
+            "A turkey"
+          ]
+        }
+      ],
+      "unlisted": [
+        "a pet rock",
+        "a Tamagotchi (a toy, not a pet)"
+      ],
+      "source": "APPA 2025-2026 National Pet Owners Survey (reported 2025-2026): most popular pets by US households — Dog 69.8m households #1, Cat 49.2m #2, Fish 11.9m #3, Bird 6.9m #4, Small mammal 6.7m #5, Reptile 6.1m #6, Horse 3.5m #7, Guinea pig 2.4m, Hamster 2.3m, Turtle 1.9m. YouGov Jan 2025 (2,223 adults): 48% currently own a dog, 36% a cat — same top 2.",
+      "sourceUrl": "https://yougov.com/en-us/articles/51499-most-dog-and-cat-owners-say-their-pets-know-them-well?"
+    },
+    {
+      "kind": "text",
+      "text": "What's the most popular Thanksgiving side dish?",
+      "top1": "Stuffing",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Stuffing",
+            "Dressing",
+            "Stuffing/dressing"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Mashed potatoes",
+            "Mash",
+            "Mashed potato"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Sweet potatoes",
+            "Sweet potato casserole",
+            "Candied yams",
+            "Yams"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Mac and cheese",
+            "Macaroni and cheese",
+            "Mac & cheese"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Green bean casserole",
+            "Green beans",
+            "Green bean bake"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Cranberry sauce",
+            "Cranberries",
+            "Cranberry relish"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Cornbread",
+            "Cornbread dressing",
+            "Corn muffins"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Rolls",
+            "Dinner rolls",
+            "Biscuits",
+            "Bread rolls"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Gravy",
+            "Turkey gravy"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Corn",
+            "Corn on the cob",
+            "Creamed corn"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Brussels sprouts",
+            "Brussel sprouts",
+            "Roasted Brussels sprouts"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Salad",
+            "Garden salad",
+            "Caesar salad"
+          ]
+        },
+        {
+          "rank": 13,
+          "texts": [
+            "Potato salad",
+            "Potato casserole",
+            "Scalloped potatoes",
+            "Au gratin potatoes"
+          ]
+        },
+        {
+          "rank": 14,
+          "texts": [
+            "Roasted vegetables",
+            "Roasted veggies",
+            "Roasted carrots"
+          ]
+        },
+        {
+          "rank": 15,
+          "texts": [
+            "Deviled eggs",
+            "Devilled eggs"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "Sweet potato pie",
+            "Pumpkin pie",
+            "Pecan pie",
+            "Apple pie"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Collard greens",
+            "Greens",
+            "Turnip greens"
+          ]
+        },
+        {
+          "rank": 18,
+          "texts": [
+            "Rice",
+            "Wild rice",
+            "Rice pilaf"
+          ]
+        },
+        {
+          "rank": 19,
+          "texts": [
+            "Asparagus",
+            "Roasted asparagus"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "Broccoli casserole",
+            "Broccoli",
+            "Broccoli and cheese"
+          ]
+        },
+        {
+          "rank": 21,
+          "texts": [
+            "Squash",
+            "Butternut squash",
+            "Acorn squash"
+          ]
+        },
+        {
+          "rank": 22,
+          "texts": [
+            "Casserole",
+            "Chicken casserole",
+            "Tuna casserole"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Fruit salad",
+            "Fruit tray"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Coleslaw",
+            "Slaw"
+          ]
+        },
+        {
+          "rank": 25,
+          "texts": [
+            "Baked beans",
+            "Beans"
+          ]
+        },
+        {
+          "rank": 26,
+          "texts": [
+            "Jell-O salad",
+            "Jello",
+            "Ambrosia"
+          ]
+        },
+        {
+          "rank": 27,
+          "texts": [
+            "Pickles",
+            "Relish tray",
+            "Olives"
+          ]
+        },
+        {
+          "rank": 28,
+          "texts": [
+            "Soup",
+            "Butternut squash soup"
+          ]
+        },
+        {
+          "rank": 29,
+          "texts": [
+            "Baked apples",
+            "Apple sauce",
+            "Applesauce"
+          ]
+        },
+        {
+          "rank": 30,
+          "texts": [
+            "Hash brown casserole",
+            "Hash browns"
+          ]
+        },
+        {
+          "rank": 31,
+          "texts": [
+            "Cheesy potatoes",
+            "Funeral potatoes"
+          ]
+        },
+        {
+          "rank": 32,
+          "texts": [
+            "Honey glazed ham",
+            "Ham (as a side)"
+          ]
+        }
+      ],
+      "unlisted": [
+        "turkey (the main, not a side)",
+        "pumpkin spice latte"
+      ],
+      "source": "Campbell's State of the Sides Report 2026 (Reputation Leaders, Aug-Sep 2026, 5,017 US adults who celebrate Thanksgiving, 100/state): America's 5 favourite Thanksgiving sides — 1. Stuffing/dressing (favourite in 38 states), 2. Mashed potatoes, 3. Sweet potatoes, 4. Mac and cheese, 5. Green bean casserole. Mac and cheese is Gen Z's #1 side for the second straight year; 57% say it is the dish everyone can agree on.",
+      "sourceUrl": "https://news.lee.net/life-entertainment/nation-world/food-drink/do-you-agree-these-are-americas-5-favorite-thanksgiving-sides/article_8dc6598d-ffd5-5c73-aa98-ed8e50e0a2df.html"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "group": "harvest",
+  "recovered": [],
+  "notRecovered": [
+    "7",
+    "15",
+    "21",
+    "23",
+    "26",
+    "27",
+    "36",
+    "57",
+    "58",
+    "61",
+    "74",
+    "139",
+    "146",
+    "6 unknown ids (live artifact has 139 rows vs 119 in repo bank = 20 gap, minus retired id 38 = 19 missing; the 13 named ids above account for 13, leaving 6 unidentified — likely among ids 89-102, which are also absent from the repo bank, but that cannot be confirmed without artifact access)",
+    "13 (EXCLUDED by task instruction: vote prompt known but answer never verified — deliberately not recovered)"
+  ],
+  "blocker": "No access to the artifact's published actions from this subagent session. The artifact tool namespace available here exposes only artifact.restore, artifact.share and artifact.unshare — there is no function to invoke a Muse artifact's published actions (getToday/getYesterday/getContribute/Endless-play), and subagents have no live-browser access. Per the task's rules, no other route to the data was used (no artifact source files, logs, app.db, and no direct calls to the Render deployment or any other endpoint), and no questions were invented. Recovery requires an agent with artifact-action access (the main agent, in the chat that owns the 'the-crowd-live' artifact) to call getToday/getYesterday/getContribute/Endless-play and record the question texts it returns, after which each recovered question still needs real-statistic research before it can enter the bank."
+}

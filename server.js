@@ -41,6 +41,7 @@ function validPlayerId(p) {
 
 /** Public shape of a question — never includes the answer. */
 function pub(q) {
+  if (!q) return null; // defensive: a pre-deploy play may reference a removed id
   return {
     id: q.id, kind: q.kind, category: q.category, text: q.text,
     leftLabel: q.leftLabel || null, rightLabel: q.rightLabel || null, finale: !!q.finale,
@@ -48,9 +49,9 @@ function pub(q) {
 }
 
 async function liveQuestion(q) {
-  // The stored answer may have flipped to the live vote % after 10 votes.
-  const live = await store.getLiveAnswer(q.id);
-  return { ...q, answer: live ?? q.answer };
+  // Researched answers are authoritative (2026-11-16 audit). Player votes never
+  // override them — the old 10-vote live-answer flip is gone.
+  return q;
 }
 
 async function ensureDailySet(date) {
@@ -93,7 +94,7 @@ app.get("/health", async (req, res) => {
 app.get("/api/today", async (req, res) => {
   const date = etDateStr();
   const ids = await ensureDailySet(date);
-  res.json({ date, questions: ids.map((id) => pub(byId.get(id))) });
+  res.json({ date, questions: ids.map((id) => pub(byId.get(id))).filter(Boolean) });
 });
 
 app.post("/api/play", async (req, res) => {
@@ -118,7 +119,7 @@ app.post("/api/play", async (req, res) => {
 function playView(play) {
   return {
     playId: play.id, mode: play.mode, playDate: play.playDate,
-    questions: play.questionIds.map((id) => pub(byId.get(id))),
+    questions: play.questionIds.map((id) => pub(byId.get(id))).filter(Boolean),
     results: play.results, score: play.score, completed: play.completed,
     currentRound: play.results.length,
   };
@@ -252,14 +253,6 @@ app.post("/api/contribute/vote", async (req, res) => {
   if (!want.includes(vote)) return res.json({ ok: false, error: "Bad vote." });
   const r = await store.castVote(playerId, q.id, vote);
   if (!r.ok) return res.json({ ok: false, error: r.error });
-  // After 10 real votes, the stored answer becomes the live vote % (never shown).
-  if (r.total >= 10) {
-    const s = await store.getQStats(q.id);
-    const live = q.kind === "split"
-      ? Math.round((s.left / s.total) * 100)
-      : Math.round((s.yes / s.total) * 100);
-    await store.setLiveAnswer(q.id, live);
-  }
   res.json({ ok: true });
 });
 
