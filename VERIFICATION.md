@@ -108,6 +108,71 @@ Verification (`npm run verify` now 102/102, was 77/77 — 25 new checks):
 
 Not verified: no browser exists in this sandbox, so the entry grid lighting live on a real phone drag, the warm-paper look, and the top-anchored layout were verified at the code/DOM-stub level only — Luke's in-hand play-through is still the real proof.
 
+## 2026-11-16 exact-spec alignment (Muse-measured values)
+
+The live site still didn't match the Muse version after the warm-paper fix:
+Luke reported the answering dots were tiny and the reveal dots were the wrong
+colors. Root cause: the repo used two different grid sizes (entry 220px,
+reveal 300px) and single-dot rings, while the Muse version uses ONE shared
+188px component with region semantics. Fixed by copying the measured spec
+exactly — no values invented.
+
+- Theme: --bg #f4f1ec, --card/--surface #fffdf9, --navy #232c42, --gold
+  #cf9a06, --poppy #e8442e, --dot-empty #e7e1d2; main column 620px,
+  top-anchored. Dark-mode overrides (prefers-color-scheme: dark): --bg
+  #101623, --navy #aebddb, --gold #ffd60a, --dot-empty #2e3a52, --surface
+  #1a2233 (--card mirrors --surface, since the repo styles surfaces via
+  --card). Slider fill, home score color, and favicon updated to the new
+  navy/gold so no stale #1b2a4a / #d4a017 remains.
+- One shared grid: answering AND reveal both max-width 188px, 10 columns,
+  gap 3px (dots ~16.1px). Fine-tune grid 224px / 3px (~19.7px dots).
+- Rings are INSET everywhere: `box-shadow: inset 0 0 0 2px var(--gold)`.
+  Guessed dots fill var(--surface) (hollow, not grey); overlap dots solid
+  navy + inset ring; crowd-only solid navy; unlit var(--dot-empty).
+- renderGrid is now region-based: reveal rings ALL dots up to the guess
+  (was: one boundary dot), so overlap/guess-only/crowd-only fall out of the
+  two ranges; exact match rings every filled dot. Split answering has NO
+  gold ring at all; split reveal rings the dots up to the PLAYER's split
+  (playerSplit passed from the reveal), halves by the crowd's split.
+- Fine-tune grid: new `ft` class — gold 28% mix over surface
+  (`color-mix(in srgb, var(--gold) 28%, var(--surface))`) + inset ring,
+  via a new `{entry:"fine"}` spec; the entry grid after fine-tune OK still
+  shows the value as plain gold rings.
+- Legends, exact text: answering (Guess) "Gold ring = your guess"; reveal
+  (Guess) three lines "Navy = the crowd" / "Gold ring = your guess" /
+  "Both = you got these" (replaces the old "crowd N% / your guess" line and
+  the sub-1% "Each dot is 0.01%" line); reveal (Split) "{leftLabel}" /
+  "{rightLabel}" / "Gold ring = your split", no percentages.
+
+Verification (`npm run verify` now 121/121, was 102/102 — 19 new checks):
+- Unit/static: exact theme values, old values gone, 620px column, dark-mode
+  block with exact values, both grids 188px/3px, fine-tune 224px/3px, inset
+  rings only (≥4 occurrences, zero outset), guess fill = surface, ft =
+  color-mix 28%, all legend texts exact, old legend copy gone, playerSplit
+  wired, entry:"fine" wired.
+- renderGrid logic (DOM stub): fine-tune 37 → ft on first 37 only; entry
+  split 35/65 → navy/poppy, zero gold; reveal 50 vs 29 → overlap navy+gold
+  0–28, guess-only gold 29–49, rest unlit; exact match → every filled dot
+  navy+gold; guess below crowd (20 vs 50) → overlap 0–19, crowd-only navy
+  20–49; reveal split (crowd 65/35, player 35) → gold on dots 0–34 only.
+- Integration (served files over HTTP): served styles.css carries the exact
+  theme, 188px grids, inset rings, dark mode; served app.js carries the
+  exact legends, playerSplit, entry:"fine".
+- Live-server ad-hoc check (`/tmp/live-align-check.mjs`, 22/22): server
+  boots; both grids 188px/3px, no 220px/300px left, fine-tune 224px/3px,
+  fills/rings per spec, theme + dark mode served, 620px top-anchored column,
+  all legends exact and in the right templates, entry split has no gold ring;
+  an Endless Guess round submits and the reveal payload returns crowd answer
+  + player guess (the values the grid renders).
+
+Not verified: no browser exists in this sandbox, so the 188px grids, the
+inset rings, and the dark-mode look were verified at code/DOM-stub level
+only — Luke's in-hand play-through on the live site after the push is still
+the real proof. Dark-mode --ink/--muted/--line were NOT changed (the spec
+gave no values for them); dark-mode body text still uses the light-mode ink
+color (#14181f on #101623), so dark-mode contrast is an open question for
+the parent to confirm.
+
 ## NOT verified (honest gaps)
 - **Postgres path untested live.** No Postgres is installed in this sandbox,
   so the `pg` store (db.js `PgStore`) was syntax-checked and code-reviewed

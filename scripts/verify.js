@@ -138,18 +138,62 @@ check("entry grid lights live from sync + fine-tune",
   (appJs.match(/renderEntryGrid\(\);/g) || []).length >= 2 &&
   appJs.includes('entry: "split"') && appJs.includes('entry: "guess"'));
 // Warm paper + top-anchored layout, no vertical centering.
-check("warm paper background set", css.includes("--bg:#faf5ec") && css.includes("--card:#fffdf7"));
+check("warm paper background set", css.includes("--bg:#f4f1ec") && css.includes("--card:#fffdf9"));
 check("no pure-white background left", !css.includes("--bg:#ffffff") && !css.includes("background:#fff;"));
-check("unlit dots use a visible warm grey", css.includes("--dot-unlit:#c9bda0") && css.includes("background:var(--dot-unlit)"));
-check("old near-invisible unlit color gone", !css.includes("#e3e5e8"));
+check("unlit dots use the measured warm grey", css.includes("--dot-unlit:#e7e1d2") && css.includes("background:var(--dot-unlit)"));
+check("old unlit colors gone", !css.includes("#e3e5e8") && !css.includes("#c9bda0"));
 check("main is top-anchored, not vertically centered",
   /main\s*\{[^}]*justify-content:\s*flex-start/.test(css) && !/main\s*\{[^}]*justify-content:\s*center/.test(css));
-check("entry grid is compact (fits one phone screen)", /\.grid\.entry\s*\{[^}]*max-width:\s*220px/.test(css));
+check("entry grid is the shared 188px size", /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css));
 // How to Play: no scoring numbers anywhere in the overlay.
 const howto = html.slice(html.indexOf('id="howto"'), html.indexOf('id="howto-close"'));
 check("How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(howto));
 check("How to Play keeps the no-math wording",
   howto.includes("The closer your guess, the more points. A perfect guess is a Bullseye."));
+
+console.log("== unit: 2026-11-16 exact-spec alignment (Muse-measured values) ==");
+// Theme values, copied exactly from the Muse version.
+check("theme: bg/card/surface/navy/gold/poppy/dot-empty exact",
+  css.includes("--bg:#f4f1ec") && css.includes("--card:#fffdf9") && css.includes("--surface:#fffdf9") &&
+  css.includes("--navy:#232c42") && css.includes("--gold:#cf9a06") &&
+  css.includes("--poppy:#e8442e") && css.includes("--dot-unlit:#e7e1d2"));
+check("theme: old values gone",
+  !css.includes("#faf5ec") && !css.includes("#fffdf7") && !css.includes("#1b2a4a") &&
+  !css.includes("#d4a017") && !css.includes("#e4572e") && !css.includes("#c9bda0"));
+check("theme: main column is 620px wide", /#app\s*\{[^}]*max-width:\s*620px/.test(css));
+check("theme: dark-mode overrides present with exact values",
+  /@media\s*\(prefers-color-scheme:\s*dark\)/.test(css) &&
+  css.includes("--bg:#101623") && css.includes("--navy:#aebddb") && css.includes("--gold:#ffd60a") &&
+  css.includes("--dot-empty:#2e3a52") && css.includes("--surface:#1a2233"));
+// One shared grid size everywhere: answering and reveal identical.
+check("grid: reveal grid is 188px / 3px gap",
+  /\.grid\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid\s*\{[^}]*gap:\s*3px/.test(css));
+check("grid: entry grid is 188px / 3px gap",
+  /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid\.entry\s*\{[^}]*gap:\s*3px/.test(css));
+check("grid: fine-tune grid is 224px / 3px gap",
+  /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid\.small\s*\{[^}]*gap:\s*3px/.test(css));
+// Rings are INSET everywhere; no outset ring left.
+check("rings are inset (box-shadow: inset 0 0 0 2px var(--gold))",
+  (css.match(/box-shadow:\s*inset 0 0 0 2px var\(--gold\)/g) || []).length >= 4 &&
+  !/box-shadow:\s*0 0 0 2px var\(--gold\)/.test(css));
+check("guess dots fill with surface, not grey",
+  /\.grid \.dot\.gold\s*\{[^}]*background:\s*var\(--surface\)/.test(css));
+check("fine-tune dots are gold 28% mix over surface + inset ring",
+  /\.grid \.dot\.ft\s*\{[^}]*color-mix\(in srgb,\s*var\(--gold\) 28%,\s*var\(--surface\)\)/.test(css) &&
+  /\.grid \.dot\.ft\s*\{[^}]*box-shadow:\s*inset 0 0 0 2px var\(--gold\)/.test(css));
+// Legends, exact text.
+check("answering legend (Guess) is exactly 'Gold ring = your guess'",
+  appJs.includes("Gold ring = your guess"));
+check("reveal legend (Guess) is the exact three lines",
+  appJs.includes("Navy = the crowd") && appJs.includes("Gold ring = your guess") && appJs.includes("Both = you got these"));
+check("old reveal legend copy gone",
+  !appJs.includes("crowd ${r.answer}%") && !appJs.includes("Each dot is 0.01%"));
+check("reveal legend (Split) is labels + 'Gold ring = your split'",
+  appJs.includes("Gold ring = your split"));
+check("reveal split passes the player's split to the grid",
+  appJs.includes("playerSplit: r.guess"));
+check("fine-tune grid uses the fine-tune spec",
+  appJs.includes('entry: "fine"'));
 
 // renderGrid logic, run against a minimal DOM stub (no browser in this sandbox).
 function extractFn(src, name) {
@@ -194,23 +238,33 @@ if (gridSrc) {
   dots = runGrid({ entry: "guess", value: 37 });
   check("entry hundredths 37: gold rings on first 37 dots only",
     dots.slice(0, 37).every((d) => d._added.includes("gold")) && dots.slice(37).every((d) => d._added.length === 0));
+  dots = runGrid({ entry: "fine", value: 37 });
+  check("fine-tune 37: gold-mix dots on first 37 only",
+    dots.slice(0, 37).every((d) => d._added.includes("ft")) && dots.slice(37).every((d) => d._added.length === 0) && noneHas(dots, "gold", "navy", "poppy"));
   dots = runGrid({ entry: "split", left: 35 });
-  check("entry split 35/65: navy left, poppy right, split gold-ringed",
+  check("entry split 35/65: navy left, poppy right, NO gold ring while answering",
     dots.slice(0, 35).every((d) => d._added.includes("navy")) &&
-    dots.slice(35).every((d) => d._added.includes("poppy")) &&
-    has(dots, 34, "gold") && dots.filter((d) => d._added.includes("gold")).length === 1);
+    dots.slice(35).every((d) => d._added.includes("poppy")) && noneHas(dots, "gold"));
   dots = runGrid({ crowd: 29, guess: 50 });
-  check("reveal: navy crowd 29, gold ring on guess dot 50, no navy beyond crowd",
-    dots.slice(0, 29).every((d) => d._added.includes("navy")) &&
-    has(dots, 49, "gold") && !dots[49]._added.includes("navy") &&
-    dots.slice(29, 49).every((d) => d._added.length === 0) && dots.slice(50).every((d) => d._added.length === 0));
+  check("reveal guess 50 vs crowd 29: overlap navy+gold 0-28, guess-only gold 29-49, rest unlit",
+    dots.slice(0, 29).every((d) => d._added.includes("navy") && d._added.includes("gold")) &&
+    dots.slice(29, 50).every((d) => d._added.includes("gold") && !d._added.includes("navy")) &&
+    dots.slice(50).every((d) => d._added.length === 0));
   dots = runGrid({ crowd: 50, guess: 50 });
-  check("reveal overlap: guess dot is navy + gold",
-    has(dots, 49, "navy", "gold") && dots.slice(0, 49).every((d) => d._added.includes("navy")));
-  dots = runGrid({ split: { left: 65, right: 35 } });
-  check("reveal split: navy/poppy halves, split gold-ringed",
+  check("reveal exact match: every filled dot is navy + gold",
+    dots.slice(0, 50).every((d) => d._added.includes("navy") && d._added.includes("gold")) &&
+    dots.slice(50).every((d) => d._added.length === 0));
+  dots = runGrid({ crowd: 50, guess: 20 });
+  check("reveal guess below crowd: overlap 0-19 navy+gold, crowd-only 20-49 navy, rest unlit",
+    dots.slice(0, 20).every((d) => d._added.includes("navy") && d._added.includes("gold")) &&
+    dots.slice(20, 50).every((d) => d._added.includes("navy") && !d._added.includes("gold")) &&
+    dots.slice(50).every((d) => d._added.length === 0));
+  dots = runGrid({ split: { left: 65, right: 35 }, playerSplit: 35 });
+  check("reveal split: crowd halves navy/poppy, gold ring on dots up to player's split only",
     dots.slice(0, 65).every((d) => d._added.includes("navy")) &&
-    dots.slice(65).every((d) => d._added.includes("poppy")) && has(dots, 64, "gold"));
+    dots.slice(65).every((d) => d._added.includes("poppy")) &&
+    dots.slice(0, 35).every((d) => d._added.includes("gold")) &&
+    dots.slice(35).every((d) => !d._added.includes("gold")));
 }
 
 // ------------------------------------------------------- integration: HTTP
@@ -250,8 +304,11 @@ check("served index.html carries new tagline, old tagline gone",
   homeText.includes("How well do you know people?") && !homeText.includes("what do people usually do?"));
 
 const servedCss = await (await fetch(BASE + "/styles.css")).text();
-check("served styles.css has warm paper bg + visible unlit dots",
-  servedCss.includes("--bg:#faf5ec") && servedCss.includes("--dot-unlit:#c9bda0") && !servedCss.includes("--bg:#ffffff"));
+check("served styles.css has exact theme + shared 188px grid + inset rings + dark mode",
+  servedCss.includes("--bg:#f4f1ec") && servedCss.includes("--navy:#232c42") &&
+  servedCss.includes("--gold:#cf9a06") && servedCss.includes("--dot-unlit:#e7e1d2") &&
+  servedCss.includes("max-width:188px") && servedCss.includes("box-shadow:inset 0 0 0 2px var(--gold)") &&
+  servedCss.includes("@media (prefers-color-scheme: dark)") && servedCss.includes("--bg:#101623"));
 check("served styles.css has top-anchored main, no vertical centering",
   /main\s*\{[^}]*justify-content:\s*flex-start/.test(servedCss) && !/main\s*\{[^}]*justify-content:\s*center/.test(servedCss));
 const servedJs = await (await fetch(BASE + "/app.js")).text();
@@ -259,6 +316,10 @@ check("served app.js renders entry grid on Guess/Split answering screens",
   (servedJs.match(/id="entry-grid"/g) || []).length === 2);
 check("served app.js entry grid uses gold-only modes, no crowd data",
   servedJs.includes('entry: "guess"') && servedJs.includes('entry: "split"'));
+check("served app.js has exact legends + playerSplit reveal + fine-tune spec",
+  servedJs.includes("Gold ring = your guess") && servedJs.includes("Navy = the crowd") &&
+  servedJs.includes("Both = you got these") && servedJs.includes("Gold ring = your split") &&
+  servedJs.includes("playerSplit: r.guess") && servedJs.includes('entry: "fine"'));
 const servedHowto = homeText.slice(homeText.indexOf('id="howto"'), homeText.indexOf('id="howto-close"'));
 check("served How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(servedHowto));
 

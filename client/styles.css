@@ -1,12 +1,12 @@
 :root{
-  --navy:#1b2a4a; --navy-soft:#2c3e63; --gold:#d4a017; --gold-soft:#f3d27a;
-  --poppy:#e4572e; --ink:#14181f; --muted:#6b7280; --line:#e7dcc4;
-  --bg:#faf5ec; --card:#fffdf7; --dot-unlit:#c9bda0; --radius:16px;
+  --navy:#232c42; --navy-soft:#2c3e63; --gold:#cf9a06; --gold-soft:#f3d27a;
+  --poppy:#e8442e; --ink:#1c2434; --muted:#68707f; --line:#e3ddd0;
+  --bg:#f4f1ec; --card:#fffdf9; --surface:#fffdf9; --dot-unlit:#e7e1d2; --radius:16px;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-#app{max-width:480px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:20px 18px calc(20px + env(safe-area-inset-bottom));}
+#app{max-width:620px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:20px 18px calc(20px + env(safe-area-inset-bottom));}
 header{text-align:center;padding:6px 0 2px}
 .brand{font-size:34px;font-weight:800;letter-spacing:.14em;color:var(--navy)}
 .sub{color:var(--muted);font-size:14px;margin-top:2px}
@@ -65,21 +65,24 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .answer-line{text-align:center;font-size:17px;margin:10px 0 2px}
 .answer-line b{color:var(--navy)}
 .note{font-size:14px;color:var(--muted);text-align:center;line-height:1.45;margin:6px 0 12px}
-.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-width:300px;margin:14px auto 6px}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;max-width:188px;margin:14px auto 6px}
 .grid .dot{aspect-ratio:1;border-radius:50%;background:var(--dot-unlit)}
 .grid .dot.navy{background:var(--navy)}
-.grid .dot.gold{box-shadow:0 0 0 2px var(--gold);background:var(--dot-unlit)}
-.grid .dot.navy.gold{background:var(--navy);box-shadow:0 0 0 2px var(--gold)}
+.grid .dot.gold{box-shadow:inset 0 0 0 2px var(--gold);background:var(--surface)}
+.grid .dot.navy.gold{background:var(--navy);box-shadow:inset 0 0 0 2px var(--gold)}
 .grid .dot.poppy{background:var(--poppy)}
-.grid .dot.poppy.gold{background:var(--poppy);box-shadow:0 0 0 2px var(--gold)}
-.grid.small{max-width:260px;gap:4px}
-/* entry grid: shown while answering, compact enough that question + grid +
-   slider + Lock still fit one phone screen with no scrolling */
-.grid.entry{max-width:220px;gap:3px;margin:10px auto 4px}
+.grid .dot.poppy.gold{background:var(--poppy);box-shadow:inset 0 0 0 2px var(--gold)}
+/* fine-tune dots: gold 28% mix over surface + inset gold ring */
+.grid .dot.ft{background:color-mix(in srgb, var(--gold) 28%, var(--surface));box-shadow:inset 0 0 0 2px var(--gold)}
+.grid.small{max-width:224px;gap:3px}
+/* entry grid: same shared 188px size as the reveal grid, so answering and
+   reveal are identical in size */
+.grid.entry{max-width:188px;gap:3px;margin:10px auto 4px}
 .legend{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 10px}
 .legend .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 3px 0 10px;vertical-align:-1px}
 .legend .sw.navy{background:var(--navy)} .legend .sw.poppy{background:var(--poppy)}
-.legend .sw.gold{background:var(--bg);border:2px solid var(--gold)}
+.legend .sw.gold{background:var(--surface);border:2px solid var(--gold)}
+.legend .sw.both{background:var(--navy);box-shadow:inset 0 0 0 2px var(--gold)}
 .burst{animation:burst .6s ease-out}
 @keyframes burst{0%{transform:scale(.92)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
 .nudge{text-align:center;font-size:14px;color:#7a5b00;background:#fff7e0;border:1px solid var(--gold-soft);border-radius:10px;padding:8px;margin:8px 0}
@@ -108,3 +111,8 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .overlay .card{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:85dvh;overflow:auto;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;z-index:80;box-shadow:0 4px 18px rgba(0,0,0,.25)}
 @media (min-width:520px){.overlay{align-items:center;padding:20px}.overlay .card{border-radius:20px}}
+
+/* dark mode: same palette family, values measured from the Muse version */
+@media (prefers-color-scheme: dark){
+  :root{--bg:#101623;--navy:#aebddb;--gold:#ffd60a;--dot-empty:#2e3a52;--surface:#1a2233;--card:#1a2233;--ink:#f2f0ea;--muted:#9aa3b5;--line:#2e3a52}
+}

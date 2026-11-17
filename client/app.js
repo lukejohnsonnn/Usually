@@ -32,17 +32,22 @@ function skeleton() {
 function sliderFill(el) {
   const min = +el.min, max = +el.max, v = +el.value;
   const pct = ((v - min) / (max - min)) * 100;
-  el.style.background = `linear-gradient(to right, #1b2a4a 0%, #1b2a4a ${pct}%, #e7dcc4 ${pct}%, #e7dcc4 100%)`;
+  el.style.background = `linear-gradient(to right, #232c42 0%, #232c42 ${pct}%, #e7dcc4 ${pct}%, #e7dcc4 100%)`;
 }
 
 // ------------------------------------------------------------ grid rendering
 function renderGrid(container, spec) {
-  // Reveal specs: {crowd, guess} or {split:{left,right}} — crowd's real answer
-  // is solid navy, your guess is a gold ring, overlap is navy + gold ring.
+  // One shared 100-dot grid (188px) for answering and reveal, same component.
+  // Reveal Guess {crowd, guess}: dots are REGIONS — every dot up to the crowd
+  // is solid navy, every dot up to the guess carries the inset gold ring, so
+  // overlap = navy + ring, crowd-only = navy, guess-only = surface + ring.
+  // Reveal Split {split:{left,right}, playerSplit}: halves by the crowd's
+  // split; the inset gold ring runs over the dots up to the player's split.
   // Entry specs (while answering, never any crowd data):
-  //   {entry:"guess", value} — gold rings on the dots up to the player's
-  //     current guess (value is a dot count 0..100; hundredths use 0.01 steps)
-  //   {entry:"split", left} — navy/poppy halves with the split gold-ringed
+  //   {entry:"guess", value} — surface fill + inset gold ring on exactly
+  //     round(value) dots in row-major order
+  //   {entry:"split", left} — navy/poppy halves, NO gold ring at all
+  //   {entry:"fine", value} — fine-tune hundredths: gold 28% mix + ring
   container.innerHTML = "";
   for (let i = 0; i < 100; i++) {
     const d = document.createElement("div");
@@ -50,17 +55,17 @@ function renderGrid(container, spec) {
     if (spec.entry === "split") {
       if (i < spec.left) d.classList.add("navy");
       else d.classList.add("poppy");
-      if (i === spec.left - 1 || (spec.left === 0 && i === 0)) d.classList.add("gold");
+    } else if (spec.entry === "fine") {
+      if (i < Math.round(spec.value)) d.classList.add("ft");
     } else if (spec.entry === "guess") {
       if (i < Math.round(spec.value)) d.classList.add("gold");
     } else if (spec.split) {
       if (i < spec.split.left) d.classList.add("navy");
       else d.classList.add("poppy");
-      if (i === spec.split.left - 1 || (spec.split.left === 0 && i === 0)) d.classList.add("gold");
+      if (spec.playerSplit != null && i < spec.playerSplit) d.classList.add("gold");
     } else {
       if (i < spec.crowd) d.classList.add("navy");
-      if (spec.guess != null && i === Math.round(spec.guess) - 1) d.classList.add("gold");
-      if (spec.guess === 0 && i === 0) d.classList.add("gold");
+      if (spec.guess != null && i < Math.round(spec.guess)) d.classList.add("gold");
     }
     container.appendChild(d);
   }
@@ -100,7 +105,7 @@ async function showHome() {
       <div class="kicker">Today's Daily · 7 rounds</div>
       <p style="font-size:17px">Same 7 prompts for everyone.<br>One run a day. Max 1225.</p>
       ${done && done.completed
-        ? `<p class="muted">Done for today — <b style="color:#1b2a4a">${done.score} / 1225</b></p>
+        ? `<p class="muted">Done for today — <b style="color:#232c42">${done.score} / 1225</b></p>
            <button class="primary" id="btn-results">See my results</button>`
         : `<button class="primary" id="btn-daily">${done && done.results && done.results.length ? "Resume today's Daily" : "Play today's Daily"}</button>`}
       <div class="row"><button class="ghost" id="btn-endless">Endless practice</button></div>
@@ -153,6 +158,7 @@ function showRound() {
     ` : `
       <div class="big-guess"><span id="guess-num">50</span><span class="pct">%</span></div>
       <div id="entry-grid" class="grid entry"></div>
+      <div class="legend"><span class="sw gold"></span>Gold ring = your guess</div>
       <div class="controls">
       <div style="text-align:center"><button class="finetune-btn hidden" id="finetune-btn">Fine-tune hundredths ↓</button></div>
       <input type="range" id="slider" min="0" max="100" step="1" value="50">
@@ -260,13 +266,10 @@ function showReveal(r) {
   if (!isText) {
     if (isSplit) {
       gridHtml = `<div id="grid" class="grid"></div>`;
-      legend = `<div class="legend"><span class="sw navy"></span>${q.leftLabel} ${r.answer}%<span class="sw poppy"></span>${q.rightLabel} ${100 - r.answer}%<span class="sw gold"></span>your split</div>`;
-    } else if (sub1) {
-      gridHtml = `<div id="grid" class="grid"></div>`;
-      legend = `<div class="legend">Each dot is 0.01%<span class="sw navy"></span>crowd ${r.answer}%<span class="sw gold"></span>your guess</div>`;
+      legend = `<div class="legend"><span class="sw navy"></span>${q.leftLabel}<span class="sw poppy"></span>${q.rightLabel}<span class="sw gold"></span>Gold ring = your split</div>`;
     } else {
       gridHtml = `<div id="grid" class="grid"></div>`;
-      legend = `<div class="legend"><span class="sw navy"></span>crowd ${r.answer}%<span class="sw gold"></span>your guess</div>`;
+      legend = `<div class="legend"><span class="sw navy"></span>Navy = the crowd<br><span class="sw gold"></span>Gold ring = your guess<br><span class="sw both"></span>Both = you got these</div>`;
     }
   }
   const burst = r.tier === "Bullseye" ? "burst" : "";
@@ -286,7 +289,7 @@ function showReveal(r) {
     </div>`;
   if (!isText) {
     const g = $("#grid");
-    if (isSplit) renderGrid(g, { split: { left: r.answer, right: 100 - r.answer } });
+    if (isSplit) renderGrid(g, { split: { left: r.answer, right: 100 - r.answer }, playerSplit: r.guess });
     else if (sub1) renderGrid(g, { crowd: Math.round(r.answer * 100), guess: Math.round(r.guess * 100) });
     else renderGrid(g, { crowd: r.answer, guess: r.guess });
   }
@@ -387,8 +390,8 @@ function openFineTune(current, onOk) {
 }
 function syncFt() {
   $("#ft-value").textContent = ftValue.toFixed(2);
-  // Gold language, same as the entry grid: gold rings up to the value.
-  renderGrid($("#ft-grid"), { entry: "guess", value: Math.round(ftValue * 100) });
+  // Fine-tune grid: gold 28% mix over surface + inset gold ring.
+  renderGrid($("#ft-grid"), { entry: "fine", value: Math.round(ftValue * 100) });
 }
 $("#ft-ok").addEventListener("click", () => {
   $("#finetune").classList.add("hidden");
