@@ -178,6 +178,64 @@ check("different date = different set", JSON.stringify(setA) !== JSON.stringify(
 check("no repeats within a set", new Set(setA).size === 7);
 check("vote prompt derived for guess", deriveVotePrompt(byId.get(3)).length > 3);
 check("vote prompt for split", deriveVotePrompt(byId.get(44)) === "Pick your side");
+// 2026-11-17 Contribute fix: 22 votable guess questions fell through to the
+// meaningless "Is this you?" fallback. Nine now derive via new transforms
+// (think their / think / believe / pick / say they are / say they, plus
+// Facebook users / Brits / NBA fans in the population strip), twelve carry
+// an explicit votePrompt, and id 56 (osteoporosis breakage) is non-votable
+// like id 59 (third nipple) — a population stat, not a self-voteable
+// behavior. The same pass fixed 11 older derived prompts that were
+// themselves wrong (third-person pronouns and "Have you a ..." grammar).
+// Ids 5 and 152 are the documented exceptions to the pronoun rule:
+// "they're" is the pets, "them" is the person being texted.
+const VOTE_PROMPT_EXPECTED = {
+  1: "Do you think pineapple belongs on pizza?",
+  3: "Do you check your phone within five minutes of waking up?",
+  5: "Do you talk to your pets like they're people?",
+  6: "Have you Googled your own name?",
+  8: "Do you pick cold pizza over standard breakfast foods?",
+  9: "Do you keep a junk drawer you couldn't fully explain?",
+  12: "Do you sing in the shower?",
+  18: "Have you kept a houseplant alive for the last two years?",
+  19: "Do you read the terms and conditions before clicking agree?",
+  22: "Could you recall a friend's phone number without looking it up?",
+  24: "Would you give up Facebook for a month for $500?",
+  25: "Do you have a 'chair' covered in clothes right now?",
+  28: "Do you talk to yourself out loud when alone?",
+  29: "Have you ever quit a New Year's resolution by the end of January?",
+  32: "Could you qualify for the 2028 Olympics if you started training today?",
+  34: "Do you eat the crust on your pizza?",
+  66: "Do you bite your nails?",
+  68: "Do you keep cash at home as part of your savings?",
+  69: "Have you never left your home state?",
+  76: "Have you given your car a name?",
+  77: "Have you fallen asleep on a bus or train and missed your stop?",
+  144: "Do you like karaoke?",
+  145: "Are you afraid of public speaking?",
+  148: "Do you pee in the shower?",
+  149: "Do you use your phone on the toilet?",
+  150: "Do you fall asleep with the TV on?",
+  151: "Do you have a comfort show you rewatch when stressed?",
+  152: "Have you texted someone in the same room as them?",
+  153: "Do you sleep with your phone within arm's reach?",
+  154: "Do you have at least one tattoo?",
+  155: "Do you believe some UFOs have been alien spacecraft?",
+  167: "Do you think your three-point shot is better than or the same as an average pro's?",
+  168: "Could you score 3 or more buckets in a pick-up game against an average pro?",
+};
+const promptBad = [];
+for (const q of bank.questions.filter((q) => q.votable)) {
+  const p = deriveVotePrompt(q);
+  if (q.kind === "split") { if (p !== "Pick your side") promptBad.push(`${q.id}: split prompt is ${p}`); continue; }
+  if (p === "Is this you?") promptBad.push(`${q.id}: fallback`);
+  else if (!p.endsWith("?")) promptBad.push(`${q.id}: not a question (${p})`);
+  else if (p.includes("%")) promptBad.push(`${q.id}: percentage in prompt (${p})`);
+  else if (/^Have you (a|an) /i.test(p)) promptBad.push(`${q.id}: ungrammatical (${p})`);
+  else if (![5, 152].includes(q.id) && /\bthey\b|\btheir\b|\bthem\b|\bthemselves\b/i.test(p)) promptBad.push(`${q.id}: third-person pronoun (${p})`);
+  if (VOTE_PROMPT_EXPECTED[q.id] && p !== VOTE_PROMPT_EXPECTED[q.id]) promptBad.push(`${q.id}: expected ${VOTE_PROMPT_EXPECTED[q.id]}, got ${p}`);
+}
+check("vote prompts: no votable question falls back to 'Is this you?', every guess prompt is a real first-person question", promptBad.length === 0, promptBad.join(" | "));
+check("population stat id 56 (osteoporosis) is not votable", byId.get(56)?.votable === false);
 
 console.log("== unit: 2026-11-16 sync fixes ==");
 check("Australia finale retired from bank", !bank.questions.some((q) => /australian/i.test(q.text)));
@@ -568,6 +626,7 @@ check("share card has 7 emojis + score", (share.body.text.match(/\u{1F3AF}/gu) |
 const unlocked = await api(`/api/contribute?playerId=${pid}`);
 check("contribute unlocked after daily", unlocked.body.unlocked === true);
 check("contribute serves 6 questions with vote prompts", unlocked.body.questions?.length === 6 && unlocked.body.questions.every((q) => q.votePrompt));
+check("contribute never shows the 'Is this you?' fallback", unlocked.body.questions.every((q) => q.votePrompt !== "Is this you?") && unlocked.body.questions.every((q) => q.kind === "split" || q.votePrompt.endsWith("?")));
 check("contribute response leaks no answers/percentages", !unlocked.raw.includes('"answer"') && !/:\s*\d+\s*%/.test(unlocked.raw));
 const servedIds = new Set(unlocked.body.questions.map((q) => q.id));
 const embargo = new Set();
@@ -719,6 +778,90 @@ check("real DOM: entry grid has 100 children, right classes, on every Guess/Spli
 check("real DOM: reveal grid has 100 children after every submit", domRevealOk);
 check("real DOM: no JS errors during the full Endless play", jsdomErrors.length === 0, jsdomErrors.join(" | "));
 dom.window.close();
+
+console.log("== integration: dark mode — no black text on dark surfaces (served CSS) ==");
+// 2026-11-17 dark-mode fix: enabled inputs had no color, so the browser
+// default (black) showed on the dark card; .ghost had no color either, and
+// .chip/.finetune-btn/.nudge used hardcoded light-theme colors. jsdom does
+// not evaluate prefers-color-scheme, so this applies the whole dark media
+// block from the served stylesheet as a later plain <style> block, then
+// asserts every text element has >= 4.5:1 contrast against its effective
+// background (the WCAG AA bar for normal text). The disabled input is
+// intentionally muted, so it gets a 4.0 bar instead.
+const diskCss = fs.readFileSync(path.join(__dirname, "..", "client", "styles.css"), "utf8");
+check("served styles.css is byte-identical to the repo file", servedCss === diskCss);
+function extractDarkBlock(css) {
+  const at = css.indexOf("@media (prefers-color-scheme: dark)");
+  if (at < 0) return null;
+  const open = css.indexOf("{", at);
+  let depth = 0;
+  for (let i = open; i < css.length; i++) {
+    if (css[i] === "{") depth++;
+    else if (css[i] === "}") { depth--; if (depth === 0) return css.slice(open + 1, i); }
+  }
+  return null;
+}
+const darkBlock = extractDarkBlock(servedCss);
+check("dark-mode overrides exist in the served CSS", typeof darkBlock === "string" && darkBlock.includes("--ink"));
+function lum(rgb) {
+  const m = rgb.match(/rgba?\(([^)]+)\)/);
+  if (!m) return null;
+  const [r, g, b] = m[1].split(",").slice(0, 3).map((v) => Number(v.trim()) / 255);
+  const f = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+}
+function contrast(fg, bg) {
+  const l1 = lum(fg), l2 = lum(bg);
+  if (l1 == null || l2 == null) return null;
+  const [hi, lo] = l1 > l2 ? [l1, l2] : [l2, l1];
+  return (hi + 0.05) / (lo + 0.05);
+}
+const darkHtml = `<!doctype html><html><head><style>${servedCss}</style><style>${darkBlock}</style></head><body>
+<p id="body-text">body</p>
+<div class="card">
+  <div class="type-row"><input type="number" id="typed" value="50"></div>
+  <div class="type-row"><input type="text" id="text-answer" value="hi"></div>
+  <div class="type-row"><input type="number" id="typed-disabled" value="50" disabled></div>
+  <div class="big-guess"><span id="guess-num">50</span></div>
+  <button class="ghost" id="ghost-btn">x</button>
+  <button class="primary" id="primary-btn">x</button>
+  <button class="vote-no" id="vote-no-btn">x</button>
+</div>
+<span class="chip" id="chip">x</span>
+<button class="finetune-btn" id="ft-btn">x</button>
+<div class="nudge" id="nudge">x</div>
+</body></html>`;
+const darkDom = new JSDOM(darkHtml, { pretendToBeVisual: true });
+const dcs = darkDom.window.getComputedStyle;
+const ddoc = darkDom.window.document;
+function effBg(el) {
+  let node = el;
+  while (node) {
+    const bg = dcs(node).backgroundColor;
+    if (bg && bg !== "transparent" && !/^rgba\(0, 0, 0, 0\)$/.test(bg)) return bg;
+    node = node.parentElement;
+  }
+  return "rgb(16, 22, 35)";
+}
+const darkTargets = ["#body-text", "#typed", "#text-answer", "#guess-num", "#ghost-btn", "#primary-btn", "#vote-no-btn", "#chip", "#ft-btn", "#nudge"];
+const darkBad = [];
+for (const sel of darkTargets) {
+  const el = ddoc.querySelector(sel);
+  const fg = dcs(el).color;
+  const bg = effBg(el);
+  const ratio = contrast(fg, bg);
+  if (ratio == null || ratio < 4.5) darkBad.push(`${sel}: ${fg} on ${bg} = ${ratio === null ? "?" : ratio.toFixed(2)}`);
+  if (/^rgb\(0, 0, 0\)$/.test(fg)) darkBad.push(`${sel}: computed black text`);
+}
+check("dark mode: every text element has >= 4.5:1 contrast, no black text on dark (jsdom computed style)", darkBad.length === 0, darkBad.join(" | "));
+{
+  const el = ddoc.querySelector("#typed-disabled");
+  const ratio = contrast(dcs(el).color, effBg(el));
+  check("dark mode: disabled input stays readable (muted, >= 4.0:1)", ratio !== null && ratio >= 4.0, `${dcs(el).color} on ${effBg(el)} = ${ratio === null ? "?" : ratio.toFixed(2)}`);
+}
+check("dark mode: placeholder rule exists and uses the muted variable", /\.type-row input::placeholder\s*\{[^}]*color:\s*var\(--muted\)/.test(servedCss));
+check("dark mode: .big-guess stays pale navy (not black)", dcs(ddoc.querySelector("#guess-num")).color === "rgb(174, 189, 219)");
+darkDom.window.close();
 
 // ------------------------------------------------- integration: seed upsert (pg-mem)
 // The seed must upsert bank.json over an existing Postgres DB (the live Render

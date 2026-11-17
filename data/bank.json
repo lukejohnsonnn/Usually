@@ -10,7 +10,7 @@
       "finale": 10,
       "text": 35,
       "total": 142,
-      "votable": 95
+      "votable": 94
     },
     "knownGap": "19 questions from the live Muse artifact (139 rows) were never harvested into this repo and remain unrecovered (suspected ids 7, 15, 21, 23, 26, 27, 36, 57, 58, 61, 74, 139, 146 + 6 unknown; id 13 deliberately excluded). A subagent harvest attempt on 2026-11-16 was blocked — no access to the artifact's published actions from a subagent session. This bank now holds 142 questions (119 audited - 10 removed + 33 new researched), so it exceeds the artifact's count, but those 19 artifact questions are still missing. Add them only via the artifact's published actions + fresh real-statistic research; do not invent values.",
     "audit": {
@@ -57,6 +57,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you check your phone within five minutes of waking up?",
       "source": "Asurion 2022 survey of ~2,000 US adults: 75% check their phone within 5 minutes of waking up.",
       "sourceUrl": "https://www.getfaithlock.com/resources/phone-addiction-statistics"
     },
@@ -81,6 +82,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you talk to your pets like they're people?",
       "source": "Preply survey of 1,500 American pet owners, July 2023: 84% regularly talk to their pets like fellow humans",
       "sourceUrl": "https://preply.com/en/blog/state-pet-talk-survey/?sscid=81k7_ytsn7&utm_source=affiliate&utm_medium=cpa&utm_campaign=stu_aff_generic_all_0_mul_xx_multiplesub_r-shareasale-offernov2021&utm_content=314743"
     },
@@ -93,6 +95,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Have you Googled your own name?",
       "source": "Pew Research Center survey, Apr-May 2013: 56% of internet users have used a search engine to look up their own name.",
       "sourceUrl": "https://www.pewresearch.org/short-reads/2013/09/27/majority-of-online-americans-google-themselves/"
     },
@@ -117,6 +120,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you keep a junk drawer you couldn't fully explain?",
       "source": "Junk King 2024 survey: 95% of Americans admit to having at least one junk drawer in their home.",
       "sourceUrl": "https://simplyorganized.me/2026/03/your-junk-drawer-called-lets-talk.html"
     },
@@ -153,6 +157,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you sing in the shower?",
       "source": "Mira Showers / YouGov survey of 2,061 UK adults, Apr 2018: 1 in 10 people sing in the shower.",
       "sourceUrl": "https://www.mirashowers.co.uk/blog/trends/revealed-what-brits-are-really-getting-up-to-in-the-bathroom"
     },
@@ -201,6 +206,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Have you kept a houseplant alive for the last two years?",
       "source": "Blooming Artificial survey of 1,000+ UK adults, 2024: 40% had not killed a houseplant in the last two years.",
       "sourceUrl": "https://www.FloralDaily.com/article/9651116/a-nation-of-plant-lovers-survey-reveals-britain-s-affinity-for-foliage/"
     },
@@ -213,6 +219,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you read the terms and conditions before clicking agree?",
       "source": "Deloitte Global Mobile Consumer Survey 2017, 2,000 US adults: 9% read terms and conditions in full before agreeing (91% accept without reading).",
       "sourceUrl": "https://privacyterms.io/what-percentage-of-people-read-terms-of-service"
     },
@@ -237,6 +244,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Could you recall a friend's phone number without looking it up?",
       "source": "Kaspersky Lab digital amnesia study, 2015, 1,000+ US adults: 51.4% were unable to call their friends without looking up the number.",
       "sourceUrl": "https://betanews.com/article/cant-remember-your-brothers-phone-number-you-could-be-suffering-from-digital-amnesia/"
     },
@@ -261,6 +269,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you have a 'chair' covered in clothes right now?",
       "source": "Unilever market research, 2018 (reported by Reuters): 60% of millennials have a 'chairdrobe'.",
       "sourceUrl": "https://southfloridareporter.com/unilever-confronts-the-chairdrobe-as-consumers-rethink-laundry-video/"
     },
@@ -273,6 +282,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you talk to yourself out loud when alone?",
       "source": "WebMD citing a study of adults: 25% of adults talk to themselves out loud.",
       "sourceUrl": "https://www.webmd.com/balance/why-people-talk-to-themselves"
     },
@@ -285,6 +295,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Have you ever quit a New Year's resolution by the end of January?",
       "source": "Forbes Health/OnePoll survey, 2024 (n=1,000 US adults)",
       "sourceUrl": "https://www.forbes.com/health/mind/new-years-resolutions-statistics/"
     },
@@ -321,6 +332,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Could you qualify for the 2028 Olympics if you started training today?",
       "source": "YouGov, August 2024 (n=2,070 GB adults)",
       "sourceUrl": "https://yougov.co.uk/sport/articles/50301-a-quarter-of-britons-think-they-could-qualify-for-the-2028-olympics"
     },
@@ -345,6 +357,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you eat the crust on your pizza?",
       "source": "YouGov pizza poll, Apr 11-13 2023, 1,000 US adults: 79% typically eat the crust of their pizza.",
       "sourceUrl": "https://docs.cdn.yougov.com/fdemdtp8no/Pizza_poll_results.pdf"
     },
@@ -583,7 +596,7 @@
       "answer": 50,
       "note": null,
       "finale": false,
-      "votable": true,
+      "votable": false,
       "source": "International Osteoporosis Foundation survey via UCB (2024): almost one in two women after age 50 experienced a fracture",
       "sourceUrl": "https://www.ucb.com/innovation/magazine/detail/article/closing-the-gap-in-osteoporosis-it-s-make-or-break-for-post-fracture-care"
     },
@@ -644,6 +657,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you bite your nails?",
       "source": "Halteh et al. (2017): onychophagia affects approximately 20-30% of the general population",
       "sourceUrl": "https://www.free-from-bfrb.org/nailbiting/"
     },
@@ -668,6 +682,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you keep cash at home as part of your savings?",
       "source": "LendingTree / DepositAccounts survey, Feb 2026 (n=2,000 US consumers): 27% keep cash at home as savings",
       "sourceUrl": "https://www.depositaccounts.com/blog/cash-savings-study.html"
     },
@@ -680,6 +695,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Have you never left your home state?",
       "source": "OnePoll / Victorinox survey of 2,000 Americans: 11% have never travelled outside their birth state",
       "sourceUrl": "https://yourmileagemayvary.com/2025/10/12/survey-percentage-of-americans-whove-never-flown-traveled-outside-their-birth-state-owned-luggage-more/"
     },
@@ -704,6 +720,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Have you given your car a name?",
       "source": "Talker Research / Ziebart survey of 2,000 US car owners, Jun 2025: 21% have bestowed their car with a name.",
       "sourceUrl": "https://talkerresearch.com/love-at-first-vroom-4-in-10-are-in-love-with-their-car/"
     },
@@ -716,6 +733,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Have you fallen asleep on a bus or train and missed your stop?",
       "source": "Vodafone / Bryter survey of 2,103 UK residents, Sep 2015: 30% have missed their stop on public transport; one in three have slept through their stop.",
       "sourceUrl": "https://www.vodafone.co.uk/newscentre/wp-content/uploads/2015/10/VVc1S2Rs2.pdf"
     },
@@ -23731,6 +23749,7 @@
       "note": "Nearly half of Americans admit to peeing in the shower at some point during the year — a quarter do it regularly.",
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you pee in the shower?",
       "source": "Talker Research survey of 2,000 US adults, Feb 2025: 45% pee in the shower at some point during the year, 24% regularly.",
       "sourceUrl": "https://studyfinds.com/americans-peeing-in-the-shower/"
     },
@@ -23743,6 +23762,7 @@
       "note": "Over two-thirds of Americans admit to scrolling on the toilet.",
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you use your phone on the toilet?",
       "source": "Reviews.org 2026 Cell Phone Usage Stats, survey of ~1,000 US adults, Q4 2025: 67.9% use their phone on the toilet.",
       "sourceUrl": "https://www.reviews.org/mobile/cell-phone-addiction/"
     },
@@ -23755,6 +23775,7 @@
       "note": "More than a third of Americans routinely drift off with the TV still on.",
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you fall asleep with the TV on?",
       "source": "Ohio State University Wexner Medical Center / Harris Poll, July 2022, 2,040 US adults: 37% fall asleep with the TV on.",
       "sourceUrl": "https://wexnermedical.osu.edu/mediaroom/pressreleaselisting/sleep-survey"
     },
@@ -23767,6 +23788,7 @@
       "note": "Nearly 9 in 10 Americans have a show they return to again and again when times get tough.",
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you have a comfort show you rewatch when stressed?",
       "source": "CableTV.com survey of 1,000 Americans, 2023: 87% say they have a comfort show they turn to again and again.",
       "sourceUrl": "https://www.cabletv.com/entertainment/comfort-shows-survey"
     },
@@ -23791,6 +23813,7 @@
       "note": "Nearly three-quarters of people sleep with their phone within arm's reach.",
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you sleep with your phone within arm's reach?",
       "source": "Asurion 2022 survey of ~2,000 US adults: 71% sleep with their phone within arm's reach.",
       "sourceUrl": "https://www.getfaithlock.com/resources/phone-addiction-statistics"
     },
@@ -23803,6 +23826,7 @@
       "note": null,
       "finale": false,
       "votable": true,
+      "votePrompt": "Do you have at least one tattoo?",
       "source": "Pew Research Center, July 2023 survey of 8,480 US adults",
       "sourceUrl": "https://www.customtattooai.com/blog/tattoo-statistics"
     },
