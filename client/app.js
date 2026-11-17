@@ -32,17 +32,28 @@ function skeleton() {
 function sliderFill(el) {
   const min = +el.min, max = +el.max, v = +el.value;
   const pct = ((v - min) / (max - min)) * 100;
-  el.style.background = `linear-gradient(to right, #1b2a4a 0%, #1b2a4a ${pct}%, #e5e7eb ${pct}%, #e5e7eb 100%)`;
+  el.style.background = `linear-gradient(to right, #1b2a4a 0%, #1b2a4a ${pct}%, #e7dcc4 ${pct}%, #e7dcc4 100%)`;
 }
 
 // ------------------------------------------------------------ grid rendering
 function renderGrid(container, spec) {
-  // spec: {crowd, guess, split:{left,right}, hundredths:boolean}
+  // Reveal specs: {crowd, guess} or {split:{left,right}} — crowd's real answer
+  // is solid navy, your guess is a gold ring, overlap is navy + gold ring.
+  // Entry specs (while answering, never any crowd data):
+  //   {entry:"guess", value} — gold rings on the dots up to the player's
+  //     current guess (value is a dot count 0..100; hundredths use 0.01 steps)
+  //   {entry:"split", left} — navy/poppy halves with the split gold-ringed
   container.innerHTML = "";
   for (let i = 0; i < 100; i++) {
     const d = document.createElement("div");
     d.className = "dot";
-    if (spec.split) {
+    if (spec.entry === "split") {
+      if (i < spec.left) d.classList.add("navy");
+      else d.classList.add("poppy");
+      if (i === spec.left - 1 || (spec.left === 0 && i === 0)) d.classList.add("gold");
+    } else if (spec.entry === "guess") {
+      if (i < Math.round(spec.value)) d.classList.add("gold");
+    } else if (spec.split) {
       if (i < spec.split.left) d.classList.add("navy");
       else d.classList.add("poppy");
       if (i === spec.split.left - 1 || (spec.split.left === 0 && i === 0)) d.classList.add("gold");
@@ -135,11 +146,13 @@ function showRound() {
       <div class="row"><button class="primary" id="submit">Submit</button></div>
     ` : isSplit ? `
       <div class="big-guess"><span id="guess-num">50</span><span class="pct"> / 50</span></div>
+      <div id="entry-grid" class="grid entry"></div>
       <input type="range" id="slider" min="0" max="100" step="1" value="50">
       <div class="split-labels"><span class="l" id="lbl-left">${q.leftLabel}</span><span class="r" id="lbl-right">${q.rightLabel}</span></div>
       <div class="row"><button class="primary" id="submit">Lock it in</button></div>
     ` : `
       <div class="big-guess"><span id="guess-num">50</span><span class="pct">%</span></div>
+      <div id="entry-grid" class="grid entry"></div>
       <div class="controls">
       <div style="text-align:center"><button class="finetune-btn hidden" id="finetune-btn">Fine-tune hundredths ↓</button></div>
       <input type="range" id="slider" min="0" max="100" step="1" value="50">
@@ -177,10 +190,21 @@ function showRound() {
       num.innerHTML = `${v}<span class="pct"> / ${right}</span>`;
     }
     sliderFill(slider);
+    renderEntryGrid();
     const typed = $("#typed");
     if (typed) typed.value = v;
     const ft = $("#finetune-btn");
     if (ft) ft.classList.toggle("hidden", !(v <= 1));
+  }
+  // Live entry grid: gold rings up to the current guess (Guess rounds), or
+  // navy/poppy halves with the split gold-ringed (Split rounds). Never any
+  // crowd data — the crowd coloring only appears on the reveal.
+  function renderEntryGrid() {
+    const g = $("#entry-grid");
+    if (!g) return;
+    if (isSplit) renderGrid(g, { entry: "split", left: guess });
+    else if (fineTuned != null) renderGrid(g, { entry: "guess", value: Math.round(fineTuned * 100) });
+    else renderGrid(g, { entry: "guess", value: Math.round(guess) });
   }
   slider.addEventListener("input", () => sync(+slider.value));
   sync(50);
@@ -202,6 +226,7 @@ function showRound() {
     num.textContent = val.toFixed(2);
     slider.value = 1;
     sliderFill(slider);
+    renderEntryGrid();
     if (typed) typed.disabled = false;
   }));
   $("#submit").addEventListener("click", async () => {
@@ -362,7 +387,8 @@ function openFineTune(current, onOk) {
 }
 function syncFt() {
   $("#ft-value").textContent = ftValue.toFixed(2);
-  renderGrid($("#ft-grid"), { crowd: Math.round(ftValue * 100), guess: null });
+  // Gold language, same as the entry grid: gold rings up to the value.
+  renderGrid($("#ft-grid"), { entry: "guess", value: Math.round(ftValue * 100) });
 }
 $("#ft-ok").addEventListener("click", () => {
   $("#finetune").classList.add("hidden");

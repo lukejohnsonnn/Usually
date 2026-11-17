@@ -121,6 +121,98 @@ check("tagline: twitter title + description", html.includes(`<meta name="twitter
 check("tagline: share card closing line", appJs.includes(`Play Usually — ${TAGLINE}`));
 check("old tagline gone from client", !html.includes("what do people usually do?") && !appJs.includes("what do people usually do?"));
 
+console.log("== unit: 2026-11-16 entry grid + warm paper ==");
+// Entry grid: present on the answering screen for Guess and Split rounds,
+// placed before the slider/controls so question + grid + slider + Lock fit
+// one phone screen. Template order in showRound is Split branch first,
+// Guess branch second.
+const entryIdx = [];
+let ep = -1;
+while ((ep = appJs.indexOf('id="entry-grid"', ep + 1)) !== -1) entryIdx.push(ep);
+check("entry grid rendered on Guess and Split answering screens", entryIdx.length === 2);
+check("entry grid sits above the Split slider", entryIdx.length === 2 &&
+  appJs.indexOf('id="slider"', entryIdx[0]) < appJs.indexOf('split-labels', entryIdx[0]));
+check("entry grid sits above the Guess controls", entryIdx.length === 2 &&
+  entryIdx[1] < appJs.indexOf('class="controls"'));
+check("entry grid lights live from sync + fine-tune",
+  (appJs.match(/renderEntryGrid\(\);/g) || []).length >= 2 &&
+  appJs.includes('entry: "split"') && appJs.includes('entry: "guess"'));
+// Warm paper + top-anchored layout, no vertical centering.
+check("warm paper background set", css.includes("--bg:#faf5ec") && css.includes("--card:#fffdf7"));
+check("no pure-white background left", !css.includes("--bg:#ffffff") && !css.includes("background:#fff;"));
+check("unlit dots use a visible warm grey", css.includes("--dot-unlit:#c9bda0") && css.includes("background:var(--dot-unlit)"));
+check("old near-invisible unlit color gone", !css.includes("#e3e5e8"));
+check("main is top-anchored, not vertically centered",
+  /main\s*\{[^}]*justify-content:\s*flex-start/.test(css) && !/main\s*\{[^}]*justify-content:\s*center/.test(css));
+check("entry grid is compact (fits one phone screen)", /\.grid\.entry\s*\{[^}]*max-width:\s*220px/.test(css));
+// How to Play: no scoring numbers anywhere in the overlay.
+const howto = html.slice(html.indexOf('id="howto"'), html.indexOf('id="howto-close"'));
+check("How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(howto));
+check("How to Play keeps the no-math wording",
+  howto.includes("The closer your guess, the more points. A perfect guess is a Bullseye."));
+
+// renderGrid logic, run against a minimal DOM stub (no browser in this sandbox).
+function extractFn(src, name) {
+  const start = src.indexOf(`function ${name}(`);
+  if (start === -1) return null;
+  let i = src.indexOf("{", start);
+  let depth = 0;
+  for (; i < src.length; i++) {
+    if (src[i] === "{") depth++;
+    else if (src[i] === "}") { depth--; if (depth === 0) return src.slice(start, i + 1); }
+  }
+  return null;
+}
+const gridSrc = extractFn(appJs, "renderGrid");
+check("renderGrid source extractable for logic test", !!gridSrc);
+if (gridSrc) {
+  const makeEl = () => {
+    const added = [];
+    return {
+      className: "",
+      children: [],
+      classList: { add: (...c) => added.push(...c) },
+      appendChild(ch) { this.children.push(ch); },
+      _added: added,
+    };
+  };
+  const renderGrid = new Function("document", `${gridSrc}; return renderGrid;`)({ createElement: () => makeEl() });
+  const runGrid = (spec) => {
+    const c = makeEl();
+    renderGrid(c, spec);
+    return c.children;
+  };
+  const has = (dots, i, ...names) => names.every((n) => dots[i]._added.includes(n));
+  const noneHas = (dots, ...names) => dots.every((d) => !names.some((n) => d._added.includes(n)));
+
+  let dots = runGrid({ entry: "guess", value: 50 });
+  check("entry guess 50: gold rings on first 50 dots, no crowd colors",
+    dots.length === 100 && dots.slice(0, 50).every((d) => d._added.includes("gold")) &&
+    dots.slice(50).every((d) => d._added.length === 0) && noneHas(dots, "navy", "poppy"));
+  dots = runGrid({ entry: "guess", value: 0 });
+  check("entry guess 0: no dots lit", dots.every((d) => d._added.length === 0));
+  dots = runGrid({ entry: "guess", value: 37 });
+  check("entry hundredths 37: gold rings on first 37 dots only",
+    dots.slice(0, 37).every((d) => d._added.includes("gold")) && dots.slice(37).every((d) => d._added.length === 0));
+  dots = runGrid({ entry: "split", left: 35 });
+  check("entry split 35/65: navy left, poppy right, split gold-ringed",
+    dots.slice(0, 35).every((d) => d._added.includes("navy")) &&
+    dots.slice(35).every((d) => d._added.includes("poppy")) &&
+    has(dots, 34, "gold") && dots.filter((d) => d._added.includes("gold")).length === 1);
+  dots = runGrid({ crowd: 29, guess: 50 });
+  check("reveal: navy crowd 29, gold ring on guess dot 50, no navy beyond crowd",
+    dots.slice(0, 29).every((d) => d._added.includes("navy")) &&
+    has(dots, 49, "gold") && !dots[49]._added.includes("navy") &&
+    dots.slice(29, 49).every((d) => d._added.length === 0) && dots.slice(50).every((d) => d._added.length === 0));
+  dots = runGrid({ crowd: 50, guess: 50 });
+  check("reveal overlap: guess dot is navy + gold",
+    has(dots, 49, "navy", "gold") && dots.slice(0, 49).every((d) => d._added.includes("navy")));
+  dots = runGrid({ split: { left: 65, right: 35 } });
+  check("reveal split: navy/poppy halves, split gold-ringed",
+    dots.slice(0, 65).every((d) => d._added.includes("navy")) &&
+    dots.slice(65).every((d) => d._added.includes("poppy")) && has(dots, 64, "gold"));
+}
+
 // ------------------------------------------------------- integration: HTTP
 console.log("== integration: server ==");
 try { fs.unlinkSync(TMP); } catch {}
@@ -156,6 +248,19 @@ const home = await fetch(BASE + "/");
 const homeText = await home.text();
 check("served index.html carries new tagline, old tagline gone",
   homeText.includes("How well do you know people?") && !homeText.includes("what do people usually do?"));
+
+const servedCss = await (await fetch(BASE + "/styles.css")).text();
+check("served styles.css has warm paper bg + visible unlit dots",
+  servedCss.includes("--bg:#faf5ec") && servedCss.includes("--dot-unlit:#c9bda0") && !servedCss.includes("--bg:#ffffff"));
+check("served styles.css has top-anchored main, no vertical centering",
+  /main\s*\{[^}]*justify-content:\s*flex-start/.test(servedCss) && !/main\s*\{[^}]*justify-content:\s*center/.test(servedCss));
+const servedJs = await (await fetch(BASE + "/app.js")).text();
+check("served app.js renders entry grid on Guess/Split answering screens",
+  (servedJs.match(/id="entry-grid"/g) || []).length === 2);
+check("served app.js entry grid uses gold-only modes, no crowd data",
+  servedJs.includes('entry: "guess"') && servedJs.includes('entry: "split"'));
+const servedHowto = homeText.slice(homeText.indexOf('id="howto"'), homeText.indexOf('id="howto-close"'));
+check("served How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(servedHowto));
 
 const pid = "verify-player-001";
 // Contribute locked before playing
