@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Usually — How well do you know people?</title>
+<meta name="description" content="How well do you know people? Usually — guess what percentage of people do things. Same 7 prompts for everyone, one run a day.">
+<meta property="og:title" content="Usually — How well do you know people?">
+<meta property="og:description" content="How well do you know people? Guess what percentage of people do things. Same 7 prompts for everyone, one run a day.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Usually — How well do you know people?">
+<meta name="twitter:description" content="How well do you know people? Guess what percentage of people do things. Same 7 prompts for everyone, one run a day.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%231b2a4a'/><circle cx='50' cy='50' r='16' fill='%23d4a017'/></svg>">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">USUALLY</div>
+    <div class="sub">How well do you know people?</div>
+    <div class="date-line"><span id="today-date"></span><span id="streak-chip" class="chip hidden">🔥 <b id="streak-n">0</b> day streak</span></div>
+  </header>
+
+  <main id="screen"></main>
+
+  <footer>
+    <button class="linklike" id="howto-btn">How to play</button>
+    <span class="dot-sep">·</span>
+    <button class="linklike" id="yesterday-btn">Yesterday's answers</button>
+  </footer>
+</div>
+
+<div id="howto" class="overlay hidden" role="dialog" aria-label="How to play">
+  <div class="card">
+    <h2>How to play</h2>
+    <p><b>Daily:</b> 7 prompts, the same for everyone. One run a day.</p>
+    <p><b>Guess the %:</b> slide or type your guess. Below 1%, tap <b>Fine-tune</b> for hundredths.</p>
+    <p><b>Name the crowd's #1:</b> type the answer you think is most common.</p>
+    <p><b>Split the crowd:</b> slide to split 100 people between the two sides.</p>
+    <p>The closer your guess, the more points. A perfect guess is a Bullseye.</p>
+    <p><b>Contribute</b> unlocks after you finish today's Daily — answer the real preference behind a question, and your vote shapes the crowd's numbers.</p>
+    <button class="primary" id="howto-close">Got it</button>
+  </div>
+</div>
+
+<div id="finetune" class="overlay hidden" role="dialog" aria-label="Fine-tune your guess">
+  <div class="card">
+    <h2>Fine-tune</h2>
+    <p class="muted">Hundredths — each dot is 0.01%.</p>
+    <div class="big-guess"><span id="ft-value">0.50</span><span class="pct">%</span></div>
+    <input type="range" id="ft-slider" min="1" max="100" step="1" value="50">
+    <div id="ft-grid" class="grid small"></div>
+    <div class="row">
+      <button class="ghost" id="ft-cancel">Cancel</button>
+      <button class="primary" id="ft-ok">OK</button>
+    </div>
+  </div>
+</div>
+
+<div id="yesterday" class="overlay hidden" role="dialog" aria-label="Yesterday's answers">
+  <div class="card">
+    <h2>Yesterday's answers</h2>
+    <div id="yesterday-body"><p class="muted">Loading…</p></div>
+    <button class="primary" id="yesterday-close">Close</button>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+<script src="app.js"></script>
+</body>
+</html>

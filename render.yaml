@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: usually
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: usually-db
+          property: connectionString
+      # Set APP_URL after the first deploy, e.g. https://usually.onrender.com
+      - key: APP_URL
+        value: ""
+
+databases:
+  - name: usually-db
+    plan: free
+
+# NOTE: there is deliberately NO cron job here. Render cron is not free.
+# Daily sets freeze lazily on first load each Eastern day (see server.js
+# ensureDailySet) — idempotent, so no scheduler is needed for the $0 path.

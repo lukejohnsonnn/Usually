@@ -1,0 +1,2126 @@
+{
+  "meta": {
+    "app": "Usually",
+    "harvested": "2026-11-16",
+    "source": "Muse artifact the-crowd-live, via published actions only (getToday/startPlay/submitGuess/submitText/getContribute/getStats)",
+    "note": "Every stored answer was verified by submitting a guess in the live game. Text banks hold only verified ranked answers; anything else scores the 5-point floor. Full 32-34-answer text lists are never exposed by the live server and are NOT in this bank.",
+    "counts": {
+      "guess": 60,
+      "split": 19,
+      "finale": 10,
+      "text": 30,
+      "total": 119,
+      "votable": 78
+    },
+    "knownGap": "Live healthCheck reported 139 bank questions; this bank has 119 (120 harvested, minus the retired Australia finale id 38, removed 2026-11-16). Suspected unharvested classic-guess ids: 7, 15, 21, 23, 26, 27, 36, 57, 58, 61, 74, 139, 146 (and id 13, whose votePrompt is known but whose answer was never verified — deliberately excluded). Live votableTotal was 95 vs 78 in this seed; the gap is the unharvested questions, not wrong flags. Add them later via scripts/seed.js once verified; do not invent values."
+  },
+  "questions": [
+    {
+      "id": 1,
+      "kind": "guess",
+      "category": "Food fights",
+      "text": "What % of people think pineapple belongs on pizza?",
+      "answer": 48,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 2,
+      "kind": "guess",
+      "category": "Everyday life",
+      "text": "What % of people have pretended to be on the phone to avoid talking to someone?",
+      "answer": 71,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 3,
+      "kind": "guess",
+      "category": "Phone habits",
+      "text": "What % of people check their phone within five minutes of waking up?",
+      "answer": 84,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 4,
+      "kind": "guess",
+      "category": "Going out",
+      "text": "What % of people have fallen asleep during a movie at the theater?",
+      "answer": 57,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 5,
+      "kind": "guess",
+      "category": "Pets",
+      "text": "What % of people talk to their pets like they're people?",
+      "answer": 78,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 6,
+      "kind": "guess",
+      "category": "Internet life",
+      "text": "What % of people have Googled their own name?",
+      "answer": 82,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 8,
+      "kind": "guess",
+      "category": "Food fights",
+      "text": "What % of people have reheated pizza and called it breakfast?",
+      "answer": 63,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 9,
+      "kind": "guess",
+      "category": "At home",
+      "text": "What % of people keep a junk drawer they couldn't fully explain?",
+      "answer": 88,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 10,
+      "kind": "guess",
+      "category": "Phone habits",
+      "text": "What % of people have sent a text to the wrong person?",
+      "answer": 76,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 11,
+      "kind": "guess",
+      "category": "Big questions",
+      "text": "What % of people believe they've seen a ghost?",
+      "answer": 36,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 12,
+      "kind": "guess",
+      "category": "At home",
+      "text": "What % of people sing in the shower?",
+      "answer": 64,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 13,
+      "kind": "guess",
+      "category": "Social survival",
+      "text": "What % of people have lied about having seen a famous movie?",
+      "answer": 44,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 14,
+      "kind": "guess",
+      "category": "Food fights",
+      "text": "What % of people would eat food that fell on the floor — five-second rule?",
+      "answer": 52,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 16,
+      "kind": "guess",
+      "category": "Social survival",
+      "text": "What % of people have waved back at someone who wasn't waving at them?",
+      "answer": 91,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 17,
+      "kind": "guess",
+      "category": "Everyday life",
+      "text": "What % of people set more than three alarms to wake up?",
+      "answer": 38,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 18,
+      "kind": "guess",
+      "category": "At home",
+      "text": "What % of people have kept a plant alive for more than a year?",
+      "answer": 55,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 19,
+      "kind": "guess",
+      "category": "Internet life",
+      "text": "What % of people read the terms and conditions before clicking agree?",
+      "answer": 9,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 20,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they're a better driver than average?",
+      "answer": 73,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 22,
+      "kind": "guess",
+      "category": "Memory lane",
+      "text": "What % of people still remember their childhood best friend's phone number?",
+      "answer": 22,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 24,
+      "kind": "guess",
+      "category": "Big questions",
+      "text": "What % of people would give up social media for a month for $500?",
+      "answer": 41,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 25,
+      "kind": "guess",
+      "category": "At home",
+      "text": "What % of people have a 'chair' covered in clothes right now?",
+      "answer": 74,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 28,
+      "kind": "guess",
+      "category": "Everyday life",
+      "text": "What % of people talk to themselves out loud when alone?",
+      "answer": 66,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 29,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people have kept a New Year's resolution past February?",
+      "answer": 24,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 30,
+      "kind": "guess",
+      "category": "Travel",
+      "text": "What % of people prefer the window seat on a plane?",
+      "answer": 61,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 31,
+      "kind": "guess",
+      "category": "Screen time",
+      "text": "What % of people have rewatched their favorite show more than three times?",
+      "answer": 70,
+      "note": null,
+      "finale": false,
+      "votable": true,
+      "votePrompt": "Have you rewatched your favorite show more than three times?"
+    },
+    {
+      "id": 32,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people say they'd run a marathon someday — and mean it?",
+      "answer": 18,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 33,
+      "kind": "guess",
+      "category": "Relationships",
+      "text": "What % of people have snooped through a partner's phone at least once?",
+      "answer": 31,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 34,
+      "kind": "guess",
+      "category": "Food fights",
+      "text": "What % of people eat the crust on their pizza?",
+      "answer": 77,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 35,
+      "kind": "guess",
+      "category": "Money moves",
+      "text": "What % of people have bought something just because it was on sale?",
+      "answer": 86,
+      "note": null,
+      "finale": false,
+      "votable": true,
+      "votePrompt": "Have you ever bought something just because it was on sale?"
+    },
+    {
+      "id": 37,
+      "kind": "guess",
+      "category": "World · Finale",
+      "text": "What % of everyone alive today lives in Brazil?",
+      "answer": 3,
+      "note": "About 216 million Brazilians out of roughly 8.1 billion people on Earth.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 39,
+      "kind": "guess",
+      "category": "Endurance · Finale",
+      "text": "What % of US adults have ever finished a full marathon?",
+      "answer": 1,
+      "note": "Millions run races every year, but a full 26.2 miles is a tiny club.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 40,
+      "kind": "guess",
+      "category": "Education · Finale",
+      "text": "What % of people worldwide hold a PhD?",
+      "answer": 2,
+      "note": "Doctorates are rare everywhere.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 41,
+      "kind": "guess",
+      "category": "Money moves · Finale",
+      "text": "What % of US households own a boat?",
+      "answer": 9,
+      "note": "Boats feel everywhere on a lake weekend. Nationally, it's under 1 household in 10.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 42,
+      "kind": "guess",
+      "category": "Genetics · Finale",
+      "text": "What % of people are both left-handed AND red-haired?",
+      "answer": 0.2,
+      "note": "Left-handed is about 10% and red hair about 2% — both at once barely registers.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 43,
+      "kind": "guess",
+      "category": "World · Finale",
+      "text": "What % of the world's population lives in Iceland?",
+      "answer": 0.05,
+      "note": "About 380,000 Icelanders out of 8.1 billion people.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 44,
+      "kind": "split",
+      "category": "Food fights · Split",
+      "text": "Ice cream showdown — how does the crowd split?",
+      "answer": 54,
+      "note": "Chocolate edges it — vanilla's share is a loyal one.",
+      "leftLabel": "Chocolate",
+      "rightLabel": "Vanilla",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 45,
+      "kind": "split",
+      "category": "Pets · Split",
+      "text": "Pet people — how does the crowd split?",
+      "answer": 67,
+      "note": "Dogs win the popularity split by two to one.",
+      "leftLabel": "Dogs",
+      "rightLabel": "Cats",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 46,
+      "kind": "split",
+      "category": "Everyday life · Split",
+      "text": "Sleep schedules — how do people split?",
+      "answer": 58,
+      "note": "The owls outnumber the birds after dark.",
+      "leftLabel": "Night owls",
+      "rightLabel": "Early birds",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 47,
+      "kind": "split",
+      "category": "Tech · Split",
+      "text": "Phones in the US — how do owners split?",
+      "answer": 57,
+      "note": "Apple holds a slim US majority; worldwide this split flips the other way.",
+      "leftLabel": "iPhone",
+      "rightLabel": "Android",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 48,
+      "kind": "split",
+      "category": "Big questions · Split",
+      "text": "Dream home turf — where would people rather live?",
+      "answer": 44,
+      "note": "The country quietly wins — city life is the minority pick.",
+      "leftLabel": "City",
+      "rightLabel": "Country",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 49,
+      "kind": "split",
+      "category": "Campus · Split",
+      "text": "US college students — what's the gender split?",
+      "answer": 57,
+      "note": "Women have been the majority on US campuses for decades.",
+      "leftLabel": "Women",
+      "rightLabel": "Men",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 50,
+      "kind": "split",
+      "category": "Jobs · Split",
+      "text": "US nurses — what's the gender split?",
+      "answer": 87,
+      "note": "One of the most lopsided job splits there is.",
+      "leftLabel": "Women",
+      "rightLabel": "Men",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 51,
+      "kind": "split",
+      "category": "Food fights · Split",
+      "text": "Breakfast table — how does the crowd split?",
+      "answer": 38,
+      "note": "Savory wins the morning.",
+      "leftLabel": "Sweet",
+      "rightLabel": "Savory",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 52,
+      "kind": "split",
+      "category": "Travel · Split",
+      "text": "Vacation vote — how does the crowd split?",
+      "answer": 64,
+      "note": "Sand beats altitude by a comfortable margin.",
+      "leftLabel": "Beach",
+      "rightLabel": "Mountains",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 53,
+      "kind": "split",
+      "category": "Screen time · Split",
+      "text": "Readers — how do they split on format?",
+      "answer": 71,
+      "note": "Print refuses to die.",
+      "leftLabel": "Paper books",
+      "rightLabel": "E-books",
+      "finale": false,
+      "votable": true,
+      "votePrompt": "Pick your side"
+    },
+    {
+      "id": 54,
+      "kind": "split",
+      "category": "Food fights · Split",
+      "text": "Morning fuel — how does the crowd split?",
+      "answer": 74,
+      "note": "Coffee runs the morning.",
+      "leftLabel": "Coffee",
+      "rightLabel": "Tea",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 55,
+      "kind": "split",
+      "category": "Jobs · Split",
+      "text": "Work setup — how do people split?",
+      "answer": 59,
+      "note": "Home wins the preference split, even where the office is mandatory.",
+      "leftLabel": "Work from home",
+      "rightLabel": "Office",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 56,
+      "kind": "guess",
+      "category": "Body count",
+      "text": "What % of people have never broken a single bone?",
+      "answer": 55,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 59,
+      "kind": "guess",
+      "category": "Body count",
+      "text": "What % of people have a third nipple?",
+      "answer": 0.2,
+      "note": "Published estimates are all over the place — medical reviews report anywhere from 0.2% to 5.6% of the general population. This question uses the low end: 0.2%, about 1 in 500 people. Source: Polythelia: A Case Report, Annals of Obstetrics and Gynecology (2024).",
+      "finale": false,
+      "votable": false
+    },
+    {
+      "id": 60,
+      "kind": "guess",
+      "category": "After dark",
+      "text": "What % of adults still sleep with a stuffed animal?",
+      "answer": 35,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 62,
+      "kind": "guess",
+      "category": "After dark",
+      "text": "What % of adults are still a little afraid of the dark?",
+      "answer": 15,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 63,
+      "kind": "guess",
+      "category": "After dark",
+      "text": "What % of people have sleepwalked at least once?",
+      "answer": 25,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 64,
+      "kind": "guess",
+      "category": "Weird habits",
+      "text": "What % of people have eaten snow on purpose?",
+      "answer": 62,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 65,
+      "kind": "guess",
+      "category": "Weird habits",
+      "text": "What % of people have eaten an insect on purpose?",
+      "answer": 25,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 66,
+      "kind": "guess",
+      "category": "Weird habits",
+      "text": "What % of people bite their nails?",
+      "answer": 30,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 67,
+      "kind": "guess",
+      "category": "Weird habits",
+      "text": "What % of people keep a secret snack stash nobody else knows about?",
+      "answer": 55,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 68,
+      "kind": "guess",
+      "category": "Weird habits",
+      "text": "What % of people keep cash hidden somewhere in their home?",
+      "answer": 40,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 69,
+      "kind": "guess",
+      "category": "Out there",
+      "text": "What % of Americans have never left their home state?",
+      "answer": 11,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 70,
+      "kind": "guess",
+      "category": "Out there",
+      "text": "What % of people have appeared on TV at least once?",
+      "answer": 14,
+      "note": null,
+      "finale": false,
+      "votable": true,
+      "votePrompt": "Have you ever appeared on TV?"
+    },
+    {
+      "id": 71,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people could do a cartwheel right now, no warm-up?",
+      "answer": 35,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 72,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people believe they could survive a month alone in the wilderness?",
+      "answer": 22,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 73,
+      "kind": "guess",
+      "category": "Brain check",
+      "text": "What % of Americans can name all 50 states?",
+      "answer": 30,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 75,
+      "kind": "guess",
+      "category": "Social survival",
+      "text": "What % of people have had to fight off laughing at a funeral?",
+      "answer": 30,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 76,
+      "kind": "guess",
+      "category": "Everyday life",
+      "text": "What % of car owners have given their car a name?",
+      "answer": 50,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 77,
+      "kind": "guess",
+      "category": "Everyday life",
+      "text": "What % of people have fallen asleep on a bus or train and missed their stop?",
+      "answer": 45,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 78,
+      "kind": "guess",
+      "category": "Space · Finale",
+      "text": "What % of everyone alive today has been to space?",
+      "answer": 0.01,
+      "note": "Fewer than 700 humans have ever left Earth — out of 8.1 billion of us.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 79,
+      "kind": "guess",
+      "category": "Calendar · Finale",
+      "text": "What % of people were born on February 29th?",
+      "answer": 0.07,
+      "note": "Leap day comes once every four years — roughly 1 birthday in 1,461.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 80,
+      "kind": "guess",
+      "category": "Brain check · Finale",
+      "text": "What % of people have perfect pitch?",
+      "answer": 0.01,
+      "note": "About 1 person in 10,000 can name a note with no reference.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 81,
+      "kind": "guess",
+      "category": "Money moves · Finale",
+      "text": "What % of US households own a private plane?",
+      "answer": 0.1,
+      "note": "There are only about 200,000 private aircraft registered in the US.",
+      "finale": true,
+      "votable": false
+    },
+    {
+      "id": 82,
+      "kind": "split",
+      "category": "Food fights · Split",
+      "text": "Ketchup storage — how do households split?",
+      "answer": 72,
+      "note": "The fridge crowd wins big — the pantry loyalists hold their ground anyway.",
+      "leftLabel": "In the fridge",
+      "rightLabel": "In the pantry",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 83,
+      "kind": "split",
+      "category": "At home · Split",
+      "text": "Toilet paper — how does the crowd hang it?",
+      "answer": 68,
+      "note": "Over wins — and the original patent drawing agrees.",
+      "leftLabel": "Over",
+      "rightLabel": "Under",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 84,
+      "kind": "split",
+      "category": "Screen time · Split",
+      "text": "The story was better as a…?",
+      "answer": 62,
+      "note": "The book usually wins this argument.",
+      "leftLabel": "Book",
+      "rightLabel": "Movie",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 85,
+      "kind": "split",
+      "category": "Phone habits · Split",
+      "text": "Reaching out — how do people split?",
+      "answer": 78,
+      "note": "Calling unannounced is nearly a lost art.",
+      "leftLabel": "Text first",
+      "rightLabel": "Just call",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 86,
+      "kind": "split",
+      "category": "Everyday life · Split",
+      "text": "Shower timing — how do people split?",
+      "answer": 45,
+      "note": "Night showers quietly take it.",
+      "leftLabel": "Morning",
+      "rightLabel": "Night",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 87,
+      "kind": "split",
+      "category": "On the road · Split",
+      "text": "Driving on a warm day — how do people split?",
+      "answer": 35,
+      "note": "AC wins the highway; windows down owns the back roads.",
+      "leftLabel": "Windows down",
+      "rightLabel": "AC blasting",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 88,
+      "kind": "split",
+      "category": "At home · Split",
+      "text": "US households — what's the own/rent split?",
+      "answer": 65,
+      "note": "About two in three US households own their home.",
+      "leftLabel": "Own",
+      "rightLabel": "Rent",
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 103,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "What's the first thing most people do when they wake up?",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Check their phone",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Check their phone"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Snooze the alarm"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Check the time"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Brush their teeth"
+          ]
+        }
+      ],
+      "unlisted": [
+        "make coffee"
+      ]
+    },
+    {
+      "id": 104,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the most common thing people forget at home",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Keys",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Keys"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Phone"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Wallet"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Sunglasses"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 105,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "What's the most popular pizza topping?",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Pepperoni",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Pepperoni"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Cheese"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Mushroom"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Sausage"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Bacon"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 106,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the excuse people give most for being late to work",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Traffic",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Traffic"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Overslept",
+            "Alarm didn't go off"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Car trouble",
+            "My car broke down"
+          ]
+        }
+      ],
+      "unlisted": [
+        "sick"
+      ]
+    },
+    {
+      "id": 107,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something most people have in their junk drawer",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Batteries",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Batteries"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Tape"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 108,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "What's the most common fear people have?",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Heights",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Heights"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Spiders"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Public speaking"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "The dark"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "Failure"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 109,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the car most people dream of owning",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Tesla",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Tesla"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Ferrari"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Lamborghini"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Porsche"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "BMW"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Mercedes"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 110,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the superpower most people say they'd want",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Flying",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Flying"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Invisibility"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Teleportation"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Mind reading"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Super strength"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Time travel"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Healing"
+          ]
+        },
+        {
+          "rank": 11,
+          "texts": [
+            "Shapeshifting"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "X-ray vision"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 111,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "What's the most common first job people have?",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Fast food",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Fast food"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Babysitting"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Lifeguard"
+          ]
+        }
+      ],
+      "unlisted": [
+        "newspaper route"
+      ]
+    },
+    {
+      "id": 112,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something people are always losing",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Keys",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Keys"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Sunglasses"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 113,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the place most people say they want to visit before they die",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Paris",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Paris"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Italy"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Japan"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 114,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something in the kitchen most people never use",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Bread maker",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Bread maker"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Waffle maker"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 115,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something people bring to a potluck",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Mac and cheese",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Mac and cheese"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Brownies"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Deviled eggs"
+          ]
+        }
+      ],
+      "unlisted": [
+        "salad",
+        "keys"
+      ]
+    },
+    {
+      "id": 116,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something most people keep in their car's glove box",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Registration",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Registration"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 117,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name a game almost everyone played as a kid",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Hide and seek",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Hide and seek"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Tag"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Hopscotch"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "Marco polo"
+          ]
+        },
+        {
+          "rank": 23,
+          "texts": [
+            "Cops and robbers"
+          ]
+        }
+      ],
+      "unlisted": [
+        "monopoly"
+      ]
+    },
+    {
+      "id": 118,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the first thing people buy when they move into a new place",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Toilet paper",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Toilet paper"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "A couch"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "A bed"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Cleaning supplies"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 119,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the most common tattoo people get",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "A heart",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "A heart"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Rose"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Butterfly"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "A dragon"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 120,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something people talk to even though it can't talk back",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Their dog",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Their dog"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Their cat"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Their plants"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Their car"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "The TV"
+          ]
+        }
+      ],
+      "unlisted": [
+        "pets"
+      ]
+    },
+    {
+      "id": 121,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something most people carry in their bag every day",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Phone",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Phone"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Wallet"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Hand sanitizer"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Sunglasses"
+          ]
+        },
+        {
+          "rank": 17,
+          "texts": [
+            "Lipstick"
+          ]
+        },
+        {
+          "rank": 20,
+          "texts": [
+            "A book"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 122,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something most people have under their bed",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Dust",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Dust"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Shoes"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 123,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something that's always in the fridge door",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Ketchup",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Ketchup"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Milk"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Butter"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 124,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the school subject most people say was their worst",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Math",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Math"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Chemistry"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "History"
+          ]
+        },
+        {
+          "rank": 9,
+          "texts": [
+            "Geography"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "English"
+          ]
+        }
+      ],
+      "unlisted": [
+        "science"
+      ]
+    },
+    {
+      "id": 125,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name a smell most people love",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Rain",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Rain"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Coffee"
+          ]
+        },
+        {
+          "rank": 5,
+          "texts": [
+            "Vanilla"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "Freshly cut grass"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Bacon"
+          ]
+        },
+        {
+          "rank": 10,
+          "texts": [
+            "New car smell"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 126,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name a sound that wakes most people up at night",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "An alarm clock",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "An alarm clock"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Baby crying"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Thunder"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "A car alarm"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "Snoring"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 127,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something most people have in their pockets right now",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Phone",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Phone"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Keys"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Wallet"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Coins"
+          ]
+        },
+        {
+          "rank": 8,
+          "texts": [
+            "A receipt"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 128,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the household thing people break most often",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "A phone screen",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "A phone screen"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Glass"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Dishes"
+          ]
+        },
+        {
+          "rank": 16,
+          "texts": [
+            "A mug"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 129,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name the excuse kids give most for not doing their homework",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "The dog ate it",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "The dog ate it"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "I was sick"
+          ]
+        },
+        {
+          "rank": 6,
+          "texts": [
+            "My printer broke"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "I forgot"
+          ]
+        },
+        {
+          "rank": 12,
+          "texts": [
+            "I lost it"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 130,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something most people pretend to like",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Kale",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Kale"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Small talk"
+          ]
+        },
+        {
+          "rank": 24,
+          "texts": [
+            "Exercise"
+          ]
+        }
+      ],
+      "unlisted": [
+        "fresh bread",
+        "brussels sprouts"
+      ]
+    },
+    {
+      "id": 131,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something most people have on their keychain",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "House keys",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "House keys"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Car keys"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "A bottle opener"
+          ]
+        }
+      ],
+      "unlisted": [
+        "a gym membership card"
+      ]
+    },
+    {
+      "id": 132,
+      "kind": "text",
+      "category": "Crowd's #1",
+      "text": "Name something most people do in the car when they're alone",
+      "answer": null,
+      "note": null,
+      "finale": false,
+      "votable": false,
+      "top1": "Sing",
+      "textAnswers": [
+        {
+          "rank": 1,
+          "texts": [
+            "Sing"
+          ]
+        },
+        {
+          "rank": 2,
+          "texts": [
+            "Talk to themselves"
+          ]
+        },
+        {
+          "rank": 3,
+          "texts": [
+            "Dance"
+          ]
+        },
+        {
+          "rank": 4,
+          "texts": [
+            "Pick their nose"
+          ]
+        },
+        {
+          "rank": 7,
+          "texts": [
+            "Eat"
+          ]
+        }
+      ],
+      "unlisted": []
+    },
+    {
+      "id": 133,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could fly a helicopter in an emergency?",
+      "answer": 16,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 134,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could stop a runaway train?",
+      "answer": 9,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 135,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could defuse a bomb with seconds to spare?",
+      "answer": 4,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 136,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could win a staring contest with a cat?",
+      "answer": 44,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 137,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could outrun the family dog?",
+      "answer": 21,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 138,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could wrestle a small alligator?",
+      "answer": 8,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 140,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could score a penalty kick against a pro goalkeeper?",
+      "answer": 26,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 141,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could win a single point off a pro tennis player?",
+      "answer": 19,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 142,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could sink a half-court shot within 5 tries?",
+      "answer": 28,
+      "note": null,
+      "finale": false,
+      "votable": true,
+      "votePrompt": "Could you sink a half-court shot within 5 tries?"
+    },
+    {
+      "id": 143,
+      "kind": "guess",
+      "category": "Confidence check",
+      "text": "What % of people think they could beat a chess grandmaster at chess?",
+      "answer": 6,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 144,
+      "kind": "guess",
+      "category": "Center stage",
+      "text": "What % of people would sing karaoke in front of strangers?",
+      "answer": 38,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 145,
+      "kind": "guess",
+      "category": "Center stage",
+      "text": "What % of people would give a wedding toast with zero preparation?",
+      "answer": 27,
+      "note": null,
+      "finale": false,
+      "votable": true
+    },
+    {
+      "id": 147,
+      "kind": "guess",
+      "category": "Center stage",
+      "text": "What % of people would audition for a TV singing show?",
+      "answer": 9,
+      "note": null,
+      "finale": false,
+      "votable": true
+    }
+  ]
+}
