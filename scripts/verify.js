@@ -6,6 +6,7 @@ import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { JSDOM, VirtualConsole } from "jsdom";
 import {
   scoreGuess, scoreText, matchTextAnswer, normalizeText,
   composeSet, etDateStr, addDays, deriveVotePrompt,
@@ -145,6 +146,15 @@ check("old unlit colors gone", !css.includes("#e3e5e8") && !css.includes("#c9bda
 check("main is top-anchored, not vertically centered",
   /main\s*\{[^}]*justify-content:\s*flex-start/.test(css) && !/main\s*\{[^}]*justify-content:\s*center/.test(css));
 check("entry grid is the shared 188px size", /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css));
+// 2026-11-16 entry-grid collapse (live-site bug): #entry-grid is a direct
+// child of main#screen, a column FLEX container, and carries horizontal auto
+// margins — so it is NOT stretched, and its width resolves to fit-content.
+// With repeat(10, 1fr) columns holding only empty aspect-ratio dots, the
+// intrinsic width is just the gaps (~27px), the 1fr columns and the dots
+// collapse to 0px, and the grid is invisible in a real browser even though
+// the DOM has all 100 children. A definite width is what keeps it at 188px.
+check("entry grid has a definite width (flex-item collapse guard)",
+  /\.grid\.entry\s*\{[^}]*width:\s*(100%|188px)/.test(css));
 // How to Play: no scoring numbers anywhere in the overlay.
 const howto = html.slice(html.indexOf('id="howto"'), html.indexOf('id="howto-close"'));
 check("How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(howto));
@@ -406,6 +416,92 @@ const y = await api("/api/yesterday");
 check("yesterday returns 7 rounds with answers", y.body.rounds?.length === 7 && y.body.rounds.every((r) => r.answer !== undefined && r.answer !== null));
 check("yesterday peek still shows the text #1 (out of scope, unchanged)",
   y.body.rounds.filter((r) => typeof r.answer === "string").length === 2);
+
+console.log("== integration: real DOM (jsdom) — entry grid actually renders ==");
+// 2026-11-16 entry-grid collapse (live-site bug): the DOM was always correct
+// (100 children, right classes) — the grid collapsed to ~0px in a real browser
+// because #entry-grid is a flex item of main#screen with auto margins and no
+// definite width. A stub test cannot catch that, so this section loads the
+// real served page in jsdom and drives a full Endless play in the real DOM:
+// the entry grid must have 100 children with the right classes after render
+// AND after a slider input, on every Guess and Split round.
+const jsdomErrors = [];
+const vc = new VirtualConsole();
+vc.on("jsdomError", (e) => jsdomErrors.push(String(e.message || e)));
+vc.on("error", (...a) => jsdomErrors.push(a.join(" ")));
+const domHtml = await (await fetch(BASE + "/")).text();
+const dom = new JSDOM(domHtml, {
+  url: BASE + "/",
+  runScripts: "dangerously",
+  resources: "usable",
+  virtualConsole: vc,
+  pretendToBeVisual: true,
+  beforeParse(window) {
+    // Node's fetch needs absolute URLs; resolve relative API paths against the page.
+    window.fetch = (input, init) => {
+      const url = typeof input === "string" ? new URL(input, window.location.href).href : input;
+      return globalThis.fetch(url, init);
+    };
+    if (!window.crypto?.randomUUID) window.crypto = globalThis.crypto;
+  },
+});
+const domDoc = dom.window.document;
+const waitForDom = async (fn, label, timeout = 15000) => {
+  const t0 = Date.now();
+  while (Date.now() - t0 < timeout) { const v = fn(); if (v) return v; await sleep(100); }
+  throw new Error(`timeout waiting for: ${label}`);
+};
+const gridCounts = (el) => {
+  if (!el) return null;
+  const kids = [...el.children];
+  const has = (name) => kids.filter((k) => k.classList.contains(name)).length;
+  return { n: kids.length, gold: has("gold"), navy: has("navy"), poppy: has("poppy"), ft: has("ft") };
+};
+await waitForDom(() => domDoc.querySelector("#btn-endless"), "home Endless button");
+domDoc.querySelector("#btn-endless").click();
+let domEntryOk = true, domRevealOk = true;
+for (let round = 1; round <= 7; round++) {
+  await waitForDom(() => domDoc.querySelector("#slider") || domDoc.querySelector("#text-answer"), `round ${round} controls`);
+  await sleep(200);
+  const isText = !!domDoc.querySelector("#text-answer");
+  if (!isText) {
+    const isSplit = !!domDoc.querySelector(".split-labels");
+    const entry = gridCounts(domDoc.querySelector("#entry-grid"));
+    if (isSplit) {
+      if (!(entry && entry.n === 100 && entry.navy === 50 && entry.poppy === 50 && entry.gold === 0)) domEntryOk = false;
+    } else {
+      if (!(entry && entry.n === 100 && entry.gold === 50 && entry.navy === 0)) domEntryOk = false;
+    }
+    // Slider input must re-light the grid live (the exact gesture the bug hid).
+    const s = domDoc.querySelector("#slider");
+    s.value = isSplit ? "96" : "70";
+    s.dispatchEvent(new dom.window.Event("input", { bubbles: true }));
+    await sleep(200);
+    const after = gridCounts(domDoc.querySelector("#entry-grid"));
+    if (isSplit) {
+      if (!(after && after.n === 100 && after.navy === 96 && after.poppy === 4 && after.gold === 0)) domEntryOk = false;
+    } else {
+      if (!(after && after.n === 100 && after.gold === 70 && after.navy === 0)) domEntryOk = false;
+    }
+  } else {
+    domDoc.querySelector("#text-answer").value = "verify answer";
+  }
+  domDoc.querySelector("#submit").click();
+  await waitForDom(() => domDoc.querySelector("#next") || domDoc.querySelector(".score-big"), `round ${round} reveal/results`);
+  await sleep(200);
+  const reveal = domDoc.querySelector("#grid");
+  if (reveal) {
+    const rc = gridCounts(reveal);
+    if (!(rc && rc.n === 100)) domRevealOk = false;
+  }
+  const next = domDoc.querySelector("#next");
+  if (next) next.click();
+}
+await waitForDom(() => domDoc.querySelector(".score-big"), "results screen");
+check("real DOM: entry grid has 100 children, right classes, on every Guess/Split round (render + slider input)", domEntryOk);
+check("real DOM: reveal grid has 100 children after every submit", domRevealOk);
+check("real DOM: no JS errors during the full Endless play", jsdomErrors.length === 0, jsdomErrors.join(" | "));
+dom.window.close();
 
 child.kill();
 try { fs.unlinkSync(TMP); } catch {}

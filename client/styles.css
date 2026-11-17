@@ -76,8 +76,18 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .grid .dot.ft{background:color-mix(in srgb, var(--gold) 28%, var(--surface));box-shadow:inset 0 0 0 2px var(--gold)}
 .grid.small{max-width:224px;gap:3px}
 /* entry grid: same shared 188px size as the reveal grid, so answering and
-   reveal are identical in size */
-.grid.entry{max-width:188px;gap:3px;margin:10px auto 4px}
+   reveal are identical in size.
+   NOTE: #entry-grid is a direct child of main#screen, which is a FLEX
+   container (display:flex; flex-direction:column), and this rule sets
+   horizontal auto margins. A flex item with auto cross margins is NOT
+   stretched — its width resolves to fit-content. With repeat(10, 1fr)
+   columns holding only empty aspect-ratio dots, the intrinsic width is
+   just the gaps (~27px), so the 1fr columns and the dots collapse to 0px
+   and the grid is invisible in a real browser (the reveal grid works
+   only because it sits inside a block .card, where width:auto fills).
+   The definite width:100% below (capped by max-width) is what keeps
+   this grid at 188px — do not remove it. */
+.grid.entry{width:100%;max-width:188px;gap:3px;margin:10px auto 4px}
 .legend{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 10px}
 .legend .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 3px 0 10px;vertical-align:-1px}
 .legend .sw.navy{background:var(--navy)} .legend .sw.poppy{background:var(--poppy)}

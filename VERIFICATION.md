@@ -173,6 +173,79 @@ gave no values for them); dark-mode body text still uses the light-mode ink
 color (#14181f on #101623), so dark-mode contrast is an open question for
 the parent to confirm.
 
+## 2026-11-16 entry-grid collapse — flex-item width bug (live-site report)
+
+Luke reported the entry grid still never appears on the live answering screen:
+no dots before touching the slider, none after dragging to 70% or 96%; the gap
+between the big guess number and the slider is only ~108px (a 10x10 grid
+needs ~190px); a pixel scan found zero dot pixels, only the legend
+"Gold ring = your guess" shows — while the SAME grid component renders 100
+dots correctly on the reveal screen. The user and two independent browser
+checks confirmed this. Ruled out by the parent: the live-served app.js and
+styles.css are byte-identical to origin/main (diff clean, Cache-Control
+max-age=0, ETag present) — not a stale deploy or stale cache.
+
+**Root cause (layout, not DOM/JS).** Reproduced in a real DOM with jsdom
+(`/tmp/jsdom-repro/repro.mjs`, jsdom 31, real server on a throwaway store):
+across a full 7-round Endless play the DOM is perfect — the entry grid
+always has 100 children with exactly the right classes (Guess round at 50:
+50 gold; slider→70: 70 gold; slider→96: 96 gold; Split round: navy/poppy
+halves, zero gold while answering; reveal grids: correct regions), zero JS
+errors. The bug is pure layout:
+
+- `index.html` has `<main id="screen">` — the screen element IS the `<main>`,
+  and `main` is `display:flex; flex-direction:column`. So `#entry-grid` is a
+  **flex item** of a column flex container.
+- `.grid.entry` set horizontal auto margins (`margin:10px auto 4px`). A flex
+  item with auto cross margins is NOT stretched — per the flexbox spec,
+  stretch only applies when neither cross-axis margin is auto — so the
+  item's width resolves to its fit-content width.
+- The grid's fit-content (max-content) width with `repeat(10, 1fr)` columns
+  holding only empty aspect-ratio dots is just the gaps: each `1fr` track's
+  intrinsic contribution is the items' max-content size, and empty divs
+  contribute 0 — so max-content width ≈ 9 gaps × 3px = 27px.
+- In a 27px-wide container the 1fr columns get 0px each (27 − 27 gaps = 0
+  free space), and the dots, sized only by `aspect-ratio:1`, become 0×0.
+  Grid height = 10 rows × 0 + 9 gaps × 3px = 27px. Predicted gap between
+  the big-guess number and the slider: 4 (big-guess margin) + 41 (grid with
+  margins) + ~29 (legend) + 10 (controls padding) + 18 (slider margin)
+  ≈ 102px — matching the observed ~108px (a working 188px grid would leave
+  ~263px). The legend still shows because its height comes from text.
+- The reveal grid works only because it sits inside a block `.card`, where
+  `width:auto` fills the card and `max-width:188px` caps it at a definite
+  188px. Same for the fine-tune grid (`#ft-grid` inside a card).
+
+**Fix (one property, `client/styles.css`).** `.grid.entry` now sets a
+definite width: `width:100%; max-width:188px` — the 100% resolves against
+the flex container's content width, the max-width caps it at the exact
+188px spec, and the auto margins center it. On a screen narrower than
+188px of content it shrinks with the screen instead of overflowing. No
+gameplay, scoring, question, size, or color change — still the exact Muse
+spec (188px, gap 3px, inset gold rings, hollow white guess dots). A CSS
+comment on the rule explains the mechanism so it is not reintroduced.
+`jsdom` was added as a devDependency (`package.json`) so the regression
+check below can run under `npm run verify`.
+
+Verification (`npm run verify` now 125/125, was 121/121 — 4 new checks):
+- Static: `.grid.entry` must set a definite width (`width:100%` or
+  `width:188px`) — the flex-item collapse guard.
+- Real-DOM section (new in `scripts/verify.js`): loads the real served
+  page in jsdom (fetch wired to the local server, virtual console
+  capturing JS errors) and drives a full 7-round Endless play in the real
+  DOM — entry grid has 100 children with the right classes on every
+  Guess/Split round after render AND after a slider input event
+  (Guess 50 → 70 gold; Split 50/50 → 96/4 navy/poppy, zero gold),
+  reveal grid has 100 children after every submit, zero JS errors.
+- Live-server check: served `styles.css` carries
+  `.grid.entry{width:100%;max-width:188px;...}` and `/health` is ok.
+
+Not verified: jsdom has no layout engine, so it settles the DOM question
+only — the collapse itself is proven by the CSS mechanism plus the
+measured ~108px gap matching the collapsed-grid arithmetic (~102px), not
+by a rendered pixel measurement. No browser exists in this sandbox, so
+Luke's in-hand play-through on the live site after the push is still the
+final proof that the dots now appear while answering.
+
 ## NOT verified (honest gaps)
 - **Postgres path untested live.** No Postgres is installed in this sandbox,
   so the `pg` store (db.js `PgStore`) was syntax-checked and code-reviewed
