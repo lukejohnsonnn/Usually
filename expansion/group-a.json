@@ -1,0 +1,5449 @@
+{
+  "103": {
+    "textAnswers": [
+      {
+        "rank": 1,
+        "texts": [
+          "Check their phone",
+          "Check phone",
+          "Look at my phone",
+          "Grab my phone",
+          "Check my phone",
+          "Look at phone",
+          "Pick up my phone",
+          "Phone"
+        ]
+      },
+      {
+        "rank": 2,
+        "texts": [
+          "Snooze the alarm",
+          "Hit snooze",
+          "Snooze",
+          "Hit the snooze button",
+          "Press snooze",
+          "Snooze my alarm"
+        ]
+      },
+      {
+        "rank": 3,
+        "texts": [
+          "Go to the bathroom",
+          "Use the bathroom",
+          "Pee",
+          "Go pee",
+          "Use the toilet",
+          "Go to the loo",
+          "Take a piss",
+          "Go to the restroom",
+          "Use the restroom"
+        ]
+      },
+      {
+        "rank": 4,
+        "texts": [
+          "Brush their teeth",
+          "Brush teeth",
+          "Brush my teeth",
+          "Clean my teeth"
+        ]
+      },
+      {
+        "rank": 5,
+        "texts": [
+          "Make coffee",
+          "Brew coffee",
+          "Make a coffee",
+          "Get coffee",
+          "Get a coffee",
+          "Brew some coffee",
+          "Make myself coffee"
+        ]
+      },
+      {
+        "rank": 6,
+        "texts": [
+          "Check the time",
+          "Look at the clock",
+          "Check what time it is",
+          "Check the clock",
+          "What time is it"
+        ]
+      },
+      {
+        "rank": 7,
+        "texts": [
+          "Take a shower",
+          "Shower",
+          "Get in the shower",
+          "Take a quick shower",
+          "Have a shower"
+        ]
+      },
+      {
+        "rank": 8,
+        "texts": [
+          "Eat breakfast",
+          "Have breakfast",
+          "Eat",
+          "Eat something",
+          "Have some breakfast",
+          "Breakfast"
+        ]
+      },
+      {
+        "rank": 9,
+        "texts": [
+          "Get dressed",
+          "Get out of bed",
+          "Get up",
+          "Get changed",
+          "Put my clothes on",
+          "Put on clothes"
+        ]
+      },
+      {
+        "rank": 10,
+        "texts": [
+          "Stretch",
+          "Stretching",
+          "Stretch out",
+          "Do some stretches",
+          "Stretch my body"
+        ]
+      },
+      {
+        "rank": 11,
+        "texts": [
+          "Check social media",
+          "Scroll social media",
+          "Check Instagram",
+          "Check Facebook",
+          "Check my socials",
+          "Scroll through social media",
+          "Check Twitter",
+          "Check X"
+        ]
+      },
+      {
+        "rank": 12,
+        "texts": [
+          "Check email",
+          "Check emails",
+          "Read email",
+          "Check my inbox",
+          "Check my email",
+          "Look at emails"
+        ]
+      },
+      {
+        "rank": 13,
+        "texts": [
+          "Check the news",
+          "Read the news",
+          "Check headlines",
+          "Watch the news",
+          "Check news headlines",
+          "Catch up on the news"
+        ]
+      },
+      {
+        "rank": 14,
+        "texts": [
+          "Check the weather",
+          "Look at the weather",
+          "Check weather app",
+          "Check the forecast",
+          "Look at the forecast",
+          "Check the weather outside"
+        ]
+      },
+      {
+        "rank": 15,
+        "texts": [
+          "Feed the pet",
+          "Feed the dog",
+          "Feed the cat",
+          "Feed my pet",
+          "Feed the pets"
+        ]
+      },
+      {
+        "rank": 16,
+        "texts": [
+          "Make the bed",
+          "Make my bed",
+          "Straighten the bed"
+        ]
+      },
+      {
+        "rank": 17,
+        "texts": [
+          "Drink water",
+          "Get a glass of water",
+          "Drink some water",
+          "Drink a glass of water",
+          "Have some water",
+          "Get some water"
+        ]
+      },
+      {
+        "rank": 18,
+        "texts": [
+          "Turn off the alarm",
+          "Turn the alarm off",
+          "Silence the alarm",
+          "Switch off the alarm",
+          "Turn off my alarm",
+          "Stop the alarm"
+        ]
+      },
+      {
+        "rank": 19,
+        "texts": [
+          "Exercise",
+          "Go for a run",
+          "Work out",
+          "Go to the gym",
+          "Work out at home",
+          "Do some exercise"
+        ]
+      },
+      {
+        "rank": 20,
+        "texts": [
+          "Check messages",
+          "Check texts",
+          "Read my texts",
+          "Check my messages",
+          "Look at my texts",
+          "Check my phone messages"
+        ]
+      },
+      {
+        "rank": 21,
+        "texts": [
+          "Wash their face",
+          "Wash face",
+          "Splash water on my face",
+          "Clean my face"
+        ]
+      },
+      {
+        "rank": 22,
+        "texts": [
+          "Put on glasses",
+          "Put my glasses on",
+          "Put in contacts",
+          "Put my contacts in",
+          "Put on my glasses",
+          "Put in my contacts"
+        ]
+      },
+      {
+        "rank": 23,
+        "texts": [
+          "Open the curtains",
+          "Open the blinds",
+          "Let the light in",
+          "Open my curtains",
+          "Open the window blinds",
+          "Open up the curtains"
+        ]
+      },
+      {
+        "rank": 24,
+        "texts": [
+          "Pray",
+          "Say a prayer",
+          "Pray to God",
+          "Say my prayers"
+        ]
+      },
+      {
+        "rank": 25,
+        "texts": [
+          "Meditate",
+          "Meditate for a bit",
+          "Do some meditation",
+          "Meditate in the morning"
+        ]
+      },
+      {
+        "rank": 26,
+        "texts": [
+          "Check the calendar",
+          "Check my schedule",
+          "Look at today's plans",
+          "Check my calendar",
+          "Look at my schedule",
+          "Check what's on today"
+        ]
+      },
+      {
+        "rank": 27,
+        "texts": [
+          "Scroll TikTok",
+          "Watch TikTok",
+          "Scroll through TikTok",
+          "Scroll on TikTok",
+          "Watch TikToks",
+          "Go on TikTok"
+        ]
+      },
+      {
+        "rank": 28,
+        "texts": [
+          "Get the kids up",
+          "Wake the kids",
+          "Get kids ready",
+          "Wake up the kids",
+          "Get my kids up",
+          "Wake my kids up"
+        ]
+      },
+      {
+        "rank": 29,
+        "texts": [
+          "Let the dog out",
+          "Walk the dog",
+          "Take the dog out",
+          "Let my dog out",
+          "Take my dog out",
+          "Let the dog outside"
+        ]
+      },
+      {
+        "rank": 30,
+        "texts": [
+          "Make tea",
+          "Brew tea",
+          "Make a cup of tea",
+          "Make some tea",
+          "Have a cup of tea",
+          "Drink tea"
+        ]
+      },
+      {
+        "rank": 31,
+        "texts": [
+          "Go for a walk",
+          "Go running",
+          "Take a walk",
+          "Go for a morning walk",
+          "Take a morning walk",
+          "Go for a jog"
+        ]
+      },
+      {
+        "rank": 32,
+        "texts": [
+          "Check the mirror",
+          "Look in the mirror",
+          "Look at myself in the mirror",
+          "Check myself in the mirror"
+        ]
+      },
+      {
+        "rank": 33,
+        "texts": [
+          "Watch YouTube",
+          "Watch videos on YouTube",
+          "Watch YouTube videos",
+          "YouTube"
+        ]
+      },
+      {
+        "rank": 34,
+        "texts": [
+          "Take my vitamins",
+          "Take vitamins",
+          "Take my medicine",
+          "Take medication",
+          "Take my pills"
+        ]
+      },
+      {
+        "rank": 35,
+        "texts": [
+          "Cuddle my partner",
+          "Kiss my partner",
+          "Hug my partner",
+          "Kiss my wife",
+          "Kiss my husband",
+          "Snuggle"
+        ]
+      },
+      {
+        "rank": 36,
+        "texts": [
+          "Pack a lunch",
+          "Make lunch",
+          "Pack my lunch",
+          "Make my lunch"
+        ]
+      },
+      {
+        "rank": 37,
+        "texts": [
+          "Listen to music",
+          "Listen to a podcast",
+          "Put on music"
+        ]
+      },
+      {
+        "rank": 38,
+        "texts": [
+          "Check sports scores",
+          "Check the scores",
+          "Check last night's scores"
+        ]
+      },
+      {
+        "rank": 39,
+        "texts": [
+          "Do yoga",
+          "Yoga"
+        ]
+      },
+      {
+        "rank": 40,
+        "texts": [
+          "Write in my journal",
+          "Journal",
+          "Write in a journal"
+        ]
+      },
+      {
+        "rank": 41,
+        "texts": [
+          "Read a book",
+          "Read"
+        ]
+      },
+      {
+        "rank": 42,
+        "texts": [
+          "Water the plants",
+          "Water my plants"
+        ]
+      },
+      {
+        "rank": 43,
+        "texts": [
+          "Make the kids breakfast",
+          "Make breakfast for the kids",
+          "Feed the kids"
+        ]
+      },
+      {
+        "rank": 44,
+        "texts": [
+          "Turn on the TV",
+          "Watch TV",
+          "Turn the TV on"
+        ]
+      },
+      {
+        "rank": 45,
+        "texts": [
+          "Put on makeup",
+          "Do my makeup"
+        ]
+      },
+      {
+        "rank": 46,
+        "texts": [
+          "Shave",
+          "Shave my face"
+        ]
+      },
+      {
+        "rank": 47,
+        "texts": [
+          "Do my skincare routine",
+          "Skincare",
+          "Wash and moisturize",
+          "Put on moisturizer"
+        ]
+      },
+      {
+        "rank": 48,
+        "texts": [
+          "Brush my hair",
+          "Comb my hair",
+          "Do my hair"
+        ]
+      },
+      {
+        "rank": 49,
+        "texts": [
+          "Stop for coffee",
+          "Buy coffee",
+          "Get coffee on the way",
+          "Grab a coffee"
+        ]
+      },
+      {
+        "rank": 50,
+        "texts": [
+          "Take out the trash",
+          "Take the trash out"
+        ]
+      },
+      {
+        "rank": 51,
+        "texts": [
+          "Start the car",
+          "Warm up the car",
+          "Start my car"
+        ]
+      },
+      {
+        "rank": 52,
+        "texts": [
+          "Open a window",
+          "Open the window",
+          "Get some fresh air"
+        ]
+      },
+      {
+        "rank": 53,
+        "texts": [
+          "Say good morning to my family",
+          "Greet my family",
+          "Say good morning"
+        ]
+      },
+      {
+        "rank": 54,
+        "texts": [
+          "Make a smoothie",
+          "Make a protein shake",
+          "Blend a smoothie"
+        ]
+      },
+      {
+        "rank": 55,
+        "texts": [
+          "Feed the baby",
+          "Change the baby",
+          "Change a diaper"
+        ]
+      },
+      {
+        "rank": 56,
+        "texts": [
+          "Pick out my outfit",
+          "Choose what to wear",
+          "Pick out clothes"
+        ]
+      },
+      {
+        "rank": 57,
+        "texts": [
+          "Check the stock market",
+          "Check my stocks",
+          "Check crypto"
+        ]
+      },
+      {
+        "rank": 58,
+        "texts": [
+          "Write a to-do list",
+          "Plan my day",
+          "Make a to-do list"
+        ]
+      },
+      {
+        "rank": 59,
+        "texts": [
+          "Go for a swim",
+          "Swim"
+        ]
+      },
+      {
+        "rank": 60,
+        "texts": [
+          "Stare at the ceiling",
+          "Lie there staring at the ceiling",
+          "Stare at the ceiling for a bit"
+        ]
+      },
+      {
+        "rank": 61,
+        "texts": [
+          "Make the kids' lunches",
+          "Pack the kids' lunches"
+        ]
+      },
+      {
+        "rank": 62,
+        "texts": [
+          "Look out the window",
+          "Look outside"
+        ]
+      },
+      {
+        "rank": 63,
+        "texts": [
+          "Pet the dog",
+          "Play with the dog",
+          "Cuddle the dog"
+        ]
+      },
+      {
+        "rank": 64,
+        "texts": [
+          "Do the laundry",
+          "Start a load of laundry",
+          "Start the laundry"
+        ]
+      },
+      {
+        "rank": 65,
+        "texts": [
+          "Tidy up",
+          "Clean up",
+          "Tidy the room"
+        ]
+      },
+      {
+        "rank": 66,
+        "texts": [
+          "Take a bath",
+          "Have a bath"
+        ]
+      },
+      {
+        "rank": 67,
+        "texts": [
+          "Put on deodorant",
+          "Put deodorant on"
+        ]
+      },
+      {
+        "rank": 68,
+        "texts": [
+          "Weigh myself",
+          "Step on the scale",
+          "Check my weight"
+        ]
+      },
+      {
+        "rank": 69,
+        "texts": [
+          "Plug my phone in",
+          "Charge my phone",
+          "Put my phone on charge"
+        ]
+      },
+      {
+        "rank": 70,
+        "texts": [
+          "Check my horoscope",
+          "Read my horoscope"
+        ]
+      },
+      {
+        "rank": 71,
+        "texts": [
+          "Listen to the radio",
+          "Turn on the radio"
+        ]
+      },
+      {
+        "rank": 72,
+        "texts": [
+          "Check the traffic",
+          "Check my commute",
+          "Check traffic on my phone"
+        ]
+      },
+      {
+        "rank": 73,
+        "texts": [
+          "Drink orange juice",
+          "Drink juice",
+          "Have some juice"
+        ]
+      },
+      {
+        "rank": 74,
+        "texts": [
+          "Go back to sleep",
+          "Fall back asleep",
+          "Go back to bed"
+        ]
+      },
+      {
+        "rank": 75,
+        "texts": [
+          "Set my alarm",
+          "Set an alarm"
+        ]
+      },
+      {
+        "rank": 76,
+        "texts": [
+          "Wash my hands",
+          "Wash my hands and face"
+        ]
+      },
+      {
+        "rank": 77,
+        "texts": [
+          "Put on my shoes",
+          "Put my shoes on",
+          "Put on slippers"
+        ]
+      },
+      {
+        "rank": 78,
+        "texts": [
+          "Check the baby monitor",
+          "Check on the baby"
+        ]
+      },
+      {
+        "rank": 79,
+        "texts": [
+          "Text my partner",
+          "Text good morning",
+          "Send a good morning text"
+        ]
+      },
+      {
+        "rank": 80,
+        "texts": [
+          "Pack my bag",
+          "Pack my bag for work",
+          "Pack my work bag"
+        ]
+      },
+      {
+        "rank": 81,
+        "texts": [
+          "Drink an energy drink",
+          "Have an energy drink"
+        ]
+      },
+      {
+        "rank": 82,
+        "texts": [
+          "Let the cat out",
+          "Let the cat in"
+        ]
+      },
+      {
+        "rank": 83,
+        "texts": [
+          "Turn on the lights",
+          "Turn the lights on"
+        ]
+      },
+      {
+        "rank": 84,
+        "texts": [
+          "Check my bank balance",
+          "Check my bank account"
+        ]
+      },
+      {
+        "rank": 85,
+        "texts": [
+          "Put the kettle on",
+          "Boil the kettle"
+        ]
+      }
+    ],
+    "top1": "Check their phone",
+    "unlisted": [
+      "open my eyes",
+      "yawn"
+    ]
+  },
+  "104": {
+    "textAnswers": [
+      {
+        "rank": 1,
+        "texts": [
+          "Phone",
+          "Cell phone",
+          "My phone",
+          "Cellphone",
+          "Mobile phone",
+          "iPhone",
+          "My iPhone",
+          "Android",
+          "Smartphone"
+        ]
+      },
+      {
+        "rank": 2,
+        "texts": [
+          "Keys",
+          "House keys",
+          "Car keys",
+          "My keys",
+          "House key",
+          "Car key"
+        ]
+      },
+      {
+        "rank": 3,
+        "texts": [
+          "Wallet",
+          "Purse",
+          "My wallet",
+          "My billfold"
+        ]
+      },
+      {
+        "rank": 4,
+        "texts": [
+          "Lunch",
+          "My lunch",
+          "Lunchbox",
+          "Packed lunch",
+          "My packed lunch",
+          "Lunch bag",
+          "My lunch box"
+        ]
+      },
+      {
+        "rank": 5,
+        "texts": [
+          "Sunglasses",
+          "My sunglasses",
+          "Shades",
+          "My shades",
+          "Sun glasses"
+        ]
+      },
+      {
+        "rank": 6,
+        "texts": [
+          "Charger",
+          "Phone charger",
+          "My charger",
+          "My phone charger",
+          "Charging cable",
+          "iPhone charger"
+        ]
+      },
+      {
+        "rank": 7,
+        "texts": [
+          "Water bottle",
+          "My water bottle",
+          "Water",
+          "Bottle of water",
+          "My bottle"
+        ]
+      },
+      {
+        "rank": 8,
+        "texts": [
+          "Umbrella",
+          "My umbrella",
+          "My brolly"
+        ]
+      },
+      {
+        "rank": 9,
+        "texts": [
+          "Jacket",
+          "My coat",
+          "A jacket",
+          "Coat",
+          "My jacket",
+          "A coat",
+          "Windbreaker"
+        ]
+      },
+      {
+        "rank": 10,
+        "texts": [
+          "ID",
+          "Driver's license",
+          "My ID",
+          "License",
+          "Wallet card",
+          "ID card",
+          "Driving licence"
+        ]
+      },
+      {
+        "rank": 11,
+        "texts": [
+          "Coffee",
+          "My coffee",
+          "Coffee cup",
+          "Travel mug",
+          "Coffee mug",
+          "My travel mug",
+          "Cup of coffee"
+        ]
+      },
+      {
+        "rank": 12,
+        "texts": [
+          "Backpack",
+          "My bag",
+          "School bag",
+          "Work bag",
+          "Bag",
+          "My backpack",
+          "Schoolbag",
+          "My work bag"
+        ]
+      },
+      {
+        "rank": 13,
+        "texts": [
+          "Laptop",
+          "My laptop",
+          "Computer",
+          "MacBook",
+          "My MacBook",
+          "Laptop computer"
+        ]
+      },
+      {
+        "rank": 14,
+        "texts": [
+          "Headphones",
+          "Earbuds",
+          "My headphones",
+          "AirPods",
+          "My AirPods",
+          "Earphones",
+          "My earbuds"
+        ]
+      },
+      {
+        "rank": 15,
+        "texts": [
+          "Homework",
+          "My homework",
+          "School books",
+          "Schoolwork",
+          "My books for school"
+        ]
+      },
+      {
+        "rank": 16,
+        "texts": [
+          "Gym bag",
+          "Gym clothes",
+          "Workout bag",
+          "My gym bag",
+          "Gym kit",
+          "Workout clothes"
+        ]
+      },
+      {
+        "rank": 17,
+        "texts": [
+          "Hat",
+          "My hat",
+          "Cap",
+          "My cap",
+          "Baseball cap",
+          "Beanie"
+        ]
+      },
+      {
+        "rank": 18,
+        "texts": [
+          "Gloves",
+          "My gloves",
+          "My winter gloves",
+          "A pair of gloves"
+        ]
+      },
+      {
+        "rank": 19,
+        "texts": [
+          "Medication",
+          "My medicine",
+          "My pills",
+          "Medicine",
+          "My meds",
+          "My prescription"
+        ]
+      },
+      {
+        "rank": 20,
+        "texts": [
+          "Book",
+          "My book",
+          "Textbook",
+          "My textbook",
+          "Novel",
+          "Reading book"
+        ]
+      },
+      {
+        "rank": 21,
+        "texts": [
+          "Snacks",
+          "A snack",
+          "Food",
+          "My snacks",
+          "Snack",
+          "Something to eat"
+        ]
+      },
+      {
+        "rank": 22,
+        "texts": [
+          "Their lunch money",
+          "Lunch money",
+          "Money",
+          "Lunch money for the kids",
+          "Cash for lunch"
+        ]
+      },
+      {
+        "rank": 23,
+        "texts": [
+          "A pen",
+          "Pen",
+          "Pens",
+          "My pen"
+        ]
+      },
+      {
+        "rank": 24,
+        "texts": [
+          "Their badge",
+          "Work badge",
+          "ID badge",
+          "Key card",
+          "Badge",
+          "Work ID",
+          "Employee badge",
+          "Access card"
+        ]
+      },
+      {
+        "rank": 25,
+        "texts": [
+          "A mask",
+          "Face mask",
+          "My face mask",
+          "Covid mask"
+        ]
+      },
+      {
+        "rank": 26,
+        "texts": [
+          "Their gym shoes",
+          "Gym shoes",
+          "Sneakers",
+          "Trainers",
+          "My sneakers",
+          "Running shoes"
+        ]
+      },
+      {
+        "rank": 27,
+        "texts": [
+          "A reusable bag",
+          "Shopping bag",
+          "Tote bag",
+          "Tote",
+          "Canvas bag",
+          "Reusable shopping bag"
+        ]
+      },
+      {
+        "rank": 28,
+        "texts": [
+          "Their watch",
+          "Watch",
+          "Wristwatch"
+        ]
+      },
+      {
+        "rank": 29,
+        "texts": [
+          "A notebook",
+          "Notebook",
+          "Notepad",
+          "My notebook",
+          "Journal"
+        ]
+      },
+      {
+        "rank": 30,
+        "texts": [
+          "Their glasses",
+          "Glasses",
+          "Reading glasses",
+          "Specs",
+          "My specs"
+        ]
+      },
+      {
+        "rank": 31,
+        "texts": [
+          "A reusable coffee cup",
+          "Keep cup",
+          "Thermos",
+          "Reusable cup",
+          "My keep cup",
+          "Flask"
+        ]
+      },
+      {
+        "rank": 32,
+        "texts": [
+          "Their keys to the office",
+          "Office keys",
+          "Work keys",
+          "Office key"
+        ]
+      },
+      {
+        "rank": 33,
+        "texts": [
+          "Passport",
+          "My passport"
+        ]
+      },
+      {
+        "rank": 34,
+        "texts": [
+          "Credit card",
+          "Debit card",
+          "My credit card",
+          "My debit card",
+          "Bank card"
+        ]
+      },
+      {
+        "rank": 35,
+        "texts": [
+          "Bus pass",
+          "Train ticket",
+          "Transit card",
+          "My bus pass",
+          "Oyster card",
+          "Metro card"
+        ]
+      },
+      {
+        "rank": 36,
+        "texts": [
+          "Sunscreen",
+          "Sun cream",
+          "Sunblock"
+        ]
+      },
+      {
+        "rank": 37,
+        "texts": [
+          "Hand sanitizer",
+          "Sanitizer"
+        ]
+      },
+      {
+        "rank": 38,
+        "texts": [
+          "Tissues",
+          "A tissue",
+          "Kleenex"
+        ]
+      },
+      {
+        "rank": 39,
+        "texts": [
+          "Deodorant",
+          "My deodorant"
+        ]
+      },
+      {
+        "rank": 40,
+        "texts": [
+          "Toothbrush",
+          "My toothbrush"
+        ]
+      },
+      {
+        "rank": 41,
+        "texts": [
+          "Swimsuit",
+          "Swim gear",
+          "Bathing suit",
+          "Swim suit"
+        ]
+      },
+      {
+        "rank": 42,
+        "texts": [
+          "Towel",
+          "A towel",
+          "Beach towel"
+        ]
+      },
+      {
+        "rank": 43,
+        "texts": [
+          "Raincoat",
+          "Rain jacket",
+          "My raincoat"
+        ]
+      },
+      {
+        "rank": 44,
+        "texts": [
+          "Scarf",
+          "My scarf"
+        ]
+      },
+      {
+        "rank": 45,
+        "texts": [
+          "Permission slip",
+          "A signed form",
+          "Field trip form"
+        ]
+      },
+      {
+        "rank": 46,
+        "texts": [
+          "Sports equipment",
+          "Cleats",
+          "My cleats",
+          "Sports gear"
+        ]
+      },
+      {
+        "rank": 47,
+        "texts": [
+          "Instrument",
+          "My instrument",
+          "Guitar",
+          "My guitar"
+        ]
+      },
+      {
+        "rank": 48,
+        "texts": [
+          "Camera",
+          "My camera"
+        ]
+      },
+      {
+        "rank": 49,
+        "texts": [
+          "Tablet",
+          "iPad",
+          "My iPad",
+          "My tablet"
+        ]
+      },
+      {
+        "rank": 50,
+        "texts": [
+          "Game console",
+          "Nintendo Switch",
+          "My Switch",
+          "Gameboy"
+        ]
+      },
+      {
+        "rank": 51,
+        "texts": [
+          "Diaper bag",
+          "Baby bag",
+          "The diaper bag"
+        ]
+      },
+      {
+        "rank": 52,
+        "texts": [
+          "Baby formula",
+          "Baby bottle",
+          "A bottle for the baby"
+        ]
+      },
+      {
+        "rank": 53,
+        "texts": [
+          "Dog leash",
+          "The leash",
+          "Dog's leash"
+        ]
+      },
+      {
+        "rank": 54,
+        "texts": [
+          "Pet food",
+          "Dog food",
+          "Cat food"
+        ]
+      },
+      {
+        "rank": 55,
+        "texts": [
+          "Mail to post",
+          "Letters to post",
+          "A letter to mail"
+        ]
+      },
+      {
+        "rank": 56,
+        "texts": [
+          "Return package",
+          "A package to return",
+          "My return"
+        ]
+      },
+      {
+        "rank": 57,
+        "texts": [
+          "Birthday present",
+          "A gift",
+          "A present"
+        ]
+      },
+      {
+        "rank": 58,
+        "texts": [
+          "Wine",
+          "A bottle of wine"
+        ]
+      },
+      {
+        "rank": 59,
+        "texts": [
+          "Inhaler",
+          "My inhaler",
+          "My EpiPen",
+          "EpiPen"
+        ]
+      },
+      {
+        "rank": 60,
+        "texts": [
+          "Hairbrush",
+          "My hairbrush",
+          "A brush"
+        ]
+      },
+      {
+        "rank": 61,
+        "texts": [
+          "Makeup bag",
+          "Makeup",
+          "My makeup"
+        ]
+      },
+      {
+        "rank": 62,
+        "texts": [
+          "Perfume",
+          "Cologne",
+          "My perfume"
+        ]
+      },
+      {
+        "rank": 63,
+        "texts": [
+          "Jewelry",
+          "Earrings",
+          "My earrings",
+          "A necklace"
+        ]
+      },
+      {
+        "rank": 64,
+        "texts": [
+          "Belt",
+          "My belt"
+        ]
+      },
+      {
+        "rank": 65,
+        "texts": [
+          "Tie",
+          "My tie"
+        ]
+      },
+      {
+        "rank": 66,
+        "texts": [
+          "USB drive",
+          "Flash drive",
+          "USB stick",
+          "A thumb drive"
+        ]
+      },
+      {
+        "rank": 67,
+        "texts": [
+          "Concert tickets",
+          "Printed tickets",
+          "My tickets",
+          "Event tickets"
+        ]
+      },
+      {
+        "rank": 68,
+        "texts": [
+          "Plane ticket",
+          "Boarding pass",
+          "My boarding pass"
+        ]
+      },
+      {
+        "rank": 69,
+        "texts": [
+          "Power bank",
+          "Portable charger",
+          "My power bank"
+        ]
+      },
+      {
+        "rank": 70,
+        "texts": [
+          "Student ID",
+          "School ID",
+          "My student ID"
+        ]
+      },
+      {
+        "rank": 71,
+        "texts": [
+          "Calculator",
+          "My calculator"
+        ]
+      },
+      {
+        "rank": 72,
+        "texts": [
+          "Cash",
+          "Some cash",
+          "Money for the day"
+        ]
+      },
+      {
+        "rank": 73,
+        "texts": [
+          "Garage remote",
+          "Garage door opener",
+          "The garage remote"
+        ]
+      },
+      {
+        "rank": 74,
+        "texts": [
+          "Baby wipes",
+          "Wipes",
+          "Diapers"
+        ]
+      },
+      {
+        "rank": 75,
+        "texts": [
+          "Bug spray",
+          "Insect repellent",
+          "Mosquito spray"
+        ]
+      },
+      {
+        "rank": 76,
+        "texts": [
+          "Uniform",
+          "My uniform",
+          "Work uniform"
+        ]
+      },
+      {
+        "rank": 77,
+        "texts": [
+          "Rain boots",
+          "Wellies",
+          "My rain boots"
+        ]
+      },
+      {
+        "rank": 78,
+        "texts": [
+          "Spare clothes",
+          "A change of clothes",
+          "Change of clothes"
+        ]
+      },
+      {
+        "rank": 79,
+        "texts": [
+          "Phone case",
+          "My phone case"
+        ]
+      },
+      {
+        "rank": 80,
+        "texts": [
+          "Car charger",
+          "A car charger"
+        ]
+      },
+      {
+        "rank": 81,
+        "texts": [
+          "First aid kit",
+          "A first aid kit",
+          "Band-aids"
+        ]
+      },
+      {
+        "rank": 82,
+        "texts": [
+          "Dog treats",
+          "Treats for the dog"
+        ]
+      },
+      {
+        "rank": 83,
+        "texts": [
+          "Shopping list",
+          "My shopping list",
+          "Grocery list"
+        ]
+      },
+      {
+        "rank": 84,
+        "texts": [
+          "Library card",
+          "My library card"
+        ]
+      },
+      {
+        "rank": 85,
+        "texts": [
+          "Vitamins",
+          "My vitamins",
+          "Supplements"
+        ]
+      }
+    ],
+    "top1": "Phone",
+    "unlisted": [
+      "their car",
+      "themselves"
+    ]
+  },
+  "105": {
+    "textAnswers": [
+      {
+        "rank": 1,
+        "texts": [
+          "Pepperoni",
+          "Pepperoni pizza",
+          "Pep",
+          "Roni"
+        ]
+      },
+      {
+        "rank": 2,
+        "texts": [
+          "Sausage",
+          "Italian sausage",
+          "Pork sausage",
+          "Spicy sausage",
+          "Sausage crumbles"
+        ]
+      },
+      {
+        "rank": 3,
+        "texts": [
+          "Extra cheese",
+          "Cheese",
+          "More cheese",
+          "Double cheese",
+          "Cheese pizza",
+          "Mozzarella",
+          "Extra mozzarella",
+          "Mozzarella cheese"
+        ]
+      },
+      {
+        "rank": 4,
+        "texts": [
+          "Mushroom",
+          "Mushrooms",
+          "Mushroom slices",
+          "Portobello",
+          "Portobello mushrooms"
+        ]
+      },
+      {
+        "rank": 5,
+        "texts": [
+          "Chicken",
+          "Grilled chicken",
+          "BBQ chicken",
+          "Buffalo chicken",
+          "Chicken breast",
+          "Fried chicken"
+        ]
+      },
+      {
+        "rank": 6,
+        "texts": [
+          "Pineapple",
+          "Ham and pineapple",
+          "Hawaiian",
+          "Pineapple chunks"
+        ]
+      },
+      {
+        "rank": 7,
+        "texts": [
+          "Bacon",
+          "Canadian bacon",
+          "Bacon bits",
+          "Crispy bacon"
+        ]
+      },
+      {
+        "rank": 8,
+        "texts": [
+          "Peppers",
+          "Bell peppers",
+          "Green peppers",
+          "Red peppers",
+          "Green pepper",
+          "Yellow peppers",
+          "Orange peppers",
+          "Roasted peppers"
+        ]
+      },
+      {
+        "rank": 9,
+        "texts": [
+          "Meatballs",
+          "Meatball",
+          "Meatballs on pizza"
+        ]
+      },
+      {
+        "rank": 10,
+        "texts": [
+          "Onions",
+          "Red onion",
+          "Sweet onion",
+          "Onion",
+          "White onion",
+          "Caramelized onions"
+        ]
+      },
+      {
+        "rank": 11,
+        "texts": [
+          "Salami",
+          "Pepperoni and salami",
+          "Pepperoni salami",
+          "Genoa salami"
+        ]
+      },
+      {
+        "rank": 12,
+        "texts": [
+          "Olives",
+          "Black olives",
+          "Green olives",
+          "Olive",
+          "Kalamata olives",
+          "Olive slices"
+        ]
+      },
+      {
+        "rank": 13,
+        "texts": [
+          "Fresh tomato",
+          "Tomatoes",
+          "Tomato slices",
+          "Fresh tomatoes",
+          "Sliced tomatoes",
+          "Cherry tomatoes",
+          "Tomato"
+        ]
+      },
+      {
+        "rank": 14,
+        "texts": [
+          "Ham",
+          "Canadian ham",
+          "Ham slices"
+        ]
+      },
+      {
+        "rank": 15,
+        "texts": [
+          "Fresh garlic",
+          "Garlic",
+          "Roasted garlic",
+          "Garlic cloves"
+        ]
+      },
+      {
+        "rank": 16,
+        "texts": [
+          "Fresh basil",
+          "Basil",
+          "Fresh basil leaves"
+        ]
+      },
+      {
+        "rank": 17,
+        "texts": [
+          "Jalapeños",
+          "Jalapenos",
+          "Hot peppers",
+          "Jalapeno",
+          "Jalapeño peppers",
+          "Sliced jalapenos",
+          "Habanero"
+        ]
+      },
+      {
+        "rank": 18,
+        "texts": [
+          "Anchovies",
+          "Anchovy",
+          "Anchovy fillets"
+        ]
+      },
+      {
+        "rank": 19,
+        "texts": [
+          "Spinach",
+          "Fresh spinach",
+          "Baby spinach"
+        ]
+      },
+      {
+        "rank": 20,
+        "texts": [
+          "Artichokes",
+          "Artichoke hearts",
+          "Grilled artichokes"
+        ]
+      },
+      {
+        "rank": 21,
+        "texts": [
+          "Eggplant",
+          "Aubergine",
+          "Roasted eggplant",
+          "Aubergines"
+        ]
+      },
+      {
+        "rank": 22,
+        "texts": [
+          "Broccoli",
+          "Broccoli florets",
+          "Steamed broccoli"
+        ]
+      },
+      {
+        "rank": 23,
+        "texts": [
+          "Corn",
+          "Sweetcorn",
+          "Sweet corn",
+          "Corn kernels"
+        ]
+      },
+      {
+        "rank": 24,
+        "texts": [
+          "Beef",
+          "Ground beef",
+          "Hamburger",
+          "Beef mince",
+          "Taco beef"
+        ]
+      },
+      {
+        "rank": 25,
+        "texts": [
+          "Steak",
+          "Philly steak",
+          "Steak slices",
+          "Philly cheesesteak",
+          "Steak strips"
+        ]
+      },
+      {
+        "rank": 26,
+        "texts": [
+          "Shrimp",
+          "Prawns",
+          "Prawn"
+        ]
+      },
+      {
+        "rank": 27,
+        "texts": [
+          "Feta cheese",
+          "Feta",
+          "Crumbled feta",
+          "Feta crumbles"
+        ]
+      },
+      {
+        "rank": 28,
+        "texts": [
+          "Goat cheese",
+          "Goat's cheese",
+          "Goats cheese",
+          "Chèvre"
+        ]
+      },
+      {
+        "rank": 29,
+        "texts": [
+          "Ricotta",
+          "Ricotta cheese",
+          "Ricotta dollops"
+        ]
+      },
+      {
+        "rank": 30,
+        "texts": [
+          "Pesto",
+          "Pesto sauce",
+          "Basil pesto",
+          "Pesto drizzle"
+        ]
+      },
+      {
+        "rank": 31,
+        "texts": [
+          "BBQ sauce",
+          "Barbecue sauce",
+          "Barbeque",
+          "BBQ"
+        ]
+      },
+      {
+        "rank": 32,
+        "texts": [
+          "Ranch",
+          "Ranch dressing",
+          "Ranch sauce",
+          "Hidden Valley ranch"
+        ]
+      },
+      {
+        "rank": 33,
+        "texts": [
+          "Parmesan",
+          "Parmesan cheese",
+          "Shaved parmesan",
+          "Parmigiano"
+        ]
+      },
+      {
+        "rank": 34,
+        "texts": [
+          "Cheddar",
+          "Cheddar cheese",
+          "Sharp cheddar"
+        ]
+      },
+      {
+        "rank": 35,
+        "texts": [
+          "Provolone",
+          "Provolone cheese"
+        ]
+      },
+      {
+        "rank": 36,
+        "texts": [
+          "Red pepper flakes",
+          "Chili flakes",
+          "Crushed red pepper",
+          "Hot sauce"
+        ]
+      },
+      {
+        "rank": 37,
+        "texts": [
+          "Banana peppers",
+          "Pepperoncini",
+          "Mild peppers"
+        ]
+      },
+      {
+        "rank": 38,
+        "texts": [
+          "Sun-dried tomatoes",
+          "Sun dried tomatoes"
+        ]
+      },
+      {
+        "rank": 39,
+        "texts": [
+          "Arugula",
+          "Rocket"
+        ]
+      },
+      {
+        "rank": 40,
+        "texts": [
+          "Zucchini",
+          "Courgette"
+        ]
+      },
+      {
+        "rank": 41,
+        "texts": [
+          "Sweet potato",
+          "Roasted sweet potato"
+        ]
+      },
+      {
+        "rank": 42,
+        "texts": [
+          "Prosciutto",
+          "Parma ham"
+        ]
+      },
+      {
+        "rank": 43,
+        "texts": [
+          "Pancetta",
+          "Italian bacon"
+        ]
+      },
+      {
+        "rank": 44,
+        "texts": [
+          "Chorizo",
+          "Spanish chorizo"
+        ]
+      },
+      {
+        "rank": 45,
+        "texts": [
+          "Mortadella",
+          "Italian mortadella"
+        ]
+      },
+      {
+        "rank": 46,
+        "texts": [
+          "Mixed vegetables",
+          "Veggies",
+          "Vegetables",
+          "Assorted vegetables"
+        ]
+      },
+      {
+        "rank": 47,
+        "texts": [
+          "Pickles",
+          "Dill pickles"
+        ]
+      },
+      {
+        "rank": 48,
+        "texts": [
+          "Avocado",
+          "Guacamole"
+        ]
+      },
+      {
+        "rank": 49,
+        "texts": [
+          "Egg",
+          "Fried egg",
+          "A fried egg"
+        ]
+      },
+      {
+        "rank": 50,
+        "texts": [
+          "Truffle",
+          "Truffle oil",
+          "Black truffle"
+        ]
+      },
+      {
+        "rank": 51,
+        "texts": [
+          "Lobster",
+          "Lobster meat"
+        ]
+      },
+      {
+        "rank": 52,
+        "texts": [
+          "Clams",
+          "Chopped clams",
+          "White clam"
+        ]
+      },
+      {
+        "rank": 53,
+        "texts": [
+          "Tuna",
+          "Canned tuna"
+        ]
+      },
+      {
+        "rank": 54,
+        "texts": [
+          "Sardines",
+          "Sardine"
+        ]
+      },
+      {
+        "rank": 55,
+        "texts": [
+          "Smoked salmon",
+          "Lox",
+          "Salmon"
+        ]
+      },
+      {
+        "rank": 56,
+        "texts": [
+          "Tofu",
+          "Marinated tofu"
+        ]
+      },
+      {
+        "rank": 57,
+        "texts": [
+          "Cauliflower",
+          "Roasted cauliflower"
+        ]
+      },
+      {
+        "rank": 58,
+        "texts": [
+          "Brussels sprouts",
+          "Brussel sprouts",
+          "Sprouts"
+        ]
+      },
+      {
+        "rank": 59,
+        "texts": [
+          "Kale",
+          "Crispy kale"
+        ]
+      },
+      {
+        "rank": 60,
+        "texts": [
+          "Black beans",
+          "Beans",
+          "Refried beans"
+        ]
+      },
+      {
+        "rank": 61,
+        "texts": [
+          "Alfredo sauce",
+          "White sauce",
+          "Cream sauce"
+        ]
+      },
+      {
+        "rank": 62,
+        "texts": [
+          "Buffalo sauce",
+          "Buffalo chicken sauce"
+        ]
+      },
+      {
+        "rank": 63,
+        "texts": [
+          "Hot honey",
+          "Honey",
+          "Spicy honey"
+        ]
+      },
+      {
+        "rank": 64,
+        "texts": [
+          "Sriracha",
+          "Sriracha sauce"
+        ]
+      },
+      {
+        "rank": 65,
+        "texts": [
+          "Balsamic glaze",
+          "Balsamic"
+        ]
+      },
+      {
+        "rank": 66,
+        "texts": [
+          "Oregano",
+          "Italian seasoning",
+          "Dried oregano"
+        ]
+      },
+      {
+        "rank": 67,
+        "texts": [
+          "Pine nuts",
+          "Pignoli"
+        ]
+      },
+      {
+        "rank": 68,
+        "texts": [
+          "Walnuts",
+          "Crushed walnuts"
+        ]
+      },
+      {
+        "rank": 69,
+        "texts": [
+          "Blue cheese",
+          "Gorgonzola"
+        ]
+      },
+      {
+        "rank": 70,
+        "texts": [
+          "Brie",
+          "Brie cheese"
+        ]
+      },
+      {
+        "rank": 71,
+        "texts": [
+          "Mascarpone",
+          "Mascarpone cheese"
+        ]
+      },
+      {
+        "rank": 72,
+        "texts": [
+          "Pulled pork",
+          "BBQ pulled pork"
+        ]
+      },
+      {
+        "rank": 73,
+        "texts": [
+          "Brisket",
+          "Smoked brisket"
+        ]
+      },
+      {
+        "rank": 74,
+        "texts": [
+          "Gyro meat",
+          "Lamb",
+          "Gyro"
+        ]
+      },
+      {
+        "rank": 75,
+        "texts": [
+          "Kimchi",
+          "Spicy kimchi"
+        ]
+      },
+      {
+        "rank": 76,
+        "texts": [
+          "Green chiles",
+          "Hatch chiles",
+          "Green chilies",
+          "Roasted chiles"
+        ]
+      },
+      {
+        "rank": 77,
+        "texts": [
+          "Asparagus",
+          "Grilled asparagus"
+        ]
+      },
+      {
+        "rank": 78,
+        "texts": [
+          "Green onions",
+          "Scallions",
+          "Spring onions"
+        ]
+      },
+      {
+        "rank": 79,
+        "texts": [
+          "Figs",
+          "Fresh figs"
+        ]
+      },
+      {
+        "rank": 80,
+        "texts": [
+          "Nutella",
+          "Chocolate spread",
+          "Chocolate"
+        ]
+      },
+      {
+        "rank": 81,
+        "texts": [
+          "Meat lovers",
+          "All the meats",
+          "Meat lover's"
+        ]
+      },
+      {
+        "rank": 82,
+        "texts": [
+          "Supreme",
+          "The works",
+          "Everything",
+          "Supreme pizza"
+        ]
+      }
+    ],
+    "top1": "Pepperoni",
+    "unlisted": [
+      "ketchup",
+      "mustard"
+    ]
+  },
+  "106": {
+    "textAnswers": [
+      {
+        "rank": 1,
+        "texts": [
+          "Traffic",
+          "Bad traffic",
+          "Traffic jam",
+          "Stuck in traffic",
+          "Heavy traffic",
+          "Rush hour traffic",
+          "Gridlock",
+          "Congestion"
+        ]
+      },
+      {
+        "rank": 2,
+        "texts": [
+          "Overslept",
+          "Oversleeping",
+          "Slept in",
+          "Slept through my alarm",
+          "I overslept",
+          "Slept too late",
+          "Woke up late"
+        ]
+      },
+      {
+        "rank": 3,
+        "texts": [
+          "Alarm didn't go off",
+          "My alarm didn't go off",
+          "Alarm never went off",
+          "Alarm clock didn't ring",
+          "My alarm never went off",
+          "Alarm failed",
+          "Alarm didn't ring"
+        ]
+      },
+      {
+        "rank": 4,
+        "texts": [
+          "Bad weather",
+          "Weather",
+          "Rain",
+          "Snow",
+          "Bad weather conditions",
+          "Storm",
+          "Heavy rain",
+          "Snowstorm",
+          "Icy roads",
+          "Fog"
+        ]
+      },
+      {
+        "rank": 5,
+        "texts": [
+          "Car trouble",
+          "My car broke down",
+          "Car broke down",
+          "Car wouldn't start",
+          "Flat tire",
+          "My car died",
+          "Dead battery",
+          "Engine trouble",
+          "Flat tyre"
+        ]
+      },
+      {
+        "rank": 6,
+        "texts": [
+          "Too tired to get up",
+          "Too tired",
+          "Couldn't get out of bed",
+          "Didn't sleep well",
+          "Exhausted",
+          "So tired",
+          "Couldn't get up"
+        ]
+      },
+      {
+        "rank": 7,
+        "texts": [
+          "Forgot something",
+          "Forgot something at home",
+          "Had to go back home",
+          "Left something at home",
+          "Left something behind",
+          "Forgot my lunch",
+          "Had to go back for something"
+        ]
+      },
+      {
+        "rank": 8,
+        "texts": [
+          "Public transportation delays",
+          "Bus was late",
+          "Train was late",
+          "Subway delay",
+          "Public transport was late",
+          "Bus delay",
+          "Train delay",
+          "Subway was late"
+        ]
+      },
+      {
+        "rank": 9,
+        "texts": [
+          "Dropping kids off",
+          "Taking kids to school",
+          "Kids were slow",
+          "Getting the kids ready",
+          "School run",
+          "Dropping kids at school"
+        ]
+      },
+      {
+        "rank": 10,
+        "texts": [
+          "Procrastination",
+          "Lost track of time",
+          "Was running behind",
+          "Got distracted",
+          "Kept putting it off",
+          "Wasn't ready in time"
+        ]
+      },
+      {
+        "rank": 11,
+        "texts": [
+          "Sick",
+          "Feeling sick",
+          "Wasn't feeling well",
+          "Felt ill",
+          "Was ill",
+          "Felt sick",
+          "Had a migraine",
+          "Headache"
+        ]
+      },
+      {
+        "rank": 12,
+        "texts": [
+          "Family emergency",
+          "Emergency at home",
+          "Something came up at home",
+          "Emergency",
+          "Something came up",
+          "Family crisis"
+        ]
+      },
+      {
+        "rank": 13,
+        "texts": [
+          "Doctor's appointment",
+          "Had a doctor appointment",
+          "Dentist appointment",
+          "Had a dentist appointment",
+          "Medical appointment",
+          "Doctor's visit"
+        ]
+      },
+      {
+        "rank": 14,
+        "texts": [
+          "Road construction",
+          "Road work",
+          "Construction",
+          "Detour",
+          "Roadworks",
+          "Construction on the road",
+          "Lane closures"
+        ]
+      },
+      {
+        "rank": 15,
+        "texts": [
+          "Accident on the road",
+          "There was an accident",
+          "Car accident",
+          "There was a crash",
+          "Accident on the highway",
+          "Pile-up"
+        ]
+      },
+      {
+        "rank": 16,
+        "texts": [
+          "Pet emergency",
+          "My dog was sick",
+          "Pet got out",
+          "Dog was sick",
+          "Pet was ill",
+          "Vet emergency"
+        ]
+      },
+      {
+        "rank": 17,
+        "texts": [
+          "Phone died",
+          "My phone died",
+          "Lost my phone",
+          "My battery died",
+          "Phone was dead"
+        ]
+      },
+      {
+        "rank": 18,
+        "texts": [
+          "Couldn't find my keys",
+          "Lost my keys",
+          "Couldn't find keys",
+          "Misplaced my keys",
+          "Keys were missing"
+        ]
+      },
+      {
+        "rank": 19,
+        "texts": [
+          "Overslept because of kids",
+          "Kids changed the clocks",
+          "Kids woke me up",
+          "Kids woke me up early",
+          "Kids hid my alarm"
+        ]
+      },
+      {
+        "rank": 20,
+        "texts": [
+          "Power outage",
+          "No power",
+          "Electricity went out",
+          "Power cut",
+          "No electricity"
+        ]
+      },
+      {
+        "rank": 21,
+        "texts": [
+          "Stuck in an elevator",
+          "Elevator broke",
+          "Stuck in the elevator",
+          "Elevator got stuck",
+          "Lift broke down"
+        ]
+      },
+      {
+        "rank": 22,
+        "texts": [
+          "Slept through the alarm",
+          "Didn't hear the alarm",
+          "Didn't hear my alarm",
+          "Alarm didn't wake me up"
+        ]
+      },
+      {
+        "rank": 23,
+        "texts": [
+          "Carpool was late",
+          "My ride was late",
+          "Ride didn't show up",
+          "My lift was late",
+          "My ride never showed",
+          "Ride was late"
+        ]
+      },
+      {
+        "rank": 24,
+        "texts": [
+          "Parking problems",
+          "Couldn't find parking",
+          "Couldn't find a parking spot",
+          "No parking",
+          "Parking was full"
+        ]
+      },
+      {
+        "rank": 25,
+        "texts": [
+          "Running late from the gym",
+          "Gym ran over",
+          "Gym ran late",
+          "Workout ran over"
+        ]
+      },
+      {
+        "rank": 26,
+        "texts": [
+          "Had to help a neighbor",
+          "Helped someone",
+          "Had to help a neighbour",
+          "Helped a neighbor",
+          "Helping someone out"
+        ]
+      },
+      {
+        "rank": 27,
+        "texts": [
+          "Traffic light was out",
+          "Broken traffic light",
+          "Lights were out",
+          "Broken traffic lights"
+        ]
+      },
+      {
+        "rank": 28,
+        "texts": [
+          "Bridge was up",
+          "Drawbridge",
+          "Drawbridge was up",
+          "Bridge went up"
+        ]
+      },
+      {
+        "rank": 29,
+        "texts": [
+          "Train crossing",
+          "Stuck at a train crossing",
+          "Stuck behind a train",
+          "Train was crossing",
+          "Railroad crossing"
+        ]
+      },
+      {
+        "rank": 30,
+        "texts": [
+          "Forgot it was Monday",
+          "Thought it was the weekend",
+          "Thought it was Saturday",
+          "Thought it was Sunday",
+          "Lost track of what day it was"
+        ]
+      },
+      {
+        "rank": 31,
+        "texts": [
+          "Spilled coffee on my clothes",
+          "Had to change clothes",
+          "Spilled coffee",
+          "Coffee all over my shirt",
+          "Spilled coffee on myself",
+          "Spilled food on my shirt"
+        ]
+      },
+      {
+        "rank": 32,
+        "texts": [
+          "My cat sat on me",
+          "The dog wouldn't let me leave",
+          "Dog sat on me",
+          "My cat wouldn't move",
+          "The cat wouldn't let me up"
+        ]
+      },
+      {
+        "rank": 33,
+        "texts": [
+          "Ran out of gas",
+          "Out of gas",
+          "Needed gas",
+          "Had to get gas"
+        ]
+      },
+      {
+        "rank": 34,
+        "texts": [
+          "Stuck behind a school bus",
+          "School bus was slow",
+          "Got stuck behind a bus"
+        ]
+      },
+      {
+        "rank": 35,
+        "texts": [
+          "Stuck behind a slow truck",
+          "Stuck behind a garbage truck",
+          "Slow truck in front of me"
+        ]
+      },
+      {
+        "rank": 36,
+        "texts": [
+          "Missed my bus",
+          "Missed the bus",
+          "Missed my train",
+          "Missed the train"
+        ]
+      },
+      {
+        "rank": 37,
+        "texts": [
+          "My Uber was late",
+          "Uber was late",
+          "Lyft was late",
+          "My rideshare cancelled",
+          "Uber cancelled"
+        ]
+      },
+      {
+        "rank": 38,
+        "texts": [
+          "Road was closed",
+          "Street was closed",
+          "Road closure"
+        ]
+      },
+      {
+        "rank": 39,
+        "texts": [
+          "Flooding",
+          "Flooded roads",
+          "The road was flooded"
+        ]
+      },
+      {
+        "rank": 40,
+        "texts": [
+          "School was delayed",
+          "School delay",
+          "School started late"
+        ]
+      },
+      {
+        "rank": 41,
+        "texts": [
+          "Babysitter cancelled",
+          "No childcare",
+          "My sitter cancelled",
+          "Babysitter didn't show"
+        ]
+      },
+      {
+        "rank": 42,
+        "texts": [
+          "My kid was sick",
+          "Sick child",
+          "My child was sick",
+          "Kid threw up"
+        ]
+      },
+      {
+        "rank": 43,
+        "texts": [
+          "Sick family member",
+          "Had to care for a sick parent",
+          "My mom was sick"
+        ]
+      },
+      {
+        "rank": 44,
+        "texts": [
+          "Food poisoning",
+          "I had food poisoning"
+        ]
+      },
+      {
+        "rank": 45,
+        "texts": [
+          "Vet appointment",
+          "Had to take my pet to the vet"
+        ]
+      },
+      {
+        "rank": 46,
+        "texts": [
+          "Jury duty",
+          "Had jury duty",
+          "Court date",
+          "Had court"
+        ]
+      },
+      {
+        "rank": 47,
+        "texts": [
+          "Waiting for a repairman",
+          "Waiting for the plumber",
+          "Waiting for a delivery",
+          "Had to let the repairman in"
+        ]
+      },
+      {
+        "rank": 48,
+        "texts": [
+          "Pipes burst",
+          "Water pipes burst",
+          "Burst pipe",
+          "Plumbing emergency"
+        ]
+      },
+      {
+        "rank": 49,
+        "texts": [
+          "Locked myself out",
+          "Locked out of the house",
+          "Got locked out"
+        ]
+      },
+      {
+        "rank": 50,
+        "texts": [
+          "Lost my wallet",
+          "Couldn't find my wallet",
+          "Lost my purse"
+        ]
+      },
+      {
+        "rank": 51,
+        "texts": [
+          "Couldn't find my phone",
+          "Lost my phone at home",
+          "Couldn't find my cell phone"
+        ]
+      },
+      {
+        "rank": 52,
+        "texts": [
+          "My clothes weren't ready",
+          "Had to iron my clothes",
+          "Couldn't find anything to wear",
+          "Outfit wasn't ready"
+        ]
+      },
+      {
+        "rank": 53,
+        "texts": [
+          "Bad hair day",
+          "Hair disaster",
+          "My hair wouldn't cooperate"
+        ]
+      },
+      {
+        "rank": 54,
+        "texts": [
+          "Took too long getting ready",
+          "Getting ready took too long",
+          "Was still getting ready"
+        ]
+      },
+      {
+        "rank": 55,
+        "texts": [
+          "Got pulled over",
+          "Pulled over by the police",
+          "Got a ticket"
+        ]
+      },
+      {
+        "rank": 56,
+        "texts": [
+          "Internet went out",
+          "No internet",
+          "Wi-Fi was down",
+          "Internet was down"
+        ]
+      },
+      {
+        "rank": 57,
+        "texts": [
+          "Computer crashed",
+          "My laptop died",
+          "Work laptop crashed"
+        ]
+      },
+      {
+        "rank": 58,
+        "texts": [
+          "Stayed up too late",
+          "Was up too late",
+          "Didn't go to bed until late"
+        ]
+      },
+      {
+        "rank": 59,
+        "texts": [
+          "Was hungover",
+          "Hungover",
+          "Had too much to drink last night"
+        ]
+      },
+      {
+        "rank": 60,
+        "texts": [
+          "Couldn't sleep last night",
+          "Insomnia",
+          "Didn't sleep at all"
+        ]
+      },
+      {
+        "rank": 61,
+        "texts": [
+          "Thought I had the day off",
+          "Thought I was off today",
+          "Mixed up my days off"
+        ]
+      },
+      {
+        "rank": 62,
+        "texts": [
+          "Mixed up my schedule",
+          "Wrong shift time",
+          "Thought I started later",
+          "Got my schedule wrong"
+        ]
+      },
+      {
+        "rank": 63,
+        "texts": [
+          "Daylight saving time",
+          "Clocks changed",
+          "Daylight savings messed me up",
+          "Forgot about the time change"
+        ]
+      },
+      {
+        "rank": 64,
+        "texts": [
+          "Set my alarm wrong",
+          "Set my alarm for PM instead of AM",
+          "Alarm was set wrong"
+        ]
+      },
+      {
+        "rank": 65,
+        "texts": [
+          "Phone was on silent",
+          "Phone was on do not disturb",
+          "My phone was silenced"
+        ]
+      },
+      {
+        "rank": 66,
+        "texts": [
+          "Street blocked for an event",
+          "Parade blocked the road",
+          "Road blocked for an event"
+        ]
+      },
+      {
+        "rank": 67,
+        "texts": [
+          "Protest blocked traffic",
+          "March blocked the road",
+          "Protest in the street"
+        ]
+      },
+      {
+        "rank": 68,
+        "texts": [
+          "Ferry was late",
+          "Missed the ferry",
+          "Ferry delayed"
+        ]
+      },
+      {
+        "rank": 69,
+        "texts": [
+          "Had to stop for gas",
+          "Stopped for gas on the way"
+        ]
+      },
+      {
+        "rank": 70,
+        "texts": [
+          "Stopped for coffee",
+          "Had to get coffee first"
+        ]
+      },
+      {
+        "rank": 71,
+        "texts": [
+          "Got lost",
+          "Took a wrong turn",
+          "Went the wrong way"
+        ]
+      },
+      {
+        "rank": 72,
+        "texts": [
+          "GPS sent me the wrong way",
+          "GPS was wrong",
+          "Navigation took me the wrong way"
+        ]
+      },
+      {
+        "rank": 73,
+        "texts": [
+          "My bike broke down",
+          "Bike had a flat",
+          "Flat tire on my bike"
+        ]
+      },
+      {
+        "rank": 74,
+        "texts": [
+          "Fell back asleep",
+          "Went back to sleep",
+          "Fell asleep again after my alarm"
+        ]
+      },
+      {
+        "rank": 75,
+        "texts": [
+          "Babysitter was late",
+          "Nanny was late",
+          "Childcare was late"
+        ]
+      },
+      {
+        "rank": 76,
+        "texts": [
+          "Kids missed the bus",
+          "Kids missed their bus",
+          "Had to drive the kids because they missed the bus"
+        ]
+      },
+      {
+        "rank": 77,
+        "texts": [
+          "Had to shovel snow",
+          "Shoveling snow",
+          "Had to clear snow off my car",
+          "Had to scrape ice off the windshield"
+        ]
+      },
+      {
+        "rank": 78,
+        "texts": [
+          "Car was covered in snow",
+          "Had to dig my car out",
+          "Car was iced over"
+        ]
+      },
+      {
+        "rank": 79,
+        "texts": [
+          "Had to feed the baby",
+          "Baby needed feeding",
+          "Had to change the baby before leaving"
+        ]
+      },
+      {
+        "rank": 80,
+        "texts": [
+          "Partner took the car",
+          "My wife took the car",
+          "My husband had the car",
+          "Someone else took the car"
+        ]
+      },
+      {
+        "rank": 81,
+        "texts": [
+          "Someone was in the bathroom",
+          "Bathroom was occupied",
+          "Had to wait for the bathroom"
+        ]
+      },
+      {
+        "rank": 82,
+        "texts": [
+          "Shower was cold",
+          "No hot water",
+          "Water heater broke"
+        ]
+      },
+      {
+        "rank": 83,
+        "texts": [
+          "Had to take my kid to the doctor",
+          "Child had a doctor appointment",
+          "Took my kid to urgent care"
+        ]
+      },
+      {
+        "rank": 84,
+        "texts": [
+          "Car was in the shop",
+          "Car is at the mechanic",
+          "Had to walk because my car was in the shop"
+        ]
+      },
+      {
+        "rank": 85,
+        "texts": [
+          "Forgot to set my alarm",
+          "Didn't set my alarm",
+          "Forgot to set an alarm"
+        ]
+      }
+    ],
+    "top1": "Traffic",
+    "unlisted": [
+      "my horoscope told me not to go",
+      "a zebra was running down the highway"
+    ]
+  },
+  "107": {
+    "textAnswers": [
+      {
+        "rank": 1,
+        "texts": [
+          "Tape",
+          "Scotch tape",
+          "Duct tape",
+          "Packing tape",
+          "Electrical tape",
+          "Sellotape",
+          "Sticky tape",
+          "Masking tape",
+          "Gaffer tape"
+        ]
+      },
+      {
+        "rank": 2,
+        "texts": [
+          "Pens",
+          "Pen",
+          "Ballpoint pens",
+          "Ink pens",
+          "Ballpoint pen",
+          "Biro",
+          "Felt tip pens"
+        ]
+      },
+      {
+        "rank": 3,
+        "texts": [
+          "Batteries",
+          "Spare batteries",
+          "AA batteries",
+          "Dead batteries",
+          "AA battery",
+          "AAA batteries",
+          "Battery",
+          "Spare AA batteries"
+        ]
+      },
+      {
+        "rank": 4,
+        "texts": [
+          "Scissors",
+          "A pair of scissors",
+          "Kitchen scissors"
+        ]
+      },
+      {
+        "rank": 5,
+        "texts": [
+          "Flashlight",
+          "Torch",
+          "A flashlight",
+          "A torch",
+          "Mini flashlight"
+        ]
+      },
+      {
+        "rank": 6,
+        "texts": [
+          "Glue",
+          "Super glue",
+          "Glue stick",
+          "Wood glue",
+          "Craft glue",
+          "Glue gun"
+        ]
+      },
+      {
+        "rank": 7,
+        "texts": [
+          "Paper clips",
+          "Paperclips",
+          "Binder clips",
+          "Paper clip",
+          "Bulldog clips"
+        ]
+      },
+      {
+        "rank": 8,
+        "texts": [
+          "Matches",
+          "Matchbooks",
+          "A box of matches",
+          "A matchbook",
+          "Matchbox"
+        ]
+      },
+      {
+        "rank": 9,
+        "texts": [
+          "Rubber bands",
+          "Elastic bands",
+          "Rubber band",
+          "Elastic band",
+          "Rubber band ball"
+        ]
+      },
+      {
+        "rank": 10,
+        "texts": [
+          "Keys",
+          "Spare keys",
+          "Old keys",
+          "Keys I don't recognize",
+          "Mystery keys",
+          "Key",
+          "Old house keys",
+          "Spare car keys"
+        ]
+      },
+      {
+        "rank": 11,
+        "texts": [
+          "Screws",
+          "Nails",
+          "Screws and nails",
+          "Hardware",
+          "Spare screws",
+          "A screw",
+          "Nails and screws"
+        ]
+      },
+      {
+        "rank": 12,
+        "texts": [
+          "Screwdriver",
+          "Screwdrivers",
+          "A screwdriver",
+          "Flathead screwdriver",
+          "Phillips screwdriver",
+          "Mini screwdrivers"
+        ]
+      },
+      {
+        "rank": 13,
+        "texts": [
+          "Chargers",
+          "Phone chargers",
+          "Old chargers",
+          "Charging cables",
+          "Old phone chargers",
+          "USB cables",
+          "Charging cable",
+          "Laptop charger"
+        ]
+      },
+      {
+        "rank": 14,
+        "texts": [
+          "Coins",
+          "Loose change",
+          "Spare change",
+          "Foreign coins",
+          "Loose coins",
+          "Spare coins",
+          "Pennies"
+        ]
+      },
+      {
+        "rank": 15,
+        "texts": [
+          "Takeout menus",
+          "Restaurant menus",
+          "Takeaway menus",
+          "Takeaway menu",
+          "Pizza menus",
+          "Delivery menus"
+        ]
+      },
+      {
+        "rank": 16,
+        "texts": [
+          "Coupons",
+          "Expired coupons",
+          "Vouchers",
+          "Expired coupon",
+          "Coupon clippings"
+        ]
+      },
+      {
+        "rank": 17,
+        "texts": [
+          "Twist ties",
+          "Bread ties",
+          "Zip ties",
+          "Cable ties",
+          "Bread tie",
+          "Wire ties",
+          "Cable tie"
+        ]
+      },
+      {
+        "rank": 18,
+        "texts": [
+          "Birthday candles",
+          "Candles",
+          "Tea lights",
+          "Birthday cake candles"
+        ]
+      },
+      {
+        "rank": 19,
+        "texts": [
+          "Stamps",
+          "Postage stamps",
+          "Envelopes",
+          "Stamp",
+          "Postage stamp",
+          "A stamp book"
+        ]
+      },
+      {
+        "rank": 20,
+        "texts": [
+          "Batteries that don't work",
+          "Dead AA batteries",
+          "Old dead batteries",
+          "Used batteries"
+        ]
+      },
+      {
+        "rank": 21,
+        "texts": [
+          "A tape measure",
+          "Tape measure",
+          "Measuring tape",
+          "Tape measurer"
+        ]
+      },
+      {
+        "rank": 22,
+        "texts": [
+          "Chapstick",
+          "Lip balm",
+          "Vaseline"
+        ]
+      },
+      {
+        "rank": 23,
+        "texts": [
+          "A lighter",
+          "Lighters",
+          "Cigarette lighter"
+        ]
+      },
+      {
+        "rank": 24,
+        "texts": [
+          "Safety pins",
+          "Pins",
+          "Needles and thread",
+          "Safety pin",
+          "Straight pins",
+          "Sewing pins"
+        ]
+      },
+      {
+        "rank": 25,
+        "texts": [
+          "A deck of cards",
+          "Playing cards",
+          "Playing card deck",
+          "Cards"
+        ]
+      },
+      {
+        "rank": 26,
+        "texts": [
+          "Sticky notes",
+          "Post-it notes",
+          "Notepads",
+          "Post-its",
+          "Post-it",
+          "Sticky note pads"
+        ]
+      },
+      {
+        "rank": 27,
+        "texts": [
+          "A notepad",
+          "Scratch paper",
+          "Old receipts",
+          "Memo pad",
+          "Scrap paper"
+        ]
+      },
+      {
+        "rank": 28,
+        "texts": [
+          "Magnets",
+          "Fridge magnets",
+          "Magnet",
+          "Fridge magnet",
+          "Souvenir magnets"
+        ]
+      },
+      {
+        "rank": 29,
+        "texts": [
+          "A pocket knife",
+          "A multitool",
+          "A knife",
+          "Pocketknife",
+          "Swiss army knife"
+        ]
+      },
+      {
+        "rank": 30,
+        "texts": [
+          "Buttons",
+          "Spare buttons",
+          "Sewing kit",
+          "Button",
+          "Spare button",
+          "Sewing thread"
+        ]
+      },
+      {
+        "rank": 31,
+        "texts": [
+          "A keychain",
+          "Keyrings",
+          "Lanyards",
+          "Keyring",
+          "Key chain",
+          "Keychains",
+          "Lanyard"
+        ]
+      },
+      {
+        "rank": 32,
+        "texts": [
+          "A random remote",
+          "Old remote",
+          "TV remote",
+          "Remote control",
+          "TV remote control",
+          "Old TV remote"
+        ]
+      },
+      {
+        "rank": 33,
+        "texts": [
+          "Instruction manuals",
+          "Appliance manuals",
+          "Manuals",
+          "User manuals",
+          "Warranty cards"
+        ]
+      },
+      {
+        "rank": 34,
+        "texts": [
+          "Pencils",
+          "A pencil",
+          "Pencil stubs"
+        ]
+      },
+      {
+        "rank": 35,
+        "texts": [
+          "Markers",
+          "Sharpies",
+          "Permanent markers",
+          "A Sharpie"
+        ]
+      },
+      {
+        "rank": 36,
+        "texts": [
+          "Highlighters",
+          "A highlighter"
+        ]
+      },
+      {
+        "rank": 37,
+        "texts": [
+          "Stapler",
+          "Staples",
+          "A stapler"
+        ]
+      },
+      {
+        "rank": 38,
+        "texts": [
+          "Box cutter",
+          "Utility knife",
+          "A box cutter",
+          "Craft knife"
+        ]
+      },
+      {
+        "rank": 39,
+        "texts": [
+          "Allen wrench",
+          "Allen keys",
+          "Hex keys",
+          "A hex key set"
+        ]
+      },
+      {
+        "rank": 40,
+        "texts": [
+          "Pliers",
+          "Needle-nose pliers"
+        ]
+      },
+      {
+        "rank": 41,
+        "texts": [
+          "WD-40",
+          "Lubricant spray",
+          "A can of WD-40"
+        ]
+      },
+      {
+        "rank": 42,
+        "texts": [
+          "String",
+          "Twine",
+          "String and twine"
+        ]
+      },
+      {
+        "rank": 43,
+        "texts": [
+          "Push pins",
+          "Thumbtacks",
+          "Tacks",
+          "Drawing pins"
+        ]
+      },
+      {
+        "rank": 44,
+        "texts": [
+          "Command strips",
+          "Adhesive strips",
+          "Sticky hooks"
+        ]
+      },
+      {
+        "rank": 45,
+        "texts": [
+          "Business cards",
+          "Old business cards"
+        ]
+      },
+      {
+        "rank": 46,
+        "texts": [
+          "Gift cards",
+          "Loyalty cards",
+          "Store cards",
+          "An old gift card"
+        ]
+      },
+      {
+        "rank": 47,
+        "texts": [
+          "Old headphones",
+          "Earbuds",
+          "Old earbuds",
+          "Broken headphones"
+        ]
+      },
+      {
+        "rank": 48,
+        "texts": [
+          "Old phone",
+          "Broken phone",
+          "An old iPhone",
+          "Old cell phone"
+        ]
+      },
+      {
+        "rank": 49,
+        "texts": [
+          "Band-Aids",
+          "Band aids",
+          "Plasters",
+          "Bandaids"
+        ]
+      },
+      {
+        "rank": 50,
+        "texts": [
+          "Painkillers",
+          "Medicine",
+          "Pills",
+          "Aspirin",
+          "Tylenol"
+        ]
+      },
+      {
+        "rank": 51,
+        "texts": [
+          "Hand sanitizer",
+          "Sanitizer gel"
+        ]
+      },
+      {
+        "rank": 52,
+        "texts": [
+          "Hair ties",
+          "Bobby pins",
+          "Hair clips",
+          "Scrunchies"
+        ]
+      },
+      {
+        "rank": 53,
+        "texts": [
+          "Sunglasses",
+          "Old sunglasses",
+          "Cheap sunglasses"
+        ]
+      },
+      {
+        "rank": 54,
+        "texts": [
+          "Cash",
+          "Dollar bills",
+          "Loose bills",
+          "A few dollars"
+        ]
+      },
+      {
+        "rank": 55,
+        "texts": [
+          "Lottery tickets",
+          "Scratch-offs",
+          "Scratch cards",
+          "Old lottery tickets"
+        ]
+      },
+      {
+        "rank": 56,
+        "texts": [
+          "Dice",
+          "A pair of dice"
+        ]
+      },
+      {
+        "rank": 57,
+        "texts": [
+          "Ruler",
+          "A ruler"
+        ]
+      },
+      {
+        "rank": 58,
+        "texts": [
+          "Calculator",
+          "A small calculator"
+        ]
+      },
+      {
+        "rank": 59,
+        "texts": [
+          "Dead pens",
+          "Pens that don't work",
+          "Dried-out pens"
+        ]
+      },
+      {
+        "rank": 60,
+        "texts": [
+          "Crayons",
+          "Colored pencils",
+          "Crayons and markers"
+        ]
+      },
+      {
+        "rank": 61,
+        "texts": [
+          "Chalk",
+          "Sidewalk chalk"
+        ]
+      },
+      {
+        "rank": 62,
+        "texts": [
+          "Wet wipes",
+          "Baby wipes",
+          "Cleaning wipes"
+        ]
+      },
+      {
+        "rank": 63,
+        "texts": [
+          "Nail clippers",
+          "Clippers"
+        ]
+      },
+      {
+        "rank": 64,
+        "texts": [
+          "Tweezers",
+          "A pair of tweezers"
+        ]
+      },
+      {
+        "rank": 65,
+        "texts": [
+          "Cotton swabs",
+          "Q-tips",
+          "Q tips",
+          "Cotton buds"
+        ]
+      },
+      {
+        "rank": 66,
+        "texts": [
+          "Shopping lists",
+          "Grocery lists",
+          "Old shopping lists"
+        ]
+      },
+      {
+        "rank": 67,
+        "texts": [
+          "Mystery cables",
+          "Random cords",
+          "Old cables",
+          "Cables I can't identify",
+          "Unknown cables"
+        ]
+      },
+      {
+        "rank": 68,
+        "texts": [
+          "Adapters",
+          "Dongles",
+          "Old adapters",
+          "Charging adapters"
+        ]
+      },
+      {
+        "rank": 69,
+        "texts": [
+          "SD cards",
+          "Memory cards",
+          "Camera cards"
+        ]
+      },
+      {
+        "rank": 70,
+        "texts": [
+          "Flash drives",
+          "USB sticks",
+          "Thumb drives"
+        ]
+      },
+      {
+        "rank": 71,
+        "texts": [
+          "Spare light bulbs",
+          "Light bulbs",
+          "Lightbulbs"
+        ]
+      },
+      {
+        "rank": 72,
+        "texts": [
+          "Wine opener",
+          "Corkscrew",
+          "A corkscrew"
+        ]
+      },
+      {
+        "rank": 73,
+        "texts": [
+          "Bottle opener",
+          "A bottle opener"
+        ]
+      },
+      {
+        "rank": 74,
+        "texts": [
+          "Chip clips",
+          "Bag clips",
+          "Bread clips"
+        ]
+      },
+      {
+        "rank": 75,
+        "texts": [
+          "Erasers",
+          "A rubber eraser",
+          "Pencil erasers"
+        ]
+      },
+      {
+        "rank": 76,
+        "texts": [
+          "Old glasses",
+          "Reading glasses",
+          "Spare glasses"
+        ]
+      },
+      {
+        "rank": 77,
+        "texts": [
+          "Nail polish",
+          "Nail polish bottles"
+        ]
+      },
+      {
+        "rank": 78,
+        "texts": [
+          "Dental floss",
+          "Floss"
+        ]
+      },
+      {
+        "rank": 79,
+        "texts": [
+          "Rubber gloves",
+          "Cleaning gloves",
+          "Disposable gloves"
+        ]
+      },
+      {
+        "rank": 80,
+        "texts": [
+          "Lint roller",
+          "A lint roller"
+        ]
+      },
+      {
+        "rank": 81,
+        "texts": [
+          "Condiment packets",
+          "Soy sauce packets",
+          "Ketchup packets",
+          "Taco Bell sauce packets"
+        ]
+      },
+      {
+        "rank": 82,
+        "texts": [
+          "Fortune cookie fortunes",
+          "Fortunes from fortune cookies"
+        ]
+      },
+      {
+        "rank": 83,
+        "texts": [
+          "Ticket stubs",
+          "Old ticket stubs",
+          "Movie ticket stubs"
+        ]
+      },
+      {
+        "rank": 84,
+        "texts": [
+          "Screen protectors",
+          "Spare screen protector",
+          "Old screen protectors"
+        ]
+      },
+      {
+        "rank": 85,
+        "texts": [
+          "Earplugs",
+          "A pair of earplugs"
+        ]
+      },
+      {
+        "rank": 86,
+        "texts": [
+          "A padlock",
+          "Padlocks",
+          "Small locks",
+          "Combination lock"
+        ]
+      },
+      {
+        "rank": 87,
+        "texts": [
+          "Velcro strips",
+          "Velcro",
+          "Hook and loop strips"
+        ]
+      },
+      {
+        "rank": 88,
+        "texts": [
+          "Magnifying glass",
+          "A magnifying glass"
+        ]
+      }
+    ],
+    "top1": "Tape",
+    "unlisted": [
+      "a blood pressure monitor",
+      "an umbilical cord"
+    ]
+  },
+  "108": {
+    "textAnswers": [
+      {
+        "rank": 1,
+        "texts": [
+          "Snakes",
+          "A snake",
+          "Snake",
+          "A snake bite",
+          "Venomous snakes",
+          "Pythons"
+        ]
+      },
+      {
+        "rank": 2,
+        "texts": [
+          "Heights",
+          "Falling from heights",
+          "Being up high",
+          "Acrophobia",
+          "High places",
+          "Being high up",
+          "Looking down from high up",
+          "Fear of heights"
+        ]
+      },
+      {
+        "rank": 3,
+        "texts": [
+          "Spiders",
+          "A spider",
+          "Spiders and insects",
+          "Arachnophobia",
+          "Spider",
+          "A big spider",
+          "Tarantulas"
+        ]
+      },
+      {
+        "rank": 4,
+        "texts": [
+          "Public speaking",
+          "Speaking in front of people",
+          "Talking in public",
+          "Glossophobia",
+          "Speaking in public",
+          "Presenting",
+          "Speaking to a crowd",
+          "Stage fright"
+        ]
+      },
+      {
+        "rank": 5,
+        "texts": [
+          "Flying",
+          "Flying in a plane",
+          "Being on a plane",
+          "Aerophobia",
+          "Airplanes",
+          "Plane crashes",
+          "Being in a plane",
+          "Takeoff and landing"
+        ]
+      },
+      {
+        "rank": 6,
+        "texts": [
+          "The dark",
+          "Darkness",
+          "Being in the dark",
+          "Being in darkness",
+          "The dark at night"
+        ]
+      },
+      {
+        "rank": 7,
+        "texts": [
+          "Dying",
+          "Death",
+          "Dying or death",
+          "My own death",
+          "Death and dying"
+        ]
+      },
+      {
+        "rank": 8,
+        "texts": [
+          "Dogs",
+          "A dog",
+          "Being bitten by a dog",
+          "Dog",
+          "Big dogs",
+          "Being chased by a dog",
+          "Dog bites"
+        ]
+      },
+      {
+        "rank": 9,
+        "texts": [
+          "Needles",
+          "Getting a shot",
+          "Injections",
+          "Trypanophobia",
+          "Shots",
+          "Getting injections",
+          "Blood draws",
+          "Syringes"
+        ]
+      },
+      {
+        "rank": 10,
+        "texts": [
+          "Clowns",
+          "A clown",
+          "Clown",
+          "Scary clowns",
+          "Evil clowns"
+        ]
+      },
+      {
+        "rank": 11,
+        "texts": [
+          "Small spaces",
+          "Being trapped",
+          "Claustrophobia",
+          "Enclosed spaces",
+          "Tight spaces",
+          "Enclosed space",
+          "Being in a small room",
+          "Crowded elevators"
+        ]
+      },
+      {
+        "rank": 12,
+        "texts": [
+          "Water",
+          "Drowning",
+          "Deep water",
+          "Swimming",
+          "Swimming in deep water",
+          "Open water"
+        ]
+      },
+      {
+        "rank": 13,
+        "texts": [
+          "Failure",
+          "Failing",
+          "Failing at something",
+          "Failing in life",
+          "Not succeeding"
+        ]
+      },
+      {
+        "rank": 14,
+        "texts": [
+          "Being alone",
+          "Loneliness",
+          "Being by myself",
+          "Solitude"
+        ]
+      },
+      {
+        "rank": 15,
+        "texts": [
+          "Thunder and lightning",
+          "Thunderstorms",
+          "Lightning",
+          "Thunder",
+          "Lightning strikes",
+          "Storms"
+        ]
+      },
+      {
+        "rank": 16,
+        "texts": [
+          "Ghosts",
+          "The supernatural",
+          "Haunted houses",
+          "Ghost",
+          "Haunted house",
+          "Spirits",
+          "Demons",
+          "The paranormal"
+        ]
+      },
+      {
+        "rank": 17,
+        "texts": [
+          "Sharks",
+          "A shark",
+          "Shark attack",
+          "Shark",
+          "Shark attacks"
+        ]
+      },
+      {
+        "rank": 18,
+        "texts": [
+          "Blood",
+          "Seeing blood",
+          "Blood tests",
+          "Seeing my own blood",
+          "The sight of blood"
+        ]
+      },
+      {
+        "rank": 19,
+        "texts": [
+          "Germs",
+          "Getting sick",
+          "Illness",
+          "Disease",
+          "Contamination",
+          "Catching a disease"
+        ]
+      },
+      {
+        "rank": 20,
+        "texts": [
+          "Insects",
+          "Bees",
+          "Wasps",
+          "Bugs",
+          "Wasps and bees",
+          "Stinging insects",
+          "Mosquitoes"
+        ]
+      },
+      {
+        "rank": 21,
+        "texts": [
+          "Rats",
+          "Mice",
+          "Rodents",
+          "A rat",
+          "Sewer rats"
+        ]
+      },
+      {
+        "rank": 22,
+        "texts": [
+          "Being judged",
+          "Embarrassment",
+          "Humiliation",
+          "Judgment",
+          "Being laughed at",
+          "People judging me"
+        ]
+      },
+      {
+        "rank": 23,
+        "texts": [
+          "Losing a loved one",
+          "Someone I love dying",
+          "Losing someone I love",
+          "My parents dying",
+          "Losing my family"
+        ]
+      },
+      {
+        "rank": 24,
+        "texts": [
+          "The unknown",
+          "The future",
+          "What happens next",
+          "Not knowing what happens next",
+          "Uncertainty",
+          "Change"
+        ]
+      },
+      {
+        "rank": 25,
+        "texts": [
+          "Fire",
+          "Burning",
+          "A house fire",
+          "House fires",
+          "Getting burned",
+          "Wildfires"
+        ]
+      },
+      {
+        "rank": 26,
+        "texts": [
+          "Being buried alive",
+          "Being trapped underground",
+          "Buried alive",
+          "Coffins",
+          "Being buried"
+        ]
+      },
+      {
+        "rank": 27,
+        "texts": [
+          "Vomiting",
+          "Throwing up",
+          "Being sick in public",
+          "Puking",
+          "Throwing up in public"
+        ]
+      },
+      {
+        "rank": 28,
+        "texts": [
+          "Dentists",
+          "Going to the dentist",
+          "Dental work",
+          "Dentist",
+          "Dental appointments",
+          "Tooth extraction",
+          "Root canal"
+        ]
+      },
+      {
+        "rank": 29,
+        "texts": [
+          "Heights in a car",
+          "Driving over bridges",
+          "High bridges",
+          "Driving on bridges",
+          "Overpasses"
+        ]
+      },
+      {
+        "rank": 30,
+        "texts": [
+          "Creepy crawlies",
+          "Cockroaches",
+          "Ants",
+          "Roaches",
+          "A cockroach"
+        ]
+      },
+      {
+        "rank": 31,
+        "texts": [
+          "Monsters",
+          "Monsters under the bed",
+          "Monster",
+          "Monsters in the dark"
+        ]
+      },
+      {
+        "rank": 32,
+        "texts": [
+          "Rejection",
+          "Being rejected",
+          "Being turned down",
+          "Getting rejected",
+          "Rejection by others"
+        ]
+      },
+      {
+        "rank": 33,
+        "texts": [
+          "Driving",
+          "Driving a car",
+          "Being in a car",
+          "Car crashes"
+        ]
+      },
+      {
+        "rank": 34,
+        "texts": [
+          "Crowds",
+          "Crowded places",
+          "Big crowds",
+          "Being in a crowd"
+        ]
+      },
+      {
+        "rank": 35,
+        "texts": [
+          "Open spaces",
+          "Wide open spaces",
+          "Agoraphobia",
+          "Being in open spaces"
+        ]
+      },
+      {
+        "rank": 36,
+        "texts": [
+          "Elevators",
+          "Being in an elevator",
+          "Lifts"
+        ]
+      },
+      {
+        "rank": 37,
+        "texts": [
+          "Roller coasters",
+          "Rollercoasters",
+          "Theme park rides"
+        ]
+      },
+      {
+        "rank": 38,
+        "texts": [
+          "Tunnels",
+          "Driving through tunnels",
+          "Being in a tunnel"
+        ]
+      },
+      {
+        "rank": 39,
+        "texts": [
+          "Boats",
+          "Being on a boat",
+          "Sailing"
+        ]
+      },
+      {
+        "rank": 40,
+        "texts": [
+          "Alligators",
+          "Crocodiles",
+          "An alligator"
+        ]
+      },
+      {
+        "rank": 41,
+        "texts": [
+          "Bears",
+          "A bear",
+          "Grizzly bears"
+        ]
+      },
+      {
+        "rank": 42,
+        "texts": [
+          "Bats",
+          "A bat"
+        ]
+      },
+      {
+        "rank": 43,
+        "texts": [
+          "Birds",
+          "A bird",
+          "Pigeons"
+        ]
+      },
+      {
+        "rank": 44,
+        "texts": [
+          "Cats",
+          "A cat"
+        ]
+      },
+      {
+        "rank": 45,
+        "texts": [
+          "Scorpions",
+          "A scorpion"
+        ]
+      },
+      {
+        "rank": 46,
+        "texts": [
+          "Suffocation",
+          "Not being able to breathe",
+          "Can't breathe",
+          "Being suffocated"
+        ]
+      },
+      {
+        "rank": 47,
+        "texts": [
+          "Choking",
+          "Choking on food"
+        ]
+      },
+      {
+        "rank": 48,
+        "texts": [
+          "Cancer",
+          "Getting cancer"
+        ]
+      },
+      {
+        "rank": 49,
+        "texts": [
+          "Hospitals",
+          "Being in a hospital",
+          "The hospital"
+        ]
+      },
+      {
+        "rank": 50,
+        "texts": [
+          "Going to the doctor",
+          "Doctors",
+          "Doctor visits",
+          "Medical appointments"
+        ]
+      },
+      {
+        "rank": 51,
+        "texts": [
+          "Surgery",
+          "Operations",
+          "Having surgery",
+          "Going under anesthesia"
+        ]
+      },
+      {
+        "rank": 52,
+        "texts": [
+          "Hurricanes",
+          "A hurricane"
+        ]
+      },
+      {
+        "rank": 53,
+        "texts": [
+          "Tornadoes",
+          "A tornado",
+          "Twisters"
+        ]
+      },
+      {
+        "rank": 54,
+        "texts": [
+          "Earthquakes",
+          "An earthquake"
+        ]
+      },
+      {
+        "rank": 55,
+        "texts": [
+          "Floods",
+          "Flooding",
+          "A flood"
+        ]
+      },
+      {
+        "rank": 56,
+        "texts": [
+          "Zombies",
+          "A zombie"
+        ]
+      },
+      {
+        "rank": 57,
+        "texts": [
+          "Vampires",
+          "A vampire"
+        ]
+      },
+      {
+        "rank": 58,
+        "texts": [
+          "Aliens",
+          "UFOs",
+          "An alien",
+          "Being abducted by aliens"
+        ]
+      },
+      {
+        "rank": 59,
+        "texts": [
+          "Robots",
+          "AI",
+          "Artificial intelligence",
+          "Robots taking over"
+        ]
+      },
+      {
+        "rank": 60,
+        "texts": [
+          "War",
+          "Nuclear war",
+          "World War III",
+          "Another world war"
+        ]
+      },
+      {
+        "rank": 61,
+        "texts": [
+          "Terrorism",
+          "Terrorist attacks",
+          "A terrorist attack"
+        ]
+      },
+      {
+        "rank": 62,
+        "texts": [
+          "Being attacked",
+          "Getting attacked",
+          "Being mugged"
+        ]
+      },
+      {
+        "rank": 63,
+        "texts": [
+          "Being robbed",
+          "Home invasion",
+          "Burglars",
+          "Someone breaking in"
+        ]
+      },
+      {
+        "rank": 64,
+        "texts": [
+          "Kidnapping",
+          "Being kidnapped",
+          "Abduction"
+        ]
+      },
+      {
+        "rank": 65,
+        "texts": [
+          "Growing old",
+          "Aging",
+          "Getting old"
+        ]
+      },
+      {
+        "rank": 66,
+        "texts": [
+          "Losing my job",
+          "Unemployment",
+          "Getting fired"
+        ]
+      },
+      {
+        "rank": 67,
+        "texts": [
+          "Being poor",
+          "Poverty",
+          "Having no money"
+        ]
+      },
+      {
+        "rank": 68,
+        "texts": [
+          "Confrontation",
+          "Confrontations",
+          "Arguing with people",
+          "Conflict"
+        ]
+      },
+      {
+        "rank": 69,
+        "texts": [
+          "Commitment",
+          "Getting married",
+          "Long-term commitment"
+        ]
+      },
+      {
+        "rank": 70,
+        "texts": [
+          "Masks",
+          "People in masks",
+          "Someone wearing a mask"
+        ]
+      },
+      {
+        "rank": 71,
+        "texts": [
+          "Dolls",
+          "Creepy dolls",
+          "A doll"
+        ]
+      },
+      {
+        "rank": 72,
+        "texts": [
+          "Being watched",
+          "Being stalked",
+          "Someone watching me"
+        ]
+      },
+      {
+        "rank": 73,
+        "texts": [
+          "Nightmares",
+          "Bad dreams",
+          "Having nightmares"
+        ]
+      },
+      {
+        "rank": 74,
+        "texts": [
+          "Going to hell",
+          "Hell",
+          "Eternal damnation"
+        ]
+      },
+      {
+        "rank": 75,
+        "texts": [
+          "Being home alone",
+          "Home alone",
+          "Being alone at home"
+        ]
+      },
+      {
+        "rank": 76,
+        "texts": [
+          "The ocean",
+          "Deep ocean",
+          "The sea"
+        ]
+      },
+      {
+        "rank": 77,
+        "texts": [
+          "Lakes",
+          "Swimming in a lake"
+        ]
+      },
+      {
+        "rank": 78,
+        "texts": [
+          "Sleep paralysis",
+          "Waking up unable to move"
+        ]
+      },
+      {
+        "rank": 79,
+        "texts": [
+          "Mirrors",
+          "Mirrors in the dark",
+          "Looking in the mirror at night"
+        ]
+      },
+      {
+        "rank": 80,
+        "texts": [
+          "Being in the woods",
+          "The woods",
+          "Forests at night"
+        ]
+      },
+      {
+        "rank": 81,
+        "texts": [
+          "Basements",
+          "Going into the basement",
+          "Dark basements"
+        ]
+      },
+      {
+        "rank": 82,
+        "texts": [
+          "Attics",
+          "Going into the attic"
+        ]
+      },
+      {
+        "rank": 83,
+        "texts": [
+          "Ventriloquist dummies",
+          "Dummies",
+          "Creepy puppets"
+        ]
+      },
+      {
+        "rank": 84,
+        "texts": [
+          "Being forgotten",
+          "Everyone forgetting me",
+          "Being forgotten by everyone"
+        ]
+      },
+      {
+        "rank": 85,
+        "texts": [
+          "Getting lost",
+          "Being lost",
+          "Getting lost somewhere"
+        ]
+      },
+      {
+        "rank": 86,
+        "texts": [
+          "Fireworks",
+          "Loud fireworks",
+          "Firecrackers"
+        ]
+      },
+      {
+        "rank": 87,
+        "texts": [
+          "Being bitten",
+          "Getting bitten",
+          "Animal bites"
+        ]
+      },
+      {
+        "rank": 88,
+        "texts": [
+          "Dying alone",
+          "Being alone forever",
+          "Ending up alone"
+        ]
+      }
+    ],
+    "top1": "Snakes",
+    "unlisted": [
+      "corrupt government officials",
+      "running out of money",
+      "identity theft"
+    ]
+  },
+  "109": {
+    "textAnswers": [
+      {
+        "rank": 1,
+        "texts": [
+          "Ford Mustang",
+          "Mustang",
+          "A Mustang",
+          "Mustang GT",
+          "Mustang 5.0",
+          "Shelby GT500",
+          "Shelby Mustang",
+          "A Ford Mustang"
+        ]
+      },
+      {
+        "rank": 2,
+        "texts": [
+          "Porsche 911",
+          "A 911",
+          "Porsche",
+          "911 Carrera",
+          "911 GT3",
+          "Porsche 911 Turbo",
+          "911 Turbo S"
+        ]
+      },
+      {
+        "rank": 3,
+        "texts": [
+          "Tesla Model 3",
+          "Tesla",
+          "A Tesla",
+          "Model 3",
+          "A Model 3",
+          "Tesla 3"
+        ]
+      },
+      {
+        "rank": 4,
+        "texts": [
+          "Dodge Charger",
+          "Charger",
+          "Charger Hellcat",
+          "Hellcat Charger",
+          "Dodge Charger SRT"
+        ]
+      },
+      {
+        "rank": 5,
+        "texts": [
+          "BMW M3",
+          "BMW",
+          "A BMW",
+          "M3",
+          "A BMW M3",
+          "M3 Competition"
+        ]
+      },
+      {
+        "rank": 6,
+        "texts": [
+          "Tesla Model Y",
+          "Model Y",
+          "A Model Y",
+          "Tesla Y"
+        ]
+      },
+      {
+        "rank": 7,
+        "texts": [
+          "Lamborghini",
+          "A Lamborghini",
+          "Lambo",
+          "Lamborghini Gallardo",
+          "Lamborghini Diablo"
+        ]
+      },
+      {
+        "rank": 8,
+        "texts": [
+          "Ferrari",
+          "A Ferrari",
+          "Ferrari F40",
+          "Ferrari 458",
+          "Ferrari California"
+        ]
+      },
+      {
+        "rank": 9,
+        "texts": [
+          "Chevrolet Corvette",
+          "Corvette",
+          "A Corvette",
+          "Corvette Stingray",
+          "Corvette Z06",
+          "C8 Corvette",
+          "Vette"
+        ]
+      },
+      {
+        "rank": 10,
+        "texts": [
+          "Audi R8",
+          "Audi",
+          "R8",
+          "An Audi R8",
+          "Audi R8 V10"
+        ]
+      },
+      {
+        "rank": 11,
+        "texts": [
+          "Mercedes-Benz",
+          "Mercedes",
+          "A Mercedes",
+          "A Mercedes-Benz",
+          "Benz",
+          "Mercedes Benz"
+        ]
+      },
+      {
+        "rank": 12,
+        "texts": [
+          "Range Rover",
+          "Land Rover",
+          "A Range Rover",
+          "Range Rover Sport"
+        ]
+      },
+      {
+        "rank": 13,
+        "texts": [
+          "Ford F-150",
+          "A pickup truck",
+          "A truck",
+          "F-150",
+          "Ford truck",
+          "F150"
+        ]
+      },
+      {
+        "rank": 14,
+        "texts": [
+          "Jeep Wrangler",
+          "Jeep",
+          "Wrangler",
+          "A Jeep Wrangler",
+          "Jeep Gladiator"
+        ]
+      },
+      {
+        "rank": 15,
+        "texts": [
+          "Toyota Supra",
+          "Toyota",
+          "A Supra",
+          "GR Supra",
+          "Supra MK4",
+          "A Toyota Supra"
+        ]
+      },
+      {
+        "rank": 16,
+        "texts": [
+          "Nissan GT-R",
+          "GT-R",
+          "GTR",
+          "Nissan",
+          "R35 GT-R",
+          "Nissan GTR"
+        ]
+      },
+      {
+        "rank": 17,
+        "texts": [
+          "McLaren",
+          "A McLaren",
+          "720S",
+          "McLaren 720S",
+          "McLaren P1",
+          "McLaren Artura",
+          "McLaren Senna"
+        ]
+      },
+      {
+        "rank": 18,
+        "texts": [
+          "Bugatti",
+          "A Bugatti",
+          "Bugatti Chiron",
+          "Bugatti Veyron",
+          "Bugatti Bolide"
+        ]
+      },
+      {
+        "rank": 19,
+        "texts": [
+          "Rolls-Royce",
+          "A Rolls-Royce",
+          "Rolls Royce",
+          "Rolls-Royce Phantom",
+          "Rolls-Royce Ghost",
+          "Rolls-Royce Cullinan"
+        ]
+      },
+      {
+        "rank": 20,
+        "texts": [
+          "Bentley",
+          "A Bentley",
+          "Bentley Continental GT",
+          "Bentley Bentayga",
+          "Continental GT"
+        ]
+      },
+      {
+        "rank": 21,
+        "texts": [
+          "Aston Martin",
+          "An Aston Martin",
+          "Aston Martin Vantage",
+          "Aston Martin DB11",
+          "Aston Martin DBS"
+        ]
+      },
+      {
+        "rank": 22,
+        "texts": [
+          "Maserati",
+          "A Maserati",
+          "Maserati GranTurismo",
+          "Maserati Quattroporte",
+          "Maserati Ghibli"
+        ]
+      },
+      {
+        "rank": 23,
+        "texts": [
+          "Cadillac Escalade",
+          "Cadillac",
+          "Escalade",
+          "Cadillac Escalade ESV",
+          "Caddy Escalade"
+        ]
+      },
+      {
+        "rank": 24,
+        "texts": [
+          "Tesla Model S",
+          "Model S",
+          "A Model S",
+          "Tesla S",
+          "Model S Plaid"
+        ]
+      },
+      {
+        "rank": 25,
+        "texts": [
+          "Lamborghini Urus",
+          "Urus",
+          "Lamborghini SUV"
+        ]
+      },
+      {
+        "rank": 26,
+        "texts": [
+          "Chevrolet Camaro",
+          "Camaro",
+          "Camaro SS",
+          "Camaro ZL1",
+          "Chevy Camaro"
+        ]
+      },
+      {
+        "rank": 27,
+        "texts": [
+          "Dodge Challenger",
+          "Challenger",
+          "Challenger Hellcat",
+          "Challenger SRT",
+          "Dodge Challenger R/T"
+        ]
+      },
+      {
+        "rank": 28,
+        "texts": [
+          "Ford GT",
+          "GT40",
+          "Ford GT40",
+          "Ford GT supercar"
+        ]
+      },
+      {
+        "rank": 29,
+        "texts": [
+          "Koenigsegg",
+          "A Koenigsegg",
+          "Koenigsegg Jesko",
+          "Koenigsegg Regera",
+          "Jesko"
+        ]
+      },
+      {
+        "rank": 30,
+        "texts": [
+          "Pagani",
+          "A Pagani",
+          "Pagani Huayra",
+          "Pagani Zonda",
+          "Huayra"
+        ]
+      },
+      {
+        "rank": 31,
+        "texts": [
+          "Lexus",
+          "A Lexus",
+          "Lexus LC500",
+          "Lexus LFA",
+          "Lexus RC F"
+        ]
+      },
+      {
+        "rank": 32,
+        "texts": [
+          "Jaguar",
+          "A Jaguar",
+          "Jaguar F-Type",
+          "Jaguar XJ220"
+        ]
+      },
+      {
+        "rank": 33,
+        "texts": [
+          "Ford Bronco",
+          "Bronco",
+          "A Bronco"
+        ]
+      },
+      {
+        "rank": 34,
+        "texts": [
+          "Mercedes G-Wagon",
+          "G-Wagon",
+          "G Wagon",
+          "Mercedes G-Class",
+          "G-Class",
+          "A G-Wagon"
+        ]
+      },
+      {
+        "rank": 35,
+        "texts": [
+          "Porsche Cayenne",
+          "Cayenne",
+          "A Cayenne"
+        ]
+      },
+      {
+        "rank": 36,
+        "texts": [
+          "Land Rover Defender",
+          "Defender",
+          "A Defender"
+        ]
+      },
+      {
+        "rank": 37,
+        "texts": [
+          "Tesla Model X",
+          "Model X"
+        ]
+      },
+      {
+        "rank": 38,
+        "texts": [
+          "Tesla Cybertruck",
+          "Cybertruck",
+          "A Cybertruck"
+        ]
+      },
+      {
+        "rank": 39,
+        "texts": [
+          "Porsche Taycan",
+          "Taycan",
+          "A Taycan"
+        ]
+      },
+      {
+        "rank": 40,
+        "texts": [
+          "Porsche Macan",
+          "Macan",
+          "A Macan"
+        ]
+      },
+      {
+        "rank": 41,
+        "texts": [
+          "Nissan Skyline",
+          "Skyline",
+          "A Skyline",
+          "R34 Skyline"
+        ]
+      },
+      {
+        "rank": 42,
+        "texts": [
+          "Mitsubishi Lancer Evolution",
+          "Lancer Evo",
+          "Lancer Evolution",
+          "Evo",
+          "Mitsubishi Lancer"
+        ]
+      },
+      {
+        "rank": 43,
+        "texts": [
+          "Audi Quattro",
+          "Quattro",
+          "Audi Sport Quattro"
+        ]
+      },
+      {
+        "rank": 44,
+        "texts": [
+          "Land Rover Discovery",
+          "Discovery",
+          "A Discovery"
+        ]
+      },
+      {
+        "rank": 45,
+        "texts": [
+          "BMW M4",
+          "M4",
+          "A BMW M4"
+        ]
+      },
+      {
+        "rank": 46,
+        "texts": [
+          "Mercedes-AMG GT",
+          "AMG GT",
+          "Mercedes AMG",
+          "AMG"
+        ]
+      },
+      {
+        "rank": 47,
+        "texts": [
+          "BMW M5",
+          "M5",
+          "A BMW M5"
+        ]
+      },
+      {
+        "rank": 48,
+        "texts": [
+          "Porsche Panamera",
+          "Panamera",
+          "A Panamera"
+        ]
+      },
+      {
+        "rank": 49,
+        "texts": [
+          "Audi RS6",
+          "RS6",
+          "Audi RS6 Avant",
+          "RS7",
+          "Audi RS7"
+        ]
+      },
+      {
+        "rank": 50,
+        "texts": [
+          "Lamborghini Huracán",
+          "Huracan",
+          "A Huracan",
+          "Huracán"
+        ]
+      },
+      {
+        "rank": 51,
+        "texts": [
+          "Lamborghini Aventador",
+          "Aventador",
+          "An Aventador"
+        ]
+      },
+      {
+        "rank": 52,
+        "texts": [
+          "Ferrari 488",
+          "488",
+          "Ferrari 488 GTB",
+          "F8 Tributo",
+          "Ferrari F8"
+        ]
+      },
+      {
+        "rank": 53,
+        "texts": [
+          "LaFerrari",
+          "Ferrari LaFerrari"
+        ]
+      },
+      {
+        "rank": 54,
+        "texts": [
+          "Dodge Viper",
+          "Viper",
+          "A Viper"
+        ]
+      },
+      {
+        "rank": 55,
+        "texts": [
+          "Subaru WRX STI",
+          "WRX",
+          "STI",
+          "Subaru WRX",
+          "A WRX"
+        ]
+      },
+      {
+        "rank": 56,
+        "texts": [
+          "Honda Civic Type R",
+          "Civic Type R",
+          "Type R"
+        ]
+      },
+      {
+        "rank": 57,
+        "texts": [
+          "Honda NSX",
+          "NSX",
+          "Acura NSX",
+          "An NSX"
+        ]
+      },
+      {
+        "rank": 58,
+        "texts": [
+          "Mazda RX-7",
+          "RX-7",
+          "RX7",
+          "Mazda RX7"
+        ]
+      },
+      {
+        "rank": 59,
+        "texts": [
+          "McLaren F1",
+          "McLaren F1 car"
+        ]
+      },
+      {
+        "rank": 60,
+        "texts": [
+          "Lamborghini Countach",
+          "Countach",
+          "A Countach"
+        ]
+      },
+      {
+        "rank": 61,
+        "texts": [
+          "Mazda MX-5 Miata",
+          "Miata",
+          "MX-5",
+          "A Miata"
+        ]
+      },
+      {
+        "rank": 62,
+        "texts": [
+          "Volkswagen Golf GTI",
+          "Golf GTI",
+          "GTI",
+          "VW GTI"
+        ]
+      },
+      {
+        "rank": 63,
+        "texts": [
+          "Ram 1500",
+          "Dodge Ram",
+          "Ram truck",
+          "A Ram"
+        ]
+      },
+      {
+        "rank": 64,
+        "texts": [
+          "Toyota Tacoma",
+          "Tacoma",
+          "A Tacoma"
+        ]
+      },
+      {
+        "rank": 65,
+        "texts": [
+          "Toyota Land Cruiser",
+          "Land Cruiser",
+          "A Land Cruiser"
+        ]
+      },
+      {
+        "rank": 66,
+        "texts": [
+          "Tesla Roadster",
+          "Roadster",
+          "Tesla Roadster 2"
+        ]
+      },
+      {
+        "rank": 67,
+        "texts": [
+          "Lotus Elise",
+          "Elise",
+          "Lotus Emira",
+          "Emira",
+          "A Lotus"
+        ]
+      },
+      {
+        "rank": 68,
+        "texts": [
+          "Ferrari Testarossa",
+          "Testarossa",
+          "A Testarossa"
+        ]
+      },
+      {
+        "rank": 69,
+        "texts": [
+          "Mercedes 300SL Gullwing",
+          "300SL",
+          "Gullwing",
+          "Mercedes Gullwing"
+        ]
+      },
+      {
+        "rank": 70,
+        "texts": [
+          "Aston Martin DB5",
+          "DB5",
+          "James Bond Aston Martin"
+        ]
+      },
+      {
+        "rank": 71,
+        "texts": [
+          "Jaguar E-Type",
+          "E-Type",
+          "Jaguar E Type"
+        ]
+      },
+      {
+        "rank": 72,
+        "texts": [
+          "Porsche 918 Spyder",
+          "918 Spyder",
+          "918",
+          "Porsche 918"
+        ]
+      },
+      {
+        "rank": 73,
+        "texts": [
+          "Ferrari Enzo",
+          "Enzo",
+          "A Ferrari Enzo"
+        ]
+      },
+      {
+        "rank": 74,
+        "texts": [
+          "Chevrolet Silverado",
+          "Silverado",
+          "A Silverado"
+        ]
+      },
+      {
+        "rank": 75,
+        "texts": [
+          "Toyota 4Runner",
+          "4Runner",
+          "A 4Runner"
+        ]
+      },
+      {
+        "rank": 76,
+        "texts": [
+          "Lincoln Navigator",
+          "Navigator",
+          "A Navigator"
+        ]
+      },
+      {
+        "rank": 77,
+        "texts": [
+          "BMW X5",
+          "X5",
+          "A BMW X5"
+        ]
+      },
+      {
+        "rank": 78,
+        "texts": [
+          "Rivian R1T",
+          "Rivian",
+          "R1T",
+          "A Rivian"
+        ]
+      },
+      {
+        "rank": 79,
+        "texts": [
+          "Lucid Air",
+          "Lucid",
+          "A Lucid"
+        ]
+      },
+      {
+        "rank": 80,
+        "texts": [
+          "Alfa Romeo Giulia",
+          "Alfa Romeo",
+          "Giulia",
+          "An Alfa Romeo"
+        ]
+      },
+      {
+        "rank": 81,
+        "texts": [
+          "Shelby Cobra",
+          "Cobra",
+          "AC Cobra",
+          "Shelby"
+        ]
+      },
+      {
+        "rank": 82,
+        "texts": [
+          "Rimac Nevera",
+          "Nevera",
+          "Rimac",
+          "A Rimac"
+        ]
+      },
+      {
+        "rank": 83,
+        "texts": [
+          "Volkswagen Beetle",
+          "Beetle",
+          "VW Beetle",
+          "Classic Beetle"
+        ]
+      },
+      {
+        "rank": 84,
+        "texts": [
+          "Mini Cooper",
+          "Mini",
+          "A Mini Cooper"
+        ]
+      },
+      {
+        "rank": 85,
+        "texts": [
+          "Toyota AE86",
+          "AE86",
+          "Toyota Corolla AE86",
+          "Hachi Roku"
+        ]
+      },
+      {
+        "rank": 86,
+        "texts": [
+          "Ford F-150 Raptor",
+          "Raptor",
+          "F-150 Raptor"
+        ]
+      },
+      {
+        "rank": 87,
+        "texts": [
+          "Nissan 370Z",
+          "370Z",
+          "Nissan Z",
+          "350Z",
+          "Nissan 350Z"
+        ]
+      },
+      {
+        "rank": 88,
+        "texts": [
+          "Jeep Grand Cherokee",
+          "Grand Cherokee",
+          "A Grand Cherokee"
+        ]
+      }
+    ],
+    "top1": "Ford Mustang",
+    "unlisted": [
+      "a DeLorean",
+      "a Batmobile"
+    ]
+  }
+}

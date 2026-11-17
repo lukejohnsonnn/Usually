@@ -8,7 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { JSDOM, VirtualConsole } from "jsdom";
 import {
-  scoreGuess, scoreText, matchTextAnswer, normalizeText,
+  scoreGuess, scoreText, matchTextAnswer, normalizeText, canonicalTokens,
   composeSet, etDateStr, addDays, deriveVotePrompt,
 } from "../lib/game.js";
 import { loadBank } from "../db.js";
@@ -56,6 +56,68 @@ check("plural forgiven", matchTextAnswer(byId.get(127), "phones").rank === 1);
 check("unlisted stays unlisted", matchTextAnswer(byId.get(106), "my horoscope told me not to go").rank === null);
 check("alias: my car broke down = rank 5", matchTextAnswer(byId.get(106), "my car broke down").rank === 5);
 check("normalize strips articles", normalizeText("A phone screen") === "phone screen");
+// 2026-11-17 autocorrect matching: synonyms, word order, filler words,
+// abbreviations, typos (Damerau transpositions) — with guards so distinct
+// answers in the same list are never conflated. [qid, submitted, wantRank]
+const MATCH_CASES = [
+  [131, "lucky chram", 13], [131, "lucky charm", 13], [131, "good luck charm", 13],
+  [127, "my phone", 1], [127, "cell phone", 1], [127, "CELL PHONE", 1],
+  [127, "smartphone", 1], [127, "mobile", 1],
+  [127, "house keys", 2], [127, "my keys", 2], [127, "keys", 2],
+  [127, "money", 4], [127, "my wallet", 3],
+  [104, "keys", 2],
+  [120, "dog", 1], [120, "my dog", 1], [120, "their dog", 1],
+  [120, "keys", 21], [120, "their keys", 21],
+  [128, "phone screen", 1], [128, "cracked phone screen", 1], [128, "a phone screen", 1],
+  [128, "wine glasses", 5], [128, "laptop screen", 6],
+  [119, "butterflies", 1], [119, "butterfly", 1],
+  [125, "fresh baked bread", 1], [125, "freshly baked bread", 1],
+  [132, "singing", 1], [132, "sing", 1],
+  [130, "kale", 1],
+  [105, "pepperoni pizza", 1], [103, "make coffee", 5],
+  [180, "light blue", 31], [176, "chocolate ice cream", 1],
+  [179, "frenchie", 1], [106, "overslept", 2], [116, "manual", 1],
+  [110, "flying", 2], [110, "being able to fly", 2], [110, "fly", 2],
+  [110, "time travelling", 4], [110, "traveling in time", 4],
+  [110, "living forever", 10], [110, "never dying", 10],
+  [111, "fast food", 1],
+  [131, "keys", null], [131, "keychain", null],
+  [177, "hot dog", null], [177, "dog", 1],
+  [128, "phone", null], [128, "screen", null],
+  [128, "glasses", 2], [128, "sunglasses", 2],
+  [112, "key fob", 28],
+  [104, "keys to the office", 32],
+  [103, "check my phone", 1], [103, "check their phone", 1],
+  [103, "check the time", 6],
+  [180, "blue", 1],
+  [176, "chocolate", 1],
+  [179, "french bulldog", 1],
+  [113, "paris", 1], [113, "paris france", 1],
+  [108, "snakes", 1], [108, "snake", 1],
+  [106, "traffic", 1], [106, "stuck in traffic", 1],
+  [124, "math", 1],
+  [116, "owner's manual", 1], [116, "owners manual", 1],
+  [121, "phone", 1],
+  [122, "dust", 1],
+  [123, "hot sauce", 1],
+  [126, "baby crying", 1], [126, "a baby crying", 1],
+  [129, "the dog ate it", 1], [129, "dog ate it", 1], [129, "dog ate my homework", 1],
+  [115, "mac and cheese", 1], [115, "macaroni and cheese", 1],
+  [117, "hide and seek", 1], [117, "hide-and-seek", 1],
+  [118, "toilet paper", 1],
+  [178, "stuffing", 1],
+  [107, "tape", 1],
+  [109, "ford mustang", 1], [109, "mustang", 1],
+  [114, "toasted sandwich maker", 1],
+];
+{
+  const bad = [];
+  for (const [id, sub, want] of MATCH_CASES) {
+    const got = matchTextAnswer(byId.get(id), sub).rank;
+    if (got !== want) bad.push(`Q${id} "${sub}": got ${got}, want ${want}`);
+  }
+  check(`autocorrect matching suite (${MATCH_CASES.length} paraphrase/synonym/typo/guard cases)`, bad.length === 0, bad.join(" | "));
+}
 
 console.log("== unit: daily composition / freeze ==");
 const today = etDateStr();
@@ -96,12 +158,35 @@ check("audit: meta counts match the bank",
   bank.meta.counts.finale === bank.questions.filter((q) => q.finale).length &&
   bank.meta.counts.text === bank.questions.filter((q) => q.kind === "text").length &&
   bank.meta.counts.votable === bank.questions.filter((q) => q.votable).length);
-check("audit: every text list is 32 contiguous ranks with top1 at rank 1",
+check("audit: every text list is 75+ contiguous ranks with top1 at rank 1",
   bank.questions.filter((q) => q.kind === "text").every((q) => {
     const ranks = (q.textAnswers || []).map((a) => a.rank);
-    return ranks.length === 32 && ranks.every((r, i) => r === i + 1) &&
+    return ranks.length >= 75 && ranks.every((r, i) => r === i + 1) &&
       q.top1 === (q.textAnswers.find((a) => a.rank === 1)?.texts || [])[0] &&
       q.textAnswers.every((a) => a.texts && a.texts.length > 0);
+  }));
+// 2026-11-17 autocorrect expansion: no two ranks in a prompt may share a
+// canonical variant (the matcher refuses to guess on a tie), every stored
+// canonical must match back to its own rank, and no unlisted entry may be
+// an answer that is actually listed (the unlisted check runs first).
+check("text lists: no duplicate canonical variant across ranks in a prompt",
+  bank.questions.filter((q) => q.kind === "text").every((q) => {
+    const seen = new Map();
+    for (const slot of q.textAnswers) for (const t of slot.texts) {
+      const key = canonicalTokens(t).join(" ");
+      if (seen.has(key) && seen.get(key) !== slot.rank) return false;
+      seen.set(key, slot.rank);
+    }
+    return true;
+  }));
+check("text lists: every canonical text matches its own rank",
+  bank.questions.filter((q) => q.kind === "text").every((q) =>
+    q.textAnswers.every((a) => matchTextAnswer(q, a.texts[0]).rank === a.rank)));
+check("text lists: no unlisted entry is actually a listed answer",
+  bank.questions.filter((q) => q.kind === "text").every((q) => {
+    const listed = new Set();
+    for (const slot of q.textAnswers) for (const t of slot.texts) listed.add(canonicalTokens(t).join(" "));
+    return (q.unlisted || []).every((u) => !listed.has(canonicalTokens(u).join(" ")));
   }));
 check("audit: 10-vote live-answer flip is gone (no setLiveAnswer anywhere)",
   !fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8").includes("setLiveAnswer") &&
@@ -417,7 +502,7 @@ check("voted question disappears from the list", !unlocked2.body.questions.some(
 
 // Endless: hundredths round end-to-end (find a sub-1% finale within a few plays)
 let hundredthsOk = false;
-for (let attempt = 0; attempt < 6 && !hundredthsOk; attempt++) {
+for (let attempt = 0; attempt < 12 && !hundredthsOk; attempt++) {
   const ep = await api("/api/play", { method: "POST", body: JSON.stringify({ playerId: `verify-endless-${attempt}`, mode: "endless" }) });
   const finale = byId.get(ep.body.questions[6].id);
   if (!finale || finale.answer >= 1) continue;
@@ -436,6 +521,29 @@ for (let attempt = 0; attempt < 6 && !hundredthsOk; attempt++) {
   hundredthsOk = s.body.result?.points === 100 && s.body.result?.tier === "Dead On";
 }
 check("hundredths scoring end-to-end (0.01 off = 100)", hundredthsOk);
+
+// Autocorrect end-to-end: a text answer with filler words ("my " + top1)
+// must still match rank 1 through the real server.
+let nearMissOk = false;
+{
+  const ep = await api("/api/play", { method: "POST", body: JSON.stringify({ playerId: "verify-nearmiss", mode: "endless" }) });
+  let sawText = false, allBullseye = true;
+  for (let i = 0; i < 7; i++) {
+    const q = ep.body.questions[i];
+    const full = byId.get(q.id);
+    // Whole numbers only at >=1% (e.g. finale 2.6 scores 175 via a 3 guess).
+    const body = q.kind === "text"
+      ? { answer: `my ${full.top1}` }
+      : { guess: full.answer >= 1 ? Math.round(full.answer) : full.answer };
+    if (q.kind === "text") sawText = true;
+    const s = await api(`/api/play/${ep.body.playId}/submit`, {
+      method: "POST", body: JSON.stringify({ playerId: "verify-nearmiss", roundIndex: i, ...body }),
+    });
+    if (s.body.result?.points !== 175) allBullseye = false;
+  }
+  nearMissOk = sawText && allBullseye;
+}
+check('near-miss text answers ("my " + #1) score Bullseye end-to-end', nearMissOk);
 
 // Yesterday peek
 const y = await api("/api/yesterday");

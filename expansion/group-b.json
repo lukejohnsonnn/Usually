@@ -1,0 +1,5145 @@
+{
+ "110": {
+  "textAnswers": [
+   {
+    "rank": 1,
+    "texts": [
+     "Invisibility",
+     "Being invisible",
+     "Turning invisible",
+     "Invisible",
+     "Being able to turn invisible",
+     "Invisibility power"
+    ]
+   },
+   {
+    "rank": 2,
+    "texts": [
+     "Flying",
+     "Flight",
+     "Being able to fly",
+     "Fly",
+     "I can fly",
+     "Super flight"
+    ]
+   },
+   {
+    "rank": 3,
+    "texts": [
+     "Teleportation",
+     "Teleporting",
+     "Teleport",
+     "Teleporting anywhere",
+     "Instant teleportation"
+    ]
+   },
+   {
+    "rank": 4,
+    "texts": [
+     "Time travel",
+     "Traveling in time",
+     "Going back in time",
+     "Time travelling",
+     "Time machine",
+     "Travelling through time"
+    ]
+   },
+   {
+    "rank": 5,
+    "texts": [
+     "Healing",
+     "Healing powers",
+     "Healing other people",
+     "Healing yourself",
+     "Healing people",
+     "The power to heal",
+     "Healing ability"
+    ]
+   },
+   {
+    "rank": 6,
+    "texts": [
+     "Mind reading",
+     "Reading minds",
+     "Telepathy",
+     "Reading people's minds",
+     "Telepathic powers",
+     "Mind-reading"
+    ]
+   },
+   {
+    "rank": 7,
+    "texts": [
+     "Super strength",
+     "Being super strong",
+     "Strength",
+     "Superhuman strength",
+     "Super strong"
+    ]
+   },
+   {
+    "rank": 8,
+    "texts": [
+     "Seeing the future",
+     "Predicting the future",
+     "Seeing what's coming",
+     "Precognition",
+     "Future sight",
+     "Seeing into the future",
+     "Knowing the future"
+    ]
+   },
+   {
+    "rank": 9,
+    "texts": [
+     "Super speed",
+     "Running super fast",
+     "Being super fast",
+     "Superhuman speed",
+     "Speed"
+    ]
+   },
+   {
+    "rank": 10,
+    "texts": [
+     "Immortality",
+     "Living forever",
+     "Never dying",
+     "Not aging",
+     "Never aging",
+     "Eternal life"
+    ]
+   },
+   {
+    "rank": 11,
+    "texts": [
+     "Telekinesis",
+     "Moving things with my mind",
+     "Moving objects with your mind",
+     "Psychokinesis"
+    ]
+   },
+   {
+    "rank": 12,
+    "texts": [
+     "Shapeshifting",
+     "Changing shape",
+     "Turning into animals",
+     "Shapeshifting into anything",
+     "Shape shifting",
+     "Shapeshifter",
+     "Turning into anything"
+    ]
+   },
+   {
+    "rank": 13,
+    "texts": [
+     "X-ray vision",
+     "Seeing through walls",
+     "X-ray eyes",
+     "Xray vision",
+     "Seeing through things"
+    ]
+   },
+   {
+    "rank": 14,
+    "texts": [
+     "Super intelligence",
+     "Being super smart",
+     "Superhuman intelligence",
+     "Genius intelligence",
+     "Being a genius",
+     "Super smart"
+    ]
+   },
+   {
+    "rank": 15,
+    "texts": [
+     "Mind control",
+     "Controlling minds",
+     "Controlling people",
+     "Mind-control",
+     "Controlling other people's minds"
+    ]
+   },
+   {
+    "rank": 16,
+    "texts": [
+     "Freezing time",
+     "Stopping time",
+     "Pausing time",
+     "Time freeze"
+    ]
+   },
+   {
+    "rank": 17,
+    "texts": [
+     "Invincibility",
+     "Being invincible",
+     "Never getting hurt",
+     "Invulnerability",
+     "Being indestructible",
+     "Never being hurt"
+    ]
+   },
+   {
+    "rank": 18,
+    "texts": [
+     "Speaking any language",
+     "Speaking every language",
+     "Understanding all languages",
+     "Speaking all languages",
+     "Omnilingual"
+    ]
+   },
+   {
+    "rank": 19,
+    "texts": [
+     "Super hearing",
+     "Hearing everything",
+     "Superhuman hearing",
+     "Super-hearing"
+    ]
+   },
+   {
+    "rank": 20,
+    "texts": [
+     "Laser eyes",
+     "Shooting lasers from my eyes",
+     "Heat vision",
+     "Laser vision",
+     "Eye lasers"
+    ]
+   },
+   {
+    "rank": 21,
+    "texts": [
+     "Superhuman senses",
+     "Enhanced senses",
+     "Super senses",
+     "Enhanced sense"
+    ]
+   },
+   {
+    "rank": 22,
+    "texts": [
+     "Elasticity",
+     "Stretching like rubber",
+     "Being stretchy",
+     "Being elastic",
+     "Stretching",
+     "Rubber body"
+    ]
+   },
+   {
+    "rank": 23,
+    "texts": [
+     "Underwater breathing",
+     "Breathing underwater",
+     "Breathing under water",
+     "Gills"
+    ]
+   },
+   {
+    "rank": 24,
+    "texts": [
+     "Walking through walls",
+     "Phasing through walls",
+     "Going through walls",
+     "Phasing",
+     "Walking through solid objects"
+    ]
+   },
+   {
+    "rank": 25,
+    "texts": [
+     "Controlling the weather",
+     "Weather control",
+     "Controlling storms",
+     "Weather manipulation",
+     "Weather powers"
+    ]
+   },
+   {
+    "rank": 26,
+    "texts": [
+     "Controlling fire",
+     "Fire powers",
+     "Pyrokinesis",
+     "Fire manipulation",
+     "Firebending",
+     "Controlling flames"
+    ]
+   },
+   {
+    "rank": 27,
+    "texts": [
+     "Controlling water",
+     "Water powers",
+     "Water manipulation",
+     "Waterbending",
+     "Hydrokinesis"
+    ]
+   },
+   {
+    "rank": 28,
+    "texts": [
+     "Controlling electricity",
+     "Lightning powers",
+     "Shooting lightning",
+     "Electrokinesis",
+     "Electricity powers",
+     "Controlling lightning"
+    ]
+   },
+   {
+    "rank": 29,
+    "texts": [
+     "Regeneration",
+     "Healing instantly",
+     "Regrowing limbs",
+     "Rapid healing",
+     "Self-healing",
+     "Instant healing"
+    ]
+   },
+   {
+    "rank": 30,
+    "texts": [
+     "Cloning yourself",
+     "Making copies of myself",
+     "Duplicating",
+     "Cloning",
+     "Self-cloning",
+     "Making copies of yourself"
+    ]
+   },
+   {
+    "rank": 31,
+    "texts": [
+     "Talking to animals",
+     "Understanding animals",
+     "Talking with animals",
+     "Animal communication"
+    ]
+   },
+   {
+    "rank": 32,
+    "texts": [
+     "World peace",
+     "Ending all wars",
+     "Peace on earth",
+     "End war",
+     "No more wars"
+    ]
+   },
+   {
+    "rank": 33,
+    "texts": [
+     "Superhuman agility",
+     "Agility",
+     "Super agility",
+     "Being super agile",
+     "Acrobatics"
+    ]
+   },
+   {
+    "rank": 34,
+    "texts": [
+     "Night vision",
+     "Seeing in the dark",
+     "Seeing at night"
+    ]
+   },
+   {
+    "rank": 35,
+    "texts": [
+     "Controlling ice",
+     "Ice powers",
+     "Freezing things",
+     "Cryokinesis",
+     "Ice power"
+    ]
+   },
+   {
+    "rank": 36,
+    "texts": [
+     "Controlling earth",
+     "Earth powers",
+     "Earthbending",
+     "Geokinesis",
+     "Controlling rocks"
+    ]
+   },
+   {
+    "rank": 37,
+    "texts": [
+     "Controlling air",
+     "Air powers",
+     "Wind powers",
+     "Aerokinesis",
+     "Controlling wind"
+    ]
+   },
+   {
+    "rank": 38,
+    "texts": [
+     "Controlling metal",
+     "Metal powers",
+     "Magnetism",
+     "Magnetokinesis",
+     "Controlling magnets"
+    ]
+   },
+   {
+    "rank": 39,
+    "texts": [
+     "Controlling plants",
+     "Plant powers",
+     "Nature powers",
+     "Chlorokinesis",
+     "Controlling nature"
+    ]
+   },
+   {
+    "rank": 40,
+    "texts": [
+     "Superhuman reflexes",
+     "Super fast reflexes",
+     "Enhanced reflexes",
+     "Lightning reflexes"
+    ]
+   },
+   {
+    "rank": 41,
+    "texts": [
+     "Photographic memory",
+     "Perfect memory",
+     "Never forgetting anything",
+     "Eidetic memory"
+    ]
+   },
+   {
+    "rank": 42,
+    "texts": [
+     "Lie detection",
+     "Knowing when someone is lying",
+     "Detecting lies",
+     "Telling if someone is lying"
+    ]
+   },
+   {
+    "rank": 43,
+    "texts": [
+     "Dream control",
+     "Controlling dreams",
+     "Lucid dreaming",
+     "Entering dreams"
+    ]
+   },
+   {
+    "rank": 44,
+    "texts": [
+     "Astral projection",
+     "Leaving your body",
+     "Out of body experience",
+     "Astral travel"
+    ]
+   },
+   {
+    "rank": 45,
+    "texts": [
+     "Superhuman stamina",
+     "Never getting tired",
+     "Endless energy",
+     "Super endurance"
+    ]
+   },
+   {
+    "rank": 46,
+    "texts": [
+     "Controlling gravity",
+     "Gravity powers",
+     "Gravity control",
+     "Making things float"
+    ]
+   },
+   {
+    "rank": 47,
+    "texts": [
+     "Growing and shrinking",
+     "Growing huge",
+     "Shrinking",
+     "Size changing",
+     "Changing size"
+    ]
+   },
+   {
+    "rank": 48,
+    "texts": [
+     "Resurrection",
+     "Bringing the dead back to life",
+     "Bringing people back to life",
+     "Raising the dead"
+    ]
+   },
+   {
+    "rank": 49,
+    "texts": [
+     "Talking to ghosts",
+     "Talking to the dead",
+     "Seeing ghosts",
+     "Communicating with spirits"
+    ]
+   },
+   {
+    "rank": 50,
+    "texts": [
+     "Shadow powers",
+     "Controlling shadows",
+     "Shadow manipulation",
+     "Darkness powers"
+    ]
+   },
+   {
+    "rank": 51,
+    "texts": [
+     "Light powers",
+     "Controlling light",
+     "Light manipulation",
+     "Photokinesis",
+     "Glowing"
+    ]
+   },
+   {
+    "rank": 52,
+    "texts": [
+     "Never getting sick",
+     "Poison immunity",
+     "Immunity to disease",
+     "Never getting ill"
+    ]
+   },
+   {
+    "rank": 53,
+    "texts": [
+     "Super persuasion",
+     "Superhuman persuasion",
+     "Convincing anyone of anything",
+     "Super charisma",
+     "Charm"
+    ]
+   },
+   {
+    "rank": 54,
+    "texts": [
+     "Slowing down time",
+     "Slowing time",
+     "Bullet time"
+    ]
+   },
+   {
+    "rank": 55,
+    "texts": [
+     "Technopathy",
+     "Controlling technology",
+     "Controlling machines",
+     "Talking to computers",
+     "Hacking with your mind"
+    ]
+   },
+   {
+    "rank": 56,
+    "texts": [
+     "Superhuman luck",
+     "Being super lucky",
+     "Good luck",
+     "Luck powers"
+    ]
+   },
+   {
+    "rank": 57,
+    "texts": [
+     "Controlling animals",
+     "Commanding animals",
+     "Animal control"
+    ]
+   },
+   {
+    "rank": 58,
+    "texts": [
+     "Being bulletproof",
+     "Bulletproof skin",
+     "Super durability",
+     "Unbreakable skin"
+    ]
+   },
+   {
+    "rank": 59,
+    "texts": [
+     "Super jumping",
+     "Jumping really high",
+     "Superhuman jumping",
+     "Leaping tall buildings"
+    ]
+   },
+   {
+    "rank": 60,
+    "texts": [
+     "Sonic scream",
+     "Super scream",
+     "Screaming really loud",
+     "Canary cry"
+    ]
+   },
+   {
+    "rank": 61,
+    "texts": [
+     "Shooting webs",
+     "Web-slinging",
+     "Spider webs",
+     "Web shooting",
+     "Shooting spider webs"
+    ]
+   },
+   {
+    "rank": 62,
+    "texts": [
+     "Force fields",
+     "Creating force fields",
+     "Energy shields",
+     "Forcefield"
+    ]
+   },
+   {
+    "rank": 63,
+    "texts": [
+     "Energy blasts",
+     "Shooting energy beams",
+     "Energy beams",
+     "Plasma blasts"
+    ]
+   },
+   {
+    "rank": 64,
+    "texts": [
+     "Superhuman smell",
+     "Super smell",
+     "Enhanced sense of smell"
+    ]
+   },
+   {
+    "rank": 65,
+    "texts": [
+     "Telescopic vision",
+     "Super vision",
+     "Seeing really far",
+     "Zoom vision"
+    ]
+   },
+   {
+    "rank": 66,
+    "texts": [
+     "Microscopic vision",
+     "Seeing tiny things",
+     "Microscopic sight"
+    ]
+   },
+   {
+    "rank": 67,
+    "texts": [
+     "Controlling emotions",
+     "Controlling other people's emotions",
+     "Making people happy",
+     "Emotion control"
+    ]
+   },
+   {
+    "rank": 68,
+    "texts": [
+     "Creating anything",
+     "Making anything appear",
+     "Conjuring things",
+     "Creating objects from nothing",
+     "Manifestation"
+    ]
+   },
+   {
+    "rank": 69,
+    "texts": [
+     "Walking on water",
+     "Water walking"
+    ]
+   },
+   {
+    "rank": 70,
+    "texts": [
+     "Controlling sound",
+     "Sound powers",
+     "Sound manipulation",
+     "Controlling sound waves"
+    ]
+   },
+   {
+    "rank": 71,
+    "texts": [
+     "Breathing in space",
+     "Surviving in space",
+     "Breathing in outer space"
+    ]
+   },
+   {
+    "rank": 72,
+    "texts": [
+     "Being fireproof",
+     "Fireproof",
+     "Heat resistance",
+     "Not burning"
+    ]
+   },
+   {
+    "rank": 73,
+    "texts": [
+     "Erasing memories",
+     "Wiping memories",
+     "Making people forget",
+     "Mind wiping"
+    ]
+   },
+   {
+    "rank": 74,
+    "texts": [
+     "Controlling insects",
+     "Controlling bugs",
+     "Insect control"
+    ]
+   },
+   {
+    "rank": 75,
+    "texts": [
+     "Seeing the past",
+     "Seeing into the past",
+     "Viewing the past",
+     "Retrocognition"
+    ]
+   },
+   {
+    "rank": 76,
+    "texts": [
+     "Wall-crawling",
+     "Climbing walls",
+     "Sticking to walls",
+     "Superhuman climbing"
+    ]
+   },
+   {
+    "rank": 77,
+    "texts": [
+     "Elemental control",
+     "Controlling all elements",
+     "Elemental powers",
+     "Controlling the elements"
+    ]
+   },
+   {
+    "rank": 78,
+    "texts": [
+     "Instant learning",
+     "Learning anything instantly",
+     "Learning super fast"
+    ]
+   },
+   {
+    "rank": 79,
+    "texts": [
+     "Never needing sleep",
+     "Not needing sleep",
+     "Never sleeping"
+    ]
+   },
+   {
+    "rank": 80,
+    "texts": [
+     "Sixth sense",
+     "Superhuman sixth sense",
+     "Sensing danger",
+     "Spider-sense",
+     "Danger sense"
+    ]
+   },
+   {
+    "rank": 81,
+    "texts": [
+     "Super intuition",
+     "Superhuman intuition",
+     "Knowing things instinctively",
+     "Gut feeling"
+    ]
+   },
+   {
+    "rank": 82,
+    "texts": [
+     "Superhuman swimming",
+     "Swimming super fast",
+     "Super swimming"
+    ]
+   },
+   {
+    "rank": 83,
+    "texts": [
+     "Perfect sense of direction",
+     "Never getting lost",
+     "Sense of direction"
+    ]
+   },
+   {
+    "rank": 84,
+    "texts": [
+     "Changing my age",
+     "Changing age",
+     "Looking any age",
+     "Age control"
+    ]
+   },
+   {
+    "rank": 85,
+    "texts": [
+     "Dimension travel",
+     "Travelling to other dimensions",
+     "Visiting parallel universes",
+     "Dimension hopping"
+    ]
+   }
+  ],
+  "top1": "Invisibility",
+  "unlisted": [
+   "being rich",
+   "not wanting a power"
+  ]
+ },
+ "111": {
+  "textAnswers": [
+   {
+    "rank": 1,
+    "texts": [
+     "Fast food",
+     "Fast food worker",
+     "Working at McDonald's",
+     "McDonald's",
+     "Working at Burger King",
+     "Working at Wendy's",
+     "Fast food restaurant",
+     "McDonalds"
+    ]
+   },
+   {
+    "rank": 2,
+    "texts": [
+     "Babysitting",
+     "Babysitter",
+     "Nanny",
+     "Childcare",
+     "Baby sitting",
+     "Babysitting job",
+     "Childminder"
+    ]
+   },
+   {
+    "rank": 3,
+    "texts": [
+     "Retail",
+     "Retail sales associate",
+     "Working in a store",
+     "Shop assistant",
+     "Retail worker",
+     "Shop worker",
+     "Working retail"
+    ]
+   },
+   {
+    "rank": 4,
+    "texts": [
+     "Restaurant server",
+     "Waiter",
+     "Waitress",
+     "Server",
+     "Waiting tables",
+     "Waiter/waitress",
+     "Waitressing"
+    ]
+   },
+   {
+    "rank": 5,
+    "texts": [
+     "Grocery store cashier",
+     "Cashier",
+     "Grocery clerk",
+     "Bagging groceries",
+     "Grocery bagger",
+     "Cashier job",
+     "Working at a grocery store",
+     "Checkout"
+    ]
+   },
+   {
+    "rank": 6,
+    "texts": [
+     "Lifeguard",
+     "Lifeguarding",
+     "Life guard",
+     "Life saving"
+    ]
+   },
+   {
+    "rank": 7,
+    "texts": [
+     "Movie theater attendant",
+     "Working at the movies",
+     "Usher",
+     "Concessions",
+     "Cinema worker",
+     "Working at a cinema",
+     "Movie theatre",
+     "Ticket taker"
+    ]
+   },
+   {
+    "rank": 8,
+    "texts": [
+     "Camp counselor",
+     "Summer camp counselor",
+     "Camp counsellor",
+     "Summer camp"
+    ]
+   },
+   {
+    "rank": 9,
+    "texts": [
+     "Lawn care",
+     "Mowing lawns",
+     "Yard work",
+     "Landscaping",
+     "Mowing lawn",
+     "Lawn mowing",
+     "Cutting grass",
+     "Yardwork"
+    ]
+   },
+   {
+    "rank": 10,
+    "texts": [
+     "Paper route",
+     "Delivering newspapers",
+     "Newspaper delivery",
+     "Paper boy",
+     "Paper girl",
+     "Newspaper boy",
+     "Paperboy"
+    ]
+   },
+   {
+    "rank": 11,
+    "texts": [
+     "Dishwasher",
+     "Busboy",
+     "Bussing tables",
+     "Kitchen helper",
+     "Washing dishes",
+     "Busser"
+    ]
+   },
+   {
+    "rank": 12,
+    "texts": [
+     "Barista",
+     "Coffee shop worker",
+     "Working at Starbucks",
+     "Starbucks barista",
+     "Working at a coffee shop"
+    ]
+   },
+   {
+    "rank": 13,
+    "texts": [
+     "Host / hostess",
+     "Restaurant host",
+     "Greeter",
+     "Hostess",
+     "Host"
+    ]
+   },
+   {
+    "rank": 14,
+    "texts": [
+     "Cook",
+     "Line cook",
+     "Fast food cook",
+     "Kitchen cook",
+     "Chef",
+     "Short order cook"
+    ]
+   },
+   {
+    "rank": 15,
+    "texts": [
+     "Stock clerk",
+     "Stocking shelves",
+     "Stocker",
+     "Shelf stocker",
+     "Stocking"
+    ]
+   },
+   {
+    "rank": 16,
+    "texts": [
+     "Ice cream scooper",
+     "Working at an ice cream shop",
+     "Scooping ice cream",
+     "Working at Baskin Robbins",
+     "Ice cream shop"
+    ]
+   },
+   {
+    "rank": 17,
+    "texts": [
+     "Car wash attendant",
+     "Washing cars",
+     "Detailing cars",
+     "Car washer",
+     "Car wash"
+    ]
+   },
+   {
+    "rank": 18,
+    "texts": [
+     "Pet sitter",
+     "Dog walker",
+     "Walking dogs",
+     "Pet sitting",
+     "Dog sitting"
+    ]
+   },
+   {
+    "rank": 19,
+    "texts": [
+     "Tutor",
+     "Tutoring",
+     "Private tutor",
+     "Tutoring kids"
+    ]
+   },
+   {
+    "rank": 20,
+    "texts": [
+     "Farm work",
+     "Working on a farm",
+     "Picking fruit",
+     "Farmhand",
+     "Farm labourer"
+    ]
+   },
+   {
+    "rank": 21,
+    "texts": [
+     "Office assistant",
+     "Filing clerk",
+     "Receptionist",
+     "Secretary",
+     "Office clerk",
+     "Office worker"
+    ]
+   },
+   {
+    "rank": 22,
+    "texts": [
+     "Library assistant",
+     "Working at the library",
+     "Shelving books",
+     "Librarian assistant",
+     "Library worker"
+    ]
+   },
+   {
+    "rank": 23,
+    "texts": [
+     "Golf caddy",
+     "Caddie",
+     "Working at a golf course",
+     "Caddy",
+     "Golf course worker"
+    ]
+   },
+   {
+    "rank": 24,
+    "texts": [
+     "Babysitting for family",
+     "Watching my siblings",
+     "Babysitting my little brother",
+     "Babysitting my siblings"
+    ]
+   },
+   {
+    "rank": 25,
+    "texts": [
+     "Cleaning houses",
+     "House cleaning",
+     "Janitor",
+     "Housekeeper",
+     "Cleaning"
+    ]
+   },
+   {
+    "rank": 26,
+    "texts": [
+     "Delivery driver",
+     "Pizza delivery",
+     "Delivering food",
+     "Delivering pizza",
+     "Delivery",
+     "Courier"
+    ]
+   },
+   {
+    "rank": 27,
+    "texts": [
+     "Sales associate at a clothing store",
+     "Working at a mall store",
+     "Working at H&M",
+     "Working at Zara",
+     "Clothes shop assistant"
+    ]
+   },
+   {
+    "rank": 28,
+    "texts": [
+     "Amusement park worker",
+     "Working at a theme park",
+     "Ride operator",
+     "Theme park attendant",
+     "Working at Disney",
+     "Fairground worker"
+    ]
+   },
+   {
+    "rank": 29,
+    "texts": [
+     "Swim instructor",
+     "Teaching swimming",
+     "Swim teacher",
+     "Swimming instructor",
+     "Swim coach"
+    ]
+   },
+   {
+    "rank": 30,
+    "texts": [
+     "Front desk clerk",
+     "Hotel front desk",
+     "Hotel receptionist",
+     "Front desk"
+    ]
+   },
+   {
+    "rank": 31,
+    "texts": [
+     "Intern",
+     "Unpaid intern",
+     "Summer intern",
+     "Internship",
+     "Summer internship"
+    ]
+   },
+   {
+    "rank": 32,
+    "texts": [
+     "Working for my parents",
+     "Family business",
+     "My dad's shop",
+     "Working for my dad",
+     "Working in the family business",
+     "My parents' business"
+    ]
+   },
+   {
+    "rank": 33,
+    "texts": [
+     "Bartender",
+     "Bartending",
+     "Barback",
+     "Working at a bar"
+    ]
+   },
+   {
+    "rank": 34,
+    "texts": [
+     "Construction worker",
+     "Construction",
+     "Construction helper",
+     "Labourer",
+     "Laborer"
+    ]
+   },
+   {
+    "rank": 35,
+    "texts": [
+     "Warehouse worker",
+     "Warehouse",
+     "Warehouse associate",
+     "Packing boxes"
+    ]
+   },
+   {
+    "rank": 36,
+    "texts": [
+     "Mechanic's assistant",
+     "Working in a garage",
+     "Auto shop helper",
+     "Mechanic apprentice"
+    ]
+   },
+   {
+    "rank": 37,
+    "texts": [
+     "Hair salon assistant",
+     "Salon assistant",
+     "Shampoo assistant",
+     "Working in a salon"
+    ]
+   },
+   {
+    "rank": 38,
+    "texts": [
+     "Bakery assistant",
+     "Working in a bakery",
+     "Bakery worker"
+    ]
+   },
+   {
+    "rank": 39,
+    "texts": [
+     "Florist assistant",
+     "Working at a florist",
+     "Flower shop worker"
+    ]
+   },
+   {
+    "rank": 40,
+    "texts": [
+     "Daycare worker",
+     "Childcare center worker",
+     "Nursery assistant",
+     "Working at a daycare"
+    ]
+   },
+   {
+    "rank": 41,
+    "texts": [
+     "Vet assistant",
+     "Working at a vet",
+     "Veterinary assistant",
+     "Vet tech assistant"
+    ]
+   },
+   {
+    "rank": 42,
+    "texts": [
+     "Bank teller",
+     "Teller",
+     "Working at a bank"
+    ]
+   },
+   {
+    "rank": 43,
+    "texts": [
+     "Security guard",
+     "Security",
+     "Bouncer",
+     "Door security"
+    ]
+   },
+   {
+    "rank": 44,
+    "texts": [
+     "Valet",
+     "Valet parking",
+     "Parking attendant"
+    ]
+   },
+   {
+    "rank": 45,
+    "texts": [
+     "Stadium worker",
+     "Working at a stadium",
+     "Stadium staff",
+     "Ballpark worker"
+    ]
+   },
+   {
+    "rank": 46,
+    "texts": [
+     "Tour guide",
+     "Giving tours",
+     "Tour guiding"
+    ]
+   },
+   {
+    "rank": 47,
+    "texts": [
+     "Photographer's assistant",
+     "Photography assistant",
+     "Photo studio assistant"
+    ]
+   },
+   {
+    "rank": 48,
+    "texts": [
+     "DJ",
+     "DJing",
+     "Disc jockey",
+     "Being a DJ"
+    ]
+   },
+   {
+    "rank": 49,
+    "texts": [
+     "Gym worker",
+     "Working at a gym",
+     "Gym attendant",
+     "Gym front desk",
+     "Fitness center worker"
+    ]
+   },
+   {
+    "rank": 50,
+    "texts": [
+     "Bowling alley worker",
+     "Working at a bowling alley",
+     "Bowling alley attendant"
+    ]
+   },
+   {
+    "rank": 51,
+    "texts": [
+     "Skating rink worker",
+     "Working at a skating rink",
+     "Roller rink attendant",
+     "Ice rink attendant"
+    ]
+   },
+   {
+    "rank": 52,
+    "texts": [
+     "Zoo worker",
+     "Working at a zoo",
+     "Zookeeper assistant"
+    ]
+   },
+   {
+    "rank": 53,
+    "texts": [
+     "Museum worker",
+     "Working at a museum",
+     "Museum attendant",
+     "Museum guide"
+    ]
+   },
+   {
+    "rank": 54,
+    "texts": [
+     "Bookstore clerk",
+     "Working at a bookstore",
+     "Bookshop assistant"
+    ]
+   },
+   {
+    "rank": 55,
+    "texts": [
+     "Pet store worker",
+     "Working at a pet store",
+     "Pet shop assistant"
+    ]
+   },
+   {
+    "rank": 56,
+    "texts": [
+     "Hardware store clerk",
+     "Working at a hardware store"
+    ]
+   },
+   {
+    "rank": 57,
+    "texts": [
+     "Pharmacy assistant",
+     "Working at a pharmacy",
+     "Drugstore clerk"
+    ]
+   },
+   {
+    "rank": 58,
+    "texts": [
+     "Electronics store clerk",
+     "Working at an electronics store",
+     "Working at Best Buy"
+    ]
+   },
+   {
+    "rank": 59,
+    "texts": [
+     "Toy store clerk",
+     "Working at a toy store"
+    ]
+   },
+   {
+    "rank": 60,
+    "texts": [
+     "Gas station attendant",
+     "Working at a gas station",
+     "Gas station clerk"
+    ]
+   },
+   {
+    "rank": 61,
+    "texts": [
+     "Car dealership worker",
+     "Working at a car dealership",
+     "Car lot attendant",
+     "Dealership receptionist"
+    ]
+   },
+   {
+    "rank": 62,
+    "texts": [
+     "Housekeeping",
+     "Hotel housekeeper",
+     "Maid",
+     "Hotel maid"
+    ]
+   },
+   {
+    "rank": 63,
+    "texts": [
+     "Donut shop worker",
+     "Working at a donut shop",
+     "Working at Dunkin"
+    ]
+   },
+   {
+    "rank": 64,
+    "texts": [
+     "Sandwich shop worker",
+     "Working at a sandwich shop",
+     "Working at Subway",
+     "Sandwich maker"
+    ]
+   },
+   {
+    "rank": 65,
+    "texts": [
+     "Church worker",
+     "Working at a church",
+     "Church nursery worker",
+     "Church custodian"
+    ]
+   },
+   {
+    "rank": 66,
+    "texts": [
+     "Teacher's aide",
+     "Teacher aide",
+     "Working at a school",
+     "School office aide",
+     "Cafeteria worker"
+    ]
+   },
+   {
+    "rank": 67,
+    "texts": [
+     "Hospital worker",
+     "Working at a hospital",
+     "Hospital aide",
+     "Candy striper",
+     "Hospital volunteer"
+    ]
+   },
+   {
+    "rank": 68,
+    "texts": [
+     "Nursing home aide",
+     "Working at a nursing home",
+     "Care home worker"
+    ]
+   },
+   {
+    "rank": 69,
+    "texts": [
+     "Factory worker",
+     "Working at a factory",
+     "Assembly line worker"
+    ]
+   },
+   {
+    "rank": 70,
+    "texts": [
+     "Call center worker",
+     "Working at a call center",
+     "Call center agent",
+     "Telemarketer"
+    ]
+   },
+   {
+    "rank": 71,
+    "texts": [
+     "Lemonade stand",
+     "Selling lemonade",
+     "Lemonade stall"
+    ]
+   },
+   {
+    "rank": 72,
+    "texts": [
+     "Snow shoveling",
+     "Shoveling snow",
+     "Shovelling snow"
+    ]
+   },
+   {
+    "rank": 73,
+    "texts": [
+     "Raking leaves",
+     "Leaf raking",
+     "Raking yards"
+    ]
+   },
+   {
+    "rank": 74,
+    "texts": [
+     "Selling things online",
+     "Selling on eBay",
+     "Reselling",
+     "Flipping clothes"
+    ]
+   },
+   {
+    "rank": 75,
+    "texts": [
+     "House sitting",
+     "House sitter"
+    ]
+   },
+   {
+    "rank": 76,
+    "texts": [
+     "Farmers market worker",
+     "Working at a farmers market",
+     "Market stall worker"
+    ]
+   },
+   {
+    "rank": 77,
+    "texts": [
+     "Fair worker",
+     "Carnival worker",
+     "Working at a fair",
+     "Carnie"
+    ]
+   },
+   {
+    "rank": 78,
+    "texts": [
+     "Referee",
+     "Youth sports referee",
+     "Umpire",
+     "Refereeing kids' games"
+    ]
+   },
+   {
+    "rank": 79,
+    "texts": [
+     "Post office worker",
+     "Working at a post office",
+     "Post office clerk",
+     "Mail carrier assistant"
+    ]
+   },
+   {
+    "rank": 80,
+    "texts": [
+     "Laundromat attendant",
+     "Working at a laundromat",
+     "Laundromat worker"
+    ]
+   }
+  ],
+  "top1": "Fast food",
+  "unlisted": [
+   "newspaper route as a formal job is now rare",
+   "professional athlete"
+  ]
+ },
+ "112": {
+  "textAnswers": [
+   {
+    "rank": 1,
+    "texts": [
+     "Phone",
+     "Cell phone",
+     "My phone",
+     "Mobile phone",
+     "Smartphone",
+     "My cell phone",
+     "Cellphone",
+     "My mobile",
+     "iPhone"
+    ]
+   },
+   {
+    "rank": 2,
+    "texts": [
+     "Keys",
+     "House keys",
+     "Car keys",
+     "My keys",
+     "My house keys",
+     "Keys to my house",
+     "Key"
+    ]
+   },
+   {
+    "rank": 3,
+    "texts": [
+     "Wallet",
+     "Purse",
+     "My wallet",
+     "My purse",
+     "Wallet or purse"
+    ]
+   },
+   {
+    "rank": 4,
+    "texts": [
+     "TV remote",
+     "Remote control",
+     "The remote",
+     "Remote",
+     "TV clicker",
+     "The TV remote",
+     "Clicker"
+    ]
+   },
+   {
+    "rank": 5,
+    "texts": [
+     "Glasses",
+     "Sunglasses",
+     "My glasses",
+     "Reading glasses",
+     "My sunglasses",
+     "My specs",
+     "Spectacles"
+    ]
+   },
+   {
+    "rank": 6,
+    "texts": [
+     "Headphones",
+     "Earbuds",
+     "AirPods",
+     "My headphones",
+     "My earbuds",
+     "Earphones"
+    ]
+   },
+   {
+    "rank": 7,
+    "texts": [
+     "Charger",
+     "Phone charger",
+     "Charging cable",
+     "Charger cable",
+     "My charger",
+     "Charger cord",
+     "USB cable"
+    ]
+   },
+   {
+    "rank": 8,
+    "texts": [
+     "Umbrella",
+     "My umbrella",
+     "My brolly",
+     "Brolly"
+    ]
+   },
+   {
+    "rank": 9,
+    "texts": [
+     "Jacket",
+     "Coat",
+     "My jacket",
+     "My coat",
+     "Jacket or coat"
+    ]
+   },
+   {
+    "rank": 10,
+    "texts": [
+     "Socks",
+     "A sock",
+     "One sock",
+     "My socks",
+     "Odd sock"
+    ]
+   },
+   {
+    "rank": 11,
+    "texts": [
+     "Shoes",
+     "A shoe",
+     "My shoes",
+     "My shoe",
+     "Trainers",
+     "Sneakers"
+    ]
+   },
+   {
+    "rank": 12,
+    "texts": [
+     "Hat",
+     "Cap",
+     "My hat",
+     "My cap",
+     "Beanie",
+     "Baseball cap"
+    ]
+   },
+   {
+    "rank": 13,
+    "texts": [
+     "Book",
+     "My book",
+     "A book",
+     "My novel"
+    ]
+   },
+   {
+    "rank": 14,
+    "texts": [
+     "Pen",
+     "Pens",
+     "A pen",
+     "My pen",
+     "Biro",
+     "Ballpoint pen"
+    ]
+   },
+   {
+    "rank": 15,
+    "texts": [
+     "Receipts",
+     "A receipt",
+     "Vouchers",
+     "My receipts",
+     "Till receipt"
+    ]
+   },
+   {
+    "rank": 16,
+    "texts": [
+     "Bank card",
+     "Credit card",
+     "Debit card",
+     "My card",
+     "My credit card",
+     "My debit card",
+     "Card"
+    ]
+   },
+   {
+    "rank": 17,
+    "texts": [
+     "Passport",
+     "My passport",
+     "My passports"
+    ]
+   },
+   {
+    "rank": 18,
+    "texts": [
+     "Laptop",
+     "My laptop",
+     "MacBook",
+     "My computer"
+    ]
+   },
+   {
+    "rank": 19,
+    "texts": [
+     "Watch",
+     "My watch",
+     "Wristwatch",
+     "My wrist watch"
+    ]
+   },
+   {
+    "rank": 20,
+    "texts": [
+     "Jewelry",
+     "A ring",
+     "Earrings",
+     "A necklace",
+     "My ring",
+     "My necklace",
+     "My earrings",
+     "Jewellery"
+    ]
+   },
+   {
+    "rank": 21,
+    "texts": [
+     "Luggage",
+     "A suitcase",
+     "My bag",
+     "Suitcase",
+     "My suitcase",
+     "My luggage"
+    ]
+   },
+   {
+    "rank": 22,
+    "texts": [
+     "Water bottle",
+     "My water bottle",
+     "Bottle",
+     "My bottle"
+    ]
+   },
+   {
+    "rank": 23,
+    "texts": [
+     "Gloves",
+     "A glove",
+     "My gloves",
+     "My glove",
+     "Mittens",
+     "Winter gloves"
+    ]
+   },
+   {
+    "rank": 24,
+    "texts": [
+     "Scarf",
+     "My scarf",
+     "My scarves"
+    ]
+   },
+   {
+    "rank": 25,
+    "texts": [
+     "Lunchbox",
+     "Lunch bag",
+     "My lunch",
+     "My lunchbox",
+     "Packed lunch"
+    ]
+   },
+   {
+    "rank": 26,
+    "texts": [
+     "ID",
+     "Driver's license",
+     "My ID",
+     "Licence",
+     "License",
+     "Driving licence"
+    ]
+   },
+   {
+    "rank": 27,
+    "texts": [
+     "Medication",
+     "My medicine",
+     "My pills",
+     "Medicine",
+     "My medication",
+     "Pills"
+    ]
+   },
+   {
+    "rank": 28,
+    "texts": [
+     "Key fob",
+     "Remote key",
+     "Keychain",
+     "Car key fob",
+     "Fob"
+    ]
+   },
+   {
+    "rank": 29,
+    "texts": [
+     "Backpack",
+     "My backpack",
+     "My bag",
+     "School bag",
+     "Rucksack"
+    ]
+   },
+   {
+    "rank": 30,
+    "texts": [
+     "Dog leash",
+     "The dog's lead",
+     "Leash",
+     "Dog lead",
+     "Lead"
+    ]
+   },
+   {
+    "rank": 31,
+    "texts": [
+     "Homework",
+     "My homework",
+     "Schoolwork"
+    ]
+   },
+   {
+    "rank": 32,
+    "texts": [
+     "Phone case",
+     "My phone case",
+     "Phone cover",
+     "Case"
+    ]
+   },
+   {
+    "rank": 33,
+    "texts": [
+     "Earbuds case",
+     "AirPods case",
+     "Earbud case",
+     "Earbuds holder"
+    ]
+   },
+   {
+    "rank": 34,
+    "texts": [
+     "Tablet",
+     "iPad",
+     "My tablet",
+     "Kindle",
+     "My iPad"
+    ]
+   },
+   {
+    "rank": 35,
+    "texts": [
+     "Camera",
+     "My camera",
+     "Digital camera"
+    ]
+   },
+   {
+    "rank": 36,
+    "texts": [
+     "Makeup",
+     "Lipstick",
+     "My makeup",
+     "Mascara",
+     "Lip gloss"
+    ]
+   },
+   {
+    "rank": 37,
+    "texts": [
+     "Hairbrush",
+     "Hair brush",
+     "Comb"
+    ]
+   },
+   {
+    "rank": 38,
+    "texts": [
+     "Hair tie",
+     "Hair ties",
+     "Scrunchie",
+     "Hair band"
+    ]
+   },
+   {
+    "rank": 39,
+    "texts": [
+     "Bracelet",
+     "Bangle",
+     "Charm bracelet",
+     "My bracelet"
+    ]
+   },
+   {
+    "rank": 40,
+    "texts": [
+     "Tie",
+     "Necktie",
+     "My tie"
+    ]
+   },
+   {
+    "rank": 41,
+    "texts": [
+     "Belt",
+     "My belt"
+    ]
+   },
+   {
+    "rank": 42,
+    "texts": [
+     "Shopping bag",
+     "Shopping bags",
+     "Carrier bag"
+    ]
+   },
+   {
+    "rank": 43,
+    "texts": [
+     "Coffee cup",
+     "Travel mug",
+     "Coffee mug",
+     "My mug"
+    ]
+   },
+   {
+    "rank": 44,
+    "texts": [
+     "Pencil",
+     "Pencils",
+     "My pencil"
+    ]
+   },
+   {
+    "rank": 45,
+    "texts": [
+     "Eraser",
+     "Rubber",
+     "My eraser"
+    ]
+   },
+   {
+    "rank": 46,
+    "texts": [
+     "Calculator",
+     "My calculator"
+    ]
+   },
+   {
+    "rank": 47,
+    "texts": [
+     "USB stick",
+     "Flash drive",
+     "Memory stick",
+     "USB drive",
+     "Thumb drive"
+    ]
+   },
+   {
+    "rank": 48,
+    "texts": [
+     "Mouse",
+     "Computer mouse",
+     "My mouse"
+    ]
+   },
+   {
+    "rank": 49,
+    "texts": [
+     "Laptop charger",
+     "MacBook charger"
+    ]
+   },
+   {
+    "rank": 50,
+    "texts": [
+     "Power bank",
+     "Portable charger",
+     "Powerbank"
+    ]
+   },
+   {
+    "rank": 51,
+    "texts": [
+     "Smartwatch",
+     "Apple Watch",
+     "My Apple Watch"
+    ]
+   },
+   {
+    "rank": 52,
+    "texts": [
+     "Fitness tracker",
+     "Fitbit",
+     "My Fitbit"
+    ]
+   },
+   {
+    "rank": 53,
+    "texts": [
+     "Game controller",
+     "Controller",
+     "Xbox controller",
+     "PlayStation controller"
+    ]
+   },
+   {
+    "rank": 54,
+    "texts": [
+     "Video game",
+     "Game cartridge",
+     "Game disc",
+     "My game"
+    ]
+   },
+   {
+    "rank": 55,
+    "texts": [
+     "DVD",
+     "DVDs",
+     "Blu-ray",
+     "My DVD"
+    ]
+   },
+   {
+    "rank": 56,
+    "texts": [
+     "CD",
+     "CDs",
+     "My CD"
+    ]
+   },
+   {
+    "rank": 57,
+    "texts": [
+     "Ticket",
+     "Tickets",
+     "Concert ticket",
+     "Train ticket",
+     "Plane ticket",
+     "Boarding pass"
+    ]
+   },
+   {
+    "rank": 58,
+    "texts": [
+     "Library card",
+     "Membership card",
+     "Loyalty card"
+    ]
+   },
+   {
+    "rank": 59,
+    "texts": [
+     "Gift card",
+     "Gift cards"
+    ]
+   },
+   {
+    "rank": 60,
+    "texts": [
+     "Cash",
+     "Money",
+     "My money",
+     "Loose cash"
+    ]
+   },
+   {
+    "rank": 61,
+    "texts": [
+     "Coins",
+     "Loose change",
+     "My change",
+     "Spare change"
+    ]
+   },
+   {
+    "rank": 62,
+    "texts": [
+     "Cheque book",
+     "Checkbook",
+     "My checkbook"
+    ]
+   },
+   {
+    "rank": 63,
+    "texts": [
+     "Stylus",
+     "Apple Pencil",
+     "My stylus"
+    ]
+   },
+   {
+    "rank": 64,
+    "texts": [
+     "Adapter",
+     "Plug adapter",
+     "Travel adapter"
+    ]
+   },
+   {
+    "rank": 65,
+    "texts": [
+     "Batteries",
+     "Battery",
+     "AA batteries"
+    ]
+   },
+   {
+    "rank": 66,
+    "texts": [
+     "Tools",
+     "My tools",
+     "Toolbox",
+     "Screwdriver",
+     "Hammer",
+     "Wrench"
+    ]
+   },
+   {
+    "rank": 67,
+    "texts": [
+     "Nail clippers",
+     "Nail file",
+     "Tweezers"
+    ]
+   },
+   {
+    "rank": 68,
+    "texts": [
+     "Toothbrush",
+     "Toothpaste"
+    ]
+   },
+   {
+    "rank": 69,
+    "texts": [
+     "Deodorant",
+     "My deodorant",
+     "Antiperspirant"
+    ]
+   },
+   {
+    "rank": 70,
+    "texts": [
+     "Perfume",
+     "Cologne",
+     "My perfume",
+     "Aftershave"
+    ]
+   },
+   {
+    "rank": 71,
+    "texts": [
+     "Sunscreen",
+     "Sun cream",
+     "Sunblock"
+    ]
+   },
+   {
+    "rank": 72,
+    "texts": [
+     "Towel",
+     "Beach towel",
+     "My towel"
+    ]
+   },
+   {
+    "rank": 73,
+    "texts": [
+     "Swimsuit",
+     "Swimming costume",
+     "Bikini",
+     "Swim trunks"
+    ]
+   },
+   {
+    "rank": 74,
+    "texts": [
+     "Goggles",
+     "Swimming goggles",
+     "Ski goggles"
+    ]
+   },
+   {
+    "rank": 75,
+    "texts": [
+     "Ski pass",
+     "Lift pass"
+    ]
+   },
+   {
+    "rank": 76,
+    "texts": [
+     "Lighter",
+     "My lighter",
+     "Cigarette lighter"
+    ]
+   },
+   {
+    "rank": 77,
+    "texts": [
+     "Cigarettes",
+     "My cigarettes",
+     "Ciggies",
+     "Vape",
+     "E-cigarette"
+    ]
+   },
+   {
+    "rank": 78,
+    "texts": [
+     "Contact lenses",
+     "Contacts",
+     "My contacts",
+     "Contact lens"
+    ]
+   },
+   {
+    "rank": 79,
+    "texts": [
+     "Hearing aid",
+     "Hearing aids"
+    ]
+   },
+   {
+    "rank": 80,
+    "texts": [
+     "Retainer",
+     "My retainer",
+     "Invisalign",
+     "Braces retainer"
+    ]
+   },
+   {
+    "rank": 81,
+    "texts": [
+     "Dummy",
+     "Pacifier",
+     "Baby's dummy",
+     "Baby's pacifier"
+    ]
+   },
+   {
+    "rank": 82,
+    "texts": [
+     "Baby bottle",
+     "Baby's bottle"
+    ]
+   },
+   {
+    "rank": 83,
+    "texts": [
+     "Shopping list",
+     "My shopping list",
+     "List"
+    ]
+   },
+   {
+    "rank": 84,
+    "texts": [
+     "Note",
+     "Notes",
+     "My notes",
+     "Sticky note"
+    ]
+   },
+   {
+    "rank": 85,
+    "texts": [
+     "Letter",
+     "Mail",
+     "My letter",
+     "Envelope",
+     "Parcel",
+     "Package",
+     "My parcel"
+    ]
+   }
+  ],
+  "top1": "Phone",
+  "unlisted": [
+   "my mind",
+   "my temper",
+   "my virginity"
+  ]
+ },
+ "113": {
+  "textAnswers": [
+   {
+    "rank": 1,
+    "texts": [
+     "Paris",
+     "Paris, France",
+     "The Eiffel Tower",
+     "France",
+     "Paris France",
+     "City of Love"
+    ]
+   },
+   {
+    "rank": 2,
+    "texts": [
+     "Rome",
+     "Rome, Italy",
+     "Italy",
+     "Roma",
+     "The Eternal City"
+    ]
+   },
+   {
+    "rank": 3,
+    "texts": [
+     "Tokyo",
+     "Tokyo, Japan",
+     "Japan",
+     "Tokyo Japan"
+    ]
+   },
+   {
+    "rank": 4,
+    "texts": [
+     "London",
+     "London, England",
+     "The UK",
+     "England",
+     "Big Ben",
+     "London England",
+     "The Houses of Parliament"
+    ]
+   },
+   {
+    "rank": 5,
+    "texts": [
+     "New York",
+     "New York City",
+     "NYC",
+     "America",
+     "Manhattan",
+     "The Big Apple"
+    ]
+   },
+   {
+    "rank": 6,
+    "texts": [
+     "Hawaii",
+     "Hawaii, USA",
+     "Honolulu",
+     "Maui",
+     "Oahu"
+    ]
+   },
+   {
+    "rank": 7,
+    "texts": [
+     "The Maldives",
+     "Maldives",
+     "Maldives islands",
+     "The Maldive Islands"
+    ]
+   },
+   {
+    "rank": 8,
+    "texts": [
+     "Santorini",
+     "Greece",
+     "Santorini, Greece",
+     "Greek islands"
+    ]
+   },
+   {
+    "rank": 9,
+    "texts": [
+     "Venice",
+     "Venice, Italy",
+     "The canals of Venice"
+    ]
+   },
+   {
+    "rank": 10,
+    "texts": [
+     "Bali",
+     "Bali, Indonesia",
+     "Indonesia"
+    ]
+   },
+   {
+    "rank": 11,
+    "texts": [
+     "The Great Wall of China",
+     "China",
+     "Beijing",
+     "Great Wall",
+     "The Great Wall"
+    ]
+   },
+   {
+    "rank": 12,
+    "texts": [
+     "Egypt",
+     "The Pyramids",
+     "Cairo",
+     "Giza",
+     "Pyramids of Giza",
+     "Giza pyramids"
+    ]
+   },
+   {
+    "rank": 13,
+    "texts": [
+     "Australia",
+     "Sydney",
+     "The Great Barrier Reef",
+     "Sydney Australia"
+    ]
+   },
+   {
+    "rank": 14,
+    "texts": [
+     "Iceland",
+     "Reykjavik",
+     "Reykjavik Iceland"
+    ]
+   },
+   {
+    "rank": 15,
+    "texts": [
+     "Thailand",
+     "Bangkok",
+     "Phuket",
+     "Bangkok Thailand"
+    ]
+   },
+   {
+    "rank": 16,
+    "texts": [
+     "Barcelona",
+     "Spain",
+     "Madrid",
+     "Barcelona Spain"
+    ]
+   },
+   {
+    "rank": 17,
+    "texts": [
+     "The Northern Lights",
+     "Aurora Borealis",
+     "Lapland",
+     "Norway",
+     "Northern lights",
+     "Aurora",
+     "Seeing the northern lights"
+    ]
+   },
+   {
+    "rank": 18,
+    "texts": [
+     "Machu Picchu",
+     "Peru",
+     "Machu Picchu Peru"
+    ]
+   },
+   {
+    "rank": 19,
+    "texts": [
+     "Las Vegas",
+     "Vegas",
+     "Las Vegas Nevada",
+     "Sin City"
+    ]
+   },
+   {
+    "rank": 20,
+    "texts": [
+     "Dubai",
+     "UAE",
+     "Dubai UAE",
+     "United Arab Emirates"
+    ]
+   },
+   {
+    "rank": 21,
+    "texts": [
+     "Ireland",
+     "Dublin",
+     "Dublin Ireland"
+    ]
+   },
+   {
+    "rank": 22,
+    "texts": [
+     "Switzerland",
+     "The Swiss Alps"
+    ]
+   },
+   {
+    "rank": 23,
+    "texts": [
+     "New Zealand",
+     "Auckland",
+     "Auckland New Zealand"
+    ]
+   },
+   {
+    "rank": 24,
+    "texts": [
+     "South Africa",
+     "Cape Town",
+     "Safari",
+     "Cape Town South Africa"
+    ]
+   },
+   {
+    "rank": 25,
+    "texts": [
+     "The Caribbean",
+     "Jamaica",
+     "Bahamas",
+     "Caribbean islands"
+    ]
+   },
+   {
+    "rank": 26,
+    "texts": [
+     "Brazil",
+     "Rio de Janeiro",
+     "Rio"
+    ]
+   },
+   {
+    "rank": 27,
+    "texts": [
+     "Alaska",
+     "Alaska, USA",
+     "Anchorage",
+     "Denali"
+    ]
+   },
+   {
+    "rank": 28,
+    "texts": [
+     "Antarctica",
+     "The South Pole"
+    ]
+   },
+   {
+    "rank": 29,
+    "texts": [
+     "India",
+     "The Taj Mahal",
+     "Agra"
+    ]
+   },
+   {
+    "rank": 30,
+    "texts": [
+     "Canada",
+     "Banff",
+     "Vancouver",
+     "Banff National Park"
+    ]
+   },
+   {
+    "rank": 31,
+    "texts": [
+     "Amsterdam",
+     "Netherlands",
+     "Holland",
+     "Amsterdam Netherlands"
+    ]
+   },
+   {
+    "rank": 32,
+    "texts": [
+     "Disney World",
+     "Disneyland",
+     "Florida",
+     "Disney",
+     "Walt Disney World"
+    ]
+   },
+   {
+    "rank": 33,
+    "texts": [
+     "The Grand Canyon",
+     "Grand Canyon",
+     "Arizona"
+    ]
+   },
+   {
+    "rank": 34,
+    "texts": [
+     "Bora Bora",
+     "Bora Bora, French Polynesia",
+     "French Polynesia"
+    ]
+   },
+   {
+    "rank": 35,
+    "texts": [
+     "The Galapagos Islands",
+     "Galapagos",
+     "Galapagos Islands",
+     "Ecuador"
+    ]
+   },
+   {
+    "rank": 36,
+    "texts": [
+     "Angkor Wat",
+     "Angkor",
+     "Cambodia"
+    ]
+   },
+   {
+    "rank": 37,
+    "texts": [
+     "Petra",
+     "Petra, Jordan",
+     "Jordan"
+    ]
+   },
+   {
+    "rank": 38,
+    "texts": [
+     "The Serengeti",
+     "Serengeti",
+     "Tanzania",
+     "Serengeti National Park"
+    ]
+   },
+   {
+    "rank": 39,
+    "texts": [
+     "Victoria Falls",
+     "Zambia",
+     "Zimbabwe"
+    ]
+   },
+   {
+    "rank": 40,
+    "texts": [
+     "Mount Fuji",
+     "Fuji"
+    ]
+   },
+   {
+    "rank": 41,
+    "texts": [
+     "Kyoto",
+     "Kyoto, Japan"
+    ]
+   },
+   {
+    "rank": 42,
+    "texts": [
+     "Sydney Opera House",
+     "Opera House",
+     "Sydney Opera House, Australia"
+    ]
+   },
+   {
+    "rank": 43,
+    "texts": [
+     "The Colosseum",
+     "Colosseum",
+     "The Colosseum, Rome"
+    ]
+   },
+   {
+    "rank": 44,
+    "texts": [
+     "The Louvre",
+     "Louvre",
+     "Louvre, Paris",
+     "The Louvre Museum"
+    ]
+   },
+   {
+    "rank": 45,
+    "texts": [
+     "The Statue of Liberty",
+     "Statue of Liberty",
+     "Liberty Island"
+    ]
+   },
+   {
+    "rank": 46,
+    "texts": [
+     "The Empire State Building",
+     "Empire State Building"
+    ]
+   },
+   {
+    "rank": 47,
+    "texts": [
+     "The Golden Gate Bridge",
+     "Golden Gate Bridge"
+    ]
+   },
+   {
+    "rank": 48,
+    "texts": [
+     "San Francisco",
+     "San Francisco, California",
+     "California"
+    ]
+   },
+   {
+    "rank": 49,
+    "texts": [
+     "Los Angeles",
+     "Los Angeles, California",
+     "LA",
+     "Hollywood"
+    ]
+   },
+   {
+    "rank": 50,
+    "texts": [
+     "Miami",
+     "Miami, Florida"
+    ]
+   },
+   {
+    "rank": 51,
+    "texts": [
+     "New Orleans",
+     "New Orleans, Louisiana"
+    ]
+   },
+   {
+    "rank": 52,
+    "texts": [
+     "Chicago",
+     "Chicago, Illinois"
+    ]
+   },
+   {
+    "rank": 53,
+    "texts": [
+     "Boston",
+     "Boston, Massachusetts"
+    ]
+   },
+   {
+    "rank": 54,
+    "texts": [
+     "Washington DC",
+     "Washington D.C.",
+     "Washington, DC",
+     "The White House"
+    ]
+   },
+   {
+    "rank": 55,
+    "texts": [
+     "Niagara Falls",
+     "Niagara Falls, Canada",
+     "Niagara"
+    ]
+   },
+   {
+    "rank": 56,
+    "texts": [
+     "The Rocky Mountains",
+     "Rocky Mountains",
+     "Colorado",
+     "Denver"
+    ]
+   },
+   {
+    "rank": 57,
+    "texts": [
+     "Yellowstone",
+     "Yellowstone National Park",
+     "Yellowstone, USA"
+    ]
+   },
+   {
+    "rank": 58,
+    "texts": [
+     "Yosemite",
+     "Yosemite National Park"
+    ]
+   },
+   {
+    "rank": 59,
+    "texts": [
+     "Mount Rushmore",
+     "South Dakota"
+    ]
+   },
+   {
+    "rank": 60,
+    "texts": [
+     "Cuba",
+     "Havana"
+    ]
+   },
+   {
+    "rank": 61,
+    "texts": [
+     "Mexico",
+     "Cancun",
+     "Mexico City"
+    ]
+   },
+   {
+    "rank": 62,
+    "texts": [
+     "Costa Rica"
+    ]
+   },
+   {
+    "rank": 63,
+    "texts": [
+     "The Amazon Rainforest",
+     "Amazon rainforest",
+     "Amazon"
+    ]
+   },
+   {
+    "rank": 64,
+    "texts": [
+     "Argentina",
+     "Buenos Aires",
+     "Patagonia"
+    ]
+   },
+   {
+    "rank": 65,
+    "texts": [
+     "Chile",
+     "Santiago"
+    ]
+   },
+   {
+    "rank": 66,
+    "texts": [
+     "Morocco",
+     "Marrakech",
+     "Casablanca"
+    ]
+   },
+   {
+    "rank": 67,
+    "texts": [
+     "The Sahara Desert",
+     "Sahara",
+     "Sahara Desert"
+    ]
+   },
+   {
+    "rank": 68,
+    "texts": [
+     "Kenya",
+     "Nairobi",
+     "Maasai Mara"
+    ]
+   },
+   {
+    "rank": 69,
+    "texts": [
+     "Madagascar"
+    ]
+   },
+   {
+    "rank": 70,
+    "texts": [
+     "Athens",
+     "Athens, Greece"
+    ]
+   },
+   {
+    "rank": 71,
+    "texts": [
+     "Turkey",
+     "Istanbul",
+     "Türkiye",
+     "Cappadocia"
+    ]
+   },
+   {
+    "rank": 72,
+    "texts": [
+     "Croatia",
+     "Dubrovnik"
+    ]
+   },
+   {
+    "rank": 73,
+    "texts": [
+     "Portugal",
+     "Lisbon"
+    ]
+   },
+   {
+    "rank": 74,
+    "texts": [
+     "Germany",
+     "Berlin",
+     "Munich"
+    ]
+   },
+   {
+    "rank": 75,
+    "texts": [
+     "Austria",
+     "Vienna"
+    ]
+   },
+   {
+    "rank": 76,
+    "texts": [
+     "Prague",
+     "Prague, Czech Republic",
+     "Czechia"
+    ]
+   },
+   {
+    "rank": 77,
+    "texts": [
+     "Budapest",
+     "Budapest, Hungary",
+     "Hungary"
+    ]
+   },
+   {
+    "rank": 78,
+    "texts": [
+     "Stockholm",
+     "Stockholm, Sweden",
+     "Sweden"
+    ]
+   },
+   {
+    "rank": 79,
+    "texts": [
+     "Copenhagen",
+     "Copenhagen, Denmark",
+     "Denmark"
+    ]
+   },
+   {
+    "rank": 80,
+    "texts": [
+     "Finland",
+     "Helsinki"
+    ]
+   },
+   {
+    "rank": 81,
+    "texts": [
+     "The Scottish Highlands",
+     "Scotland",
+     "Edinburgh",
+     "Scottish Highlands"
+    ]
+   },
+   {
+    "rank": 82,
+    "texts": [
+     "Wales",
+     "Cardiff"
+    ]
+   },
+   {
+    "rank": 83,
+    "texts": [
+     "The Lake District",
+     "Lake District"
+    ]
+   },
+   {
+    "rank": 84,
+    "texts": [
+     "Stonehenge",
+     "Stonehenge, England"
+    ]
+   },
+   {
+    "rank": 85,
+    "texts": [
+     "The Cotswolds",
+     "Cotswolds"
+    ]
+   }
+  ],
+  "top1": "Paris",
+  "unlisted": [
+   "the moon",
+   "Mars",
+   "heaven"
+  ]
+ },
+ "114": {
+  "textAnswers": [
+   {
+    "rank": 1,
+    "texts": [
+     "Toasted sandwich maker",
+     "Sandwich maker",
+     "Sandwich toaster",
+     "Panini press",
+     "Toastie maker",
+     "Toastie press",
+     "Sandwich press"
+    ]
+   },
+   {
+    "rank": 2,
+    "texts": [
+     "Food processor",
+     "A food processor",
+     "Processor"
+    ]
+   },
+   {
+    "rank": 3,
+    "texts": [
+     "Slow cooker",
+     "Crock pot",
+     "Crockpot",
+     "Crock-Pot",
+     "Slow-cooker"
+    ]
+   },
+   {
+    "rank": 4,
+    "texts": [
+     "Blender",
+     "A blender",
+     "Liquidiser",
+     "Smoothie maker"
+    ]
+   },
+   {
+    "rank": 5,
+    "texts": [
+     "Bread maker",
+     "Bread machine",
+     "Breadmaker",
+     "Bread-machine"
+    ]
+   },
+   {
+    "rank": 6,
+    "texts": [
+     "Juicer",
+     "A juicer",
+     "Juice extractor",
+     "Citrus juicer"
+    ]
+   },
+   {
+    "rank": 7,
+    "texts": [
+     "George Foreman grill",
+     "Foreman grill",
+     "Electric grill",
+     "George Foreman"
+    ]
+   },
+   {
+    "rank": 8,
+    "texts": [
+     "Kitchen scales",
+     "Food scales",
+     "Scales",
+     "Kitchen scale",
+     "Weighing scales"
+    ]
+   },
+   {
+    "rank": 9,
+    "texts": [
+     "Hand blender",
+     "Immersion blender",
+     "Stick blender",
+     "Hand-held blender",
+     "Blender stick"
+    ]
+   },
+   {
+    "rank": 10,
+    "texts": [
+     "Coffee machine",
+     "Espresso machine",
+     "Coffee maker",
+     "Espresso maker",
+     "Bean to cup"
+    ]
+   },
+   {
+    "rank": 11,
+    "texts": [
+     "Bamboo steamer",
+     "Steamer",
+     "Bamboo steamers",
+     "Bamboo steamer basket"
+    ]
+   },
+   {
+    "rank": 12,
+    "texts": [
+     "Tagine",
+     "A tagine",
+     "Tagine pot",
+     "Moroccan tagine"
+    ]
+   },
+   {
+    "rank": 13,
+    "texts": [
+     "Sushi mat",
+     "Sushi rolling mat",
+     "Makisu"
+    ]
+   },
+   {
+    "rank": 14,
+    "texts": [
+     "Spiraliser",
+     "Spiralizer",
+     "Veggie spiralizer",
+     "Veggie spiraliser"
+    ]
+   },
+   {
+    "rank": 15,
+    "texts": [
+     "Pasta maker",
+     "Pasta machine",
+     "Pasta roller"
+    ]
+   },
+   {
+    "rank": 16,
+    "texts": [
+     "Waffle maker",
+     "Waffle iron"
+    ]
+   },
+   {
+    "rank": 17,
+    "texts": [
+     "Ice cream maker",
+     "Ice cream machine",
+     "Ice-cream maker"
+    ]
+   },
+   {
+    "rank": 18,
+    "texts": [
+     "Fondue set",
+     "Fondue pot",
+     "Chocolate fountain",
+     "Fondue"
+    ]
+   },
+   {
+    "rank": 19,
+    "texts": [
+     "Deep fryer",
+     "Deep fat fryer",
+     "Fryer",
+     "Deep-fat fryer",
+     "Chip fryer"
+    ]
+   },
+   {
+    "rank": 20,
+    "texts": [
+     "Egg poacher",
+     "Poached egg maker",
+     "Egg poacher pan"
+    ]
+   },
+   {
+    "rank": 21,
+    "texts": [
+     "Mandoline",
+     "Mandoline slicer",
+     "Mandolin slicer",
+     "Mandolin"
+    ]
+   },
+   {
+    "rank": 22,
+    "texts": [
+     "Salad spinner",
+     "Lettuce spinner",
+     "Lettuce dryer"
+    ]
+   },
+   {
+    "rank": 23,
+    "texts": [
+     "Electric can opener",
+     "Can opener",
+     "Electric tin opener",
+     "Tin opener"
+    ]
+   },
+   {
+    "rank": 24,
+    "texts": [
+     "Stand mixer",
+     "Mixer",
+     "KitchenAid",
+     "Stand-mixer",
+     "Kitchen Aid"
+    ]
+   },
+   {
+    "rank": 25,
+    "texts": [
+     "Pressure cooker",
+     "Instant Pot"
+    ]
+   },
+   {
+    "rank": 26,
+    "texts": [
+     "Air fryer",
+     "An air fryer",
+     "Airfryer",
+     "Air-fryer"
+    ]
+   },
+   {
+    "rank": 27,
+    "texts": [
+     "Sous vide",
+     "Sous vide machine",
+     "Water bath",
+     "Sous-vide",
+     "Immersion circulator"
+    ]
+   },
+   {
+    "rank": 28,
+    "texts": [
+     "Tapas dishes",
+     "Tapas plates",
+     "Tapas bowls"
+    ]
+   },
+   {
+    "rank": 29,
+    "texts": [
+     "Pestle and mortar",
+     "Mortar and pestle",
+     "Mortar & pestle",
+     "Pestle & mortar"
+    ]
+   },
+   {
+    "rank": 30,
+    "texts": [
+     "Avocado slicer",
+     "Avocado tool",
+     "Avocado cutter"
+    ]
+   },
+   {
+    "rank": 31,
+    "texts": [
+     "Garlic press",
+     "Garlic crusher",
+     "Garlic mincer"
+    ]
+   },
+   {
+    "rank": 32,
+    "texts": [
+     "Egg slicer",
+     "Egg cutter",
+     "Boiled egg slicer"
+    ]
+   },
+   {
+    "rank": 33,
+    "texts": [
+     "Cocktail fountain",
+     "Cocktail fountains"
+    ]
+   },
+   {
+    "rank": 34,
+    "texts": [
+     "Popcorn maker",
+     "Popcorn machine",
+     "Popcorn popper"
+    ]
+   },
+   {
+    "rank": 35,
+    "texts": [
+     "Cotton candy machine",
+     "Candy floss maker",
+     "Cotton candy maker"
+    ]
+   },
+   {
+    "rank": 36,
+    "texts": [
+     "Donut maker",
+     "Doughnut maker"
+    ]
+   },
+   {
+    "rank": 37,
+    "texts": [
+     "Cupcake maker",
+     "Cake pop maker"
+    ]
+   },
+   {
+    "rank": 38,
+    "texts": [
+     "Electric wok",
+     "Wok"
+    ]
+   },
+   {
+    "rank": 39,
+    "texts": [
+     "Rice cooker",
+     "Rice steamer",
+     "Rice maker"
+    ]
+   },
+   {
+    "rank": 40,
+    "texts": [
+     "Yogurt maker",
+     "Yoghurt maker",
+     "Yogurt machine"
+    ]
+   },
+   {
+    "rank": 41,
+    "texts": [
+     "Melon baller",
+     "Melon scoop",
+     "Melon baller set"
+    ]
+   },
+   {
+    "rank": 42,
+    "texts": [
+     "Cherry pitter",
+     "Cherry stoner"
+    ]
+   },
+   {
+    "rank": 43,
+    "texts": [
+     "Egg separator",
+     "Yolk separator"
+    ]
+   },
+   {
+    "rank": 44,
+    "texts": [
+     "Meat tenderizer",
+     "Meat mallet",
+     "Meat tenderiser"
+    ]
+   },
+   {
+    "rank": 45,
+    "texts": [
+     "Coffee grinder",
+     "Bean grinder",
+     "Coffee bean grinder"
+    ]
+   },
+   {
+    "rank": 46,
+    "texts": [
+     "Tea infuser",
+     "Tea ball"
+    ]
+   },
+   {
+    "rank": 47,
+    "texts": [
+     "Hot chocolate maker",
+     "Hot chocolate machine"
+    ]
+   },
+   {
+    "rank": 48,
+    "texts": [
+     "Griddle",
+     "Electric griddle",
+     "Griddle pan"
+    ]
+   },
+   {
+    "rank": 49,
+    "texts": [
+     "Crepe maker",
+     "Crepe pan"
+    ]
+   },
+   {
+    "rank": 50,
+    "texts": [
+     "Tortilla press",
+     "Tortilla maker"
+    ]
+   },
+   {
+    "rank": 51,
+    "texts": [
+     "Ravioli maker",
+     "Ravioli cutter",
+     "Pasta cutter"
+    ]
+   },
+   {
+    "rank": 52,
+    "texts": [
+     "Cookie press",
+     "Cookie maker",
+     "Biscuit press"
+    ]
+   },
+   {
+    "rank": 53,
+    "texts": [
+     "Piping bag",
+     "Icing bag",
+     "Cake decorating kit"
+    ]
+   },
+   {
+    "rank": 54,
+    "texts": [
+     "Cake stand",
+     "Cake dome"
+    ]
+   },
+   {
+    "rank": 55,
+    "texts": [
+     "Trifle bowl",
+     "Trifle dish"
+    ]
+   },
+   {
+    "rank": 56,
+    "texts": [
+     "Souffle dish",
+     "Soufflé dish",
+     "Ramekins",
+     "Ramekin"
+    ]
+   },
+   {
+    "rank": 57,
+    "texts": [
+     "Paella pan",
+     "Paella dish"
+    ]
+   },
+   {
+    "rank": 58,
+    "texts": [
+     "Roasting pan",
+     "Roasting tin"
+    ]
+   },
+   {
+    "rank": 59,
+    "texts": [
+     "Turkey baster",
+     "Baster"
+    ]
+   },
+   {
+    "rank": 60,
+    "texts": [
+     "Meat thermometer",
+     "Food thermometer",
+     "Cooking thermometer"
+    ]
+   },
+   {
+    "rank": 61,
+    "texts": [
+     "Trivet",
+     "Pot stand"
+    ]
+   },
+   {
+    "rank": 62,
+    "texts": [
+     "Serving platter",
+     "Serving dish"
+    ]
+   },
+   {
+    "rank": 63,
+    "texts": [
+     "Cheese board",
+     "Cheese platter"
+    ]
+   },
+   {
+    "rank": 64,
+    "texts": [
+     "Wine rack",
+     "Wine cooler"
+    ]
+   },
+   {
+    "rank": 65,
+    "texts": [
+     "Knife sharpener",
+     "Sharpening steel"
+    ]
+   },
+   {
+    "rank": 66,
+    "texts": [
+     "Herb scissors",
+     "Kitchen scissors",
+     "Kitchen shears"
+    ]
+   },
+   {
+    "rank": 67,
+    "texts": [
+     "Lemon squeezer",
+     "Lemon press",
+     "Citrus squeezer"
+    ]
+   },
+   {
+    "rank": 68,
+    "texts": [
+     "Zester",
+     "Lemon zester",
+     "Microplane"
+    ]
+   },
+   {
+    "rank": 69,
+    "texts": [
+     "Julienne peeler",
+     "Julienne slicer"
+    ]
+   },
+   {
+    "rank": 70,
+    "texts": [
+     "Toaster oven",
+     "Mini oven"
+    ]
+   },
+   {
+    "rank": 71,
+    "texts": [
+     "Bread bin",
+     "Bread box"
+    ]
+   },
+   {
+    "rank": 72,
+    "texts": [
+     "Cake tin",
+     "Cake pan",
+     "Baking tin",
+     "Baking tray"
+    ]
+   },
+   {
+    "rank": 73,
+    "texts": [
+     "Muffin tin",
+     "Muffin tray",
+     "Cupcake tray"
+    ]
+   },
+   {
+    "rank": 74,
+    "texts": [
+     "Loaf tin",
+     "Loaf pan",
+     "Bread pan"
+    ]
+   },
+   {
+    "rank": 75,
+    "texts": [
+     "Bundt pan",
+     "Bundt tin"
+    ]
+   },
+   {
+    "rank": 76,
+    "texts": [
+     "Springform pan",
+     "Springform tin"
+    ]
+   },
+   {
+    "rank": 77,
+    "texts": [
+     "Pie dish",
+     "Pie plate",
+     "Flan dish"
+    ]
+   },
+   {
+    "rank": 78,
+    "texts": [
+     "Casserole dish",
+     "Casserole pot",
+     "Dutch oven"
+    ]
+   },
+   {
+    "rank": 79,
+    "texts": [
+     "Stock pot",
+     "Soup pot",
+     "Big saucepan"
+    ]
+   },
+   {
+    "rank": 80,
+    "texts": [
+     "Steamer basket",
+     "Metal steamer"
+    ]
+   },
+   {
+    "rank": 81,
+    "texts": [
+     "Fine mesh strainer",
+     "Sieve",
+     "Fine strainer",
+     "Chinois"
+    ]
+   },
+   {
+    "rank": 82,
+    "texts": [
+     "Funnel",
+     "Kitchen funnel"
+    ]
+   },
+   {
+    "rank": 83,
+    "texts": [
+     "Rolling pin",
+     "Rolling pins"
+    ]
+   },
+   {
+    "rank": 84,
+    "texts": [
+     "Pastry brush",
+     "Basting brush"
+    ]
+   }
+  ],
+  "top1": "Toasted sandwich maker",
+  "unlisted": [
+   "a bread maker is not #1 — it is #8 in Direct Line",
+   "a microwave (used daily)"
+  ]
+ },
+ "115": {
+  "textAnswers": [
+   {
+    "rank": 1,
+    "texts": [
+     "Mac and cheese",
+     "Macaroni and cheese",
+     "Mac & cheese",
+     "Baked mac and cheese",
+     "Macaroni cheese",
+     "Mac n cheese"
+    ]
+   },
+   {
+    "rank": 2,
+    "texts": [
+     "Fried chicken",
+     "Chicken",
+     "Roast chicken",
+     "Southern fried chicken"
+    ]
+   },
+   {
+    "rank": 3,
+    "texts": [
+     "Deviled eggs",
+     "Devilled eggs",
+     "Eggs",
+     "Deviled egg",
+     "Stuffed eggs"
+    ]
+   },
+   {
+    "rank": 4,
+    "texts": [
+     "Potato salad",
+     "Potato salad with egg"
+    ]
+   },
+   {
+    "rank": 5,
+    "texts": [
+     "Baked beans",
+     "Beans",
+     "Boston baked beans"
+    ]
+   },
+   {
+    "rank": 6,
+    "texts": [
+     "Meatballs",
+     "Swedish meatballs",
+     "BBQ meatballs",
+     "Little smokies",
+     "Meat balls",
+     "Cocktail meatballs"
+    ]
+   },
+   {
+    "rank": 7,
+    "texts": [
+     "Brownies",
+     "Chocolate brownies",
+     "Fudge brownies"
+    ]
+   },
+   {
+    "rank": 8,
+    "texts": [
+     "Mashed potatoes",
+     "Mash",
+     "Mashed potato",
+     "Mash potatoes"
+    ]
+   },
+   {
+    "rank": 9,
+    "texts": [
+     "Coleslaw",
+     "Slaw",
+     "Cole slaw"
+    ]
+   },
+   {
+    "rank": 10,
+    "texts": [
+     "Cornbread",
+     "Corn muffins",
+     "Corn bread",
+     "Cornbread muffins"
+    ]
+   },
+   {
+    "rank": 11,
+    "texts": [
+     "Green bean casserole",
+     "Green beans",
+     "Green bean bake"
+    ]
+   },
+   {
+    "rank": 12,
+    "texts": [
+     "Salad",
+     "Garden salad",
+     "Pasta salad",
+     "Caesar salad",
+     "Mixed salad"
+    ]
+   },
+   {
+    "rank": 13,
+    "texts": [
+     "Lasagna",
+     "Baked ziti",
+     "Pasta bake",
+     "Lasagne"
+    ]
+   },
+   {
+    "rank": 14,
+    "texts": [
+     "Chips and dip",
+     "Chips",
+     "Dip",
+     "Taco dip",
+     "Seven-layer dip",
+     "Chips and salsa",
+     "Chips & dip",
+     "Tortilla chips"
+    ]
+   },
+   {
+    "rank": 15,
+    "texts": [
+     "Cookies",
+     "Chocolate chip cookies",
+     "Choc chip cookies"
+    ]
+   },
+   {
+    "rank": 16,
+    "texts": [
+     "Fruit salad",
+     "Fruit tray",
+     "Fruit platter",
+     "Fresh fruit"
+    ]
+   },
+   {
+    "rank": 17,
+    "texts": [
+     "Banana pudding",
+     "Pudding",
+     "Banana puddings"
+    ]
+   },
+   {
+    "rank": 18,
+    "texts": [
+     "Coconut cream pie",
+     "Pie",
+     "Apple pie",
+     "Pumpkin pie",
+     "Cream pie"
+    ]
+   },
+   {
+    "rank": 19,
+    "texts": [
+     "Sandwiches",
+     "Subs",
+     "Hoagies",
+     "Sliders",
+     "Sandwich platter"
+    ]
+   },
+   {
+    "rank": 20,
+    "texts": [
+     "Pulled pork",
+     "BBQ pork",
+     "Pulled pork sandwiches",
+     "Barbecue pork"
+    ]
+   },
+   {
+    "rank": 21,
+    "texts": [
+     "Stuffing",
+     "Dressing",
+     "Stuffing/dressing"
+    ]
+   },
+   {
+    "rank": 22,
+    "texts": [
+     "Sweet potato casserole",
+     "Sweet potatoes",
+     "Candied yams",
+     "Candied sweet potatoes"
+    ]
+   },
+   {
+    "rank": 23,
+    "texts": [
+     "Vegetable tray",
+     "Veggie platter",
+     "Crudités",
+     "Veggie tray",
+     "Vegetable platter"
+    ]
+   },
+   {
+    "rank": 24,
+    "texts": [
+     "Rolls",
+     "Dinner rolls",
+     "Biscuits",
+     "Bread",
+     "Bread rolls"
+    ]
+   },
+   {
+    "rank": 25,
+    "texts": [
+     "Casserole",
+     "Tuna casserole",
+     "Chicken casserole"
+    ]
+   },
+   {
+    "rank": 26,
+    "texts": [
+     "Rice",
+     "Chicken and rice",
+     "Rice dish",
+     "Fried rice"
+    ]
+   },
+   {
+    "rank": 27,
+    "texts": [
+     "Hamburgers",
+     "Burgers",
+     "Hot dogs",
+     "Cheeseburgers"
+    ]
+   },
+   {
+    "rank": 28,
+    "texts": [
+     "Cake",
+     "Sheet cake",
+     "Cupcakes",
+     "Chocolate cake"
+    ]
+   },
+   {
+    "rank": 29,
+    "texts": [
+     "Lemonade",
+     "Sweet tea",
+     "Drinks",
+     "Soda",
+     "Iced tea"
+    ]
+   },
+   {
+    "rank": 30,
+    "texts": [
+     "Jambalaya",
+     "Gumbo",
+     "Creole jambalaya"
+    ]
+   },
+   {
+    "rank": 31,
+    "texts": [
+     "Chili",
+     "Chili con carne",
+     "Chilli con carne"
+    ]
+   },
+   {
+    "rank": 32,
+    "texts": [
+     "Corn on the cob",
+     "Corn",
+     "Sweetcorn"
+    ]
+   },
+   {
+    "rank": 33,
+    "texts": [
+     "Collard greens",
+     "Greens",
+     "Cooked greens"
+    ]
+   },
+   {
+    "rank": 34,
+    "texts": [
+     "Fried okra",
+     "Okra"
+    ]
+   },
+   {
+    "rank": 35,
+    "texts": [
+     "Baked ham",
+     "Ham",
+     "Glazed ham"
+    ]
+   },
+   {
+    "rank": 36,
+    "texts": [
+     "Roast beef",
+     "Beef roast",
+     "Pot roast"
+    ]
+   },
+   {
+    "rank": 37,
+    "texts": [
+     "Meatloaf",
+     "Turkey meatloaf"
+    ]
+   },
+   {
+    "rank": 38,
+    "texts": [
+     "Chicken wings",
+     "Wings",
+     "Buffalo wings",
+     "Baked wings"
+    ]
+   },
+   {
+    "rank": 39,
+    "texts": [
+     "Rotisserie chicken",
+     "Rotisserie chickens"
+    ]
+   },
+   {
+    "rank": 40,
+    "texts": [
+     "BBQ chicken",
+     "Barbecue chicken"
+    ]
+   },
+   {
+    "rank": 41,
+    "texts": [
+     "BBQ ribs",
+     "Ribs",
+     "Barbecue ribs",
+     "Baby back ribs"
+    ]
+   },
+   {
+    "rank": 42,
+    "texts": [
+     "Pizza",
+     "Pizzas"
+    ]
+   },
+   {
+    "rank": 43,
+    "texts": [
+     "Enchiladas",
+     "Enchilada"
+    ]
+   },
+   {
+    "rank": 44,
+    "texts": [
+     "Tacos",
+     "Taco bar",
+     "Taco"
+    ]
+   },
+   {
+    "rank": 45,
+    "texts": [
+     "Burritos",
+     "Burrito"
+    ]
+   },
+   {
+    "rank": 46,
+    "texts": [
+     "Quesadillas",
+     "Quesadilla"
+    ]
+   },
+   {
+    "rank": 47,
+    "texts": [
+     "Guacamole",
+     "Guac"
+    ]
+   },
+   {
+    "rank": 48,
+    "texts": [
+     "Hummus",
+     "Hummus and pita"
+    ]
+   },
+   {
+    "rank": 49,
+    "texts": [
+     "Spinach dip",
+     "Spinach artichoke dip"
+    ]
+   },
+   {
+    "rank": 50,
+    "texts": [
+     "Buffalo chicken dip",
+     "Chicken dip"
+    ]
+   },
+   {
+    "rank": 51,
+    "texts": [
+     "Cheese platter",
+     "Cheese tray",
+     "Cheese board",
+     "Cheese and crackers"
+    ]
+   },
+   {
+    "rank": 52,
+    "texts": [
+     "Charcuterie board",
+     "Charcuterie"
+    ]
+   },
+   {
+    "rank": 53,
+    "texts": [
+     "Shrimp cocktail",
+     "Shrimp"
+    ]
+   },
+   {
+    "rank": 54,
+    "texts": [
+     "Shrimp and grits",
+     "Shrimp & grits"
+    ]
+   },
+   {
+    "rank": 55,
+    "texts": [
+     "Grits",
+     "Cheese grits"
+    ]
+   },
+   {
+    "rank": 56,
+    "texts": [
+     "Hash brown casserole",
+     "Cheesy potatoes",
+     "Funeral potatoes"
+    ]
+   },
+   {
+    "rank": 57,
+    "texts": [
+     "Scalloped potatoes",
+     "Au gratin potatoes"
+    ]
+   },
+   {
+    "rank": 58,
+    "texts": [
+     "Baked potatoes",
+     "Loaded potatoes"
+    ]
+   },
+   {
+    "rank": 59,
+    "texts": [
+     "Corn pudding",
+     "Corn casserole"
+    ]
+   },
+   {
+    "rank": 60,
+    "texts": [
+     "Creamed corn",
+     "Cream corn"
+    ]
+   },
+   {
+    "rank": 61,
+    "texts": [
+     "Roasted vegetables",
+     "Roasted veggies",
+     "Roast vegetables"
+    ]
+   },
+   {
+    "rank": 62,
+    "texts": [
+     "Broccoli casserole",
+     "Broccoli cheese casserole"
+    ]
+   },
+   {
+    "rank": 63,
+    "texts": [
+     "Squash casserole",
+     "Yellow squash casserole"
+    ]
+   },
+   {
+    "rank": 64,
+    "texts": [
+     "Black-eyed peas",
+     "Black eyed peas",
+     "Hoppin' John"
+    ]
+   },
+   {
+    "rank": 65,
+    "texts": [
+     "Cabbage",
+     "Fried cabbage",
+     "Boiled cabbage"
+    ]
+   },
+   {
+    "rank": 66,
+    "texts": [
+     "Turnip greens",
+     "Mustard greens"
+    ]
+   },
+   {
+    "rank": 67,
+    "texts": [
+     "Fried green tomatoes",
+     "Green tomatoes"
+    ]
+   },
+   {
+    "rank": 68,
+    "texts": [
+     "Tomato pie",
+     "Tomato pies"
+    ]
+   },
+   {
+    "rank": 69,
+    "texts": [
+     "Chicken and dumplings",
+     "Chicken & dumplings",
+     "Dumplings"
+    ]
+   },
+   {
+    "rank": 70,
+    "texts": [
+     "Chicken pot pie",
+     "Pot pie"
+    ]
+   },
+   {
+    "rank": 71,
+    "texts": [
+     "Spaghetti",
+     "Spaghetti bake"
+    ]
+   },
+   {
+    "rank": 72,
+    "texts": [
+     "Macaroni salad",
+     "Macaroni salads"
+    ]
+   },
+   {
+    "rank": 73,
+    "texts": [
+     "Egg salad",
+     "Egg salads"
+    ]
+   },
+   {
+    "rank": 74,
+    "texts": [
+     "Tuna salad",
+     "Tuna salads"
+    ]
+   },
+   {
+    "rank": 75,
+    "texts": [
+     "Chicken salad",
+     "Chicken salads"
+    ]
+   },
+   {
+    "rank": 76,
+    "texts": [
+     "Waldorf salad",
+     "Waldorf salads"
+    ]
+   },
+   {
+    "rank": 77,
+    "texts": [
+     "Jell-O salad",
+     "Jello salad",
+     "Jello"
+    ]
+   },
+   {
+    "rank": 78,
+    "texts": [
+     "Ambrosia",
+     "Ambrosia salad"
+    ]
+   },
+   {
+    "rank": 79,
+    "texts": [
+     "Peach cobbler",
+     "Cobbler",
+     "Peach cobblers"
+    ]
+   },
+   {
+    "rank": 80,
+    "texts": [
+     "Apple crisp",
+     "Apple crumble"
+    ]
+   },
+   {
+    "rank": 81,
+    "texts": [
+     "Cheesecake",
+     "Cheese cake"
+    ]
+   },
+   {
+    "rank": 82,
+    "texts": [
+     "Ice cream",
+     "Icecream"
+    ]
+   },
+   {
+    "rank": 83,
+    "texts": [
+     "Lemon bars",
+     "Lemon squares"
+    ]
+   },
+   {
+    "rank": 84,
+    "texts": [
+     "Rice Krispie treats",
+     "Rice Krispies treats",
+     "Rice crispy treats"
+    ]
+   },
+   {
+    "rank": 85,
+    "texts": [
+     "Donuts",
+     "Doughnuts",
+     "Donut"
+    ]
+   }
+  ],
+  "top1": "Mac and cheese",
+  "unlisted": [
+   "salad was already unlisted in the bank — now rank 13",
+   "keys (was unlisted; not a food, excluded)"
+  ]
+ },
+ "116": {
+  "textAnswers": [
+   {
+    "rank": 1,
+    "texts": [
+     "Owner's manual",
+     "Car manual",
+     "The manual",
+     "Vehicle handbook",
+     "Owners manual",
+     "Car handbook",
+     "Manual"
+    ]
+   },
+   {
+    "rank": 2,
+    "texts": [
+     "Phone charger",
+     "Charger",
+     "Phone chargers",
+     "Charging cable",
+     "USB cable",
+     "USB charger",
+     "Car charger"
+    ]
+   },
+   {
+    "rank": 3,
+    "texts": [
+     "First aid kit",
+     "First-aid kit",
+     "Bandages",
+     "Plasters",
+     "First aid box",
+     "Band aids"
+    ]
+   },
+   {
+    "rank": 4,
+    "texts": [
+     "Car maintenance accessories",
+     "Tire pressure gauge",
+     "Tyre pressure gauge",
+     "Tire gauge",
+     "Tyre gauge",
+     "Pressure gauge"
+    ]
+   },
+   {
+    "rank": 5,
+    "texts": [
+     "Registration",
+     "Car registration",
+     "Vehicle registration",
+     "Registration documents",
+     "Registration papers",
+     "Vehicle documents"
+    ]
+   },
+   {
+    "rank": 6,
+    "texts": [
+     "Insurance documents",
+     "Insurance card",
+     "Proof of insurance",
+     "Insurance papers",
+     "Insurance",
+     "Insurance document"
+    ]
+   },
+   {
+    "rank": 7,
+    "texts": [
+     "Flashlight",
+     "Torch",
+     "A flashlight",
+     "Flash light",
+     "Pocket torch"
+    ]
+   },
+   {
+    "rank": 8,
+    "texts": [
+     "Napkins",
+     "Tissues",
+     "Paper napkins",
+     "Wet wipes",
+     "Kleenex",
+     "Wet wipe"
+    ]
+   },
+   {
+    "rank": 9,
+    "texts": [
+     "Pen",
+     "A pen",
+     "Pens",
+     "Biro"
+    ]
+   },
+   {
+    "rank": 10,
+    "texts": [
+     "Notepad",
+     "Notebook",
+     "Paper",
+     "Pad",
+     "Memo pad"
+    ]
+   },
+   {
+    "rank": 11,
+    "texts": [
+     "Sunglasses",
+     "My sunglasses",
+     "Spare sunglasses",
+     "Shades"
+    ]
+   },
+   {
+    "rank": 12,
+    "texts": [
+     "Old receipts",
+     "Receipts",
+     "Parking tickets",
+     "Tickets"
+    ]
+   },
+   {
+    "rank": 13,
+    "texts": [
+     "A map",
+     "Paper map",
+     "Road map",
+     "Atlas",
+     "Road atlas"
+    ]
+   },
+   {
+    "rank": 14,
+    "texts": [
+     "Snacks",
+     "Mints",
+     "Gum",
+     "Candy",
+     "Sweets"
+    ]
+   },
+   {
+    "rank": 15,
+    "texts": [
+     "Hand sanitizer",
+     "Sanitizer",
+     "Hand wipes",
+     "Hand sanitiser",
+     "Antibacterial gel"
+    ]
+   },
+   {
+    "rank": 16,
+    "texts": [
+     "Gloves",
+     "Driving gloves",
+     "Disposable gloves",
+     "Winter gloves"
+    ]
+   },
+   {
+    "rank": 17,
+    "texts": [
+     "Multitool",
+     "Multi-tool",
+     "Pocket knife",
+     "Swiss Army knife",
+     "Leatherman"
+    ]
+   },
+   {
+    "rank": 18,
+    "texts": [
+     "Spare batteries",
+     "Batteries",
+     "Spare battery"
+    ]
+   },
+   {
+    "rank": 19,
+    "texts": [
+     "Coins",
+     "Loose change",
+     "Change for parking",
+     "Spare change"
+    ]
+   },
+   {
+    "rank": 20,
+    "texts": [
+     "CDs",
+     "Old CDs",
+     "Music CDs",
+     "CD",
+     "Compact discs"
+    ]
+   },
+   {
+    "rank": 21,
+    "texts": [
+     "A spare key",
+     "Spare car key",
+     "House key",
+     "Spare key",
+     "Extra key"
+    ]
+   },
+   {
+    "rank": 22,
+    "texts": [
+     "Emergency contact card",
+     "Emergency contacts",
+     "ICE card",
+     "Emergency contact details",
+     "ICE"
+    ]
+   },
+   {
+    "rank": 23,
+    "texts": [
+     "A blanket",
+     "Emergency blanket",
+     "Fleece blanket"
+    ]
+   },
+   {
+    "rank": 24,
+    "texts": [
+     "Jumper cables",
+     "Jump leads",
+     "Booster cables"
+    ]
+   },
+   {
+    "rank": 25,
+    "texts": [
+     "A tire inflator",
+     "Portable air compressor",
+     "Tyre inflator",
+     "Air pump"
+    ]
+   },
+   {
+    "rank": 26,
+    "texts": [
+     "A phone mount",
+     "Phone holder",
+     "Car phone holder"
+    ]
+   },
+   {
+    "rank": 27,
+    "texts": [
+     "Lip balm",
+     "Chapstick"
+    ]
+   },
+   {
+    "rank": 28,
+    "texts": [
+     "A hairbrush",
+     "Hair ties",
+     "Hairbrush",
+     "Hair brush",
+     "Comb"
+    ]
+   },
+   {
+    "rank": 29,
+    "texts": [
+     "A reusable bag",
+     "Shopping bags",
+     "Reusable shopping bag",
+     "Tote bag"
+    ]
+   },
+   {
+    "rank": 30,
+    "texts": [
+     "A water bottle",
+     "Water",
+     "Bottle of water"
+    ]
+   },
+   {
+    "rank": 31,
+    "texts": [
+     "An umbrella",
+     "Umbrella",
+     "Brolly"
+    ]
+   },
+   {
+    "rank": 32,
+    "texts": [
+     "A first aid manual",
+     "Accident checklist",
+     "First aid guide",
+     "Emergency instructions"
+    ]
+   },
+   {
+    "rank": 33,
+    "texts": [
+     "Spare fuses",
+     "Fuses",
+     "Spare fuse"
+    ]
+   },
+   {
+    "rank": 34,
+    "texts": [
+     "Duct tape",
+     "Gaffer tape"
+    ]
+   },
+   {
+    "rank": 35,
+    "texts": [
+     "Zip ties",
+     "Cable ties"
+    ]
+   },
+   {
+    "rank": 36,
+    "texts": [
+     "Small screwdriver",
+     "Screwdriver"
+    ]
+   },
+   {
+    "rank": 37,
+    "texts": [
+     "Pliers",
+     "Pliers set"
+    ]
+   },
+   {
+    "rank": 38,
+    "texts": [
+     "Wrench",
+     "Spanner",
+     "Adjustable wrench"
+    ]
+   },
+   {
+    "rank": 39,
+    "texts": [
+     "Window breaker",
+     "Glass breaker",
+     "Seatbelt cutter",
+     "Seat belt cutter"
+    ]
+   },
+   {
+    "rank": 40,
+    "texts": [
+     "Reflective vest",
+     "Hi-vis vest",
+     "High-vis jacket",
+     "High visibility vest"
+    ]
+   },
+   {
+    "rank": 41,
+    "texts": [
+     "Warning triangle",
+     "Reflective triangle",
+     "Hazard triangle"
+    ]
+   },
+   {
+    "rank": 42,
+    "texts": [
+     "Road flares",
+     "Flares"
+    ]
+   },
+   {
+    "rank": 43,
+    "texts": [
+     "Ice scraper",
+     "Snow scraper",
+     "De-icer",
+     "Deicer"
+    ]
+   },
+   {
+    "rank": 44,
+    "texts": [
+     "Microfiber cloth",
+     "Microfibre cloth",
+     "Cleaning cloth",
+     "Cloth"
+    ]
+   },
+   {
+    "rank": 45,
+    "texts": [
+     "Glass cleaner",
+     "Window cleaner",
+     "Windscreen cleaner"
+    ]
+   },
+   {
+    "rank": 46,
+    "texts": [
+     "Air freshener",
+     "Car air freshener"
+    ]
+   },
+   {
+    "rank": 47,
+    "texts": [
+     "Sunscreen",
+     "Sun cream"
+    ]
+   },
+   {
+    "rank": 48,
+    "texts": [
+     "Painkillers",
+     "Paracetamol",
+     "Ibuprofen",
+     "Advil",
+     "Tylenol"
+    ]
+   },
+   {
+    "rank": 49,
+    "texts": [
+     "Allergy medicine",
+     "Antihistamines",
+     "Allergy pills",
+     "Benadryl"
+    ]
+   },
+   {
+    "rank": 50,
+    "texts": [
+     "Inhaler",
+     "Asthma inhaler"
+    ]
+   },
+   {
+    "rank": 51,
+    "texts": [
+     "Hand cream",
+     "Moisturizer",
+     "Lotion",
+     "Moisturiser"
+    ]
+   },
+   {
+    "rank": 52,
+    "texts": [
+     "Paper towels",
+     "Kitchen roll"
+    ]
+   },
+   {
+    "rank": 53,
+    "texts": [
+     "Plastic bags",
+     "Trash bags",
+     "Bin bags",
+     "Garbage bags"
+    ]
+   },
+   {
+    "rank": 54,
+    "texts": [
+     "Dog treats",
+     "Treats for the dog"
+    ]
+   },
+   {
+    "rank": 55,
+    "texts": [
+     "Tennis ball",
+     "Tennis balls"
+    ]
+   },
+   {
+    "rank": 56,
+    "texts": [
+     "Spare phone",
+     "Old phone",
+     "Burner phone"
+    ]
+   },
+   {
+    "rank": 57,
+    "texts": [
+     "Power bank",
+     "Portable charger"
+    ]
+   },
+   {
+    "rank": 58,
+    "texts": [
+     "Earbuds",
+     "Spare earbuds",
+     "AirPods"
+    ]
+   },
+   {
+    "rank": 59,
+    "texts": [
+     "Aux cable",
+     "AUX cord",
+     "Audio cable"
+    ]
+   },
+   {
+    "rank": 60,
+    "texts": [
+     "Car adapter",
+     "Car charger adapter",
+     "Cigarette lighter adapter",
+     "USB adapter"
+    ]
+   },
+   {
+    "rank": 61,
+    "texts": [
+     "Reading glasses",
+     "Spare glasses"
+    ]
+   },
+   {
+    "rank": 62,
+    "texts": [
+     "Contact lens case",
+     "Spare contacts",
+     "Contact solution"
+    ]
+   },
+   {
+    "rank": 63,
+    "texts": [
+     "Bobby pins",
+     "Hair clips",
+     "Hair pins",
+     "Hair bands"
+    ]
+   },
+   {
+    "rank": 64,
+    "texts": [
+     "Safety pins",
+     "Safety pin"
+    ]
+   },
+   {
+    "rank": 65,
+    "texts": [
+     "Sewing kit",
+     "Needle and thread"
+    ]
+   },
+   {
+    "rank": 66,
+    "texts": [
+     "Super glue",
+     "Superglue"
+    ]
+   },
+   {
+    "rank": 67,
+    "texts": [
+     "Lighter",
+     "Cigarette lighter"
+    ]
+   },
+   {
+    "rank": 68,
+    "texts": [
+     "Cigarettes",
+     "Ciggies",
+     "Vape"
+    ]
+   },
+   {
+    "rank": 69,
+    "texts": [
+     "Toothpicks",
+     "Toothpick"
+    ]
+   },
+   {
+    "rank": 70,
+    "texts": [
+     "Floss",
+     "Dental floss"
+    ]
+   },
+   {
+    "rank": 71,
+    "texts": [
+     "Nail clippers",
+     "Nail file"
+    ]
+   },
+   {
+    "rank": 72,
+    "texts": [
+     "Tweezers",
+     "Tweezer"
+    ]
+   },
+   {
+    "rank": 73,
+    "texts": [
+     "Spare mask",
+     "Face mask",
+     "Spare masks"
+    ]
+   },
+   {
+    "rank": 74,
+    "texts": [
+     "Spare socks",
+     "Extra socks"
+    ]
+   },
+   {
+    "rank": 75,
+    "texts": [
+     "Spare hat",
+     "Beanie",
+     "Cap"
+    ]
+   },
+   {
+    "rank": 76,
+    "texts": [
+     "Rain poncho",
+     "Poncho",
+     "Disposable poncho"
+    ]
+   },
+   {
+    "rank": 77,
+    "texts": [
+     "Service records",
+     "Service history",
+     "Maintenance records",
+     "MOT certificate",
+     "Inspection certificate"
+    ]
+   },
+   {
+    "rank": 78,
+    "texts": [
+     "Parking permits",
+     "Parking permit",
+     "Parking pass",
+     "Resident permit"
+    ]
+   },
+   {
+    "rank": 79,
+    "texts": [
+     "Toll tag",
+     "Toll pass",
+     "EZ-Pass",
+     "Toll transponder"
+    ]
+   },
+   {
+    "rank": 80,
+    "texts": [
+     "Spare bulbs",
+     "Spare bulb",
+     "Spare headlight bulb"
+    ]
+   }
+  ],
+  "top1": "Owner's manual",
+  "unlisted": [
+   "a gun",
+   "the car title (advised against — theft risk)",
+   "a spare tire (does not fit in a glove box)"
+  ]
+ }
+}
