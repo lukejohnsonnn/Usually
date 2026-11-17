@@ -430,6 +430,26 @@ const howto = html.slice(html.indexOf('id="howto"'), html.indexOf('id="howto-clo
 check("How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(howto));
 check("How to Play keeps the no-math wording",
   howto.includes("The closer your guess, the more points. A perfect guess is a Bullseye."));
+// 2026-11-17 Contribute honesty: researched answers are authoritative
+// (server.js) and votes never change them — they are only stored and used to
+// mark a question as already-voted. The live copy used to claim the opposite.
+check("Contribute copy never claims votes shape the crowd's numbers",
+  !html.includes("shapes the crowd") && !appJs.includes("shapes the crowd"));
+check("Contribute copy says the vote is recorded (how-to, home card, vote hint)",
+  howto.includes("Your vote is recorded.") &&
+  appJs.includes("Answer the real preference behind a question. Your vote is recorded.") &&
+  appJs.includes("Your vote is recorded. Percentages are never shown."));
+// 2026-11-17 space-question reword (wording only: answer/source unchanged).
+check("Q78 space question is the plain rewording, answer and source unchanged",
+  byId.get(78).text === "Of all the people who have ever been to space, what % went as a private citizen instead of a professional astronaut?" &&
+  byId.get(78).answer === 17 &&
+  byId.get(78).sourceUrl.includes("spacedaily.com"));
+check("old Q78 wording gone from the bank",
+  !bank.questions.some((q) => (q.text || "").includes("flew as a private citizen")));
+// 2026-11-17 text-round reminder: visible above the text box while typing.
+check("text rounds show the crowd reminder above the text box",
+  appJs.includes("Reminder: guess what the crowd would most likely say.") &&
+  appJs.indexOf("Reminder: guess what the crowd would most likely say.") < appJs.indexOf('id="text-answer"'));
 
 console.log("== unit: 2026-11-16 exact-spec alignment (Muse-measured values) ==");
 // Theme values, copied exactly from the Muse version.
@@ -452,24 +472,38 @@ check("grid: entry grid is 188px / 3px gap",
   /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid\.entry\s*\{[^}]*gap:\s*3px/.test(css));
 check("grid: fine-tune grid is 224px / 3px gap",
   /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid\.small\s*\{[^}]*gap:\s*3px/.test(css));
-// Rings are INSET everywhere; no outset ring left.
+// Rings are INSET everywhere they are used; no outset ring left. Since the
+// 2026-11-17 reveal-readability fix, overlap dots are a solid gold FILL, not
+// a ring — so only the guess-entry dots and the fine-tune dots still ring.
 check("rings are inset (box-shadow: inset 0 0 0 2px var(--gold))",
-  (css.match(/box-shadow:\s*inset 0 0 0 2px var\(--gold\)/g) || []).length >= 4 &&
+  (css.match(/box-shadow:\s*inset 0 0 0 2px var\(--gold\)/g) || []).length === 2 &&
   !/box-shadow:\s*0 0 0 2px var\(--gold\)/.test(css));
+check("overlap dots are a solid gold fill, not navy + ring",
+  /\.grid \.dot\.navy\.gold\s*\{[^}]*background:\s*var\(--gold\)/.test(css) &&
+  /\.grid \.dot\.poppy\.gold\s*\{[^}]*background:\s*var\(--gold\)/.test(css) &&
+  !/\.grid \.dot\.navy\.gold\s*\{[^}]*box-shadow/.test(css) &&
+  !/\.grid \.dot\.poppy\.gold\s*\{[^}]*box-shadow/.test(css));
+check("legend gold-fill swatch is solid gold",
+  /\.legend \.sw\.goldfill\s*\{[^}]*background:\s*var\(--gold\)/.test(css));
 check("guess dots fill with surface, not grey",
   /\.grid \.dot\.gold\s*\{[^}]*background:\s*var\(--surface\)/.test(css));
 check("fine-tune dots are gold 28% mix over surface + inset ring",
   /\.grid \.dot\.ft\s*\{[^}]*color-mix\(in srgb,\s*var\(--gold\) 28%,\s*var\(--surface\)\)/.test(css) &&
   /\.grid \.dot\.ft\s*\{[^}]*box-shadow:\s*inset 0 0 0 2px var\(--gold\)/.test(css));
-// Legends, exact text.
+// Legends, exact text. Answering legend unchanged; reveal legends rewritten
+// for the 2026-11-17 gold-fill overlap (old "Both = you got these" / ring-only
+// split copy is gone).
 check("answering legend (Guess) is exactly 'Gold ring = your guess'",
   appJs.includes("Gold ring = your guess"));
 check("reveal legend (Guess) is the exact three lines",
-  appJs.includes("Navy = the crowd") && appJs.includes("Gold ring = your guess") && appJs.includes("Both = you got these"));
+  appJs.includes("Navy = the crowd") && appJs.includes("Gold = you got these") && appJs.includes("Gold ring = your guess only"));
+check("reveal legend (Guess) uses the gold-fill swatch for 'you got these'",
+  appJs.includes('<span class="sw goldfill"></span>Gold = you got these'));
 check("old reveal legend copy gone",
-  !appJs.includes("crowd ${r.answer}%") && !appJs.includes("Each dot is 0.01%"));
-check("reveal legend (Split) is labels + 'Gold ring = your split'",
-  appJs.includes("Gold ring = your split"));
+  !appJs.includes("crowd ${r.answer}%") && !appJs.includes("Each dot is 0.01%") &&
+  !appJs.includes("Both = you got these") && !appJs.includes("Gold ring = your split"));
+check("reveal legend (Split) is labels + 'Gold = your split'",
+  appJs.includes("Gold = your split") && appJs.includes('<span class="sw goldfill"></span>Gold = your split'));
 check("reveal split passes the player's split to the grid",
   appJs.includes("playerSplit: r.guess"));
 check("fine-tune grid uses the fine-tune spec",
@@ -600,7 +634,9 @@ check("served app.js entry grid uses gold-only modes, no crowd data",
   servedJs.includes('entry: "guess"') && servedJs.includes('entry: "split"'));
 check("served app.js has exact legends + playerSplit reveal + fine-tune spec",
   servedJs.includes("Gold ring = your guess") && servedJs.includes("Navy = the crowd") &&
-  servedJs.includes("Both = you got these") && servedJs.includes("Gold ring = your split") &&
+  servedJs.includes("Gold = you got these") && servedJs.includes("Gold ring = your guess only") &&
+  servedJs.includes("Gold = your split") && !servedJs.includes("Both = you got these") &&
+  !servedJs.includes("Gold ring = your split") &&
   servedJs.includes("playerSplit: r.guess") && servedJs.includes('entry: "fine"'));
 const servedHowto = homeText.slice(homeText.indexOf('id="howto"'), homeText.indexOf('id="howto-close"'));
 check("served How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(servedHowto));
@@ -882,6 +918,40 @@ check("dark mode: every text element has >= 4.5:1 contrast, no black text on dar
 check("dark mode: placeholder rule exists and uses the muted variable", /\.type-row input::placeholder\s*\{[^}]*color:\s*var\(--muted\)/.test(servedCss));
 check("dark mode: .big-guess stays pale navy (not black)", dcs(ddoc.querySelector("#guess-num")).color === "rgb(174, 189, 219)");
 darkDom.window.close();
+
+// 2026-11-17 reveal readability: overlap dots are a solid gold FILL, so
+// they must differ from crowd-only navy in BOTH modes — asserted on computed
+// style, not just CSS text. Gold fill = you, everywhere on the reveal.
+function gridDotBgs(cssText) {
+  const dom = new JSDOM(`<!doctype html><html><head><style>${cssText}</style></head><body>
+<div class="grid">
+  <div class="dot navy" id="d-crowd"></div>
+  <div class="dot navy gold" id="d-overlap"></div>
+  <div class="dot poppy gold" id="d-split"></div>
+  <div class="dot gold" id="d-guessonly"></div>
+  <div class="dot" id="d-unlit"></div>
+</div></body></html>`, { pretendToBeVisual: true });
+  const cs = dom.window.getComputedStyle;
+  const doc = dom.window.document;
+  const out = {
+    crowd: cs(doc.querySelector("#d-crowd")).backgroundColor,
+    overlap: cs(doc.querySelector("#d-overlap")).backgroundColor,
+    split: cs(doc.querySelector("#d-split")).backgroundColor,
+    guessOnly: cs(doc.querySelector("#d-guessonly")).backgroundColor,
+  };
+  dom.window.close();
+  return out;
+}
+const lightDots = gridDotBgs(servedCss);
+check("light mode: overlap dots are gold, crowd-only navy, guess-only surface",
+  lightDots.overlap === "rgb(207, 154, 6)" && lightDots.crowd === "rgb(35, 44, 66)" &&
+  lightDots.split === "rgb(207, 154, 6)" && lightDots.guessOnly === "rgb(255, 253, 249)" &&
+  lightDots.overlap !== lightDots.crowd, JSON.stringify(lightDots));
+const darkDots = gridDotBgs(`${servedCss}\n${darkBlock}`);
+check("dark mode: overlap dots are gold, crowd-only pale navy, guess-only dark surface",
+  darkDots.overlap === "rgb(255, 214, 10)" && darkDots.crowd === "rgb(174, 189, 219)" &&
+  darkDots.split === "rgb(255, 214, 10)" && darkDots.guessOnly === "rgb(26, 34, 51)" &&
+  darkDots.overlap !== darkDots.crowd, JSON.stringify(darkDots));
 
 // ------------------------------------------------- integration: seed upsert (pg-mem)
 // The seed must upsert bank.json over an existing Postgres DB (the live Render

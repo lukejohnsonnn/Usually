@@ -39,10 +39,13 @@ function sliderFill(el) {
 function renderGrid(container, spec) {
   // One shared 100-dot grid (188px) for answering and reveal, same component.
   // Reveal Guess {crowd, guess}: dots are REGIONS — every dot up to the crowd
-  // is solid navy, every dot up to the guess carries the inset gold ring, so
-  // overlap = navy + ring, crowd-only = navy, guess-only = surface + ring.
+  // is solid navy, every dot up to the guess carries the inset gold ring, and
+  // overlap (in both) is a solid GOLD fill, so "you got these" reads instantly
+  // against crowd-only navy: overlap = gold fill, crowd-only = navy,
+  // guess-only = surface + ring. Gold fill = you, everywhere on the reveal.
   // Reveal Split {split:{left,right}, playerSplit}: halves by the crowd's
-  // split; the inset gold ring runs over the dots up to the player's split.
+  // split; the dots up to the player's split are gold-filled, so the gold
+  // region is the player's split and the navy/poppy after it is the crowd's.
   // Entry specs (while answering, never any crowd data):
   //   {entry:"guess", value} — surface fill + inset gold ring on exactly
   //     round(value) dots in row-major order
@@ -112,7 +115,7 @@ async function showHome() {
     </div>
     <div class="card">
       <div class="kicker">Contribute</div>
-      <p>Answer the real preference behind a question — your vote shapes the crowd's numbers.</p>
+      <p>Answer the real preference behind a question. Your vote is recorded.</p>
       ${contrib && contrib.unlocked
         ? `<button class="primary" id="btn-contrib">Contribute (${contrib.questions.length} to vote on)</button>`
         : `<button class="primary" disabled>Locked — finish today's Daily first</button>`}
@@ -146,6 +149,7 @@ function showRound() {
     <div class="kicker">${q.category}</div>
     <div class="qtext">${q.text}</div>
     ${isText ? `
+      <p class="hint">Reminder: guess what the crowd would most likely say.</p>
       <div class="type-row"><input type="text" id="text-answer" placeholder="Type your answer…" autocomplete="off" enterkeyhint="go"></div>
       <p class="hint">One answer — the crowd's #1 scores the most.</p>
       <div class="row"><button class="primary" id="submit">Submit</button></div>
@@ -266,10 +270,10 @@ function showReveal(r) {
   if (!isText) {
     if (isSplit) {
       gridHtml = `<div id="grid" class="grid"></div>`;
-      legend = `<div class="legend"><span class="sw navy"></span>${q.leftLabel}<span class="sw poppy"></span>${q.rightLabel}<span class="sw gold"></span>Gold ring = your split</div>`;
+      legend = `<div class="legend"><span class="sw navy"></span>${q.leftLabel}<span class="sw poppy"></span>${q.rightLabel}<span class="sw goldfill"></span>Gold = your split</div>`;
     } else {
       gridHtml = `<div id="grid" class="grid"></div>`;
-      legend = `<div class="legend"><span class="sw navy"></span>Navy = the crowd<br><span class="sw gold"></span>Gold ring = your guess<br><span class="sw both"></span>Both = you got these</div>`;
+      legend = `<div class="legend"><span class="sw navy"></span>Navy = the crowd<br><span class="sw goldfill"></span>Gold = you got these<br><span class="sw gold"></span>Gold ring = your guess only</div>`;
     }
   }
   const burst = r.tier === "Bullseye" ? "burst" : "";
@@ -361,7 +365,7 @@ function renderContribute(questions) {
           <button class="vote-yes" data-vote="yes">Yes</button>
           <button class="vote-no" data-vote="no">No</button>
         </div>`}
-      <p class="hint">Your vote shapes the crowd's number. Percentages are never shown.</p>
+      <p class="hint">Your vote is recorded. Percentages are never shown.</p>
     </div>
     <div class="row"><button class="ghost" id="back-home">Done for now</button></div>`;
   $("#back-home").addEventListener("click", showHome);
