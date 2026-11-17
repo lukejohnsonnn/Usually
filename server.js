@@ -39,6 +39,17 @@ function validPlayerId(p) {
   return typeof p === "string" && p.length >= 8 && p.length <= 64 && /^[a-zA-Z0-9_-]+$/.test(p);
 }
 
+// A single throwing request must never kill the process again (2026-11-17:
+// a removed question id in a frozen daily set crashed the server on submit
+// and Render 502'd every request until the process restarted). Express 4
+// does not forward async rejections to error middleware, so every async
+// route handler runs through ah(); anything that still escapes lands in the
+// error middleware before app.listen as a 500 JSON response. The process
+// guards below are a last resort so an unforeseen throw is logged, not fatal.
+process.on("unhandledRejection", (err) => console.error("unhandled rejection (kept alive):", err));
+process.on("uncaughtException", (err) => console.error("uncaught exception (kept alive):", err));
+const ah = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+
 /** Public shape of a question — never includes the answer. */
 function pub(q) {
   if (!q) return null; // defensive: a pre-deploy play may reference a removed id
@@ -65,6 +76,7 @@ async function snapshotFor(ids) {
   const snap = [];
   for (const id of ids) {
     const q = await liveQuestion(byId.get(id));
+    if (!q) continue; // question removed from the bank since the set froze
     snap.push({
       id: q.id, kind: q.kind, answer: q.answer,
       textAnswers: q.textAnswers || null, unlisted: q.unlisted || null, top1: q.top1 || null,
@@ -80,41 +92,71 @@ function newPlay(playerId, mode, playDate, ids, snapshot) {
   };
 }
 
+// Frozen daily sets are never rewritten in the DB, but a play built from one
+// may reference a question removed from the bank since (today: id 39 was
+// removed in the audit). Drop removed ids from the play's questionIds,
+// snapshot AND results together — the three stay positionally aligned — and
+// recompute the score from the kept results. If the player already answered
+// every remaining round, the play is finished. Completed plays are history
+// and are left untouched.
+async function alignPlay(play) {
+  if (play.completed) return play;
+  if (play.questionIds.every((id) => byId.has(id))) return play;
+  play.questionIds = play.questionIds.filter((id) => byId.has(id));
+  play.snapshot = play.snapshot.filter((s) => byId.has(s.id));
+  play.results = play.results.filter((r) => byId.has(r.questionId));
+  play.score = play.results.reduce((a, r) => a + (r.points || 0), 0);
+  if (play.results.length >= play.questionIds.length) play.completed = true;
+  await store.updatePlay(play);
+  return play;
+}
+
+async function getDailyPlayAligned(playerId, date) {
+  const play = await store.getDailyPlay(playerId, date);
+  if (!play) return null;
+  return alignPlay(play);
+}
+
 // ------------------------------------------------------------------ health
-app.get("/health", async (req, res) => {
+app.get("/health", ah(async (req, res) => {
   try {
     const h = await store.health();
     res.json({ ok: true, db: h.db, bankQuestions: h.bankQuestions, date: etDateStr() });
   } catch (e) {
     res.status(500).json({ ok: false, db: "error", error: String(e.message || e) });
   }
-});
+}));
 
 // ------------------------------------------------------------- today / daily
-app.get("/api/today", async (req, res) => {
+app.get("/api/today", ah(async (req, res) => {
   const date = etDateStr();
   const ids = await ensureDailySet(date);
   res.json({ date, questions: ids.map((id) => pub(byId.get(id))).filter(Boolean) });
-});
+}));
 
-app.post("/api/play", async (req, res) => {
+app.post("/api/play", ah(async (req, res) => {
   const { playerId, mode } = req.body || {};
   if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
   if (mode !== "daily" && mode !== "endless") return res.status(400).json({ ok: false, error: "mode must be daily or endless." });
   const date = etDateStr();
   if (mode === "daily") {
-    const existing = await store.getDailyPlay(playerId, date);
+    const existing = await getDailyPlayAligned(playerId, date);
     if (existing) return res.json({ ok: true, ...playView(existing) });
-    const ids = await ensureDailySet(date);
-    const play = newPlay(playerId, "daily", date, ids, await snapshotFor(ids));
+    // The frozen set may hold an id removed from the bank since it froze;
+    // filter first, then derive questionIds from the snapshot so the two
+    // can never drift apart (snapshotFor also skips missing ids).
+    const ids = (await ensureDailySet(date)).filter((id) => byId.has(id));
+    const snap = await snapshotFor(ids);
+    const play = newPlay(playerId, "daily", date, snap.map((s) => s.id), snap);
     await store.createPlay(play);
     return res.json({ ok: true, ...playView(play) });
   }
   const ids = composeSet(BANK, `endless:${playerId}:${Date.now()}:${crypto.randomUUID()}`);
-  const play = newPlay(playerId, "endless", date, ids, await snapshotFor(ids));
+  const snap = await snapshotFor(ids);
+  const play = newPlay(playerId, "endless", date, snap.map((s) => s.id), snap);
   await store.createPlay(play);
   res.json({ ok: true, ...playView(play) });
-});
+}));
 
 function playView(play) {
   return {
@@ -125,7 +167,7 @@ function playView(play) {
   };
 }
 
-app.post("/api/play/:id/submit", async (req, res) => {
+app.post("/api/play/:id/submit", ah(async (req, res) => {
   const { playerId, roundIndex, guess, answer } = req.body || {};
   if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
   const play = await store.getPlay(req.params.id);
@@ -152,7 +194,7 @@ app.post("/api/play/:id/submit", async (req, res) => {
     result = {
       kind: q.kind, questionId: q.id, guess: Number(guess), answer: q.answer,
       points: s.points, tier: s.tier, diff: s.diff,
-      note: byId.get(q.id).note || null,
+      note: byId.get(q.id)?.note || null,
     };
   }
   play.results.push(result);
@@ -160,18 +202,18 @@ app.post("/api/play/:id/submit", async (req, res) => {
   if (play.results.length >= play.questionIds.length) play.completed = true;
   await store.updatePlay(play);
   res.json({ ok: true, result, score: play.score, currentRound: play.results.length, completed: play.completed });
-});
+}));
 
-app.get("/api/results", async (req, res) => {
+app.get("/api/results", ah(async (req, res) => {
   const { playerId, date } = req.query;
   if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
-  const play = await store.getDailyPlay(playerId, date || etDateStr());
+  const play = await getDailyPlayAligned(playerId, date || etDateStr());
   if (!play) return res.json({ ok: true, completed: false, results: [], score: 0 });
   res.json({ ok: true, ...playView(play) });
-});
+}));
 
 // ------------------------------------------------------------------- stats
-app.get("/api/stats", async (req, res) => {
+app.get("/api/stats", ah(async (req, res) => {
   const { playerId } = req.query;
   if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
   const daily = await store.listCompletedDaily(playerId);
@@ -192,19 +234,19 @@ app.get("/api/stats", async (req, res) => {
     bestScore: scores.length ? Math.max(...scores) : 0,
     avgScore: scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0,
   });
-});
+}));
 
 // --------------------------------------------------------------- yesterday
-app.get("/api/yesterday", async (req, res) => {
+app.get("/api/yesterday", ah(async (req, res) => {
   const date = addDays(etDateStr(), -1);
-  const ids = await ensureDailySet(date);
+  const ids = (await ensureDailySet(date)).filter((id) => byId.has(id));
   const rounds = [];
   for (const id of ids) {
     const q = await liveQuestion(byId.get(id));
     rounds.push({ ...pub(q), answer: q.kind === "text" ? q.top1 : q.answer, note: q.note || null });
   }
   res.json({ ok: true, date, rounds });
-});
+}));
 
 // -------------------------------------------------------------- contribute
 const EMBARGO_DAYS = 7;
@@ -218,11 +260,11 @@ async function embargoedIds(today) {
   return ids;
 }
 
-app.get("/api/contribute", async (req, res) => {
+app.get("/api/contribute", ah(async (req, res) => {
   const { playerId } = req.query;
   if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
   const today = etDateStr();
-  const daily = await store.getDailyPlay(playerId, today);
+  const daily = await getDailyPlayAligned(playerId, today);
   const votablePool = BANK.filter((q) => q.votable);
   if (!daily || !daily.completed) {
     return res.json({
@@ -237,15 +279,15 @@ app.get("/api/contribute", async (req, res) => {
   const ordered = seededShuffle(available, `contribute:${playerId}:${today}`);
   const questions = ordered.slice(0, 6).map((q) => ({ ...pub(q), votePrompt: deriveVotePrompt(q) }));
   res.json({ ok: true, unlocked: true, reason: null, questions, votableTotal: votablePool.length, votedCount: voted.size });
-});
+}));
 
-app.post("/api/contribute/vote", async (req, res) => {
+app.post("/api/contribute/vote", ah(async (req, res) => {
   const { playerId, questionId, vote } = req.body || {};
   if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
   const q = byId.get(Number(questionId));
   if (!q || !q.votable) return res.json({ ok: false, error: "That question can't be voted on." });
   const today = etDateStr();
-  const daily = await store.getDailyPlay(playerId, today);
+  const daily = await getDailyPlayAligned(playerId, today);
   if (!daily || !daily.completed) return res.json({ ok: false, error: "Finish today's daily first." });
   const blocked = await embargoedIds(today);
   if (blocked.has(q.id)) return res.json({ ok: false, error: "That question is in an upcoming daily — try again later." });
@@ -254,18 +296,29 @@ app.post("/api/contribute/vote", async (req, res) => {
   const r = await store.castVote(playerId, q.id, vote);
   if (!r.ok) return res.json({ ok: false, error: r.error });
   res.json({ ok: true });
-});
+}));
 
 // ------------------------------------------------------------------- share
 const TIER_EMOJI = { Bullseye: "🎯", "Dead On": "✅", "Razor Close": "🔥", Close: "🙂", Warm: "😐", Lukewarm: "😬", Cold: "🥶", "Way Off": "❌", Blank: "⬜" };
 
-app.get("/api/share", async (req, res) => {
+app.get("/api/share", ah(async (req, res) => {
   const { playerId, date } = req.query;
   if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
-  const play = await store.getDailyPlay(playerId, date || etDateStr());
+  const play = await getDailyPlayAligned(playerId, date || etDateStr());
   if (!play || !play.completed) return res.json({ ok: false, error: "Finish today's daily first." });
   const lines = play.results.map((r) => TIER_EMOJI[r.tier] || "⬜").join("");
   res.json({ ok: true, text: `Usually ${play.playDate}\n${lines}\n${play.score}/1225` });
+}));
+
+// Any error forwarded by ah() (or thrown by body parsing) ends up here as
+// a JSON error instead of an uncaught exception killing the process.
+app.use((err, req, res, next) => {
+  console.error("request error:", err && err.stack ? err.stack : err);
+  if (res.headersSent) return next(err);
+  if (err && err.type === "entity.parse.failed") {
+    return res.status(400).json({ ok: false, error: "Bad JSON." });
+  }
+  res.status(500).json({ ok: false, error: "Something went wrong." });
 });
 
 app.listen(PORT, "0.0.0.0", () => {
