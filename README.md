@@ -1,7 +1,7 @@
-# Usually
+# Crowdle
 
-Guess what percentage of people do things. Same 7 prompts for everyone,
-one run a day. Free to play, free to host.
+How well do you know people? Guess what percentage of people do things.
+Same 7 prompts for everyone, one run a day. Free to play, free to host.
 
 **Play:** Daily (7 rounds: guess, guess, text, split, split, text, finale),
 Endless practice, and Contribute — vote on the real preference behind a
@@ -11,7 +11,7 @@ question to shape the crowd's numbers.
 ```bash
 npm install
 npm start        # http://localhost:3000
-npm run verify   # 54 automated checks
+npm run verify   # 164 automated checks
 ```
 
 ## Deploy
@@ -20,11 +20,10 @@ Daily sets freeze lazily on first load each Eastern day.
 
 ## Verification
 See [VERIFICATION.md](VERIFICATION.md) — what was tested, bank counts,
-and the honest gaps (notably: the Postgres path hasn't run against a real
-database yet; the first Render deploy is its test).
+and the honest gaps.
 
 ## Bank
-119 verified questions (60 guess, 19 split, 10 finale, 30 text prompts),
-harvested through the original game's published actions only.
-Every stored answer was verified by submitting a guess in the live game.
+142 questions (72 guess, 10 finale, 25 split, 35 text prompts).
+Every question carries a researched source — a real published statistic
+(survey, census, government stat, or peer-reviewed figure).
 See `data/bank.json` and `scripts/merge-bank.mjs`.

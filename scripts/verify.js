@@ -1,4 +1,4 @@
-// End-to-end verification for Usually. Spawns the real server against a throwaway
+// End-to-end verification for Crowdle. Spawns the real server against a throwaway
 // local file store, plays a full daily + endless, and checks Contribute, the
 // freeze, stats, and scoring. Run: npm run verify  (or: node scripts/verify.js)
 // Exit 0 = all checks passed.
@@ -16,7 +16,7 @@ import { loadBank } from "../db.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 3457;
 const BASE = `http://127.0.0.1:${PORT}`;
-const TMP = "/tmp/usually-verify-local.json";
+const TMP = "/tmp/crowdle-verify-local.json";
 const bank = loadBank();
 const byId = new Map(bank.questions.map((q) => [q.id, q]));
 
@@ -366,13 +366,31 @@ check("text reveal never renders the crowd's #1 answer", !appJs.includes("r.text
 check("text reveal has no 'The crowd's #1' answer line", !appJs.includes("The crowd's #1: <b>"));
 check("text reveal still shows your own answer + rank", appJs.includes("You said:") && appJs.includes("r.textRank"));
 // Tagline: exact in every spot, old tagline gone.
-check("tagline: page title exact", html.includes(`<title>Usually — ${TAGLINE}</title>`));
+check("tagline: page title exact", html.includes(`<title>Crowdle — ${TAGLINE}</title>`));
 check("tagline: header sub exact", html.includes(`<div class="sub">${TAGLINE}</div>`));
 check("tagline: meta description leads with it", html.includes(`<meta name="description" content="${TAGLINE}`));
-check("tagline: og title + description", html.includes(`<meta property="og:title" content="Usually — ${TAGLINE}">`) && html.includes(`<meta property="og:description" content="${TAGLINE}`));
-check("tagline: twitter title + description", html.includes(`<meta name="twitter:title" content="Usually — ${TAGLINE}">`) && html.includes(`<meta name="twitter:description" content="${TAGLINE}`));
-check("tagline: share card closing line", appJs.includes(`Play Usually — ${TAGLINE}`));
+check("tagline: og title + description", html.includes(`<meta property="og:title" content="Crowdle — ${TAGLINE}">`) && html.includes(`<meta property="og:description" content="${TAGLINE}`));
+check("tagline: twitter title + description", html.includes(`<meta name="twitter:title" content="Crowdle — ${TAGLINE}">`) && html.includes(`<meta name="twitter:description" content="${TAGLINE}`));
+check("tagline: share card closing line", appJs.includes(`Play Crowdle — ${TAGLINE}`));
 check("old tagline gone from client", !html.includes("what do people usually do?") && !appJs.includes("what do people usually do?"));
+
+// Rebrand (2026-11-17): public brand is Crowdle, site playcrowdle.com.
+// Wordmark, fonts, and no trace of the old name in client-facing strings.
+check("brand: header wordmark is CROWDLE", html.includes(`<div class="brand">CROWDLE</div>`));
+check("brand: Google Fonts pairing loaded (Fraunces + Libre Franklin)",
+  html.includes("fonts.googleapis.com/css2?family=Fraunces") && html.includes("Libre+Franklin"));
+check("brand: no AI-default fonts in the stack (no Inter/Poppins/Roboto)",
+  !css.includes("Inter") && !css.includes("Poppins") && !css.includes("Roboto"));
+check("brand: display serif on wordmark + headings, grotesque on body",
+  css.includes("--font-display") && css.includes("--font-body") &&
+  /\.brand\{[^}]*font-family:\s*var\(--font-display\)/.test(css) &&
+  /html,body\{[^}]*font-family:\s*var\(--font-body\)/.test(css));
+check("brand: no 'Usually' left in client-facing strings",
+  !html.includes("Usually") && !appJs.includes("Usually"));
+const serverJs = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
+check("brand: server share card leads with Crowdle", serverJs.includes("Crowdle ${play.playDate}"));
+const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "client", "manifest.json"), "utf8"));
+check("brand: manifest name + short_name are Crowdle", manifest.name === "Crowdle" && manifest.short_name === "Crowdle");
 
 console.log("== unit: 2026-11-16 entry grid + warm paper ==");
 // Entry grid: present on the answering screen for Guess and Split rounds,
@@ -562,8 +580,10 @@ check("today has no answers leaked", !t1.raw.includes('"answer":') && !t1.raw.in
 
 const home = await fetch(BASE + "/");
 const homeText = await home.text();
-check("served index.html carries new tagline, old tagline gone",
-  homeText.includes("How well do you know people?") && !homeText.includes("what do people usually do?"));
+check("served index.html carries new tagline + CROWDLE wordmark + fonts, old tagline gone",
+  homeText.includes("How well do you know people?") && homeText.includes("CROWDLE") &&
+  homeText.includes("fonts.googleapis.com/css2?family=Fraunces") &&
+  !homeText.includes("what do people usually do?"));
 
 const servedCss = await (await fetch(BASE + "/styles.css")).text();
 check("served styles.css has exact theme + shared 188px grid + inset rings + dark mode",

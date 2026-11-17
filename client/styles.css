@@ -3,13 +3,19 @@
   --poppy:#e8442e; --ink:#1c2434; --muted:#68707f; --line:#e3ddd0; --on-navy:#fff;
   --bg:#f4f1ec; --card:#fffdf9; --surface:#fffdf9; --dot-unlit:#e7e1d2; --radius:16px;
   --chip-bg:#fff7e0; --chip-text:#7a5b00; color-scheme:light;
+  /* Fraunces (editorial serif) carries the wordmark and headings; Libre
+     Franklin (Franklin Gothic revival grotesque) carries the UI and body.
+     Neither is part of the generic AI-built stack. */
+  --font-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --font-body:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  font-family:var(--font-body);}
 #app{max-width:620px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:20px 18px calc(20px + env(safe-area-inset-bottom));}
 header{text-align:center;padding:6px 0 2px}
-.brand{font-size:34px;font-weight:800;letter-spacing:.14em;color:var(--navy)}
+.brand{font-family:var(--font-display);font-size:36px;font-weight:900;letter-spacing:.06em;color:var(--navy)}
+.brand::after{content:".";color:var(--gold)}
 .sub{color:var(--muted);font-size:14px;margin-top:2px}
 .date-line{margin-top:10px;font-size:13px;color:var(--muted);display:flex;gap:10px;justify-content:center;align-items:center}
 .chip{background:var(--chip-bg);border:1px solid var(--gold-soft);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--chip-text)}
@@ -21,7 +27,7 @@ footer{text-align:center;padding-top:14px}
 
 /* cards & buttons */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:12px 0}
-.card h2{margin:0 0 10px;font-size:20px;color:var(--navy)}
+.card h2{margin:0 0 10px;font-size:20px;color:var(--navy);font-family:var(--font-display);font-weight:700}
 .card p{margin:8px 0;line-height:1.5;font-size:15px}
 .muted{color:var(--muted);font-size:13px}
 button{font-family:inherit}
@@ -37,7 +43,7 @@ button{font-family:inherit}
 
 /* question */
 .kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.qtext{font-size:24px;font-weight:700;line-height:1.25;margin:8px 0 4px;color:var(--navy)}
+.qtext{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1.25;margin:8px 0 4px;color:var(--navy)}
 .progress{font-size:12px;color:var(--muted);margin-bottom:18px}
 .big-guess{text-align:center;font-size:56px;font-weight:800;color:var(--navy);line-height:1;margin:10px 0 4px}
 .big-guess .pct{font-size:26px;color:var(--muted);font-weight:600}
@@ -63,7 +69,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
 /* reveal */
 .tier-line{text-align:center;margin:6px 0 2px}
-.tier-name{font-size:26px;font-weight:800;color:var(--navy)}
+.tier-name{font-family:var(--font-display);font-size:26px;font-weight:900;color:var(--navy)}
 .tier-points{font-size:15px;color:var(--muted)}
 .answer-line{text-align:center;font-size:17px;margin:10px 0 2px}
 .answer-line b{color:var(--navy)}
@@ -111,7 +117,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 /* contribute */
 .vote-card{transition:transform .35s ease,opacity .35s ease}
 .vote-card.leaving{transform:translateX(-40px);opacity:0}
-.vote-prompt{font-size:20px;font-weight:700;color:var(--navy);line-height:1.3;margin:6px 0 14px}
+.vote-prompt{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--navy);line-height:1.3;margin:6px 0 14px}
 .vote-btns{display:flex;gap:10px}
 .vote-btns button{flex:1;padding:14px 8px;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer}
 .vote-yes{background:var(--navy);color:var(--on-navy);border:none}

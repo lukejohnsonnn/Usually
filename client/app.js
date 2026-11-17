@@ -1,4 +1,4 @@
-// Usually — client. Vanilla JS, no build step.
+// Crowdle — client. Vanilla JS, no build step.
 const $ = (s) => document.querySelector(s);
 const screen = $("#screen");
 
@@ -103,7 +103,7 @@ async function showHome() {
     </div>
     <div class="card">
       <div class="kicker">Today's Daily · 7 rounds</div>
-      <p style="font-size:17px">Same 7 prompts for everyone.<br>One run a day. Max 1225.</p>
+      <p style="font-size:17px">Seven prompts, the same for everyone.<br>One run a day.</p>
       ${done && done.completed
         ? `<p class="muted">Done for today — <b style="color:#232c42">${done.score} / 1225</b></p>
            <button class="primary" id="btn-results">See my results</button>`
@@ -323,7 +323,7 @@ async function showResults(play) {
   $("#share").addEventListener("click", async () => {
     try {
       const s = await api(`/api/share?playerId=${playerId()}&date=${play.playDate}`);
-      const text = s.text + "\n\nPlay Usually — How well do you know people?";
+      const text = s.text + "\n\nPlay Crowdle — How well do you know people?";
       if (navigator.share) await navigator.share({ text });
       else { await navigator.clipboard.writeText(text); toast("Share card copied."); }
     } catch { toast("Couldn't build the share card."); }
