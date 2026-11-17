@@ -13778,9 +13778,6 @@
           "rank": 7,
           "texts": [
             "Their phone",
-            "Siri",
-            "Alexa",
-            "Voice assistant",
             "My phone",
             "The phone"
           ]
@@ -13848,16 +13845,6 @@
         {
           "rank": 14,
           "texts": [
-            "The GPS",
-            "GPS",
-            "Sat nav",
-            "The satnav",
-            "My GPS"
-          ]
-        },
-        {
-          "rank": 15,
-          "texts": [
             "Their stuffed animal",
             "Teddy bear",
             "Teddy",
@@ -13866,7 +13853,7 @@
           ]
         },
         {
-          "rank": 16,
+          "rank": 15,
           "texts": [
             "Their coffee maker",
             "Coffee machine",
@@ -13875,7 +13862,7 @@
           ]
         },
         {
-          "rank": 17,
+          "rank": 16,
           "texts": [
             "The remote",
             "Remote control",
@@ -13884,7 +13871,7 @@
           ]
         },
         {
-          "rank": 18,
+          "rank": 17,
           "texts": [
             "The garden",
             "Garden plants",
@@ -13893,7 +13880,7 @@
           ]
         },
         {
-          "rank": 19,
+          "rank": 18,
           "texts": [
             "The ATM",
             "Cash machine",
@@ -13902,7 +13889,7 @@
           ]
         },
         {
-          "rank": 20,
+          "rank": 19,
           "texts": [
             "Their washing machine",
             "Washing machine",
@@ -13911,7 +13898,7 @@
           ]
         },
         {
-          "rank": 21,
+          "rank": 20,
           "texts": [
             "Their keys",
             "Keys",
@@ -13920,7 +13907,7 @@
           ]
         },
         {
-          "rank": 22,
+          "rank": 21,
           "texts": [
             "The vacuum",
             "Vacuum cleaner",
@@ -13929,7 +13916,7 @@
           ]
         },
         {
-          "rank": 23,
+          "rank": 22,
           "texts": [
             "The oven",
             "Stove",
@@ -13938,18 +13925,7 @@
           ]
         },
         {
-          "rank": 24,
-          "texts": [
-            "Their smart speaker",
-            "Smart speaker",
-            "Google Home",
-            "My smart speaker",
-            "Echo",
-            "My Echo"
-          ]
-        },
-        {
-          "rank": 25,
+          "rank": 23,
           "texts": [
             "Their bicycle",
             "Bike",
@@ -13958,7 +13934,7 @@
           ]
         },
         {
-          "rank": 26,
+          "rank": 24,
           "texts": [
             "Dolls",
             "Action figures",
@@ -13968,7 +13944,7 @@
           ]
         },
         {
-          "rank": 27,
+          "rank": 25,
           "texts": [
             "The printer",
             "Printer",
@@ -13976,7 +13952,7 @@
           ]
         },
         {
-          "rank": 28,
+          "rank": 26,
           "texts": [
             "The toaster",
             "Toaster",
@@ -13984,7 +13960,7 @@
           ]
         },
         {
-          "rank": 29,
+          "rank": 27,
           "texts": [
             "A pet rock",
             "Pet rock",
@@ -13992,7 +13968,7 @@
           ]
         },
         {
-          "rank": 30,
+          "rank": 28,
           "texts": [
             "Their diary",
             "Journal",
@@ -14001,7 +13977,7 @@
           ]
         },
         {
-          "rank": 31,
+          "rank": 29,
           "texts": [
             "The house",
             "Their home",
@@ -14009,7 +13985,7 @@
           ]
         },
         {
-          "rank": 32,
+          "rank": 30,
           "texts": [
             "Their shoes",
             "Shoes",
@@ -14018,7 +13994,7 @@
           ]
         },
         {
-          "rank": 33,
+          "rank": 31,
           "texts": [
             "Microwave",
             "The microwave",
@@ -14026,7 +14002,7 @@
           ]
         },
         {
-          "rank": 34,
+          "rank": 32,
           "texts": [
             "Dishwasher",
             "The dishwasher",
@@ -14034,7 +14010,7 @@
           ]
         },
         {
-          "rank": 35,
+          "rank": 33,
           "texts": [
             "Fridge",
             "The fridge",
@@ -14043,7 +14019,7 @@
           ]
         },
         {
-          "rank": 36,
+          "rank": 34,
           "texts": [
             "Kettle",
             "The kettle",
@@ -14051,7 +14027,7 @@
           ]
         },
         {
-          "rank": 37,
+          "rank": 35,
           "texts": [
             "Hairdryer",
             "The hairdryer",
@@ -14060,17 +14036,7 @@
           ]
         },
         {
-          "rank": 38,
-          "texts": [
-            "ChatGPT",
-            "Chat GPT",
-            "AI",
-            "An AI chatbot",
-            "The AI"
-          ]
-        },
-        {
-          "rank": 39,
+          "rank": 36,
           "texts": [
             "The radio",
             "Radio",
@@ -14078,7 +14044,7 @@
           ]
         },
         {
-          "rank": 40,
+          "rank": 37,
           "texts": [
             "The weather",
             "Weather",
@@ -14086,7 +14052,7 @@
           ]
         },
         {
-          "rank": 41,
+          "rank": 38,
           "texts": [
             "The traffic",
             "Traffic",
@@ -14095,7 +14061,7 @@
           ]
         },
         {
-          "rank": 42,
+          "rank": 39,
           "texts": [
             "The traffic light",
             "Traffic lights",
@@ -14103,7 +14069,7 @@
           ]
         },
         {
-          "rank": 43,
+          "rank": 40,
           "texts": [
             "Dead relative",
             "My late grandma",
@@ -14113,7 +14079,7 @@
           ]
         },
         {
-          "rank": 44,
+          "rank": 41,
           "texts": [
             "A photo",
             "Photos",
@@ -14122,7 +14088,7 @@
           ]
         },
         {
-          "rank": 45,
+          "rank": 42,
           "texts": [
             "The sky",
             "Sky",
@@ -14131,20 +14097,20 @@
           ]
         },
         {
-          "rank": 46,
+          "rank": 43,
           "texts": [
             "The wall"
           ]
         },
         {
-          "rank": 47,
+          "rank": 44,
           "texts": [
             "The ceiling",
             "Ceiling"
           ]
         },
         {
-          "rank": 48,
+          "rank": 45,
           "texts": [
             "The door",
             "Doors",
@@ -14152,7 +14118,7 @@
           ]
         },
         {
-          "rank": 49,
+          "rank": 46,
           "texts": [
             "The window",
             "Windows",
@@ -14160,7 +14126,7 @@
           ]
         },
         {
-          "rank": 50,
+          "rank": 47,
           "texts": [
             "The bed",
             "My bed",
@@ -14168,7 +14134,7 @@
           ]
         },
         {
-          "rank": 51,
+          "rank": 48,
           "texts": [
             "The pillow",
             "My pillow",
@@ -14176,7 +14142,7 @@
           ]
         },
         {
-          "rank": 52,
+          "rank": 49,
           "texts": [
             "The shower",
             "Shower",
@@ -14184,7 +14150,7 @@
           ]
         },
         {
-          "rank": 53,
+          "rank": 50,
           "texts": [
             "The toilet",
             "Toilet",
@@ -14193,7 +14159,7 @@
           ]
         },
         {
-          "rank": 54,
+          "rank": 51,
           "texts": [
             "The doorbell",
             "Doorbell",
@@ -14201,7 +14167,7 @@
           ]
         },
         {
-          "rank": 55,
+          "rank": 52,
           "texts": [
             "The thermostat",
             "Thermostat",
@@ -14209,7 +14175,7 @@
           ]
         },
         {
-          "rank": 56,
+          "rank": 53,
           "texts": [
             "The clock",
             "Clock",
@@ -14217,14 +14183,14 @@
           ]
         },
         {
-          "rank": 57,
+          "rank": 54,
           "texts": [
             "The watch",
             "My smartwatch"
           ]
         },
         {
-          "rank": 58,
+          "rank": 55,
           "texts": [
             "The video game",
             "Video games",
@@ -14234,7 +14200,7 @@
           ]
         },
         {
-          "rank": 59,
+          "rank": 56,
           "texts": [
             "The book",
             "Books",
@@ -14243,7 +14209,7 @@
           ]
         },
         {
-          "rank": 60,
+          "rank": 57,
           "texts": [
             "The Wi-Fi",
             "WiFi",
@@ -14253,21 +14219,21 @@
           ]
         },
         {
-          "rank": 61,
+          "rank": 58,
           "texts": [
             "The bus",
             "Bus"
           ]
         },
         {
-          "rank": 62,
+          "rank": 59,
           "texts": [
             "The train",
             "Train"
           ]
         },
         {
-          "rank": 63,
+          "rank": 60,
           "texts": [
             "The horse",
             "Horse",
@@ -14275,7 +14241,7 @@
           ]
         },
         {
-          "rank": 64,
+          "rank": 61,
           "texts": [
             "The squirrel",
             "Squirrels",
@@ -14283,7 +14249,7 @@
           ]
         },
         {
-          "rank": 65,
+          "rank": 62,
           "texts": [
             "The tree",
             "Trees",
@@ -14292,7 +14258,7 @@
           ]
         },
         {
-          "rank": 66,
+          "rank": 63,
           "texts": [
             "The ocean",
             "Ocean",
@@ -14301,7 +14267,7 @@
           ]
         },
         {
-          "rank": 67,
+          "rank": 64,
           "texts": [
             "The mountain",
             "Mountains",
@@ -14309,7 +14275,7 @@
           ]
         },
         {
-          "rank": 68,
+          "rank": 65,
           "texts": [
             "The rabbit",
             "Rabbit",
@@ -14318,7 +14284,7 @@
           ]
         },
         {
-          "rank": 69,
+          "rank": 66,
           "texts": [
             "The snake",
             "Snake",
@@ -14326,7 +14292,7 @@
           ]
         },
         {
-          "rank": 70,
+          "rank": 67,
           "texts": [
             "Their stomach",
             "My stomach",
@@ -14335,7 +14301,7 @@
           ]
         },
         {
-          "rank": 71,
+          "rank": 68,
           "texts": [
             "Their hair",
             "My hair",
@@ -14343,7 +14309,7 @@
           ]
         },
         {
-          "rank": 72,
+          "rank": 69,
           "texts": [
             "Their shadow",
             "My shadow",
@@ -14351,7 +14317,7 @@
           ]
         },
         {
-          "rank": 73,
+          "rank": 70,
           "texts": [
             "The elevator",
             "Elevator",
@@ -14360,7 +14326,7 @@
           ]
         },
         {
-          "rank": 74,
+          "rank": 71,
           "texts": [
             "The faucet",
             "Faucet",
@@ -14370,7 +14336,7 @@
           ]
         },
         {
-          "rank": 75,
+          "rank": 72,
           "texts": [
             "The lamp",
             "Lamp",
@@ -14378,7 +14344,7 @@
           ]
         },
         {
-          "rank": 76,
+          "rank": 73,
           "texts": [
             "The chair",
             "Chair",
@@ -14386,7 +14352,7 @@
           ]
         },
         {
-          "rank": 77,
+          "rank": 74,
           "texts": [
             "The couch",
             "Couch",
@@ -14395,7 +14361,7 @@
           ]
         },
         {
-          "rank": 78,
+          "rank": 75,
           "texts": [
             "The snow",
             "Snow",
@@ -14403,18 +14369,42 @@
           ]
         },
         {
-          "rank": 79,
+          "rank": 76,
           "texts": [
             "The wind",
             "Wind"
           ]
         },
         {
-          "rank": 80,
+          "rank": 77,
           "texts": [
             "The clouds",
             "Clouds",
             "Cloud"
+          ]
+        },
+        {
+          "rank": 78,
+          "texts": [
+            "The vending machine",
+            "Vending machine",
+            "My vending machine"
+          ]
+        },
+        {
+          "rank": 79,
+          "texts": [
+            "The parking meter",
+            "Parking meter",
+            "My parking meter"
+          ]
+        },
+        {
+          "rank": 80,
+          "texts": [
+            "The lawnmower",
+            "Lawnmower",
+            "My lawnmower"
           ]
         }
       ],
