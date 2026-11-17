@@ -150,7 +150,7 @@ function showRound() {
       <p class="hint">One answer — the crowd's #1 scores the most.</p>
       <div class="row"><button class="primary" id="submit">Submit</button></div>
     ` : isSplit ? `
-      <div class="big-guess"><span id="guess-num">50</span><span class="pct"> / 50</span></div>
+      <div class="big-guess"><span id="guess-num">50</span></div>
       <div id="entry-grid" class="grid entry"></div>
       <input type="range" id="slider" min="0" max="100" step="1" value="50">
       <div class="split-labels"><span class="l" id="lbl-left">${q.leftLabel}</span><span class="r" id="lbl-right">${q.rightLabel}</span></div>
