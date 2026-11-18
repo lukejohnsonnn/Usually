@@ -2,7 +2,7 @@
 // local file store, plays a full daily + endless, and checks the
 // freeze, stats, and scoring. Run: npm run verify  (or: node scripts/verify.js)
 // Exit 0 = all checks passed.
-import { spawn } from "node:child_process";
+import { execSync, spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -588,6 +588,23 @@ check("grid: fine-tune rows stack at the 14.4px pitch (small rows, .4px margin)"
 // be <= 120px, so question + grid + reveal fit a 390x844 phone without
 // scrolling (measured docScroll 831px <= 844 with the 114.6px hex grid;
 // the circle grid is 117px).
+// ROUND 2 (2026-11-18): Luke reported the live grid still uneven — the
+// middle bands sit ~6-7px right of the top/bottom rows. That is the shift's
+// cost, measured, not a rendering bug: the nine shifted middle rows sit
+// exactly 6.25px right of the two unshifted end rows (row centers
+// [490, 496.25x9, 490] at 390px), while every pair nests at 6.25px. The
+// geometry problem: centered rows nest on a pair only when |Δw| = 1, so
+// aligned centers + nesting on EVERY pair needs consecutive row lengths to
+// differ by exactly 1 — and no symmetric 100-cell pattern does that. The
+// round-2 search (grid-search.mjs, 2,944 patterns, center-alignment as a
+// HARD constraint) finds flat=0 patterns: 0. The two best candidates are
+// B [8,9,10,11,12,12,11,10,9,8] (one flat middle pair, squat, spread 0)
+// and C9, the 13-row at 9px pitch with only the middle row shifted
+// (nests everywhere, near-regular, one row 6.25px off-axis); candidate C
+// (13-row unshifted) reads flat in the middle band and is 137px tall.
+// NOTHING ships until Luke picks one: grid.js/grid.css are unchanged in
+// this round, and the two checks below pin the search verdict and the live
+// shear honestly (the shear check changes the day a candidate ships).
 const rowsMatch = appJs.match(/const ROWS = \[([\d,\s]+)\];/);
 const BIG_HEX_ROWS = rowsMatch ? rowsMatch[1].split(",").map(Number) : [];
 const shiftsMatch = appJs.match(/const SHIFTS = \[([\d,\s]+)\];/);
@@ -682,6 +699,23 @@ if (gridGeo) {
   check("big honeycomb: no cell overlap — diagonal clearance >= 1px and vertical pitch >= diameter",
     gridGeo.diagClear >= 10 && gridGeo.vertClear >= 0);
   check(`big honeycomb: grid height ${gridGeo.height / 10}px fits the 120px one-screen budget`, gridGeo.height <= 1200);
+}
+// ROUND 2 checks — pin the impossibility verdict and the live shear honestly.
+{
+  const searchOut = execSync("node scripts/grid-search.mjs", { cwd: path.join(__dirname, ".."), encoding: "utf8" });
+  check("honeycomb round 2: search finds ZERO 100-cell patterns with flat=0 and aligned centers — criteria (1)+(2)+(3) jointly unsatisfiable",
+    /flat=0 patterns \(all pairs nest with aligned centers\): 0/.test(searchOut) &&
+    /VERDICT: no 100-cell pattern has flat=0 AND height<=120 AND aspect~regular/.test(searchOut));
+  // Row centers from ROWS + SHIFTS: center = (widest - row)/2 + shift*halfPitch + row/2.
+  const w2 = cssNum(/\.grid \.dot\s*\{[^}]*width:\s*([\d.]+)px/);
+  const gap2 = cssNum(/\.grid \.hrow\s*\{[^}]*gap:\s*([\d.]+)px/);
+  const rowW2 = (n) => n * w2 + (n - 1) * gap2;
+  const m2 = Math.max(...BIG_HEX_ROWS);
+  const centers2 = BIG_HEX_ROWS.map((n, i) =>
+    (rowW2(m2) - rowW2(n)) / 2 + BIG_HEX_SHIFTS[i] * (w2 + gap2) / 2 + rowW2(n) / 2);
+  const spread2 = Math.max(...centers2) - Math.min(...centers2);
+  check(`honeycomb round 2: LIVE grid shear pinned — row-center spread exactly 6.25px (nine shifted middle rows right of the two unshifted ends; the defect Luke reported, pending his pick of candidate B or C9)`,
+    Math.abs(spread2 - 6.25) < 0.01);
 }
 check("legend: swatches are circles too",
   /\.legend \.sw\s*\{[^}]*border-radius:\s*50%/.test(css) &&
