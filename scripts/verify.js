@@ -308,7 +308,7 @@ check("old tagline gone from client", !html.includes("what do people usually do?
 // Wordmark, fonts, and no trace of the old names in client-facing strings.
 // (Crowdle was the 2026-11-17 brand; Usually the 2026-11-16 one.)
 check("brand: header wordmark is HONEYDLE", html.includes(`<div class="brand">HONEYDLE</div>`));
-check("brand: cache-bust bumped to honeydle3", html.includes("styles.css?v=honeydle3") && html.includes("app.js?v=honeydle3"));
+check("brand: cache-bust bumped to honeydle4", html.includes("styles.css?v=honeydle4") && html.includes("app.js?v=honeydle4"));
 const serverJs = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
 check("brand: no 'Crowdle' left in client-facing strings",
   !html.includes("Crowdle") && !appJs.includes("Crowdle") && !serverJs.includes("Crowdle"));
@@ -329,16 +329,24 @@ check("brand: server share card leads with Honeydle", serverJs.includes("Honeydl
 const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "client", "manifest.json"), "utf8"));
 check("brand: manifest name + short_name are Honeydle", manifest.name === "Honeydle" && manifest.short_name === "Honeydle");
 
-// Bee mascot (2026-11-18): six pixel-art states in client/assets, wired by
+// Bee mascot (2026-11-18): seven pixel-art states in client/assets, wired by
 // points in showReveal (175 gold, 100 head-to-toe honey, 90 one drop, else
-// thirsty) + the idle bee on the home screen. A second consecutive Bullseye
-// in the same play turns the bee diamond (bee-diamond.png). Dots stay
-// circles — no honeycomb.
-const BEE_FILES = ["bee-normal.png", "bee-golden.png", "bee-little-honey.png", "bee-drop.png", "bee-thirsty.png", "bee-diamond.png"];
+// thirsty). A second consecutive Bullseye in the same play turns the bee
+// diamond (bee-diamond.png). The home screen shows the whole crew in one
+// parade row (bee-crew) incl. the diamond one. A run finishing at 900+
+// total points shows a ruby bee on the results screen (bee-ruby.png).
+// Dots stay circles — no honeycomb.
+const BEE_FILES = ["bee-normal.png", "bee-golden.png", "bee-little-honey.png", "bee-drop.png", "bee-thirsty.png", "bee-diamond.png", "bee-ruby.png"];
 const beeBufs = BEE_FILES.map((f) => { try { return fs.readFileSync(path.join(__dirname, "..", "client", "assets", f)); } catch { return null; } });
-check("bee: all six state PNGs exist in client/assets", beeBufs.every(Boolean));
-check("bee: all six are real PNGs (magic bytes)", beeBufs.every((b) => b && b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47));
+check("bee: all seven state PNGs exist in client/assets", beeBufs.every(Boolean));
+check("bee: all seven are real PNGs (magic bytes)", beeBufs.every((b) => b && b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47));
 check("bee: home screen shows the idle bee", appJs.includes('src="assets/bee-normal.png"'));
+check("bee: home entry scene shows the whole crew incl. diamond, one scene not two",
+  (() => { const h = extractFn(appJs, "showHome"); return !!h && h.includes("bee-crew") &&
+    ["bee-normal.png", "bee-golden.png", "bee-little-honey.png", "bee-drop.png", "bee-thirsty.png", "bee-diamond.png"].every((f) => h.includes(f)) &&
+    !h.includes("bee-home"); })());
+check("bee: entry scene CSS — crew row, bob keyframes, diamond sparkle",
+  css.includes(".bee-crew") && /@keyframes crew-bob/.test(css) && css.includes(".crew-sparkle") && !css.includes(".bee-home"));
 check("bee: reveal maps points to states (175 gold, 100 honey, 90 drop, else thirsty)",
   appJs.includes("points >= 175") && appJs.includes('"bee-golden.png"') &&
   appJs.includes("points >= 100") && appJs.includes('"bee-little-honey.png"') &&
@@ -652,6 +660,28 @@ check("diamond streak: showReveal derives the streak from currentPlay.results an
   revealSrc.includes("beeEntranceFor(r.points, streak)"));
 check("diamond streak: text rounds feed the same streak (no kind gate on the bee)",
   !/isText \? [^:]*bee/.test(revealSrc) && revealSrc.includes('src="assets/${beeForPoints(r.points, streak)}"'));
+// Ruby bee (Luke's rule): a run finishing at 900+ total points shows a ruby
+// bee on the results screen. Results-screen celebration only — it never
+// replaces a per-round reveal bee (beeForPoints knows no ruby).
+const rubySrc = extractFn(appJs, "rubyForScore");
+check("rubyForScore source extractable for logic test", !!rubySrc);
+if (rubySrc) {
+  const rubyForScore = new Function(`${rubySrc}; return rubyForScore;`)();
+  check("ruby bee: 900+ shows ruby, below 900 shows nothing",
+    rubyForScore(900) === "bee-ruby.png" && rubyForScore(1225) === "bee-ruby.png" &&
+    rubyForScore(899) === null && rubyForScore(0) === null && rubyForScore(650) === null);
+}
+const resultsSrc = extractFn(appJs, "showResults");
+check("ruby bee: results screen renders the ruby bee with burst + sparkle at 900+",
+  resultsSrc.includes("rubyForScore(play.score)") && resultsSrc.includes("bee-entrance-ruby") &&
+  resultsSrc.includes("ruby-sparkle") && resultsSrc.includes("ruby-label") &&
+  resultsSrc.includes('src="assets/${ruby}"'));
+check("ruby bee: reveal mapping untouched (no ruby in beeForPoints)",
+  !!beeSrc && !beeSrc.includes("ruby"));
+check("ruby bee: CSS entrance + sparkle keyframes, biggest burst (scale 1.4 peak)",
+  css.includes(".bee-entrance-ruby") && /@keyframes bee-ruby/.test(css) &&
+  css.includes(".ruby-sparkle") && /@keyframes ruby-sparkle/.test(css) &&
+  (() => { const s = css.indexOf("@keyframes bee-ruby"); const e = css.indexOf("@keyframes ruby-sparkle", s); return s !== -1 && e !== -1 && css.slice(s, e).includes("scale(1.4)"); })());
 
 // ------------------------------------------------------- integration: HTTP
 console.log("== integration: server ==");
@@ -718,12 +748,20 @@ const beeRes = await fetch(BASE + "/assets/bee-golden.png");
 check("served bee asset returns a PNG", beeRes.ok && (beeRes.headers.get("content-type") || "").includes("image/png"));
 const beeDiamondRes = await fetch(BASE + "/assets/bee-diamond.png");
 check("served diamond bee asset returns a PNG", beeDiamondRes.ok && (beeDiamondRes.headers.get("content-type") || "").includes("image/png"));
+const beeRubyRes = await fetch(BASE + "/assets/bee-ruby.png");
+check("served ruby bee asset returns a PNG", beeRubyRes.ok && (beeRubyRes.headers.get("content-type") || "").includes("image/png"));
 check("served app.js wires the bee (mapping + home idle + reveal + diamond streak)", servedJs.includes("beeForPoints") && servedJs.includes('assets/bee-normal.png') && servedJs.includes("bee-golden.png") && servedJs.includes("bee-thirsty.png") && servedJs.includes("bee-diamond.png") && servedJs.includes("beeEntranceFor") && servedJs.includes("bullseyeStreak"));
+check("served app.js wires the entry crew + ruby bee (900 rule + results render)",
+  servedJs.includes("bee-crew") && servedJs.includes("bee-diamond.png") &&
+  servedJs.includes("rubyForScore") && servedJs.includes("bee-ruby.png") && servedJs.includes("900"));
 check("served styles.css has the five bee entrances + diamond keyframes, old burst gone",
   servedCss.includes(".bee-entrance-burst") && servedCss.includes(".bee-entrance-honey") &&
   servedCss.includes(".bee-entrance-pop") && servedCss.includes(".bee-entrance-gentle") &&
   servedCss.includes(".bee-entrance-diamond") && servedCss.includes("@keyframes bee-diamond") &&
   servedCss.includes("@keyframes cell-fill") && !/@keyframes burst\{/.test(servedCss));
+check("served styles.css has the ruby entrance + sparkle keyframes and the crew bob",
+  servedCss.includes(".bee-entrance-ruby") && servedCss.includes("@keyframes bee-ruby") &&
+  servedCss.includes(".ruby-sparkle") && servedCss.includes(".bee-crew") && servedCss.includes("@keyframes crew-bob"));
 
 const pid = "verify-player-001";
 // Contribute locked before playing

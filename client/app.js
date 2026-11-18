@@ -104,8 +104,15 @@ async function showHome() {
       <div class="stat"><b>${stats ? stats.bestScore : 0}</b><span>Best</span></div>
       <div class="stat"><b>${stats ? stats.avgScore : 0}</b><span>Avg</span></div>
     </div>
+    <div class="bee-crew" aria-label="The Honeydle bee crew">
+      <span class="crew-bee" style="--y:2px;--d:0s"><img class="bee" src="assets/bee-normal.png" alt="Bee" width="40" height="40"></span>
+      <span class="crew-bee" style="--y:-6px;--d:.2s"><img class="bee" src="assets/bee-golden.png" alt="Golden bee" width="40" height="40"></span>
+      <span class="crew-bee" style="--y:0px;--d:.4s"><img class="bee" src="assets/bee-little-honey.png" alt="Honey-covered bee" width="40" height="40"></span>
+      <span class="crew-bee" style="--y:-8px;--d:.6s"><img class="bee" src="assets/bee-drop.png" alt="Bee with a honey drop" width="40" height="40"></span>
+      <span class="crew-bee" style="--y:2px;--d:.8s"><img class="bee" src="assets/bee-thirsty.png" alt="Thirsty bee" width="40" height="40"></span>
+      <span class="crew-bee crew-diamond" style="--y:-5px;--d:1s"><img class="bee" src="assets/bee-diamond.png" alt="Diamond bee" width="44" height="44"><span class="crew-sparkle" aria-hidden="true">✦</span></span>
+    </div>
     <div class="card">
-      <img class="bee bee-home" src="assets/bee-normal.png" alt="Honeydle bee" width="96" height="96">
       <div class="kicker">Today's Daily · 7 rounds</div>
       <p style="font-size:17px">Seven prompts, the same for everyone.<br>One run a day.</p>
       ${done && done.completed
@@ -285,6 +292,13 @@ function beeForPoints(points, streak = 0) {
   return "bee-thirsty.png";
 }
 
+// Ruby bee (Luke's rule): finish a run with 900+ total points and the
+// results screen shows a ruby bee. Results-screen celebration only — it
+// never replaces a per-round reveal bee.
+function rubyForScore(score) {
+  return score >= 900 ? "bee-ruby.png" : null;
+}
+
 // One distinct entrance per tier, applied to the reveal hero (tier name +
 // points + bee arrive together). 175 first-in-streak bursts; 175 second+
 // in a streak gets the biggest entrance of all, diamond burst + sparkle;
@@ -390,9 +404,15 @@ function escapeHtml(s) {
 // ----------------------------------------------------------------- results
 async function showResults(play) {
   const rounds = play.questions.map((q, i) => ({ q, r: play.results[i] }));
+  const ruby = rubyForScore(play.score);
   screen.innerHTML = `
     <div class="card">
       <div class="kicker">${play.mode === "daily" ? "Today's Daily" : "Endless"} · done</div>
+      ${ruby ? `
+      <div class="ruby-hero bee-entrance-ruby">
+        <div class="bee-wrap"><span class="ruby-sparkle s1" aria-hidden="true">✦</span><span class="ruby-sparkle s2" aria-hidden="true">✦</span><img class="bee bee-ruby" src="assets/${ruby}" alt="Ruby bee" width="112" height="112"></div>
+        <div class="ruby-label">Ruby</div>
+      </div>` : ""}
       <div class="score-big">${play.score}</div>
       <div class="score-max">out of 1225</div>
       ${rounds.map(({ q, r }) => `
