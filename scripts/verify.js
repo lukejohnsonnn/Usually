@@ -307,8 +307,23 @@ check("old tagline gone from client", !html.includes("what do people usually do?
 // Rebrand (2026-11-18): public brand is Honeydle, site playhoneydle.com.
 // Wordmark, fonts, and no trace of the old names in client-facing strings.
 // (Crowdle was the 2026-11-17 brand; Usually the 2026-11-16 one.)
-check("brand: header wordmark is HONEYDLE", html.includes(`<div class="brand">HONEYDLE</div>`));
-check("brand: cache-bust bumped to honeydle4", html.includes("styles.css?v=honeydle4") && html.includes("app.js?v=honeydle4"));
+check("brand: header wordmark reads HONEYDLE (tight spans on Y and L only)",
+  html.includes('<div class="brand">HONE<span class="tight">Y</span>D<span class="tight">L</span>E</div>'));
+// Title tracking (2026-11-18, measured from the Press Start 2P font file):
+// Y and L carry a 125-unit left side bearing (the other letters carry 0),
+// so E->Y and D->L read as double-wide gaps, and the "." glyph is a
+// 250-unit square in a 1000-unit cell, so E->. reads as a triple-wide gap.
+// At 26px the ink gaps were [3,3,3,6,3,6,3,9]px. The .tight spans pull Y
+// and L left 0.125em and the ::after dot pulls left 0.25em, evening every
+// gap to 3px. Verified by rendering the wordmark with PIL (see
+// VERIFICATION.md), not by eyeballing CSS — these checks pin the markup
+// and the em values that produced the even render.
+check("brand: tracking — Y and L carry the -0.125em pull",
+  /\.brand \.tight\s*\{[^}]*margin-left:\s*-0\.125em/.test(css));
+check("brand: tracking — gold full-stop ::after pulls left -0.25em",
+  /\.brand::after\s*\{[^}]*content:\s*"\."[^}]*margin-left:\s*-0\.25em/.test(css) ||
+  /\.brand::after\s*\{[^}]*margin-left:\s*-0\.25em[^}]*content:\s*"\."/.test(css));
+check("brand: cache-bust bumped to honeydle5", html.includes("styles.css?v=honeydle5") && html.includes("app.js?v=honeydle5"));
 const serverJs = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
 check("brand: no 'Crowdle' left in client-facing strings",
   !html.includes("Crowdle") && !appJs.includes("Crowdle") && !serverJs.includes("Crowdle"));
@@ -341,16 +356,31 @@ const beeBufs = BEE_FILES.map((f) => { try { return fs.readFileSync(path.join(__
 check("bee: all seven state PNGs exist in client/assets", beeBufs.every(Boolean));
 check("bee: all seven are real PNGs (magic bytes)", beeBufs.every((b) => b && b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47));
 check("bee: home screen shows the idle bee", appJs.includes('src="assets/bee-normal.png"'));
-check("bee: home entry scene shows the whole crew incl. diamond, one scene not two",
+check("bee: home entry scene shows the whole crew incl. diamond AND ruby, one scene not two",
   (() => { const h = extractFn(appJs, "showHome"); return !!h && h.includes("bee-crew") &&
-    ["bee-normal.png", "bee-golden.png", "bee-little-honey.png", "bee-drop.png", "bee-thirsty.png", "bee-diamond.png"].every((f) => h.includes(f)) &&
+    ["bee-normal.png", "bee-thirsty.png", "bee-drop.png", "bee-little-honey.png", "bee-golden.png", "bee-diamond.png", "bee-ruby.png"].every((f) => h.includes(f)) &&
     !h.includes("bee-home"); })());
+// Parade order (2026-11-18): normal first as the starting/host bee, then
+// the score states worst to best — thirsty, drop, honey-coated, golden,
+// diamond, ruby last as the ultimate prize. All seven in one row at 32px
+// (diamond 36px) + 6px gaps = 264px, inside the 284px content width of a
+// 320px phone. Flagged for Luke's veto: the normal bee leads the parade.
+check("bee: parade runs normal first, then worst-to-best (thirsty, drop, honey, golden, diamond, ruby)",
+  (() => { const h = extractFn(appJs, "showHome"); if (!h) return false;
+    const order = ["bee-normal.png", "bee-thirsty.png", "bee-drop.png", "bee-little-honey.png", "bee-golden.png", "bee-diamond.png", "bee-ruby.png"];
+    const idx = order.map((f) => h.indexOf(f));
+    return idx.every((i) => i !== -1) && idx.every((v, i, a) => i === 0 || v > a[i - 1]); })());
+check("bee: parade fits one row on a 320px phone (7 bees at 32px, diamond 36px, 6px gaps = 264px <= 284px)",
+  /\.bee-crew \.crew-bee img\s*\{[^}]*width:\s*32px/.test(css) &&
+  /\.bee-crew \.crew-diamond img\s*\{[^}]*width:\s*36px/.test(css) &&
+  6 * 32 + 36 + 6 * 6 <= 284);
 check("bee: entry scene CSS — crew row, bob keyframes, diamond sparkle",
   css.includes(".bee-crew") && /@keyframes crew-bob/.test(css) && css.includes(".crew-sparkle") && !css.includes(".bee-home"));
-check("bee: reveal maps points to states (175 gold, 100 honey, 90 drop, else thirsty)",
+check("bee: reveal maps points to states (175 gold, 100 honey, 90 drop, 75/55 normal, 35 and below thirsty)",
   appJs.includes("points >= 175") && appJs.includes('"bee-golden.png"') &&
   appJs.includes("points >= 100") && appJs.includes('"bee-little-honey.png"') &&
   appJs.includes("points >= 90") && appJs.includes('"bee-drop.png"') &&
+  appJs.includes("points >= 55") && appJs.includes('"bee-normal.png"') &&
   appJs.includes('return "bee-thirsty.png"'));
 check("bee: diamond streak maps a second consecutive 175 to the diamond bee",
   appJs.includes('"bee-diamond.png"') && appJs.includes("streak >= 2") &&
@@ -453,31 +483,46 @@ check("grid: reveal grid is 188px, rows carry the 3px gap",
   !/\.grid\s*\{[^}]*gap:\s*3px/.test(css));
 check("grid: entry grid is 188px (definite width, no container gap)",
   /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css) && !/\.grid\.entry\s*\{[^}]*gap:\s*3px/.test(css));
-check("grid: fine-tune grid is 224px, rows carry the 3px gap (shared .hrow rule)",
-  /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid \.hrow\s*\{[^}]*gap:\s*3px/.test(css) &&
+check("grid: fine-tune grid is 224px, rows carry their own 4.5px gap (not the shared 3px)",
+  /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid\.small \.hrow\s*\{[^}]*gap:\s*4\.5px/.test(css) &&
   !/\.grid\.small\s*\{[^}]*gap:\s*3px/.test(css));
-// 2026-11-18 big honeycomb: the 100 dots are hexagon cells in 13 rows that
-// grow then shrink, so together they form one big hexagon. Rows nest
-// vertically with a negative bottom margin on the row (row pitch 3/4 of the
-// cell); the fine-tune grid nests the same way at its larger cell size.
-// Rows are centered, so a one-cell step nests by half a cell — a proper
-// hex lattice. The widest row is 10 cells, exactly the old width, so the
-// cell size is unchanged (16.1px main, 19.7px fine-tune). Legend swatches
-// are hexagons too.
+// 2026-11-18 regular-hexagon rework: the 100 dots are hexagon cells in 13
+// rows that grow then shrink, so together they form one big hexagon. Rows
+// nest vertically with a negative bottom margin on the row (row pitch 3/4
+// of the cell + 0.3px clearance above exact touching). Cells are REGULAR
+// hexagons — height = (sqrt(3)/2) x width — so the dot carries an explicit
+// height, not aspect-ratio:1. Main 12px x 10.4px, fine-tune 18px x 15.6px.
+// The old 16.1px square cells made squat hexagons, an outline 45% off
+// regular, and a row pitch that overlapped diagonally adjacent cells.
+// Legend swatches are hexagons too.
 check("grid: dots are hexagons (clip-path polygon, no border-radius)",
   /\.grid \.dot\s*\{[^}]*clip-path:\s*polygon\(/.test(css) &&
   !/\.grid \.dot\s*\{[^}]*border-radius:\s*50%/.test(css));
-check("grid: main cells are 16.1px wide, fine-tune cells 19.7px",
-  /\.grid \.dot\s*\{[^}]*width:\s*16\.1px/.test(css) && /\.grid\.small \.dot\s*\{[^}]*width:\s*19\.7px/.test(css));
+check("grid: main cells are regular hexagons, 12px wide x 10.4px tall; fine-tune 18px x 15.6px",
+  /\.grid \.dot\s*\{[^}]*width:\s*12px/.test(css) && /\.grid \.dot\s*\{[^}]*height:\s*10\.4px/.test(css) &&
+  /\.grid\.small \.dot\s*\{[^}]*width:\s*18px/.test(css) && /\.grid\.small \.dot\s*\{[^}]*height:\s*15\.6px/.test(css) &&
+  !/\.grid \.dot\s*\{[^}]*aspect-ratio:\s*1/.test(css));
 check("grid: rows nest vertically (negative bottom margin on .hrow, honeycomb pitch)",
-  /\.grid \.hrow\s*\{[^}]*margin-bottom:\s*-4px/.test(css));
-check("grid: fine-tune grid nests too (small rows, -5px margin)",
-  /\.grid\.small \.hrow\s*\{[^}]*margin-bottom:\s*-5px/.test(css));
-// Big-honeycomb geometry, by math: row lengths sum to exactly 100, the
-// arrangement is symmetric (palindromic, grow then shrink), the widest row
-// is 10 cells, and that row fits its box exactly at the declared cell size
-// (integer tenths, no float slop): 10*161 + 9*30 = 1880 (188px), 10*197 +
-// 9*30 = 2240 (224px).
+  /\.grid \.hrow\s*\{[^}]*margin-bottom:\s*-2\.3px/.test(css));
+check("grid: fine-tune grid nests too (small rows, -3.6px margin)",
+  /\.grid\.small \.hrow\s*\{[^}]*margin-bottom:\s*-3\.6px/.test(css));
+// Big-honeycomb geometry, by math from the CSS values (integer tenths, no
+// float slop). Row lengths sum to exactly 100, the arrangement is symmetric
+// (palindromic, grow then shrink), the widest row is 10 cells. The widest
+// row fits its box at the declared cell size: main 10*120 + 9*30 = 1470
+// (147px <= 188px), fine-tune 10*180 + 9*45 = 2205 (220.5px <= 224px).
+// Regularity: the outline's top edge is (topRow-1)*(w+gap) + w/2 and each
+// slant side is hypot(dx, dy) with dx = widest-row right point minus top
+// edge right end and dy = (rows-1)*pitch/2 + h/2. New shape: top 81.0px,
+// slant 82.8px — 2.2% apart (old shape: 84.5 vs 122.6, 45% apart). A
+// perfect regular hexagon is impossible with exactly 100 cells (91 or 127
+// would be); the check pins side deviation <= 3% and reports the numbers.
+// No overlap: the row pitch (cell height + negative row margin) must sit
+// above the touching pitch h*(1 - gap/w) — the old -4px margin overlapped
+// diagonally adjacent cells by ~0.5px. One-screen budget: the grid
+// element ((rows-1)*pitch + cell height + padding-bottom) must be <= 120px,
+// so question + grid + reveal fit a 390x844 phone without scrolling
+// (measured docScroll 831px <= 844 with the 114.6px grid).
 const rowsMatch = appJs.match(/const ROWS = \[([\d,\s]+)\];/);
 const BIG_HEX_ROWS = rowsMatch ? rowsMatch[1].split(",").map(Number) : [];
 check("big honeycomb: 13 rows, symmetric, sum to exactly 100 cells",
@@ -485,10 +530,51 @@ check("big honeycomb: 13 rows, symmetric, sum to exactly 100 cells",
   BIG_HEX_ROWS.reduce((a, b) => a + b, 0) === 100 &&
   JSON.stringify(BIG_HEX_ROWS) === JSON.stringify([...BIG_HEX_ROWS].reverse()) &&
   Math.max(...BIG_HEX_ROWS) === 10);
-check("big honeycomb: widest row fits the 188px box exactly",
-  Math.max(...BIG_HEX_ROWS) * 161 + (Math.max(...BIG_HEX_ROWS) - 1) * 30 === 1880);
-check("big honeycomb: fine-tune widest row fits the 224px box exactly",
-  Math.max(...BIG_HEX_ROWS) * 197 + (Math.max(...BIG_HEX_ROWS) - 1) * 30 === 2240);
+const cssNum = (re) => { const m = css.match(re); return m ? parseFloat(m[1]) : null; };
+const t10 = (x) => Math.round(x * 10);
+const gridGeo = (() => {
+  const w = cssNum(/\.grid \.dot\s*\{[^}]*width:\s*([\d.]+)px/);
+  const h = cssNum(/\.grid \.dot\s*\{[^}]*height:\s*([\d.]+)px/);
+  const gap = cssNum(/\.grid \.hrow\s*\{[^}]*gap:\s*([\d.]+)px/);
+  const mg = cssNum(/\.grid \.hrow\s*\{[^}]*margin-bottom:\s*(-?[\d.]+)px/);
+  const pad = cssNum(/\.grid\s*\{[^}]*padding-bottom:\s*([\d.]+)px/);
+  const sw = cssNum(/\.grid\.small \.dot\s*\{[^}]*width:\s*([\d.]+)px/);
+  const sh = cssNum(/\.grid\.small \.dot\s*\{[^}]*height:\s*([\d.]+)px/);
+  const sgap = cssNum(/\.grid\.small \.hrow\s*\{[^}]*gap:\s*([\d.]+)px/);
+  const smg = cssNum(/\.grid\.small \.hrow\s*\{[^}]*margin-bottom:\s*(-?[\d.]+)px/);
+  const spad = cssNum(/\.grid\.small\s*\{[^}]*padding-bottom:\s*([\d.]+)px/);
+  if ([w, h, gap, mg, pad, sw, sh, sgap, smg, spad].some((v) => v == null)) return null;
+  const pitch = h + mg; // row pitch = cell height + negative row margin
+  const spitch = sh + smg;
+  const m = Math.max(...BIG_HEX_ROWS);
+  const topRow = BIG_HEX_ROWS[0];
+  const k = BIG_HEX_ROWS.length;
+  const top = t10((topRow - 1) * (w + gap) + w / 2);
+  const dx = t10((m - 1) * (w + gap) + w - ((topRow - 1) * (w + gap) + 0.75 * w));
+  const dy = t10((k - 1) * pitch / 2 + h / 2);
+  const slant = t10(Math.hypot(dx / 10, dy / 10));
+  return {
+    widestMain: t10(m * w + (m - 1) * gap),
+    widestSmall: t10(m * sw + (m - 1) * sgap),
+    height: t10((k - 1) * pitch + h + pad),
+    top, slant,
+    sideDev: Math.abs(top - slant) / Math.min(top, slant),
+    pitchClear: t10(pitch - h * (1 - gap / w)),
+    spitchClear: t10(spitch - sh * (1 - sgap / sw)),
+    cellRatio: h / w,
+  };
+})();
+check("big honeycomb: geometry parses from CSS", !!gridGeo);
+if (gridGeo) {
+  check("big honeycomb: widest row fits the 188px box (147px)", gridGeo.widestMain === 1470);
+  check("big honeycomb: fine-tune widest row fits the 224px box (220.5px)", gridGeo.widestSmall === 2205);
+  check(`big honeycomb: outline sides near-equal — top ${gridGeo.top / 10}px, slant ${gridGeo.slant / 10}px, ${(gridGeo.sideDev * 100).toFixed(1)}% apart (<= 3%)`, gridGeo.sideDev <= 0.03);
+  check("big honeycomb: cells are regular hexagons (height/width = sqrt(3)/2 within 0.01)",
+    Math.abs(gridGeo.cellRatio - Math.sqrt(3) / 2) <= 0.01);
+  check("big honeycomb: no cell overlap — row pitch sits 0.3px above exact touching (main and fine-tune)",
+    gridGeo.pitchClear >= 2 && gridGeo.spitchClear >= 2);
+  check(`big honeycomb: grid height ${gridGeo.height / 10}px fits the 120px one-screen budget`, gridGeo.height <= 1200);
+}
 check("legend: swatches are hexagons too",
   /\.legend \.sw\s*\{[^}]*clip-path:\s*polygon\(/.test(css) &&
   !/\.legend \.sw\s*\{[^}]*border-radius:\s*50%/.test(css));
@@ -509,6 +595,30 @@ check("overlap dots are a solid yellow fill, not white + ring",
   !/\.grid \.dot\.amber\.gold\s*\{[^}]*box-shadow/.test(css));
 check("legend gold-fill swatch is solid bright yellow",
   /\.legend \.sw\.goldfill\s*\{[^}]*background:\s*var\(--gold-bright\)/.test(css));
+// Split colors (2026-11-18): the two sides were white vs --gold (#cf9a06),
+// and --gold sat only 1.80:1 from the bright-yellow player fill — the sides
+// read as the same yellow at a glance. The split amber is now --amber-deep
+// (#b45309), a deep saturated amber: 5.02:1 from white and 3.56:1 from the
+// bright-yellow player fill, so white / amber / player-yellow are three
+// instantly distinct fills. The player region stays bright-yellow fill.
+check("split: dots, legend swatch and right label all use the deep amber, not --gold",
+  /\.grid \.dot\.amber\s*\{[^}]*background:\s*var\(--amber-deep\)/.test(css) &&
+  /\.legend \.sw\.amber\s*\{[^}]*background:\s*var\(--amber-deep\)/.test(css) &&
+  /\.split-labels \.r\s*\{[^}]*color:\s*var\(--amber-deep\)/.test(css) &&
+  !/\.grid \.dot\.amber\s*\{[^}]*background:\s*var\(--gold\)[^b]/.test(css));
+check("split: deep amber is far from white (>= 4.5:1) and from the bright-yellow player fill (>= 3:1)",
+  (() => {
+    const relLum = (hexv) => {
+      const ch = [0, 2, 4].map((i) => parseInt(hexv.slice(i, i + 2), 16) / 255)
+        .map((c) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)));
+      return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
+    };
+    const ratio = (a, b) => { const la = relLum(a), lb = relLum(b); return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05); };
+    const amber = (css.match(/--amber-deep:\s*#([0-9a-f]{6})/i) || [])[1];
+    const bright = (css.match(/--gold-bright:\s*#([0-9a-f]{6})/i) || [])[1];
+    if (!amber || !bright) return false;
+    return ratio("ffffff", amber) >= 4.5 && ratio(bright, amber) >= 3;
+  })());
 check("guess-only dots are dark, not surface",
   /\.grid \.dot\.gold\s*\{[^}]*background:\s*#1a1a1a/.test(css));
 check("fine-tune dots are yellow 28% mix over dark + inset ring",
@@ -585,9 +695,9 @@ if (gridSrc) {
   // Big-honeycomb row structure: 13 rows, lengths grow then shrink, 100
   // dots total in row-major order.
   const hexRows = runGridRows({ entry: "guess", value: 50 });
-  check("big honeycomb: renderGrid builds 13 .hrow rows with lengths [5,6,7,8,9,10,10,10,9,8,7,6,5]",
+  check("big honeycomb: renderGrid builds 13 .hrow rows with lengths [6,6,7,8,9,9,10,9,9,8,7,6,6]",
     hexRows.length === 13 && hexRows.every((r) => r.className === "hrow") &&
-    JSON.stringify(hexRows.map((r) => r.children.length)) === JSON.stringify([5, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 5]));
+    JSON.stringify(hexRows.map((r) => r.children.length)) === JSON.stringify([6, 6, 7, 8, 9, 9, 10, 9, 9, 8, 7, 6, 6]));
   check("big honeycomb: rows hold 100 dots in row-major order",
     hexRows.reduce((n, r) => n + r.children.length, 0) === 100 &&
     runGrid({ entry: "guess", value: 50 }).length === 100);
@@ -682,6 +792,12 @@ if (beeSrc) {
   check("diamond streak: third+ consecutive 175 stays diamond", beeForPoints(175, 3) === "bee-diamond.png" && beeForPoints(175, 9) === "bee-diamond.png");
   check("diamond streak: streak does not change sub-175 mapping",
     beeForPoints(100, 2) === "bee-little-honey.png" && beeForPoints(90, 2) === "bee-drop.png" && beeForPoints(5, 2) === "bee-thirsty.png");
+  // Warm bee (2026-11-18): Warm (55) and Close (75) are fine, not sick —
+  // they get the NORMAL bee. Only Lukewarm (35) and below get thirsty.
+  check("warm bee: 75 and 55 map to the normal bee, not thirsty",
+    beeForPoints(75, 0) === "bee-normal.png" && beeForPoints(55, 0) === "bee-normal.png");
+  check("warm bee: 35 and below still map to the thirsty bee",
+    beeForPoints(35, 0) === "bee-thirsty.png" && beeForPoints(15, 0) === "bee-thirsty.png" && beeForPoints(5, 0) === "bee-thirsty.png");
 }
 const streakSrc = extractFn(appJs, "bullseyeStreak");
 check("bullseyeStreak source extractable for logic test", !!streakSrc);
@@ -765,8 +881,13 @@ check("today has no answers leaked", !t1.raw.includes('"answer":') && !t1.raw.in
 
 const home = await fetch(BASE + "/");
 const homeText = await home.text();
+// The wordmark markup splits Y and L into .tight spans (tracking fix), so
+// the contiguous string "HONEYDLE" is not in the raw HTML — check the text
+// content instead, and pin the tight spans in the served markup.
+const homePlain = homeText.replace(/<[^>]+>/g, "");
 check("served index.html carries new tagline + HONEYDLE wordmark + fonts, old tagline gone",
-  homeText.includes("How well do you know the world?") && homeText.includes("HONEYDLE") &&
+  homeText.includes("How well do you know the world?") && homePlain.includes("HONEYDLE") &&
+  homeText.includes('<span class="tight">Y</span>') && homeText.includes('<span class="tight">L</span>') &&
   homeText.includes("fonts.googleapis.com/css2?family=Press+Start+2P") &&
   !homeText.includes("what do people usually do?"));
 

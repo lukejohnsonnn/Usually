@@ -16,12 +16,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Libre+Franklin:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=honeydle4">
+<link rel="stylesheet" href="styles.css?v=honeydle5">
 </head>
 <body>
 <div id="app">
   <header>
-    <div class="brand">HONEYDLE</div>
+    <!-- .tight spans on Y and L: Press Start 2P gives those two glyphs a
+         125-unit left side bearing (the rest have 0), so without the
+         -0.125em pull their gaps read double-wide. The gold full-stop is a
+         ::after (see styles.css) pulled left -0.25em for the same reason. -->
+    <div class="brand">HONE<span class="tight">Y</span>D<span class="tight">L</span>E</div>
     <div class="sub">How well do you know the world?</div>
     <div class="date-line"><span id="today-date"></span><span id="streak-chip" class="chip hidden">🔥 <b id="streak-n">0</b> day streak</span></div>
   </header>
@@ -71,6 +75,6 @@
 </div>
 
 <div id="toast" class="toast hidden"></div>
-<script src="app.js?v=honeydle4"></script>
+<script src="app.js?v=honeydle5"></script>
 </body>
 </html>

@@ -43,25 +43,32 @@ function renderGrid(container, spec) {
   // (in both) = solid bright-yellow FILL, unlit = charcoal. Yellow fill =
   // you, everywhere on the reveal.
   // Reveal Split {split:{left,right}, playerSplit}: halves by the real number's
-  // split (white / gold); the dots up to the player's split are bright-yellow
-  // filled, so the yellow region is the player's split and the white/gold
-  // after it is the real number's.
+  // split (white / deep amber); the dots up to the player's split are
+  // bright-yellow filled, so the yellow region is the player's split and
+  // the white/amber after it is the real number's.
   // Entry specs (while answering, never any real-number data):
   //   {entry:"guess", value} — dark fill + inset yellow ring on exactly
   //     round(value) dots in row-major order
-  //   {entry:"split", left} — white/gold halves, NO yellow ring at all
+  //   {entry:"split", left} — white/deep-amber halves, NO yellow ring at all
   //   {entry:"fine", value} — fine-tune hundredths: yellow 28% mix + ring
   // Big-honeycomb shape (2026-11-18): the 100 cells are laid out in 13 rows
-  // that grow then shrink — [5,6,7,8,9,10,10,10,9,8,7,6,5] — so together
+  // that grow then shrink — [6,6,7,8,9,9,10,9,9,8,7,6,6] — so together
   // they form one big hexagon. Rows are centered, so a one-cell step nests
   // by half a cell: a proper hex lattice at the standing 3/4 row pitch.
-  // The widest row is 10 cells, exactly the old width, so the cell size is
-  // unchanged (16.1px main, 19.7px fine-tune) and the 188px footprint holds:
-  // 10*16.1 + 9*3 = 188; 10*19.7 + 9*3 = 224. Fill order is still row-major
+  // Regular-hexagon rework (2026-11-18): the old rows [5,6,7,8,9,10,10,10,
+  // 9,8,7,6,5] at 16.1px square cells gave an outline with a 84.5px top
+  // edge and 122.6px slant sides (45% apart) and a 12.1px row pitch that
+  // overlapped diagonally adjacent cells by ~0.5px. The new rows put 6
+  // cells on the top edge and 10 across the middle, with REGULAR hexagon
+  // cells (12px x 10.4px main, 18px x 15.6px fine-tune) and a row pitch
+  // 0.3px above exact touching, so no cells overlap. Outline sides:
+  // top 81.0px, slant 82.8px — 2.2% apart (see VERIFICATION.md; a perfect
+  // regular hexagon needs 91 or 127 cells, not 100). Grid height 114.6px,
+  // inside the 120px one-screen budget. Fill order is still row-major
   // (index i runs across rows in order), so all guess/reveal math is
   // untouched — only the layout changed. Each row is a .hrow flex row so it
   // centers itself; the dots stay flat .dot children of their row.
-  const ROWS = [5, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 5];
+  const ROWS = [6, 6, 7, 8, 9, 9, 10, 9, 9, 8, 7, 6, 6];
   container.innerHTML = "";
   let i = 0;
   for (const len of ROWS) {
@@ -122,12 +129,13 @@ async function showHome() {
       <div class="stat"><b>${stats ? stats.avgScore : 0}</b><span>Avg</span></div>
     </div>
     <div class="bee-crew" aria-label="The Honeydle bee crew">
-      <span class="crew-bee" style="--y:2px;--d:0s"><img class="bee" src="assets/bee-normal.png" alt="Bee" width="40" height="40"></span>
-      <span class="crew-bee" style="--y:-6px;--d:.2s"><img class="bee" src="assets/bee-golden.png" alt="Golden bee" width="40" height="40"></span>
-      <span class="crew-bee" style="--y:0px;--d:.4s"><img class="bee" src="assets/bee-little-honey.png" alt="Honey-covered bee" width="40" height="40"></span>
-      <span class="crew-bee" style="--y:-8px;--d:.6s"><img class="bee" src="assets/bee-drop.png" alt="Bee with a honey drop" width="40" height="40"></span>
-      <span class="crew-bee" style="--y:2px;--d:.8s"><img class="bee" src="assets/bee-thirsty.png" alt="Thirsty bee" width="40" height="40"></span>
-      <span class="crew-bee crew-diamond" style="--y:-5px;--d:1s"><img class="bee" src="assets/bee-diamond.png" alt="Diamond bee" width="44" height="44"><span class="crew-sparkle" aria-hidden="true">✦</span></span>
+      <span class="crew-bee" style="--y:2px;--d:0s"><img class="bee" src="assets/bee-normal.png" alt="Bee" width="32" height="32"></span>
+      <span class="crew-bee" style="--y:-6px;--d:.2s"><img class="bee" src="assets/bee-thirsty.png" alt="Thirsty bee" width="32" height="32"></span>
+      <span class="crew-bee" style="--y:0px;--d:.4s"><img class="bee" src="assets/bee-drop.png" alt="Bee with a honey drop" width="32" height="32"></span>
+      <span class="crew-bee" style="--y:-8px;--d:.6s"><img class="bee" src="assets/bee-little-honey.png" alt="Honey-covered bee" width="32" height="32"></span>
+      <span class="crew-bee" style="--y:2px;--d:.8s"><img class="bee" src="assets/bee-golden.png" alt="Golden bee" width="32" height="32"></span>
+      <span class="crew-bee crew-diamond" style="--y:-5px;--d:1s"><img class="bee" src="assets/bee-diamond.png" alt="Diamond bee" width="36" height="36"><span class="crew-sparkle" aria-hidden="true">✦</span></span>
+      <span class="crew-bee" style="--y:-8px;--d:1.2s"><img class="bee" src="assets/bee-ruby.png" alt="Ruby bee" width="32" height="32"></span>
     </div>
     <div class="card">
       <div class="kicker">Today's Daily · 7 rounds</div>
@@ -232,7 +240,7 @@ function showRound() {
     if (ft) ft.classList.toggle("hidden", !(v <= 1));
   }
   // Live entry grid: yellow rings up to the current guess (Guess rounds), or
-  // white/gold halves (Split rounds). Never any crowd data — the crowd
+  // white/deep-amber halves (Split rounds). Never any crowd data — the crowd
   // coloring only appears on the reveal.
   function renderEntryGrid() {
     const g = $("#entry-grid");
@@ -302,10 +310,15 @@ function bullseyeStreak() {
   return n;
 }
 
+// Warm and Close answers (55 and 75 points) are fine, not sick: they get
+// the NORMAL bee, gentle pulse entrance. Only Lukewarm (35) and below get
+// the thirsty bee. Mapping: 175 gold/diamond (streak rules), 100 honey,
+// 90 drop, 75/55 normal, 35/15/5 thirsty.
 function beeForPoints(points, streak = 0) {
   if (points >= 175) return streak >= 2 ? "bee-diamond.png" : "bee-golden.png";
   if (points >= 100) return "bee-little-honey.png";
   if (points >= 90) return "bee-drop.png";
+  if (points >= 55) return "bee-normal.png";
   return "bee-thirsty.png";
 }
 

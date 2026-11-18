@@ -1,5 +1,11 @@
 :root{
   --gold:#cf9a06; --gold-bright:#ffd60a; --gold-soft:#f3d27a;
+  /* split amber: deep saturated amber, deliberately far from both the
+     bright-yellow player fill (#ffd60a) and white, so the two split sides
+     read apart at a glance. The old --gold (#cf9a06) was too close to the
+     bright yellow. Used only for split halves (dots, legend swatch, right
+     label) — everything else keeps --gold. */
+  --amber-deep:#b45309;
   --ink:#ffffff; --muted:#a8a8a8; --line:#2e2e2e;
   --bg:#000000; --card:#111111; --surface:#111111; --dot-unlit:#2e2e2e; --radius:10px;
   --chip-bg:#241d00; --chip-text:#f3d27a; --on-accent:#111111; color-scheme:dark;
@@ -15,9 +21,19 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   font-family:var(--font-body);}
 #app{max-width:620px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:20px 18px calc(20px + env(safe-area-inset-bottom));}
 header{text-align:center;padding:6px 0 2px}
-/* Press Start 2P runs wide — 26px keeps HONEYDLE on one line on phones. */
+/* Press Start 2P runs wide — 26px keeps HONEYDLE on one line on phones.
+   Tracking fix (2026-11-18, measured from the font file itself): the
+   font's glyphs are NOT optically even — Y and L carry a 125-unit left
+   side bearing (the other letters carry 0), so E→Y and D→L read as
+   double-wide gaps, and the "." glyph is a 250-unit square centred in a
+   1000-unit cell, so E→. reads as a triple-wide gap with the dot floating
+   far from the E. At 26px the ink gaps were [3,3,3,6,3,6,3,9]px; the
+   .tight spans (Y, L) pull those letters left 0.125em (125 units) and the
+   ::after dot pulls left 0.25em (250 units), so every gap is the same
+   3px. Verified by rendering the wordmark with PIL, not by eyeballing. */
 .brand{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:0;color:var(--gold-bright)}
-.brand::after{content:".";color:var(--gold)}
+.brand .tight{margin-left:-0.125em}
+.brand::after{content:".";color:var(--gold);margin-left:-0.25em}
 .sub{color:var(--muted);font-size:14px;margin-top:8px}
 .date-line{margin-top:10px;font-size:13px;color:var(--muted);display:flex;gap:10px;justify-content:center;align-items:center}
 .chip{background:var(--chip-bg);border:1px solid var(--gold-soft);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--chip-text)}
@@ -48,15 +64,16 @@ button{font-family:inherit}
 .bee-reveal{width:112px;height:112px}
 .bee-ruby{width:112px;height:112px}
 /* entry scene: the whole bee crew parades in one row across the home screen,
-   between the stats and the Daily card — normal, golden, honey-covered,
-   drop, thirsty, and diamond last, the prize at the end of the line.
-   Staggered heights + a gentle bob (staggered delays) so they read as
-   flying in formation, not standing in a row. One row at 40px + 6px gaps
-   is 274px, inside the 284px content width of a 320px phone. */
+   between the stats and the Daily card — normal first as the starting/host
+   bee, then the score states worst to best: thirsty, drop, honey-covered,
+   golden, diamond, and ruby last as the ultimate prize. Staggered heights
+   + a gentle bob (staggered delays) so they read as flying in formation,
+   not standing in a row. Seven bees at 32px (diamond 36px) + 6px gaps is
+   264px, inside the 284px content width of a 320px phone. */
 .bee-crew{display:flex;justify-content:center;align-items:flex-end;gap:6px;margin:2px auto 4px}
 .bee-crew .crew-bee{position:relative;display:block;transform:translateY(var(--y,0px))}
-.bee-crew .crew-bee img{width:40px;height:40px;margin:0;animation:crew-bob 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
-.bee-crew .crew-diamond img{width:44px;height:44px}
+.bee-crew .crew-bee img{width:32px;height:32px;margin:0;animation:crew-bob 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
+.bee-crew .crew-diamond img{width:36px;height:36px}
 .crew-sparkle{position:absolute;top:-4px;right:-2px;z-index:2;color:#d6f2ff;font-size:14px;line-height:1;text-shadow:0 0 6px #9fdcff,0 0 12px #ffffff;animation:diamond-sparkle 1.6s ease-in-out infinite}
 @keyframes crew-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 /* ruby bee: results-screen celebration for a 900+ run. Burst entrance like
@@ -87,7 +104,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .type-row input:focus{border-color:var(--gold-bright)}
 .type-row input:disabled{background:#1f1f1f;color:var(--muted)}
 .split-labels{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-top:6px}
-.split-labels .l{color:var(--ink)} .split-labels .r{color:var(--gold)}
+.split-labels .l{color:var(--ink)} .split-labels .r{color:var(--amber-deep)}
 /* pinned answer controls: slider, typed input, fine-tune and submit stay
    glued to the bottom of the screen, so the fine-tune button is right where
    the player's thumb is the moment the guess hits 1% or under. */
@@ -106,38 +123,58 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 /* HoneycombGrid: hexagon cells in a honeycomb field, black/yellow/white only.
    real-number-only = white, guess-only = dark + yellow inset ring,
    overlap ("you got these") = solid bright-yellow fill, unlit = charcoal.
-   Split: real-number halves white / gold, player region bright-yellow fill.
+   Split: real-number halves white / DEEP AMBER (see --amber-deep), player
+   region bright-yellow fill.
    Cells are flat-top hexagons (clip-path). The 100 cells form ONE BIG
-   HONEYCOMB: 13 rows that grow then shrink — 5,6,7,8,9,10,10,10,9,8,7,6,5 —
+   HONEYCOMB: 13 rows that grow then shrink — 6,6,7,8,9,9,10,9,9,8,7,6,6 —
    laid out by renderGrid as centered .hrow flex rows, so the outline is a
-   big hexagon. The widest row is 10 cells, exactly the old width, so the
-   cell size is unchanged (16.1px main, 19.7px fine-tune) and the 188px
-   footprint holds: 10*16.1 + 9*3 = 188; 10*19.7 + 9*3 = 224. Rows nest
-   vertically: each row is pulled up by a negative bottom margin so the
-   hexagons interlock — row pitch 12.1px = 3/4 of the 16.1px cell (14.7px
-   on the 19.7px fine-tune cells), the honeycomb pitch. The inset ring
-   survives clip-path: the computed box-shadow is unchanged (clip-path only
-   trims it at the hex corners, negligible at ~16px). Do NOT switch to
-   outline — it is rectangular and wrong on a hex. The 3px gap lives on the
-   rows, not the container — a container gap would add to the row pitch. */
+   big hexagon. Regular-hexagon rework (2026-11-18): a cell is a REGULAR
+   hexagon, so its height is (sqrt(3)/2) x width — 12px wide x 10.4px tall
+   main, 18px x 15.6px fine-tune — NOT square (the old aspect-ratio:1 made
+   squat hexagons). Rows nest vertically: each row is pulled up by a
+   negative bottom margin so the hexagons interlock at the 3/4 row pitch.
+   No-overlap rule: the row pitch must stay above the touching pitch
+   v_touch = h x (1 - gap/w), else diagonally adjacent cells overlap. The
+   old -4px margin (12.1px pitch on 16.1px cells) overlapped by ~0.5px;
+   the new margins sit 0.3px above exact touching (main 8.1 vs 7.79,
+   fine-tune 12.0 vs 11.69). The inset ring survives clip-path: the
+   computed box-shadow is unchanged (clip-path only trims it at the hex
+   corners, negligible at ~12px). Do NOT switch to outline — it is
+   rectangular and wrong on a hex. The 3px gap lives on the rows, not the
+   container — a container gap would add to the row pitch.
+   REGULARITY (measured, see VERIFICATION.md): the outline's top edge is
+   81.0px and each slant side 82.8px — 2.2% apart (the old shape was
+   84.5 vs 122.6, 45% apart). A perfect regular hexagon is impossible
+   with exactly 100 cells (91 or 127 would be); the slant angle is 40.5°
+   rather than 60°, so the outline reads as a wide hexagon with equal
+   sides — the best the cell count allows.
+   ONE-SCREEN BUDGET: the grid element is 114.6px tall (12 x 8.1 pitch +
+   10.4 cell + 7 padding), inside a 120px budget pinned by verify — at
+   that height the question + grid + reveal fit a 390x844 phone screen
+   without scrolling (measured docScroll 831px <= 844). A 667px-tall
+   phone (iPhone SE) still scrolls on the reveal; fitting it would need
+   shrinking the reveal bee/controls too, not just the grid. */
 .grid{display:flex;flex-direction:column;align-items:center;max-width:188px;margin:14px auto 6px;padding-bottom:7px}
-.grid .hrow{display:flex;gap:3px;margin-bottom:-4px}
+.grid .hrow{display:flex;gap:3px;margin-bottom:-2.3px}
 .grid .hrow:last-child{margin-bottom:0}
-.grid .dot{width:16.1px;aspect-ratio:1;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--dot-unlit)}
+.grid .dot{width:12px;height:10.4px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--dot-unlit)}
 .grid .dot.white{background:#ffffff}
 .grid .dot.gold{box-shadow:inset 0 0 0 2px var(--gold-bright);background:#1a1a1a}
 .grid .dot.white.gold{background:var(--gold-bright)}
-.grid .dot.amber{background:var(--gold)}
+.grid .dot.amber{background:var(--amber-deep)}
 .grid .dot.amber.gold{background:var(--gold-bright)}
 /* fine-tune dots: bright yellow 28% mix over dark + inset yellow ring */
 .grid .dot.ft{background:color-mix(in srgb, var(--gold-bright) 28%, #1a1a1a);box-shadow:inset 0 0 0 2px var(--gold-bright)}
 .grid.small{max-width:224px;padding-bottom:8px}
-/* fine-tune cells are 19.7px, so the honeycomb pitch is 14.7px = 3/4 of the
-   cell: -5px bottom margin on the row (19.7 - 5 = 14.7). Same hexagon shape,
-   same big-honeycomb rows. */
-.grid.small .hrow{margin-bottom:-5px}
+/* fine-tune cells are 18px x 15.6px, so the honeycomb pitch is 12.0px =
+   3/4 of the cell + 0.3px clearance: -3.6px bottom margin on the row
+   (15.6 - 3.6 = 12.0). The row gap is 4.5px here (0.25 x cell width) —
+   the no-overlap pitch for an 18px cell needs a 4.5px gap, not the
+   main grid's 3px. Same hexagon shape, same big-honeycomb rows. Widest
+   row: 9 x 22.5 + 18 = 220.5px, inside the 224px box. */
+.grid.small .hrow{gap:4.5px;margin-bottom:-3.6px}
 .grid.small .hrow:last-child{margin-bottom:0}
-.grid.small .dot{width:19.7px}
+.grid.small .dot{width:18px;height:15.6px}
 /* entry grid: same shared 188px size as the reveal grid, so answering and
    reveal are identical in size.
    NOTE: #entry-grid is a direct child of main#screen, which is a FLEX
@@ -153,7 +190,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .grid.entry{width:100%;max-width:188px;margin:10px auto 4px}
 .legend{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 10px}
 .legend .sw{display:inline-block;width:10px;height:10px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);margin:0 3px 0 10px;vertical-align:-1px}
-.legend .sw.white{background:#ffffff} .legend .sw.amber{background:var(--gold)}
+.legend .sw.white{background:#ffffff} .legend .sw.amber{background:var(--amber-deep)}
 /* ring swatch keeps the inset-ring treatment (same as the guess-only dots):
    a border would be clipped at the hex corners, the inset shadow is not. */
 .legend .sw.gold{background:#1a1a1a;box-shadow:inset 0 0 0 2px var(--gold-bright)}
