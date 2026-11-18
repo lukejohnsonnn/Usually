@@ -1,0 +1,68 @@
+/* Honeydle — bee mascot, crew parade, ruby hero, reveal entrances. */
+/* bee mascot: pixel-art PNGs, rendered crisp (no smoothing) */
+.bee{display:block;margin:2px auto 6px;image-rendering:pixelated}
+.bee-reveal{width:112px;height:112px}
+.bee-ruby{width:112px;height:112px}
+/* entry scene: the whole bee crew parades in one row across the home screen,
+   between the stats and the Daily card — normal first as the starting/host
+   bee, then the score states worst to best: drop, honey-covered, golden,
+   diamond, ruby, with the thirsty bee last as the tail of the line.
+   Staggered heights + a gentle bob (staggered delays) so they read as
+   flying in formation, not standing in a row. Seven bees at 32px
+   (diamond 36px) + 6px gaps is 264px, inside the 284px content width of
+   a 320px phone. */
+.bee-crew{display:flex;justify-content:center;align-items:flex-end;gap:6px;margin:2px auto 4px;position:relative}
+/* The crew flies over a faint pool of honey light, and a hairline "hive
+   shelf" grounds the row so the seven bees read as one formation, not
+   seven loose images. */
+.bee-crew::before{content:"";position:absolute;inset:-14px -20px;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse at center, rgba(255,214,10,.08), transparent 65%)}
+.bee-crew::after{content:"";position:absolute;left:10%;right:10%;bottom:-5px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,214,10,.40),transparent)}
+.bee-crew .crew-bee{position:relative;display:block;transform:translateY(var(--y,0px))}
+.bee-crew .crew-bee img{width:32px;height:32px;margin:0;animation:crew-bob 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
+.bee-crew .crew-diamond img{width:36px;height:36px}
+.crew-sparkle{position:absolute;top:-4px;right:-2px;z-index:2;color:#d6f2ff;font-size:14px;line-height:1;text-shadow:0 0 6px #9fdcff,0 0 12px #ffffff;animation:diamond-sparkle 1.6s ease-in-out infinite}
+@keyframes crew-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+/* ruby bee: results-screen celebration for a 900+ run. Burst entrance like
+   the diamond's, ruby-red sparkles. */
+.ruby-hero{text-align:center;margin:4px 0 2px}
+.ruby-label{font-family:var(--font-display);font-size:13px;color:var(--gold-bright);margin-top:2px;letter-spacing:.1em}
+.ruby-sparkle{position:absolute;z-index:2;color:#ff8fa3;font-size:22px;line-height:1;text-shadow:0 0 8px #ff4d6d,0 0 16px #ffb3c1;animation:ruby-sparkle .9s ease-out both}
+.ruby-sparkle.s1{top:-6px;right:-8px}
+.ruby-sparkle.s2{bottom:2px;left:-10px;font-size:16px;animation-delay:.15s}
+.bee-entrance-ruby{animation:bee-ruby .9s cubic-bezier(.2,1.5,.3,1) both}
+@keyframes bee-ruby{0%{transform:scale(.1);opacity:0}50%{transform:scale(1.4);opacity:1}70%{transform:scale(.96)}100%{transform:scale(1);opacity:1}}
+@keyframes ruby-sparkle{0%{transform:scale(.3) rotate(0deg);opacity:0}50%{transform:scale(1.25) rotate(20deg);opacity:1}100%{transform:scale(1) rotate(45deg);opacity:.95}}
+
+
+/* reveal entrances — one distinct entrance per tier, on the reveal hero
+   (tier name + points + bee arrive together). The old whole-card .burst
+   is gone; entrances belong to the bee now. */
+.reveal-hero{text-align:center}
+.bee-wrap{position:relative;display:inline-block;margin:2px auto 6px}
+/* Every reveal bee sits in the same faint pool of honey light, so the hero
+   reads as one lit stage whatever the tier — the tier-specific splash /
+   sparkles layer on top of this, they don't replace it. */
+.bee-wrap::before{content:"";position:absolute;inset:-28px -34px;z-index:0;pointer-events:none;
+  background:radial-gradient(circle, rgba(255,214,10,.13), transparent 65%)}
+.bee-wrap .bee{margin:0;position:relative;z-index:1}
+.honey-splash{position:absolute;inset:-16px -20px;border-radius:50%;z-index:0;
+  background:radial-gradient(circle,rgba(255,214,10,.65) 0%,rgba(207,154,6,.35) 55%,rgba(207,154,6,0) 72%);
+  animation:honey-splash .7s ease-out both}
+.diamond-sparkle{position:absolute;z-index:2;color:#d6f2ff;font-size:22px;line-height:1;
+  text-shadow:0 0 8px #9fdcff,0 0 16px #ffffff;animation:diamond-sparkle .9s ease-out both}
+.diamond-sparkle.s1{top:-6px;right:-8px}
+.diamond-sparkle.s2{bottom:2px;left:-10px;font-size:16px;animation-delay:.15s}
+.bee-entrance-burst{animation:bee-burst .7s cubic-bezier(.2,1.4,.4,1) both}
+.bee-entrance-honey{animation:bee-honey-in .6s ease-out both}
+.bee-entrance-pop{animation:bee-pop .35s ease-out both}
+.bee-entrance-gentle{animation:bee-gentle .8s ease-in-out both}
+.bee-entrance-diamond{animation:bee-diamond .9s cubic-bezier(.2,1.5,.3,1) both}
+@keyframes bee-burst{0%{transform:scale(.2);opacity:0}55%{transform:scale(1.25);opacity:1}75%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
+@keyframes bee-honey-in{0%{transform:scale(.4) translateY(14px);opacity:0}60%{transform:scale(1.06);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes honey-splash{0%{transform:scale(.2);opacity:0}50%{transform:scale(1.15);opacity:.9}100%{transform:scale(1);opacity:.6}}
+@keyframes bee-pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes bee-gentle{0%{transform:scale(.85);opacity:0}50%{transform:scale(1.04);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes bee-diamond{0%{transform:scale(.1);opacity:0}50%{transform:scale(1.4);opacity:1}70%{transform:scale(.96)}100%{transform:scale(1);opacity:1}}
+@keyframes diamond-sparkle{0%{transform:scale(.3) rotate(0deg);opacity:0}50%{transform:scale(1.25) rotate(20deg);opacity:1}100%{transform:scale(1) rotate(45deg);opacity:.95}}

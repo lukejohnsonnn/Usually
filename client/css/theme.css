@@ -1,0 +1,93 @@
+/* Honeydle — theme tokens, base layout, header/wordmark, cards, buttons,
+   stats, overlays, toast. Loaded first. */
+:root{
+  --gold:#cf9a06; --gold-bright:#ffd60a; --gold-soft:#f3d27a;
+  /* split amber: deep saturated amber, deliberately far from both the
+     bright-yellow player fill (#ffd60a) and white, so the two split sides
+     read apart at a glance. The old --gold (#cf9a06) was too close to the
+     bright yellow. Used only for split halves (dots, legend swatch, right
+     label) — everything else keeps --gold. */
+  --amber-deep:#b45309;
+  --ink:#ffffff; --muted:#a8a8a8; --line:#2e2e2e;
+  --bg:#000000; --card:#111111; --surface:#111111; --dot-unlit:#2e2e2e; --radius:10px;
+  --chip-bg:#241d00; --chip-text:#f3d27a; --on-accent:#111111; color-scheme:dark;
+  /* Press Start 2P (pixel font) carries the wordmark and headings; Libre
+     Franklin (Franklin Gothic revival grotesque) carries the UI and body.
+     Neither is part of the generic AI-built stack. One theme only: black,
+     yellows, whites — no light theme, no system-theme split. */
+  --font-display:"Press Start 2P","Courier New",monospace;
+  --font-body:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font-body);}
+/* Hive texture (2026-11-18 polish): the black is not flat anymore — a faint
+   honeycomb dot lattice (3% white, 26px pitch) over the whole app, plus a
+   soft gold glow pooled behind the wordmark at the top. Fixed attachment so
+   the texture never scrolls away from the content. Kept deliberately faint:
+   it should read as texture on a second look, never as a pattern. */
+body{background-image:
+  radial-gradient(ellipse 90% 240px at 50% -30px, rgba(255,214,10,.10), transparent 70%),
+  radial-gradient(rgba(255,255,255,.035) 1px, transparent 1.5px);
+  background-size:auto,26px 26px;background-attachment:fixed,fixed}
+#app{max-width:620px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:20px 18px calc(20px + env(safe-area-inset-bottom));}
+header{text-align:center;padding:6px 0 2px}
+/* Gold hairline under the header — a small deliberate rule that ties the
+   wordmark block to the rest of the page instead of letting it float. */
+header::after{content:"";display:block;width:120px;height:1px;margin:16px auto 0;
+  background:linear-gradient(90deg,transparent,rgba(255,214,10,.45),transparent)}
+/* Press Start 2P runs wide — 26px keeps HONEYDLE on one line on phones.
+   Tracking fix (2026-11-18, measured from the font file itself): the
+   font's glyphs are NOT optically even — Y and L carry a 125-unit left
+   side bearing (the other letters carry 0), so E→Y and D→L read as
+   double-wide gaps, and the "." glyph is a 250-unit square centred in a
+   1000-unit cell, so E→. reads as a triple-wide gap with the dot floating
+   far from the E. At 26px the ink gaps were [3,3,3,6,3,6,3,9]px; the
+   .tight spans (Y, L) pull those letters left 0.125em (125 units) and the
+   ::after dot pulls left 0.25em (250 units), so every gap is the same
+   3px. Verified by rendering the wordmark with PIL, not by eyeballing. */
+.brand{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:0;color:var(--gold-bright);
+  text-shadow:0 0 22px rgba(255,214,10,.28)}
+.brand .tight{margin-left:-0.125em}
+.brand::after{content:".";color:var(--gold);margin-left:-0.25em}
+.sub{color:var(--muted);font-size:14px;margin-top:8px}
+.date-line{margin-top:10px;font-size:13px;color:var(--muted);display:flex;gap:10px;justify-content:center;align-items:center}
+.chip{background:var(--chip-bg);border:1px solid var(--gold-soft);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--chip-text)}
+.hidden{display:none !important}
+main{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
+/* Home screen only: the home content is short, so it centers in the free
+   space instead of leaving a black void above the footer. Round and results
+   screens stay top-anchored (the one-screen rule). Toggled by showHome /
+   showRound / showResults in js/screens.js. */
+main.home{justify-content:center}
+footer{text-align:center;padding-top:14px}
+.linklike{background:none;border:none;color:var(--gold-soft);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.dot-sep{color:var(--muted);margin:0 6px}
+
+/* cards & buttons — chunky pixel-block buttons: square corners, hard offset edge */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:12px 0;
+  box-shadow:0 10px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04)}
+.card h2{margin:0 0 10px;font-size:15px;line-height:1.6;color:var(--ink);font-family:var(--font-display);font-weight:400}
+.card p{margin:8px 0;line-height:1.5;font-size:15px}
+.muted{color:var(--muted);font-size:13px}
+button{font-family:inherit}
+.primary{background:var(--gold-bright);color:var(--on-accent);border:2px solid var(--gold-bright);border-radius:6px;padding:13px 26px;font-size:16px;font-weight:700;cursor:pointer;width:100%;box-shadow:0 4px 0 #8a6d00, 0 8px 18px rgba(0,0,0,.4)}
+.primary:active{transform:translateY(2px);box-shadow:0 2px 0 #8a6d00, 0 4px 10px rgba(0,0,0,.4)}
+.primary:disabled{opacity:.45;cursor:default;box-shadow:none}
+.ghost{background:#161616;border:2px solid var(--line);border-radius:6px;padding:13px 20px;font-size:15px;cursor:pointer;flex:1;color:var(--ink)}
+.ghost:active{transform:translateY(2px)}
+.row{display:flex;gap:10px;margin-top:14px}
+.row .primary{flex:2}
+.stat-row{display:flex;gap:8px;margin:14px 0}
+.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 4px;text-align:center;
+  box-shadow:inset 0 2px 0 rgba(255,214,10,.22), inset 0 1px 0 rgba(255,255,255,.04)}
+.stat b{display:block;font-size:20px;color:var(--gold-bright)}
+.stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+
+
+/* overlays */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0}
+.overlay .card{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:85dvh;overflow:auto;padding:22px 20px calc(22px + env(safe-area-inset-bottom));
+  border-top:3px solid var(--gold-bright)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--gold-bright);color:var(--on-accent);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:80;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+@media (min-width:520px){.overlay{align-items:center;padding:20px}.overlay .card{border-radius:20px}}

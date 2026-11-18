@@ -1,122 +1,9 @@
-// Honeydle — client. Vanilla JS, no build step.
-const $ = (s) => document.querySelector(s);
-const screen = $("#screen");
+// Honeydle — screens: home, play, reveal, results.
+// Depends on: core.js, grid.js, bee.js. Loaded after bee.js.
 
-function playerId() {
-  let id = localStorage.getItem("usually-player");
-  if (!id) {
-    id = "u-" + crypto.randomUUID().replace(/-/g, "").slice(0, 20);
-    localStorage.setItem("usually-player", id);
-  }
-  return id;
-}
-
-async function api(path, opts) {
-  const r = await fetch(path, { headers: { "Content-Type": "application/json" }, ...(opts || {}) });
-  const j = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(j.error || "Network error");
-  return j;
-}
-
-function toast(msg) {
-  const t = $("#toast");
-  t.textContent = msg;
-  t.classList.remove("hidden");
-  setTimeout(() => t.classList.add("hidden"), 2600);
-}
-
-function skeleton() {
-  screen.innerHTML = `<div class="card"><p class="muted">Loading…</p></div>`;
-}
-
-function sliderFill(el) {
-  const min = +el.min, max = +el.max, v = +el.value;
-  const pct = ((v - min) / (max - min)) * 100;
-  el.style.background = `linear-gradient(to right, var(--gold-bright) 0%, var(--gold-bright) ${pct}%, var(--line) ${pct}%, var(--line) 100%)`;
-}
-
-// ------------------------------------------------------------ grid rendering
-function renderGrid(container, spec) {
-  // One shared 100-dot grid (188px) for answering and reveal, same component.
-  // Black/yellow/white only — four instantly distinct reveal states:
-  // real-number-only = white, guess-only = dark + yellow inset ring, overlap
-  // (in both) = solid bright-yellow FILL, unlit = charcoal. Yellow fill =
-  // you, everywhere on the reveal.
-  // Reveal Split {split:{left,right}, playerSplit}: halves by the real number's
-  // split (white / deep amber); the dots up to the player's split are
-  // bright-yellow filled, so the yellow region is the player's split and
-  // the white/amber after it is the real number's.
-  // Entry specs (while answering, never any real-number data):
-  //   {entry:"guess", value} — dark fill + inset yellow ring on exactly
-  //     round(value) dots in row-major order
-  //   {entry:"split", left} — white/deep-amber halves, NO yellow ring at all
-  //   {entry:"fine", value} — fine-tune hundredths: yellow 28% mix + ring
-  // Big-honeycomb shape (2026-11-18): the 100 cells are laid out in 11 rows
-  // that grow then shrink — [6,8,9,10,11,12,11,10,9,8,6] — so together
-  // they form one big hexagon. The cells are CIRCLES now, not hexagons:
-  // the hex cells looked broken and fiddly, circles in the same hex
-  // outline are the reliable build. Rows are centered, so a one-cell step
-  // staggers the next row by half a cell pitch — a proper hex lattice.
-  // Circle geometry (see VERIFICATION.md): main cells 10px diameter,
-  // 2.5px in-row gap (12.5px pitch), 10px row pitch; fine-tune cells
-  // 14px, 4px gap (18px pitch), 14.4px row pitch. The outline is a
-  // hexagon with near-equal sides: top edge 62.5px, each slant side
-  // hypot(3*12.5, 5*10) = 62.5px — 0% apart (the slant angle is 53.1°,
-  // not 60°, the closest the 100-cell count allows). No overlap: the
-  // diagonal center distance sqrt(6.25^2 + 10^2) = 11.8px clears the
-  // 10px diameter, and vertically aligned neighbors touch exactly
-  // (pitch = diameter), never overlap. Grid height 117px, inside the
-  // 120px one-screen budget. Fill order is still row-major (index i runs
-  // across rows in order), so all guess/reveal math is untouched — only
-  // the layout changed. Each row is a .hrow flex row so it centers
-  // itself; the dots stay flat .dot children of their row.
-  const ROWS = [6, 8, 9, 10, 11, 12, 11, 10, 9, 8, 6];
-  container.innerHTML = "";
-  let i = 0;
-  for (const len of ROWS) {
-    const row = document.createElement("div");
-    row.className = "hrow";
-    for (let p = 0; p < len; p++, i++) {
-      const d = document.createElement("div");
-      d.className = "dot";
-      if (spec.entry === "split") {
-        if (i < spec.left) d.classList.add("white");
-        else d.classList.add("amber");
-      } else if (spec.entry === "fine") {
-        if (i < Math.round(spec.value)) d.classList.add("ft");
-      } else if (spec.entry === "guess") {
-        if (i < Math.round(spec.value)) d.classList.add("gold");
-      } else if (spec.split) {
-        if (i < spec.split.left) d.classList.add("white");
-        else d.classList.add("amber");
-        if (spec.playerSplit != null && i < spec.playerSplit) d.classList.add("gold");
-      } else {
-        if (i < spec.crowd) d.classList.add("white");
-        if (spec.guess != null && i < Math.round(spec.guess)) d.classList.add("gold");
-      }
-      row.appendChild(d);
-    }
-    container.appendChild(row);
-  }
-}
-
-// ------------------------------------------------------------------- state
-let currentPlay = null;
-let stats = null;
-
-async function refreshStats() {
-  try {
-    stats = await api(`/api/stats?playerId=${playerId()}`);
-    if (stats.streak > 0) {
-      $("#streak-chip").classList.remove("hidden");
-      $("#streak-n").textContent = stats.streak;
-    }
-  } catch { /* stats are a nicety; play still works */ }
-}
-
-// -------------------------------------------------------------------- home
 async function showHome() {
   skeleton();
+  screen.classList.add("home"); // centers the short home content (see theme.css)
   const today = await api("/api/today").catch(() => null);
   $("#today-date").textContent = today ? new Date(today.date + "T12:00:00").toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }) : "";
   await refreshStats();
@@ -164,6 +51,7 @@ async function startPlay(mode) {
 
 function showRound() {
   const play = currentPlay;
+  screen.classList.remove("home"); // round screens stay top-anchored
   const idx = play.currentRound;
   if (idx >= play.questions.length) return showResults(play);
   const q = play.questions[idx];
@@ -284,55 +172,6 @@ async function submitRound(body) {
   } catch (e) { toast(e.message); }
 }
 
-// ------------------------------------------------------------------ reveal
-// The bee reacts to the round's points: 175 Bullseye = pure gold,
-// 100 One Off = covered head to toe in honey, 90 Razor Close = one drop,
-// anything lower = thirsty. Text rounds use their tier points the same way.
-// Diamond streak (Luke's rule): a second consecutive Bullseye in the same
-// play turns the bee diamond; third+ consecutive Bullseyes stay diamond.
-// The streak is the trailing run of exact 175s in currentPlay.results, so
-// any sub-175 round resets it and a fresh play starts at zero.
-function bullseyeStreak() {
-  const results = (currentPlay && currentPlay.results) || [];
-  let n = 0;
-  for (let i = results.length - 1; i >= 0; i--) {
-    if (results[i].points === 175) n++;
-    else break;
-  }
-  return n;
-}
-
-// Warm and Close answers (55 and 75 points) are fine, not sick: they get
-// the NORMAL bee, gentle pulse entrance. Only Lukewarm (35) and below get
-// the thirsty bee. Mapping: 175 gold/diamond (streak rules), 100 honey,
-// 90 drop, 75/55 normal, 35/15/5 thirsty.
-function beeForPoints(points, streak = 0) {
-  if (points >= 175) return streak >= 2 ? "bee-diamond.png" : "bee-golden.png";
-  if (points >= 100) return "bee-little-honey.png";
-  if (points >= 90) return "bee-drop.png";
-  if (points >= 55) return "bee-normal.png";
-  return "bee-thirsty.png";
-}
-
-// Ruby bee (Luke's rule): finish a run with 900+ total points and the
-// results screen shows a ruby bee. Results-screen celebration only — it
-// never replaces a per-round reveal bee.
-function rubyForScore(score) {
-  return score >= 900 ? "bee-ruby.png" : null;
-}
-
-// One distinct entrance per tier, applied to the reveal hero (tier name +
-// points + bee arrive together). 175 first-in-streak bursts; 175 second+
-// in a streak gets the biggest entrance of all, diamond burst + sparkle;
-// 100 arrives with a honey splash behind it; 90 pops in fast; anything
-// lower pulses gently in.
-function beeEntranceFor(points, streak = 0) {
-  if (points >= 175) return streak >= 2 ? "bee-entrance-diamond" : "bee-entrance-burst";
-  if (points >= 100) return "bee-entrance-honey";
-  if (points >= 90) return "bee-entrance-pop";
-  return "bee-entrance-gentle";
-}
-
 function showReveal(r) {
   const q = currentPlay.questions[currentPlay.currentRound - 1];
   const isText = r.kind === "text";
@@ -371,9 +210,9 @@ function showReveal(r) {
   let legend = "";
   if (!isText) {
     if (isSplit) {
-      legend = `<div class="legend"><span class="sw white"></span>${q.leftLabel}<span class="sw amber"></span>${q.rightLabel}<span class="sw goldfill"></span>Yellow = your split</div>`;
+      legend = `<div class="legend reveal-legend"><span class="lg"><span class="sw white"></span>${q.leftLabel}</span><span class="lg"><span class="sw amber"></span>${q.rightLabel}</span><span class="lg"><span class="sw goldfill"></span>Yellow = your split</span></div>`;
     } else {
-      legend = `<div class="legend"><span class="sw white"></span>White = the real number<br><span class="sw goldfill"></span>Yellow = you got these<br><span class="sw gold"></span>Yellow ring = your guess only</div>`;
+      legend = `<div class="legend reveal-legend"><span class="lg"><span class="sw white"></span>White = the real number</span><span class="lg"><span class="sw goldfill"></span>Yellow = you got these</span><span class="lg"><span class="sw gold"></span>Yellow ring = your guess only</span></div>`;
     }
   }
 
@@ -395,6 +234,10 @@ function showReveal(r) {
       : "";
   const reveal = document.createElement("div");
   reveal.id = "reveal";
+  // Text rounds have no grid, so the reveal is short — center the block in
+  // the free space instead of leaving a black void under the Next button.
+  // Guess/Split reveals keep the grid and stay top-anchored with it.
+  if (isText) reveal.classList.add("reveal-text");
   reveal.innerHTML = `
       <div class="reveal-hero ${entrance}">
         <div class="tier-line"><div class="tier-name">${r.tier}</div><div class="tier-points">+${r.points} points</div></div>
@@ -419,13 +262,9 @@ function showReveal(r) {
   });
 }
 
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-}
-
-// ----------------------------------------------------------------- results
 async function showResults(play) {
   const rounds = play.questions.map((q, i) => ({ q, r: play.results[i] }));
+  screen.classList.remove("home"); // results stay top-anchored
   const ruby = rubyForScore(play.score);
   screen.innerHTML = `
     <div class="card">
@@ -456,53 +295,3 @@ async function showResults(play) {
   });
   await refreshStats();
 }
-
-// --------------------------------------------------------------- fine-tune
-let ftValue = 0.5;
-let ftOnOk = null;
-function openFineTune(current, onOk) {
-  ftValue = current < 1 ? current : 0.5;
-  ftOnOk = onOk;
-  $("#finetune").classList.remove("hidden");
-  const slider = $("#ft-slider");
-  slider.value = Math.round(ftValue * 100);
-  sliderFill(slider);
-  syncFt();
-  slider.oninput = () => { ftValue = +slider.value / 100; sliderFill(slider); syncFt(); };
-}
-function syncFt() {
-  $("#ft-value").textContent = ftValue.toFixed(2);
-  // Fine-tune grid: bright yellow 28% mix over dark + inset yellow ring.
-  renderGrid($("#ft-grid"), { entry: "fine", value: Math.round(ftValue * 100) });
-}
-$("#ft-ok").addEventListener("click", () => {
-  $("#finetune").classList.add("hidden");
-  if (ftOnOk) ftOnOk(ftValue);
-});
-$("#ft-cancel").addEventListener("click", () => $("#finetune").classList.add("hidden"));
-
-// ---------------------------------------------------------------- overlays
-$("#howto-btn").addEventListener("click", () => $("#howto").classList.remove("hidden"));
-$("#howto-close").addEventListener("click", () => {
-  $("#howto").classList.add("hidden");
-  localStorage.setItem("usually-seen-howto", "1");
-});
-$("#yesterday-btn").addEventListener("click", async () => {
-  $("#yesterday").classList.remove("hidden");
-  const body = $("#yesterday-body");
-  body.innerHTML = `<p class="muted">Loading…</p>`;
-  try {
-    const y = await api("/api/yesterday");
-    body.innerHTML = y.rounds.map((r) => `
-      <div class="result-row"><span class="t">${escapeHtml(r.text)}</span><b>${r.kind === "text" ? escapeHtml(r.answer) : (r.answer < 1 ? r.answer.toFixed(2) + "%" : r.answer + "%")}</b></div>`).join("");
-  } catch { body.innerHTML = `<p class="muted">Couldn't load yesterday's answers.</p>`; }
-});
-$("#yesterday-close").addEventListener("click", () => $("#yesterday").classList.add("hidden"));
-
-// -------------------------------------------------------------------- boot
-(async function boot() {
-  if (!localStorage.getItem("usually-seen-howto")) {
-    setTimeout(() => $("#howto").classList.remove("hidden"), 400);
-  }
-  await showHome();
-})();

@@ -18,6 +18,16 @@ const PORT = 3457;
 const BASE = `http://127.0.0.1:${PORT}`;
 const TMP = "/tmp/crowdle-verify-local.json";
 const bank = loadBank();
+// 2026-11-18 polish pass: the client is segmented — CSS in client/css/
+// (theme, grid, bee, screens) and JS in client/js/ (core, grid, bee,
+// screens, overlays), plain <script>/<link> tags in dependency order, no
+// build step. The suite reads the segments concatenated in load order, so
+// every existing content check still runs against the same code.
+const CLIENT_JS_FILES = ["core.js", "grid.js", "bee.js", "screens.js", "overlays.js"];
+const CLIENT_CSS_FILES = ["theme.css", "grid.css", "bee.css", "screens.css"];
+const readClient = (dir, files) => files.map((f) => fs.readFileSync(path.join(__dirname, "..", "client", dir, f), "utf8")).join("\n");
+const appJs = readClient("js", CLIENT_JS_FILES);
+const css = readClient("css", CLIENT_CSS_FILES);
 const byId = new Map(bank.questions.map((q) => [q.id, q]));
 
 let pass = 0, fail = 0;
@@ -150,9 +160,9 @@ check("no vote tables in db.js",
 check("no /api/contribute endpoints in server.js",
   !fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8").includes("/api/contribute"));
 check("no Contribute UI or API calls in the client",
-  !/Contribute|contribute|castVote|votePrompt/.test(fs.readFileSync(path.join(__dirname, "..", "client", "app.js"), "utf8")) &&
+  !/Contribute|contribute|castVote|votePrompt/.test(appJs) &&
   !/Contribute/.test(fs.readFileSync(path.join(__dirname, "..", "client", "index.html"), "utf8")) &&
-  !/\.vote-/.test(fs.readFileSync(path.join(__dirname, "..", "client", "styles.css"), "utf8")));
+  !/\.vote-/.test(css));
 check("population stat id 56 (osteoporosis) is not votable", byId.get(56)?.votable === false);
 
 console.log("== unit: 2026-11-16 sync fixes ==");
@@ -265,14 +275,20 @@ check("Australia never appears in 365 days of daily sets", !ausInDaily);
 // Fine-tune button placement — static DOM-order check (no browser in this sandbox):
 // the button must sit inside the pinned .controls block directly above the slider,
 // and the show/hide toggle must fire at guess <= 1% for both drag and typed input.
-const appJs = fs.readFileSync(path.join(__dirname, "..", "client", "app.js"), "utf8");
-const css = fs.readFileSync(path.join(__dirname, "..", "client", "styles.css"), "utf8");
 const btnIdx = appJs.indexOf('id="finetune-btn"');
 const sliderIdx = appJs.indexOf('id="slider"', btnIdx);
 const controlsIdx = appJs.indexOf('class="controls"');
 check("fine-tune button sits in pinned controls directly above the slider",
   controlsIdx !== -1 && btnIdx !== -1 && sliderIdx !== -1 && controlsIdx < btnIdx && btnIdx < sliderIdx);
-check("controls are sticky-pinned (CSS)", /\.controls\s*\{[^}]*position:\s*sticky/.test(css));
+// 2026-11-18 polish: the sticky pin is gated behind a tall-viewport media
+// query. On short screens (568px viewport, ~830px answering screen) a sticky
+// .controls stuck to the viewport bottom and COVERED the honeycomb +
+// big-guess at every scroll position. Below 880px the controls sit in normal
+// flow and the page scrolls; at 880px+ the whole screen fits with slack, so
+// sticking never overlaps anything.
+check("controls are sticky-pinned on tall viewports only (CSS)",
+  /@media\s*\(min-height:\s*880px\)\s*\{\.controls\s*\{[^}]*position:\s*sticky/.test(css) &&
+  /\.controls\s*\{[^}]*position:\s*static/.test(css));
 check("fine-tune button shows at guess <= 1% (drag or typed)", appJs.includes("!(v <= 1)"));
 
 console.log("== unit: 2026-11-16 text reveal + tagline sync ==");
@@ -312,7 +328,21 @@ check("brand: tracking — Y and L carry the -0.125em pull",
 check("brand: tracking — gold full-stop ::after pulls left -0.25em",
   /\.brand::after\s*\{[^}]*content:\s*"\."[^}]*margin-left:\s*-0\.25em/.test(css) ||
   /\.brand::after\s*\{[^}]*margin-left:\s*-0\.25em[^}]*content:\s*"\."/.test(css));
-check("brand: cache-bust bumped to honeydle6", html.includes("styles.css?v=honeydle6") && html.includes("app.js?v=honeydle6"));
+check("brand: cache-bust bumped to honeydle7", html.includes("css/theme.css?v=honeydle7") && html.includes("js/core.js?v=honeydle7"));
+check("segmented: index.html loads the four CSS files in order (theme, grid, bee, screens) with the honeydle7 bust",
+  ["css/theme.css?v=honeydle7", "css/grid.css?v=honeydle7", "css/bee.css?v=honeydle7", "css/screens.css?v=honeydle7"]
+    .every((u, i, a) => html.indexOf(u) !== -1 && (i === 0 || html.indexOf(a[i - 1]) < html.indexOf(u))));
+check("segmented: index.html loads the five JS files in dependency order (core, grid, bee, screens, overlays) with the honeydle7 bust",
+  ["js/core.js?v=honeydle7", "js/grid.js?v=honeydle7", "js/bee.js?v=honeydle7", "js/screens.js?v=honeydle7", "js/overlays.js?v=honeydle7"]
+    .every((u, i, a) => html.indexOf(u) !== -1 && (i === 0 || html.indexOf(a[i - 1]) < html.indexOf(u))));
+check("segmented: no stale app.js / styles.css references left in index.html",
+  !html.includes("app.js") && !html.includes("styles.css"));
+check("segmented: every client segment file exists on disk",
+  [...CLIENT_JS_FILES.map((f) => path.join("js", f)), ...CLIENT_CSS_FILES.map((f) => path.join("css", f))]
+    .every((f) => fs.existsSync(path.join(__dirname, "..", "client", f))));
+check("segmented: old single files are gone from the repo",
+  !fs.existsSync(path.join(__dirname, "..", "client", "app.js")) &&
+  !fs.existsSync(path.join(__dirname, "..", "client", "styles.css")));
 const serverJs = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
 check("brand: no 'Crowdle' left in client-facing strings",
   !html.includes("Crowdle") && !appJs.includes("Crowdle") && !serverJs.includes("Crowdle"));
@@ -587,11 +617,17 @@ check("legend: ring swatch uses the inset ring, not a border",
 check("rings are inset (box-shadow: inset 0 0 0 2px var(--gold-bright))",
   (css.match(/box-shadow:\s*inset 0 0 0 2px var\(--gold-bright\)/g) || []).length === 3 &&
   !/box-shadow:\s*0 0 0 2px var\(--gold-bright\)/.test(css));
+// 2026-11-18 polish: the overlap fill keeps a soft OUTER honey glow — an
+// outer halo, never an inset ring. The invariant is "no inset ring on the
+// overlap", not "no box-shadow at all".
 check("overlap dots are a solid yellow fill, not white + ring",
   /\.grid \.dot\.white\.gold\s*\{[^}]*background:\s*var\(--gold-bright\)/.test(css) &&
   /\.grid \.dot\.amber\.gold\s*\{[^}]*background:\s*var\(--gold-bright\)/.test(css) &&
-  !/\.grid \.dot\.white\.gold\s*\{[^}]*box-shadow/.test(css) &&
-  !/\.grid \.dot\.amber\.gold\s*\{[^}]*box-shadow/.test(css));
+  !/\.grid \.dot\.white\.gold\s*\{[^}]*box-shadow:\s*inset/.test(css) &&
+  !/\.grid \.dot\.amber\.gold\s*\{[^}]*box-shadow:\s*inset/.test(css));
+check("overlap dots carry the outer honey glow (0 0 6px gold, not a ring)",
+  /\.grid \.dot\.white\.gold\s*\{[^}]*box-shadow:\s*0 0 6px rgba\(255,214,10,\.45\)/.test(css) &&
+  /\.grid \.dot\.amber\.gold\s*\{[^}]*box-shadow:\s*0 0 6px rgba\(255,214,10,\.45\)/.test(css));
 check("legend gold-fill swatch is solid bright yellow",
   /\.legend \.sw\.goldfill\s*\{[^}]*background:\s*var\(--gold-bright\)/.test(css));
 // Split colors (2026-11-18): the two sides were white vs --gold (#cf9a06),
@@ -645,6 +681,69 @@ check("reveal split passes the player's split to the grid",
   appJs.includes("playerSplit: r.guess"));
 check("fine-tune grid uses the fine-tune spec",
   appJs.includes('entry: "fine"'));
+
+console.log("== unit: 2026-11-18 visual polish ==");
+// Hive texture: the black is not flat — a faint dot lattice + a soft gold
+// glow pooled behind the wordmark, fixed so it never scrolls away.
+check("polish: body carries the faint dot lattice + top gold glow, fixed",
+  /body\s*\{[^}]*background-image:\s*radial-gradient\(ellipse[^;]*rgba\(255,214,10,\.10\)[^;]*radial-gradient\(rgba\(255,255,255,\.035\) 1px/.test(css) &&
+  /body\s*\{[^}]*background-attachment:\s*fixed/.test(css));
+check("polish: wordmark has the soft gold glow, header has the gold hairline",
+  /\.brand\s*\{[^}]*text-shadow:\s*0 0 22px rgba\(255,214,10,\.28\)/.test(css) &&
+  /header::after\s*\{[^}]*background:\s*linear-gradient\(90deg,transparent,rgba\(255,214,10,\.45\),transparent\)/.test(css));
+// Home centering: the short home content centers in the free space; round
+// and results screens stay top-anchored (the one-screen rule).
+check("polish: home screen centers (main.home), rounds/results stay top-anchored",
+  /main\.home\s*\{[^}]*justify-content:\s*center/.test(css) &&
+  appJs.includes('screen.classList.add("home")') &&
+  (appJs.match(/screen\.classList\.remove\("home"\)/g) || []).length === 2);
+// Cards/buttons depth: lifted card shadow, primary press state, ghost press.
+check("polish: cards lift (outer + inset-top shadow), primary presses down, ghost presses",
+  /\.card\s*\{[^}]*box-shadow:\s*0 10px 28px rgba\(0,0,0,\.45\)/.test(css) &&
+  /\.primary:active\s*\{[^}]*transform:\s*translateY\(2px\)/.test(css) &&
+  /\.ghost:active\s*\{[^}]*transform:\s*translateY\(2px\)/.test(css));
+check("polish: stat cards carry the gold top accent, overlay cards the gold top edge",
+  /\.stat\s*\{[^}]*box-shadow:\s*inset 0 2px 0 rgba\(255,214,10,\.22\)/.test(css) &&
+  /\.overlay \.card\s*\{[^}]*border-top:\s*3px solid var\(--gold-bright\)/.test(css));
+// Honeycomb glow: a faint pool of light behind the grid.
+check("polish: honeycomb sits in a honey glow (::before radial gold)",
+  /\.grid::before\s*\{[^}]*background:\s*radial-gradient\(ellipse at center, rgba\(255,214,10,\.09\)/.test(css));
+// Reveal fill pops past full size on arrival (overshoot), not just fades in.
+check("polish: staggered fill pops (cell-fill overshoots to scale 1.18)",
+  /@keyframes cell-fill\{0%\{[^}]*scale\(\.5\)[\s\S]*?60%\{[^}]*scale\(1\.18\)[\s\S]*?100%\{[^}]*scale\(1\)/.test(css));
+// Legend chips: reveal legends are flex rows of nowrap chips, not <br> stacks.
+check("polish: reveal legends are chip rows (reveal-legend flex + .lg nowrap)",
+  /\.legend\.reveal-legend\s*\{[^}]*display:\s*flex/.test(css) &&
+  /\.legend\.reveal-legend \.lg\s*\{[^}]*white-space:\s*nowrap/.test(css) &&
+  appJs.includes('class="legend reveal-legend"') && appJs.includes('<span class="lg">') &&
+  !appJs.includes("White = the real number<br>"));
+// Bee stage: every reveal bee sits in the same faint honey-light pool, and
+// the home crew flies over a glow + hairline shelf.
+check("polish: reveal bee-wrap has the honey-light pool, crew has glow + shelf",
+  /\.bee-wrap::before\s*\{[^}]*background:\s*radial-gradient\(circle, rgba\(255,214,10,\.13\)/.test(css) &&
+  /\.bee-crew::before\s*\{[^}]*background:\s*radial-gradient\(ellipse at center, rgba\(255,214,10,\.08\)/.test(css) &&
+  /\.bee-crew::after\s*\{[^}]*background:\s*linear-gradient\(90deg,transparent,rgba\(255,214,10,\.40\),transparent\)/.test(css));
+// Screen details: question balances, big numbers glow, slider thumb glows,
+// pinned controls fade instead of a hard black band, tier name glows.
+check("polish: question text balances, big guess + tier name + score glow",
+  /\.qtext\s*\{[^}]*text-wrap:\s*balance/.test(css) &&
+  /\.big-guess\s*\{[^}]*text-shadow:\s*0 0 26px rgba\(255,214,10,\.25\)/.test(css) &&
+  /\.tier-name\s*\{[^}]*text-shadow:\s*0 0 16px rgba\(255,214,10,\.30\)/.test(css) &&
+  /\.score-big\s*\{[^}]*text-shadow:\s*0 0 26px rgba\(255,214,10,\.25\)/.test(css));
+check("polish: slider thumb glows, pinned controls fade at the top edge",
+  /input\[type=range\]::-webkit-slider-thumb\s*\{[^}]*0 0 14px rgba\(255,214,10,\.35\)/.test(css) &&
+  /\.controls\s*\{[^}]*background:\s*linear-gradient\(to bottom, rgba\(0,0,0,0\), var\(--bg\) 24%\)/.test(css) &&
+  /@media\s*\(min-height:\s*880px\)\s*\{\.controls\s*\{[^}]*position:\s*sticky/.test(css));
+// Results tighten: rows 9px -> 8px (the results screen measured 860px tall
+// on a 390x844 phone, 16px over; the 7 rows give back 7px and the tighter
+// card padding the rest), tier + points in gold-soft.
+check("polish: results rows tighten to 8px, tier + points read gold-soft",
+  /\.result-row\s*\{[^}]*padding:\s*8px 2px/.test(css) &&
+  /\.result-row b\s*\{[^}]*color:\s*var\(--gold-soft\)/.test(css));
+check("polish: text-round reveals center in the free space (no grid, no void)",
+  /#reveal\.reveal-text\s*\{[^}]*flex:\s*1[^}]*justify-content:\s*center/.test(css) &&
+  appJs.includes('reveal.classList.add("reveal-text")') &&
+  appJs.includes("if (isText) reveal.classList.add"));
 
 // renderGrid logic, run against a minimal DOM stub (no browser in this sandbox).
 function extractFn(src, name) {
@@ -752,7 +851,7 @@ check("text reveal says 'not on the list'",
 // In-place: showReveal must not replace the round screen with a separate
 // card — it hides the answering controls, re-renders the on-screen entry
 // grid, and inserts the tier + bee + answer + Next block in place.
-const revealSrc = appJs.slice(appJs.indexOf("function showReveal(r)"), appJs.indexOf("function escapeHtml"));
+const revealSrc = extractFn(appJs, "showReveal");
 check("in-place reveal: showReveal does not replace the screen with a separate card",
   revealSrc.length > 100 && !revealSrc.includes("screen.innerHTML"));
 check("in-place reveal: answering controls are hidden and the on-screen grid is re-rendered",
@@ -890,7 +989,15 @@ check("served index.html carries new tagline + HONEYDLE wordmark + fonts, old ta
   homeText.includes("fonts.googleapis.com/css2?family=Press+Start+2P") &&
   !homeText.includes("what do people usually do?"));
 
-const servedCss = await (await fetch(BASE + "/styles.css")).text();
+const servedCssParts = [];
+for (const f of CLIENT_CSS_FILES) {
+  const r = await fetch(BASE + "/css/" + f);
+  check(`served css/${f} returns 200`, r.ok, String(r.status));
+  servedCssParts.push(await r.text());
+}
+const servedCss = servedCssParts.join("\n");
+check("old /styles.css is gone (404)", (await fetch(BASE + "/styles.css")).status === 404);
+check("old /app.js is gone (404)", (await fetch(BASE + "/app.js")).status === 404);
 check("served styles.css has black theme + shared 188px grid + inset rings, no light theme",
   servedCss.includes("--bg:#000000") && servedCss.includes("--gold-bright:#ffd60a") &&
   servedCss.includes("--dot-unlit:#2e2e2e") && servedCss.includes("color-scheme:dark") &&
@@ -899,7 +1006,13 @@ check("served styles.css has black theme + shared 188px grid + inset rings, no l
   !servedCss.includes("Fraunces"));
 check("served styles.css has top-anchored main, no vertical centering",
   /main\s*\{[^}]*justify-content:\s*flex-start/.test(servedCss) && !/main\s*\{[^}]*justify-content:\s*center/.test(servedCss));
-const servedJs = await (await fetch(BASE + "/app.js")).text();
+const servedJsParts = [];
+for (const f of CLIENT_JS_FILES) {
+  const r = await fetch(BASE + "/js/" + f);
+  check(`served js/${f} returns 200`, r.ok, String(r.status));
+  servedJsParts.push(await r.text());
+}
+const servedJs = servedJsParts.join("\n");
 check("served app.js renders entry grid on Guess/Split answering screens",
   (servedJs.match(/id="entry-grid"/g) || []).length === 2);
 check("served app.js entry grid uses gold-only modes, no crowd data",
@@ -1124,8 +1237,11 @@ console.log("== integration: black theme — contrast on black (served CSS) ==")
 // contrast against its effective background (WCAG AA bar for normal text),
 // and no text may compute to black on the black surfaces. The disabled
 // input is intentionally muted, so it gets a 4.0 bar instead.
-const diskCss = fs.readFileSync(path.join(__dirname, "..", "client", "styles.css"), "utf8");
-check("served styles.css is byte-identical to the repo file", servedCss === diskCss);
+const diskCss = css;
+check("served CSS segments are byte-identical to the repo files",
+  CLIENT_CSS_FILES.every((f, i) => servedCssParts[i] === fs.readFileSync(path.join(__dirname, "..", "client", "css", f), "utf8")));
+check("served JS segments are byte-identical to the repo files",
+  CLIENT_JS_FILES.every((f, i) => servedJsParts[i] === fs.readFileSync(path.join(__dirname, "..", "client", "js", f), "utf8")));
 check("black theme: no prefers-color-scheme block in the served CSS", !servedCss.includes("prefers-color-scheme"));
 function lum(rgb) {
   const m = rgb.match(/rgba?\(([^)]+)\)/);

@@ -1,0 +1,92 @@
+/* Honeydle — honeycomb grid, legend swatches, reveal fill. */
+/* HoneycombGrid: CIRCLE cells in a big-hexagon outline, black/yellow/white only.
+   real-number-only = white, guess-only = dark + yellow inset ring,
+   overlap ("you got these") = solid bright-yellow fill, unlit = charcoal.
+   Split: real-number halves white / DEEP AMBER (see --amber-deep), player
+   region bright-yellow fill.
+   Circles, not hexagons (2026-11-18): the hex cells looked broken and were
+   fiddly to get right — circles in the same big-hexagon outline are the
+   reliable build. The 100 cells form ONE BIG HONEYCOMB: 11 rows that grow
+   then shrink — 6,8,9,10,11,12,11,10,9,8,6 — laid out by renderGrid as
+   centered .hrow flex rows, so the outline is a big hexagon. Rows are
+   centered, so a one-cell step staggers the next row by half a cell
+   pitch — a proper hex lattice. Main cells 10px diameter, 2.5px in-row
+   gap (12.5px pitch), 10px row pitch (margin-bottom:0); fine-tune cells
+   14px, 4px gap (18px pitch), 14.4px row pitch (margin-bottom:.4px).
+   No-overlap rule: the diagonal center distance sqrt(6.25^2 + 10^2) =
+   11.8px clears the 10px diameter, and vertically aligned neighbors
+   touch exactly (pitch = diameter), never overlap. The inset ring works
+   on circles the same way (box-shadow inset 2px). The 2.5px gap lives
+   on the rows, not the container — a container gap would add to the row
+   pitch.
+   REGULARITY (measured, see VERIFICATION.md): the outline's top edge is
+   62.5px and each slant side hypot(3*12.5, 5*10) = 62.5px — exactly
+   equal (the old hex shape was 81.0 vs 82.8, 2.2% apart). The slant
+   angle is 53.1° rather than 60°, so the outline reads as a hexagon
+   with equal sides — the best the 100-cell count allows.
+   ONE-SCREEN BUDGET: the grid element is 117px tall (10 x 10 pitch +
+   10 cell + 7 padding), inside a 120px budget pinned by verify — at
+   that height the question + grid + reveal fit a 390x844 phone screen
+   without scrolling (measured docScroll 831px <= 844). A 667px-tall
+   phone (iPhone SE) still scrolls on the reveal; fitting it would need
+   shrinking the reveal bee/controls too, not just the grid. */
+.grid{display:flex;flex-direction:column;align-items:center;max-width:188px;margin:14px auto 6px;padding-bottom:7px;position:relative}
+/* Honey glow pooled behind the honeycomb — the grid sits in a faint pool of
+   light so it reads as the lit centerpiece, not dots floating on black. */
+.grid::before{content:"";position:absolute;inset:-24px -46px;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse at center, rgba(255,214,10,.09), transparent 65%)}
+.grid .hrow{display:flex;gap:2.5px;margin-bottom:0}
+.grid .hrow:last-child{margin-bottom:0}
+.grid .dot{width:10px;height:10px;border-radius:50%;background:var(--dot-unlit)}
+.grid .dot.white{background:#ffffff}
+.grid .dot.gold{box-shadow:inset 0 0 0 2px var(--gold-bright);background:#1a1a1a}
+/* Overlap ("you got these") is a solid bright-yellow fill with a soft outer
+   honey glow — the glow is an outer halo, never an inset ring, so the fill
+   still reads as one flat state. */
+.grid .dot.white.gold{background:var(--gold-bright);box-shadow:0 0 6px rgba(255,214,10,.45)}
+.grid .dot.amber{background:var(--amber-deep)}
+.grid .dot.amber.gold{background:var(--gold-bright);box-shadow:0 0 6px rgba(255,214,10,.45)}
+/* fine-tune dots: bright yellow 28% mix over dark + inset yellow ring */
+.grid .dot.ft{background:color-mix(in srgb, var(--gold-bright) 28%, #1a1a1a);box-shadow:inset 0 0 0 2px var(--gold-bright)}
+.grid.small{max-width:224px;padding-bottom:8px}
+/* fine-tune cells are 14px circles, so the honeycomb pitch is 14.4px:
+   0.4px bottom margin on the row (14 + 0.4 = 14.4). The row gap is 4px
+   here (18px pitch) — the no-overlap pitch for a 14px cell needs a 4px
+   gap, not the main grid's 2.5px. Same hexagon shape, same
+   big-honeycomb rows. Widest row: 11 x 18 + 14 = 212px, inside the
+   224px box. */
+.grid.small .hrow{gap:4px;margin-bottom:.4px}
+.grid.small .hrow:last-child{margin-bottom:0}
+.grid.small .dot{width:14px;height:14px}
+/* entry grid: same shared 188px size as the reveal grid, so answering and
+   reveal are identical in size.
+   NOTE: #entry-grid is a direct child of main#screen, which is a FLEX
+   container (display:flex; flex-direction:column), and this rule sets
+   horizontal auto margins. A flex item with auto cross margins is NOT
+   stretched — its width resolves to fit-content. The rows are fixed-width
+   flex rows now, so the intrinsic width is the widest row (188px) and the
+   2026-11-16 collapse can't happen the same way — but the definite
+   width:100% below (capped by max-width) stays as a guard so the grid
+   always spans the full 188px and the rows center inside it (the reveal
+   grid works only because it sits inside a block .card, where width:auto
+   fills). Do not remove it. */
+.grid.entry{width:100%;max-width:188px;margin:10px auto 4px}
+.legend{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 10px}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 3px 0 10px;vertical-align:-1px}
+.legend .sw.white{background:#ffffff} .legend .sw.amber{background:var(--amber-deep)}
+/* Reveal legends are chips, not stacked lines: each item is one nowrap chip
+   (swatch + label), the row wraps centered with even gaps, so the key reads
+   as a single tidy row on wide phones and two balanced rows on narrow ones.
+   The answering legend (one item) keeps the plain centered line. */
+.legend.reveal-legend{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:5px 16px}
+.legend.reveal-legend .lg{white-space:nowrap}
+.legend.reveal-legend .sw{margin:0 5px 0 0}
+/* ring swatch keeps the inset-ring treatment (same as the guess-only dots):
+   a border would be clipped at the hex corners, the inset shadow is not. */
+.legend .sw.gold{background:#1a1a1a;box-shadow:inset 0 0 0 2px var(--gold-bright)}
+.legend .sw.goldfill{background:var(--gold-bright)}
+
+/* reveal grid fill: cells light up in sequence (staggered per-cell delay
+   set in showReveal), each one popping slightly past full size on arrival */
+.grid.reveal-fill .dot{animation:cell-fill .35s ease-out both}
+@keyframes cell-fill{0%{opacity:0;transform:scale(.5)}60%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
