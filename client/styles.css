@@ -81,12 +81,23 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .answer-line{text-align:center;font-size:17px;margin:10px 0 2px}
 .answer-line b{color:var(--gold-soft)}
 .note{font-size:14px;color:var(--muted);text-align:center;line-height:1.45;margin:6px 0 12px}
-/* CrowdGrid: four instantly distinct states, black/yellow/white only.
-   crowd-only = white, guess-only = dark + yellow inset ring,
+/* HoneycombGrid: hexagon cells in a honeycomb field, black/yellow/white only.
+   real-number-only = white, guess-only = dark + yellow inset ring,
    overlap ("you got these") = solid bright-yellow fill, unlit = charcoal.
-   Split: crowd halves white / gold, player region bright-yellow fill. */
-.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;max-width:188px;margin:14px auto 6px}
-.grid .dot{aspect-ratio:1;border-radius:50%;background:var(--dot-unlit)}
+   Split: real-number halves white / gold, player region bright-yellow fill.
+   Cells are flat-top hexagons (clip-path). Rows nest vertically: each row is
+   pulled up by a negative bottom margin so the hexagons interlock — row
+   pitch 12.1px = 3/4 of the 16.1px cell, the honeycomb pitch. The
+   padding-bottom reserves the last row's 7px overhang so the legend below
+   never overlaps it. Alternate rows are NOT offset horizontally: a half-cell
+   stagger would push odd rows ~9px past the 188px box, and shrinking the
+   grid to fit it would break the shared 188px size — hexagon cells +
+   vertical nesting is the honeycomb treatment here. The inset ring survives
+   clip-path: the computed box-shadow is unchanged (clip-path only trims it
+   at the hex corners, negligible at ~16px). Do NOT switch to outline — it
+   is rectangular and wrong on a hex. */
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;max-width:188px;margin:14px auto 6px;padding-bottom:7px}
+.grid .dot{aspect-ratio:1;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--dot-unlit);margin-bottom:-7px}
 .grid .dot.white{background:#ffffff}
 .grid .dot.gold{box-shadow:inset 0 0 0 2px var(--gold-bright);background:#1a1a1a}
 .grid .dot.white.gold{background:var(--gold-bright)}
@@ -94,7 +105,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .grid .dot.amber.gold{background:var(--gold-bright)}
 /* fine-tune dots: bright yellow 28% mix over dark + inset yellow ring */
 .grid .dot.ft{background:color-mix(in srgb, var(--gold-bright) 28%, #1a1a1a);box-shadow:inset 0 0 0 2px var(--gold-bright)}
-.grid.small{max-width:224px;gap:3px}
+.grid.small{max-width:224px;gap:3px;padding-bottom:8px}
+/* fine-tune cells are 19.7px, so the honeycomb pitch is 14.7px = 3/4 of the
+   cell: -8px bottom margin (19.7 - 8 + 3 gap). Same hexagon shape. */
+.grid.small .dot{margin-bottom:-8px}
 /* entry grid: same shared 188px size as the reveal grid, so answering and
    reveal are identical in size.
    NOTE: #entry-grid is a direct child of main#screen, which is a FLEX
@@ -109,9 +123,11 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
    this grid at 188px — do not remove it. */
 .grid.entry{width:100%;max-width:188px;gap:3px;margin:10px auto 4px}
 .legend{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 10px}
-.legend .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 3px 0 10px;vertical-align:-1px}
+.legend .sw{display:inline-block;width:10px;height:10px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);margin:0 3px 0 10px;vertical-align:-1px}
 .legend .sw.white{background:#ffffff} .legend .sw.amber{background:var(--gold)}
-.legend .sw.gold{background:#1a1a1a;border:2px solid var(--gold-bright)}
+/* ring swatch keeps the inset-ring treatment (same as the guess-only dots):
+   a border would be clipped at the hex corners, the inset shadow is not. */
+.legend .sw.gold{background:#1a1a1a;box-shadow:inset 0 0 0 2px var(--gold-bright)}
 .legend .sw.goldfill{background:var(--gold-bright)}
 .burst{animation:burst .6s ease-out}
 @keyframes burst{0%{transform:scale(.92)}40%{transform:scale(1.05)}100%{transform:scale(1)}}

@@ -39,14 +39,14 @@ function sliderFill(el) {
 function renderGrid(container, spec) {
   // One shared 100-dot grid (188px) for answering and reveal, same component.
   // Black/yellow/white only — four instantly distinct reveal states:
-  // crowd-only = white, guess-only = dark + yellow inset ring, overlap
+  // real-number-only = white, guess-only = dark + yellow inset ring, overlap
   // (in both) = solid bright-yellow FILL, unlit = charcoal. Yellow fill =
   // you, everywhere on the reveal.
-  // Reveal Split {split:{left,right}, playerSplit}: halves by the crowd's
+  // Reveal Split {split:{left,right}, playerSplit}: halves by the real number's
   // split (white / gold); the dots up to the player's split are bright-yellow
   // filled, so the yellow region is the player's split and the white/gold
-  // after it is the crowd's.
-  // Entry specs (while answering, never any crowd data):
+  // after it is the real number's.
+  // Entry specs (while answering, never any real-number data):
   //   {entry:"guess", value} — dark fill + inset yellow ring on exactly
   //     round(value) dots in row-major order
   //   {entry:"split", left} — white/gold halves, NO yellow ring at all

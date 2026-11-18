@@ -437,11 +437,31 @@ check("grid: entry grid is 188px / 3px gap",
   /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid\.entry\s*\{[^}]*gap:\s*3px/.test(css));
 check("grid: fine-tune grid is 224px / 3px gap",
   /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid\.small\s*\{[^}]*gap:\s*3px/.test(css));
+// 2026-11-18 honeycomb: the 100 dots are hexagon cells, not circles.
+// Rows nest vertically with a negative bottom margin (row pitch 3/4 of the
+// cell); the fine-tune grid nests the same way at its larger cell size.
+// Alternate rows are NOT offset horizontally — a half-cell stagger would
+// push odd rows past the 188px box, so hexagon cells + vertical nesting is
+// the honeycomb treatment. Legend swatches are hexagons too.
+check("grid: dots are hexagons (clip-path polygon, no border-radius)",
+  /\.grid \.dot\s*\{[^}]*clip-path:\s*polygon\(/.test(css) &&
+  !/\.grid \.dot\s*\{[^}]*border-radius:\s*50%/.test(css));
+check("grid: rows nest vertically (negative bottom margin, honeycomb pitch)",
+  /\.grid \.dot\s*\{[^}]*margin-bottom:\s*-\d+px/.test(css));
+check("grid: fine-tune grid nests too (small cells, -8px margin)",
+  /\.grid\.small \.dot\s*\{[^}]*margin-bottom:\s*-8px/.test(css));
+check("legend: swatches are hexagons too",
+  /\.legend \.sw\s*\{[^}]*clip-path:\s*polygon\(/.test(css) &&
+  !/\.legend \.sw\s*\{[^}]*border-radius:\s*50%/.test(css));
+check("legend: ring swatch uses the inset ring, not a border",
+  /\.legend \.sw\.gold\s*\{[^}]*box-shadow:\s*inset 0 0 0 2px var\(--gold-bright\)/.test(css) &&
+  !/\.legend \.sw\.gold\s*\{[^}]*border:/.test(css));
 // Rings are INSET everywhere they are used; no outset ring left. Since the
 // 2026-11-17 reveal-readability fix, overlap dots are a solid yellow FILL, not
-// a ring — so only the guess-entry dots and the fine-tune dots still ring.
+// a ring — so only the guess-entry dots and the fine-tune dots still ring,
+// plus the legend ring swatch: three inset rings in total.
 check("rings are inset (box-shadow: inset 0 0 0 2px var(--gold-bright))",
-  (css.match(/box-shadow:\s*inset 0 0 0 2px var\(--gold-bright\)/g) || []).length === 2 &&
+  (css.match(/box-shadow:\s*inset 0 0 0 2px var\(--gold-bright\)/g) || []).length === 3 &&
   !/box-shadow:\s*0 0 0 2px var\(--gold-bright\)/.test(css));
 check("overlap dots are a solid yellow fill, not white + ring",
   /\.grid \.dot\.white\.gold\s*\{[^}]*background:\s*var\(--gold-bright\)/.test(css) &&
@@ -899,6 +919,9 @@ function gridDotBgs(cssText) {
     guessOnly: cs(doc.querySelector("#d-guessonly")).backgroundColor,
     guessOnlyRing: cs(doc.querySelector("#d-guessonly")).boxShadow,
     unlit: cs(doc.querySelector("#d-unlit")).backgroundColor,
+    // honeycomb: the hexagon clip-path must survive as a computed style,
+    // and the inset ring must still be computed on the clipped dot.
+    clip: cs(doc.querySelector("#d-guessonly")).clipPath,
   };
   dom.window.close();
   return out;
@@ -911,6 +934,9 @@ check("black theme: overlap yellow, crowd-only white, guess-only dark + ring, un
   blackDots.overlap !== blackDots.crowd && blackDots.crowd !== blackDots.unlit &&
   blackDots.overlap !== blackDots.unlit && blackDots.guessOnly !== blackDots.unlit &&
   /inset/.test(blackDots.guessOnlyRing) && blackDots.guessOnlyRing.includes("255, 214, 10"), JSON.stringify(blackDots));
+check("black theme: dots carry the hexagon clip-path in computed style (ring intact on the clipped dot)",
+  /^polygon\(/.test(blackDots.clip || "") && (blackDots.clip || "").includes("100% 50%") &&
+  /inset/.test(blackDots.guessOnlyRing), blackDots.clip || "(no clip-path)");
 
 // ------------------------------------------------- integration: seed upsert (pg-mem)
 // The seed must upsert bank.json over an existing Postgres DB (the live Render
