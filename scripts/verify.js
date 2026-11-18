@@ -29,7 +29,7 @@ function check(name, cond, extra = "") {
 // ---------------------------------------------------------- unit: scoring
 console.log("== unit: scoring ==");
 check("exact guess = 175 Bullseye", JSON.stringify(scoreGuess(57, 57)) === JSON.stringify({ points: 175, tier: "Bullseye", diff: 0 }));
-check("1 off = 100 Dead On", scoreGuess(57, 58).points === 100 && scoreGuess(57, 58).tier === "Dead On");
+check("1 off = 100 One Off", scoreGuess(57, 58).points === 100 && scoreGuess(57, 58).tier === "One Off");
 check("2-3 off = 90", scoreGuess(57, 60).points === 90);
 check("4-6 off = 75", scoreGuess(57, 62).points === 75);
 check("7-10 off = 55", scoreGuess(57, 65).points === 55);
@@ -385,10 +385,11 @@ check("entry grid is the shared 188px size", /\.grid\.entry\s*\{[^}]*max-width:\
 // 2026-11-16 entry-grid collapse (live-site bug): #entry-grid is a direct
 // child of main#screen, a column FLEX container, and carries horizontal auto
 // margins — so it is NOT stretched, and its width resolves to fit-content.
-// With repeat(10, 1fr) columns holding only empty aspect-ratio dots, the
-// intrinsic width is just the gaps (~27px), the 1fr columns and the dots
-// collapse to 0px, and the grid is invisible in a real browser even though
-// the DOM has all 100 children. A definite width is what keeps it at 188px.
+// The 10x10 grid's empty aspect-ratio dots gave it an intrinsic width of
+// just the gaps (~27px), so the dots collapsed to 0px and the grid was
+// invisible in a real browser even though the DOM had all 100 dots. The rows
+// are fixed-width flex rows now, so the intrinsic width is the widest row
+// (188px) — but the definite width stays as a guard.
 check("entry grid has a definite width (flex-item collapse guard)",
   /\.grid\.entry\s*\{[^}]*width:\s*(100%|188px)/.test(css));
 // How to Play: no scoring numbers anywhere in the overlay.
@@ -444,25 +445,50 @@ check("theme: main column is 620px wide", /#app\s*\{[^}]*max-width:\s*620px/.tes
 check("theme: single black theme — no prefers-color-scheme block anywhere",
   !/@media\s*\(prefers-color-scheme:\s*dark\)/.test(css) && !/prefers-color-scheme/.test(css));
 // One shared grid size everywhere: answering and reveal identical.
-check("grid: reveal grid is 188px / 3px gap",
-  /\.grid\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid\s*\{[^}]*gap:\s*3px/.test(css));
-check("grid: entry grid is 188px / 3px gap",
-  /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid\.entry\s*\{[^}]*gap:\s*3px/.test(css));
-check("grid: fine-tune grid is 224px / 3px gap",
-  /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid\.small\s*\{[^}]*gap:\s*3px/.test(css));
-// 2026-11-18 honeycomb: the 100 dots are hexagon cells, not circles.
-// Rows nest vertically with a negative bottom margin (row pitch 3/4 of the
+// 2026-11-18 big honeycomb: the grid is a flex column of centered .hrow
+// rows, and the 3px gap lives on the rows, not the container — a container
+// gap would add to the vertical row pitch.
+check("grid: reveal grid is 188px, rows carry the 3px gap",
+  /\.grid\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid \.hrow\s*\{[^}]*gap:\s*3px/.test(css) &&
+  !/\.grid\s*\{[^}]*gap:\s*3px/.test(css));
+check("grid: entry grid is 188px (definite width, no container gap)",
+  /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css) && !/\.grid\.entry\s*\{[^}]*gap:\s*3px/.test(css));
+check("grid: fine-tune grid is 224px, rows carry the 3px gap (shared .hrow rule)",
+  /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid \.hrow\s*\{[^}]*gap:\s*3px/.test(css) &&
+  !/\.grid\.small\s*\{[^}]*gap:\s*3px/.test(css));
+// 2026-11-18 big honeycomb: the 100 dots are hexagon cells in 13 rows that
+// grow then shrink, so together they form one big hexagon. Rows nest
+// vertically with a negative bottom margin on the row (row pitch 3/4 of the
 // cell); the fine-tune grid nests the same way at its larger cell size.
-// Alternate rows are NOT offset horizontally — a half-cell stagger would
-// push odd rows past the 188px box, so hexagon cells + vertical nesting is
-// the honeycomb treatment. Legend swatches are hexagons too.
+// Rows are centered, so a one-cell step nests by half a cell — a proper
+// hex lattice. The widest row is 10 cells, exactly the old width, so the
+// cell size is unchanged (16.1px main, 19.7px fine-tune). Legend swatches
+// are hexagons too.
 check("grid: dots are hexagons (clip-path polygon, no border-radius)",
   /\.grid \.dot\s*\{[^}]*clip-path:\s*polygon\(/.test(css) &&
   !/\.grid \.dot\s*\{[^}]*border-radius:\s*50%/.test(css));
-check("grid: rows nest vertically (negative bottom margin, honeycomb pitch)",
-  /\.grid \.dot\s*\{[^}]*margin-bottom:\s*-\d+px/.test(css));
-check("grid: fine-tune grid nests too (small cells, -8px margin)",
-  /\.grid\.small \.dot\s*\{[^}]*margin-bottom:\s*-8px/.test(css));
+check("grid: main cells are 16.1px wide, fine-tune cells 19.7px",
+  /\.grid \.dot\s*\{[^}]*width:\s*16\.1px/.test(css) && /\.grid\.small \.dot\s*\{[^}]*width:\s*19\.7px/.test(css));
+check("grid: rows nest vertically (negative bottom margin on .hrow, honeycomb pitch)",
+  /\.grid \.hrow\s*\{[^}]*margin-bottom:\s*-4px/.test(css));
+check("grid: fine-tune grid nests too (small rows, -5px margin)",
+  /\.grid\.small \.hrow\s*\{[^}]*margin-bottom:\s*-5px/.test(css));
+// Big-honeycomb geometry, by math: row lengths sum to exactly 100, the
+// arrangement is symmetric (palindromic, grow then shrink), the widest row
+// is 10 cells, and that row fits its box exactly at the declared cell size
+// (integer tenths, no float slop): 10*161 + 9*30 = 1880 (188px), 10*197 +
+// 9*30 = 2240 (224px).
+const rowsMatch = appJs.match(/const ROWS = \[([\d,\s]+)\];/);
+const BIG_HEX_ROWS = rowsMatch ? rowsMatch[1].split(",").map(Number) : [];
+check("big honeycomb: 13 rows, symmetric, sum to exactly 100 cells",
+  BIG_HEX_ROWS.length === 13 &&
+  BIG_HEX_ROWS.reduce((a, b) => a + b, 0) === 100 &&
+  JSON.stringify(BIG_HEX_ROWS) === JSON.stringify([...BIG_HEX_ROWS].reverse()) &&
+  Math.max(...BIG_HEX_ROWS) === 10);
+check("big honeycomb: widest row fits the 188px box exactly",
+  Math.max(...BIG_HEX_ROWS) * 161 + (Math.max(...BIG_HEX_ROWS) - 1) * 30 === 1880);
+check("big honeycomb: fine-tune widest row fits the 224px box exactly",
+  Math.max(...BIG_HEX_ROWS) * 197 + (Math.max(...BIG_HEX_ROWS) - 1) * 30 === 2240);
 check("legend: swatches are hexagons too",
   /\.legend \.sw\s*\{[^}]*clip-path:\s*polygon\(/.test(css) &&
   !/\.legend \.sw\s*\{[^}]*border-radius:\s*50%/.test(css));
@@ -528,20 +554,43 @@ check("renderGrid source extractable for logic test", !!gridSrc);
 if (gridSrc) {
   const makeEl = () => {
     const added = [];
-    return {
+    const el = {
       className: "",
       children: [],
       classList: { add: (...c) => added.push(...c) },
       appendChild(ch) { this.children.push(ch); },
       _added: added,
     };
+    // renderGrid nests dots inside .hrow rows now — querySelectorAll(".dot")
+    // flattens them back to the row-major dot list the logic tests use.
+    el.querySelectorAll = (sel) => {
+      const out = [];
+      const walk = (n) => { for (const ch of n.children || []) { if (sel === ".dot" && ch.className === "dot") out.push(ch); walk(ch); } };
+      walk(el);
+      return out;
+    };
+    return el;
   };
   const renderGrid = new Function("document", `${gridSrc}; return renderGrid;`)({ createElement: () => makeEl() });
   const runGrid = (spec) => {
     const c = makeEl();
     renderGrid(c, spec);
-    return c.children;
+    return c.querySelectorAll(".dot");
   };
+  const runGridRows = (spec) => {
+    const c = makeEl();
+    renderGrid(c, spec);
+    return c.children; // the .hrow rows
+  };
+  // Big-honeycomb row structure: 13 rows, lengths grow then shrink, 100
+  // dots total in row-major order.
+  const hexRows = runGridRows({ entry: "guess", value: 50 });
+  check("big honeycomb: renderGrid builds 13 .hrow rows with lengths [5,6,7,8,9,10,10,10,9,8,7,6,5]",
+    hexRows.length === 13 && hexRows.every((r) => r.className === "hrow") &&
+    JSON.stringify(hexRows.map((r) => r.children.length)) === JSON.stringify([5, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 5]));
+  check("big honeycomb: rows hold 100 dots in row-major order",
+    hexRows.reduce((n, r) => n + r.children.length, 0) === 100 &&
+    runGrid({ entry: "guess", value: 50 }).length === 100);
   const has = (dots, i, ...names) => names.every((n) => dots[i]._added.includes(n));
   const noneHas = (dots, ...names) => dots.every((d) => !names.some((n) => d._added.includes(n)));
 
@@ -838,7 +887,7 @@ for (let attempt = 0; attempt < 12 && !hundredthsOk; attempt++) {
   const s = await api(`/api/play/${ep.body.playId}/submit`, {
     method: "POST", body: JSON.stringify({ playerId: `verify-endless-${attempt}`, roundIndex: 6, guess: offByOneHundredth }),
   });
-  hundredthsOk = s.body.result?.points === 100 && s.body.result?.tier === "Dead On";
+  hundredthsOk = s.body.result?.points === 100 && s.body.result?.tier === "One Off";
 }
 check("hundredths scoring end-to-end (0.01 off = 100)", hundredthsOk);
 
@@ -873,11 +922,11 @@ check("yesterday peek still shows the text #1 (out of scope, unchanged)",
 
 console.log("== integration: real DOM (jsdom) — entry grid actually renders ==");
 // 2026-11-16 entry-grid collapse (live-site bug): the DOM was always correct
-// (100 children, right classes) — the grid collapsed to ~0px in a real browser
+// (100 dots, right classes) — the grid collapsed to ~0px in a real browser
 // because #entry-grid is a flex item of main#screen with auto margins and no
 // definite width. A stub test cannot catch that, so this section loads the
 // real served page in jsdom and drives a full Endless play in the real DOM:
-// the entry grid must have 100 children with the right classes after render
+// the entry grid must have 100 dots with the right classes after render
 // AND after a slider input, on every Guess and Split round.
 const jsdomErrors = [];
 const vc = new VirtualConsole();
@@ -907,7 +956,7 @@ const waitForDom = async (fn, label, timeout = 15000) => {
 };
 const gridCounts = (el) => {
   if (!el) return null;
-  const kids = [...el.children];
+  const kids = [...el.querySelectorAll(".dot")];
   const has = (name) => kids.filter((k) => k.classList.contains(name)).length;
   return { n: kids.length, gold: has("gold"), white: has("white"), amber: has("amber"), ft: has("ft") };
 };
@@ -962,8 +1011,8 @@ for (let round = 1; round <= 7; round++) {
   if (next) next.click();
 }
 await waitForDom(() => domDoc.querySelector(".score-big"), "results screen");
-check("real DOM: entry grid has 100 children, right classes, on every Guess/Split round (render + slider input)", domEntryOk);
-check("real DOM: reveal grid has 100 children after every submit", domRevealOk);
+check("real DOM: entry grid has 100 dots, right classes, on every Guess/Split round (render + slider input)", domEntryOk);
+check("real DOM: reveal grid has 100 dots after every submit", domRevealOk);
 check("real DOM: reveal is in place — round screen, grid and question stay, controls hidden, #reveal present", domInPlaceOk);
 check("real DOM: no JS errors during the full Endless play", jsdomErrors.length === 0, jsdomErrors.join(" | "));
 dom.window.close();

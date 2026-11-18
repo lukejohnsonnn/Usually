@@ -51,26 +51,43 @@ function renderGrid(container, spec) {
   //     round(value) dots in row-major order
   //   {entry:"split", left} — white/gold halves, NO yellow ring at all
   //   {entry:"fine", value} — fine-tune hundredths: yellow 28% mix + ring
+  // Big-honeycomb shape (2026-11-18): the 100 cells are laid out in 13 rows
+  // that grow then shrink — [5,6,7,8,9,10,10,10,9,8,7,6,5] — so together
+  // they form one big hexagon. Rows are centered, so a one-cell step nests
+  // by half a cell: a proper hex lattice at the standing 3/4 row pitch.
+  // The widest row is 10 cells, exactly the old width, so the cell size is
+  // unchanged (16.1px main, 19.7px fine-tune) and the 188px footprint holds:
+  // 10*16.1 + 9*3 = 188; 10*19.7 + 9*3 = 224. Fill order is still row-major
+  // (index i runs across rows in order), so all guess/reveal math is
+  // untouched — only the layout changed. Each row is a .hrow flex row so it
+  // centers itself; the dots stay flat .dot children of their row.
+  const ROWS = [5, 6, 7, 8, 9, 10, 10, 10, 9, 8, 7, 6, 5];
   container.innerHTML = "";
-  for (let i = 0; i < 100; i++) {
-    const d = document.createElement("div");
-    d.className = "dot";
-    if (spec.entry === "split") {
-      if (i < spec.left) d.classList.add("white");
-      else d.classList.add("amber");
-    } else if (spec.entry === "fine") {
-      if (i < Math.round(spec.value)) d.classList.add("ft");
-    } else if (spec.entry === "guess") {
-      if (i < Math.round(spec.value)) d.classList.add("gold");
-    } else if (spec.split) {
-      if (i < spec.split.left) d.classList.add("white");
-      else d.classList.add("amber");
-      if (spec.playerSplit != null && i < spec.playerSplit) d.classList.add("gold");
-    } else {
-      if (i < spec.crowd) d.classList.add("white");
-      if (spec.guess != null && i < Math.round(spec.guess)) d.classList.add("gold");
+  let i = 0;
+  for (const len of ROWS) {
+    const row = document.createElement("div");
+    row.className = "hrow";
+    for (let p = 0; p < len; p++, i++) {
+      const d = document.createElement("div");
+      d.className = "dot";
+      if (spec.entry === "split") {
+        if (i < spec.left) d.classList.add("white");
+        else d.classList.add("amber");
+      } else if (spec.entry === "fine") {
+        if (i < Math.round(spec.value)) d.classList.add("ft");
+      } else if (spec.entry === "guess") {
+        if (i < Math.round(spec.value)) d.classList.add("gold");
+      } else if (spec.split) {
+        if (i < spec.split.left) d.classList.add("white");
+        else d.classList.add("amber");
+        if (spec.playerSplit != null && i < spec.playerSplit) d.classList.add("gold");
+      } else {
+        if (i < spec.crowd) d.classList.add("white");
+        if (spec.guess != null && i < Math.round(spec.guess)) d.classList.add("gold");
+      }
+      row.appendChild(d);
     }
-    container.appendChild(d);
+    container.appendChild(row);
   }
 }
 
@@ -269,7 +286,7 @@ async function submitRound(body) {
 
 // ------------------------------------------------------------------ reveal
 // The bee reacts to the round's points: 175 Bullseye = pure gold,
-// 100 Dead On = covered head to toe in honey, 90 Razor Close = one drop,
+// 100 One Off = covered head to toe in honey, 90 Razor Close = one drop,
 // anything lower = thirsty. Text rounds use their tier points the same way.
 // Diamond streak (Luke's rule): a second consecutive Bullseye in the same
 // play turns the bee diamond; third+ consecutive Bullseyes stay diamond.
@@ -318,7 +335,7 @@ function showReveal(r) {
   const sub1 = !isText && r.answer < 1;
   const streak = bullseyeStreak();
   const entrance = beeEntranceFor(r.points, streak);
-  const nudge = r.tier === "Dead On" ? `<div class="nudge">One away — so close to a Bullseye.</div>` : "";
+  const nudge = r.tier === "One Off" ? `<div class="nudge">One away — so close to a Bullseye.</div>` : "";
 
   // In-place reveal: stay on the round screen — no separate reveal card.
   // Hide/disable the answering controls, re-render the on-screen entry
@@ -363,7 +380,7 @@ function showReveal(r) {
     else renderGrid(g, { crowd: r.answer, guess: r.guess });
     // Staggered fill: the cells light up in sequence, left to right.
     g.classList.add("reveal-fill");
-    [...g.children].forEach((d, i) => { d.style.animationDelay = `${Math.min(i * 8, 800)}ms`; });
+    [...g.querySelectorAll(".dot")].forEach((d, i) => { d.style.animationDelay = `${Math.min(i * 8, 800)}ms`; });
   }
 
   const heroExtras = entrance === "bee-entrance-honey"

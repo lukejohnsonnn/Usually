@@ -299,7 +299,7 @@ app.post("/api/contribute/vote", ah(async (req, res) => {
 }));
 
 // ------------------------------------------------------------------- share
-const TIER_EMOJI = { Bullseye: "🎯", "Dead On": "✅", "Razor Close": "🔥", Close: "🙂", Warm: "😐", Lukewarm: "😬", Cold: "🥶", "Way Off": "❌", Blank: "⬜" };
+const TIER_EMOJI = { Bullseye: "🎯", "One Off": "✅", "Razor Close": "🔥", Close: "🙂", Warm: "😐", Lukewarm: "😬", Cold: "🥶", "Way Off": "❌", Blank: "⬜" };
 
 app.get("/api/share", ah(async (req, res) => {
   const { playerId, date } = req.query;

@@ -107,19 +107,23 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
    real-number-only = white, guess-only = dark + yellow inset ring,
    overlap ("you got these") = solid bright-yellow fill, unlit = charcoal.
    Split: real-number halves white / gold, player region bright-yellow fill.
-   Cells are flat-top hexagons (clip-path). Rows nest vertically: each row is
-   pulled up by a negative bottom margin so the hexagons interlock — row
-   pitch 12.1px = 3/4 of the 16.1px cell, the honeycomb pitch. The
-   padding-bottom reserves the last row's 7px overhang so the legend below
-   never overlaps it. Alternate rows are NOT offset horizontally: a half-cell
-   stagger would push odd rows ~9px past the 188px box, and shrinking the
-   grid to fit it would break the shared 188px size — hexagon cells +
-   vertical nesting is the honeycomb treatment here. The inset ring survives
-   clip-path: the computed box-shadow is unchanged (clip-path only trims it
-   at the hex corners, negligible at ~16px). Do NOT switch to outline — it
-   is rectangular and wrong on a hex. */
-.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;max-width:188px;margin:14px auto 6px;padding-bottom:7px}
-.grid .dot{aspect-ratio:1;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--dot-unlit);margin-bottom:-7px}
+   Cells are flat-top hexagons (clip-path). The 100 cells form ONE BIG
+   HONEYCOMB: 13 rows that grow then shrink — 5,6,7,8,9,10,10,10,9,8,7,6,5 —
+   laid out by renderGrid as centered .hrow flex rows, so the outline is a
+   big hexagon. The widest row is 10 cells, exactly the old width, so the
+   cell size is unchanged (16.1px main, 19.7px fine-tune) and the 188px
+   footprint holds: 10*16.1 + 9*3 = 188; 10*19.7 + 9*3 = 224. Rows nest
+   vertically: each row is pulled up by a negative bottom margin so the
+   hexagons interlock — row pitch 12.1px = 3/4 of the 16.1px cell (14.7px
+   on the 19.7px fine-tune cells), the honeycomb pitch. The inset ring
+   survives clip-path: the computed box-shadow is unchanged (clip-path only
+   trims it at the hex corners, negligible at ~16px). Do NOT switch to
+   outline — it is rectangular and wrong on a hex. The 3px gap lives on the
+   rows, not the container — a container gap would add to the row pitch. */
+.grid{display:flex;flex-direction:column;align-items:center;max-width:188px;margin:14px auto 6px;padding-bottom:7px}
+.grid .hrow{display:flex;gap:3px;margin-bottom:-4px}
+.grid .hrow:last-child{margin-bottom:0}
+.grid .dot{width:16.1px;aspect-ratio:1;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--dot-unlit)}
 .grid .dot.white{background:#ffffff}
 .grid .dot.gold{box-shadow:inset 0 0 0 2px var(--gold-bright);background:#1a1a1a}
 .grid .dot.white.gold{background:var(--gold-bright)}
@@ -127,23 +131,26 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .grid .dot.amber.gold{background:var(--gold-bright)}
 /* fine-tune dots: bright yellow 28% mix over dark + inset yellow ring */
 .grid .dot.ft{background:color-mix(in srgb, var(--gold-bright) 28%, #1a1a1a);box-shadow:inset 0 0 0 2px var(--gold-bright)}
-.grid.small{max-width:224px;gap:3px;padding-bottom:8px}
+.grid.small{max-width:224px;padding-bottom:8px}
 /* fine-tune cells are 19.7px, so the honeycomb pitch is 14.7px = 3/4 of the
-   cell: -8px bottom margin (19.7 - 8 + 3 gap). Same hexagon shape. */
-.grid.small .dot{margin-bottom:-8px}
+   cell: -5px bottom margin on the row (19.7 - 5 = 14.7). Same hexagon shape,
+   same big-honeycomb rows. */
+.grid.small .hrow{margin-bottom:-5px}
+.grid.small .hrow:last-child{margin-bottom:0}
+.grid.small .dot{width:19.7px}
 /* entry grid: same shared 188px size as the reveal grid, so answering and
    reveal are identical in size.
    NOTE: #entry-grid is a direct child of main#screen, which is a FLEX
    container (display:flex; flex-direction:column), and this rule sets
    horizontal auto margins. A flex item with auto cross margins is NOT
-   stretched — its width resolves to fit-content. With repeat(10, 1fr)
-   columns holding only empty aspect-ratio dots, the intrinsic width is
-   just the gaps (~27px), so the 1fr columns and the dots collapse to 0px
-   and the grid is invisible in a real browser (the reveal grid works
-   only because it sits inside a block .card, where width:auto fills).
-   The definite width:100% below (capped by max-width) is what keeps
-   this grid at 188px — do not remove it. */
-.grid.entry{width:100%;max-width:188px;gap:3px;margin:10px auto 4px}
+   stretched — its width resolves to fit-content. The rows are fixed-width
+   flex rows now, so the intrinsic width is the widest row (188px) and the
+   2026-11-16 collapse can't happen the same way — but the definite
+   width:100% below (capped by max-width) stays as a guard so the grid
+   always spans the full 188px and the rows center inside it (the reveal
+   grid works only because it sits inside a block .card, where width:auto
+   fills). Do not remove it. */
+.grid.entry{width:100%;max-width:188px;margin:10px auto 4px}
 .legend{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 10px}
 .legend .sw{display:inline-block;width:10px;height:10px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);margin:0 3px 0 10px;vertical-align:-1px}
 .legend .sw.white{background:#ffffff} .legend .sw.amber{background:var(--gold)}
