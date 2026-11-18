@@ -48,35 +48,21 @@ check("text unlisted = 5", scoreText(null).points === 5);
 check("text blank = 0", scoreText(null, true).points === 0);
 
 console.log("== unit: text matching ==");
-const q105 = byId.get(105);
-check("exact match pepperoni rank 1", matchTextAnswer(q105, "Pepperoni").rank === 1);
-check("case-insensitive", matchTextAnswer(q105, "PEPPERONI").rank === 1);
-check("typo forgiven (peperoni)", matchTextAnswer(q105, "peperoni").rank === 1);
-check("plural forgiven", matchTextAnswer(byId.get(127), "phones").rank === 1);
-check("unlisted stays unlisted", matchTextAnswer(byId.get(106), "my horoscope told me not to go").rank === null);
-check("alias: my car broke down = rank 5", matchTextAnswer(byId.get(106), "my car broke down").rank === 5);
+const q204 = byId.get(204);
+check("exact match caspian sea rank 1", matchTextAnswer(q204, "Caspian Sea").rank === 1);
+check("case-insensitive", matchTextAnswer(q204, "CASPIAN SEA").rank === 1);
+check("typo forgiven (caspain sea)", matchTextAnswer(q204, "caspain sea").rank === 1);
+check("plural forgiven", matchTextAnswer(byId.get(189), "british empires").rank === 1);
+check("unlisted stays unlisted", matchTextAnswer(q204, "my horoscope told me not to go").rank === null);
+check("alias: lake superior = rank 2", matchTextAnswer(q204, "lake superior").rank === 2);
 check("normalize strips articles", normalizeText("A phone screen") === "phone screen");
 // 2026-11-17 autocorrect matching: synonyms, word order, filler words,
 // abbreviations, typos (Damerau transpositions) — with guards so distinct
 // answers in the same list are never conflated. [qid, submitted, wantRank]
 const MATCH_CASES = [
-  [131, "lucky chram", 13], [131, "lucky charm", 13], [131, "good luck charm", 13],
-  [127, "my phone", 1], [127, "cell phone", 1], [127, "CELL PHONE", 1],
-  [127, "smartphone", 1], [127, "mobile", 1],
-  [127, "house keys", 2], [127, "my keys", 2], [127, "keys", 2],
-  [127, "money", 4], [127, "my wallet", 3],
-  [104, "keys", 2],
-  [120, "dog", 1], [120, "my dog", 1], [120, "their dog", 1],
-  [120, "keys", 20], [120, "their keys", 20],
-  [128, "phone screen", 1], [128, "cracked phone screen", 1], [128, "a phone screen", 1],
-  [128, "wine glasses", 5], [128, "laptop screen", 6],
-  [119, "butterflies", 1], [119, "butterfly", 1],
-  [125, "fresh baked bread", 1], [125, "freshly baked bread", 1],
-  [132, "singing", 1], [132, "sing", 1],
-  [130, "kale", 1],
-  [105, "pepperoni pizza", 1], [103, "make coffee", 5],
-  [180, "light blue", 31], [176, "chocolate ice cream", 1],
-  [179, "frenchie", 1], [106, "overslept", 2], [116, "manual", 1],
+  // Kept prompts (unchanged from the pre-overhaul bank).
+  [108, "being lost", 85], [108, "being lose", 85], [108, "getting lost", 85],
+  [108, "dove", null], [110, "dove", null], [110, "tired", null],
   [110, "flying", 3], [110, "being able to fly", 3], [110, "fly", 3],
   [110, "flight", 3], [110, "flew", 3], [110, "flown", 3],
   [110, "time travelling", 4], [110, "traveling in time", 4],
@@ -84,76 +70,40 @@ const MATCH_CASES = [
   [110, "live forever", 8], [110, "never die", 8],
   [110, "controlling wind", 39], [110, "control wind", 39],
   [110, "manipulating time", 9], [110, "manipulate time", 9],
-  // Verb-form unification (2026-11-17): base/-ing/-ed/irregular/noun forms of
-  // the same verb match the same rank; distinct words are NOT merged —
-  // rose stays rose (not rise), dove stays dove (not dive), tired stays
-  // tired (not tire), bedding stays bedding (not bed).
-  [103, "meditating", 25], [103, "meditation", 25],
-  [103, "taking a shower", 7], [103, "took a shower", 7],
-  [103, "going for a walk", 31], [103, "went for a walk", 31],
-  [103, "doing yoga", 39], [103, "did yoga", 39],
-  [103, "making coffee", 5], [103, "having breakfast", 8], [103, "ate breakfast", 8],
-  [103, "exercising", 19],
-  [103, "stare at the ceiling", 60], [103, "staring at the ceiling", 60],
-  [106, "missed my bus", 35], [106, "miss my bus", 35], [106, "ran out of gas", 32],
-  [106, "my cat sat on me", 31], [106, "my cat sitting on me", 31],
-  [106, "lost my phone", 17], [106, "lose my phone", 17],
-  [106, "flat tire", 5], [106, "flat tyre", 5], [106, "tired", null],
-  [106, "taking kids to school", 9],
-  [129, "i fell asleep", 17], [129, "i forgot", 2],
-  [129, "i was gaming", 67], [129, "i was game", 67],
-  [129, "i lost it", 4], [129, "i lose it", 4],
-  [132, "dancing", 4], [132, "danced", 4], [132, "eating", 5], [132, "ate", 5],
-  [132, "crying", 11], [132, "cried", 11],
-  [132, "meditating", 21], [132, "meditation", 21],
-  [132, "applying lipstick", 18], [132, "apply lipstick", 18],
-  [132, "cursing at other drivers", 10], [132, "swear", 10],
-  [104, "reading glasses", 30], [104, "driving licence", 10],
-  [104, "shopping bag", 27], [104, "running shoes", 26], [104, "charging cable", 6],
-  [104, "flash drive", 66], [104, "usb drive", 66], [104, "flash driving", null],
-  [105, "grilled chicken", 5], [105, "grill chicken", 5], [105, "fried chicken", 5],
-  [125, "fresh bake bread", 1], [125, "fresh baking bread", 1], [125, "rose", 12],
-  [131, "key ring", 37], [131, "keyring", 37],
-  [120, "wash machine", 19], [120, "washing machine", 19], [120, "washer", 19],
-  [120, "sat nav", null], [120, "cash machine", 18],
-  [124, "debate", 54], [124, "debating", 54],
-  [127, "vape", 39], [127, "vaping", 39],
-  [114, "piping bag", 53], [114, "icing bag", 53], [114, "ice bag", 53],
-  [115, "iced tea", 29], [115, "ice tea", 29],
-  [108, "being lost", 85], [108, "being lose", 85], [108, "getting lost", 85],
-  [108, "dove", null], [110, "dove", null], [110, "tired", null],
   [111, "baby sitting", 2], [111, "baby sat", 2],
-  [119, "rose", 2], [119, "dove", 21], [119, "dive", null],
-  [118, "bedding", 8], [118, "bed", 2], [118, "bed sheets", 8],
   [111, "fast food", 1],
-  [131, "keys", null], [131, "keychain", null],
-  [177, "hot dog", null], [177, "dog", 1],
-  [128, "phone", null], [128, "screen", null],
-  [128, "glasses", 2], [128, "sunglasses", 2],
-  [112, "key fob", 28],
-  [104, "keys to the office", 32],
-  [103, "check my phone", 1], [103, "check their phone", 1],
-  [103, "check the time", 6],
-  [180, "blue", 1],
-  [176, "chocolate", 1],
-  [179, "french bulldog", 1],
-  [113, "paris", 1], [113, "paris france", 1],
-  [108, "snakes", 1], [108, "snake", 1],
-  [106, "traffic", 1], [106, "stuck in traffic", 1],
+  [124, "debate", 54], [124, "debating", 54],
   [124, "math", 1],
-  [116, "owner's manual", 1], [116, "owners manual", 1],
-  [121, "phone", 1],
-  [122, "dust", 1],
-  [123, "hot sauce", 1],
-  [126, "baby crying", 1], [126, "a baby crying", 1],
-  [129, "the dog ate it", 1], [129, "dog ate it", 1], [129, "dog ate my homework", 1],
-  [115, "mac and cheese", 1], [115, "macaroni and cheese", 1],
-  [117, "hide and seek", 1], [117, "hide-and-seek", 1],
-  [118, "toilet paper", 1],
-  [178, "stuffing", 1],
-  [107, "tape", 1],
+  [177, "hot dog", null], [177, "dog", 1],
+  [179, "frenchie", 1], [179, "french bulldog", 1],
+  [180, "light blue", 31], [180, "blue", 1],
+  [108, "snakes", 1], [108, "snake", 1],
   [109, "ford mustang", 1], [109, "mustang", 1],
-  [114, "toasted sandwich maker", 1],
+  // 2026-11-17 overhaul: top-1 exact for every new text prompt.
+  [189, "british empire", 1], [190, "sobhuza ii", 1], [191, "world war ii", 1],
+  [192, "university of bologna", 1], [201, "peregrine falcon", 1], [202, "blue whale", 1],
+  [203, "ocean quahog clam", 1], [204, "caspian sea", 1], [210, "india", 1],
+  [211, "russia", 1], [212, "nile", 1], [213, "france", 1], [224, "google", 1],
+  [225, "chatgpt", 1], [226, "nvidia", 1], [235, "english", 1],
+  [236, "avengers: endgame", 1], [237, "united states", 1], [238, "smith", 1],
+  [245, "home health and personal care aides", 1], [246, "united states", 1],
+  [247, "sugar cane", 1], [249, "business", 1], [256, "lung cancer", 1],
+  [257, "atorvastatin", 1], [258, "ischaemic heart disease", 1], [259, "breast cancer", 1],
+  // Mechanics on new lists: typo / plural / alias / case.
+  [204, "CASPIAN SEA", 1], [204, "caspain sea", 1], [204, "lake superior", 2],
+  [189, "british empires", 1], [202, "blue whales", 1], [224, "google.com", 1],
+  [237, "usa", 1], [237, "us", 1], [210, "taiwan", 57], [224, "openai", 80],
+  [236, "avengers endgame", 1], [247, "sugar can", 1], [257, "atorvastatine", 1],
+  [201, "peregrine falcom", 1],
+  // Decollide guards: ambiguous bare words match nothing — the matcher must
+  // refuse to guess on a tie. ("lion king" is the one exception: it resolves
+  // to the 1994 original, rank 14, since the 2019 remake is only matchable
+  // with its year attached.)
+  [189, "france", null], [189, "jin dynasty", null], [190, "george william", null],
+  [190, "frederick v", null], [201, "swift", null], [202, "elephant", null],
+  [202, "rhinoceros", null], [202, "right whale", null], [203, "deer", null],
+  [224, "pornhub", null], [224, "xhamster", null], [235, "punjabi", null],
+  [236, "lion king", 14], [204, "dead sea", null],
 ];
 {
   const bad = [];
@@ -176,8 +126,8 @@ check("set shape guess,guess,text,split,split,text,finale",
   byId.get(setA[6]).finale === true);
 check("different date = different set", JSON.stringify(setA) !== JSON.stringify(composeSet(bank.questions, `daily:${addDays(today, 1)}`)));
 check("no repeats within a set", new Set(setA).size === 7);
-check("vote prompt derived for guess", deriveVotePrompt(byId.get(3)).length > 3);
-check("vote prompt for split", deriveVotePrompt(byId.get(44)) === "Pick your side");
+check("vote prompt derived for guess", deriveVotePrompt(byId.get(11)).length > 3);
+check("vote prompt for split", deriveVotePrompt(byId.get(45)) === "Pick your side");
 // 2026-11-17 Contribute fix: 22 votable guess questions fell through to the
 // meaningless "Is this you?" fallback. Nine now derive via new transforms
 // (think their / think / believe / pick / say they are / say they, plus
@@ -186,39 +136,15 @@ check("vote prompt for split", deriveVotePrompt(byId.get(44)) === "Pick your sid
 // like id 59 (third nipple) — a population stat, not a self-voteable
 // behavior. The same pass fixed 11 older derived prompts that were
 // themselves wrong (third-person pronouns and "Have you a ..." grammar).
-// Ids 5 and 152 are the documented exceptions to the pronoun rule:
-// "they're" is the pets, "them" is the person being texted.
+// 2026-11-17 overhaul: most of those questions are gone (killed ids
+// removed from VOTE_PROMPT_EXPECTED below). The six that survive keep their
+// pinned prompts. The old pronoun-rule exceptions (ids 5 and 152) are gone
+// with their questions — no exemptions remain: every derived prompt must
+// be first-person.
 const VOTE_PROMPT_EXPECTED = {
-  1: "Do you think pineapple belongs on pizza?",
-  3: "Do you check your phone within five minutes of waking up?",
-  5: "Do you talk to your pets like they're people?",
-  6: "Have you Googled your own name?",
-  8: "Do you pick cold pizza over standard breakfast foods?",
-  9: "Do you keep a junk drawer you couldn't fully explain?",
-  12: "Do you sing in the shower?",
-  18: "Have you kept a houseplant alive for the last two years?",
-  19: "Do you read the terms and conditions before clicking agree?",
-  22: "Could you recall a friend's phone number without looking it up?",
   24: "Would you give up Facebook for a month for $500?",
-  25: "Do you have a 'chair' covered in clothes right now?",
-  28: "Do you talk to yourself out loud when alone?",
-  29: "Have you ever quit a New Year's resolution by the end of January?",
   32: "Could you qualify for the 2028 Olympics if you started training today?",
-  34: "Do you eat the crust on your pizza?",
-  66: "Do you bite your nails?",
-  68: "Do you keep cash at home as part of your savings?",
-  69: "Have you never left your home state?",
-  76: "Have you given your car a name?",
-  77: "Have you fallen asleep on a bus or train and missed your stop?",
-  144: "Do you like karaoke?",
   145: "Are you afraid of public speaking?",
-  148: "Do you pee in the shower?",
-  149: "Do you use your phone on the toilet?",
-  150: "Do you fall asleep with the TV on?",
-  151: "Do you have a comfort show you rewatch when stressed?",
-  152: "Have you texted someone in the same room as them?",
-  153: "Do you sleep with your phone within arm's reach?",
-  154: "Do you have at least one tattoo?",
   155: "Do you believe some UFOs have been alien spacecraft?",
   167: "Do you think your three-point shot is better than or the same as an average pro's?",
   168: "Could you score 3 or more buckets in a pick-up game against an average pro?",
@@ -231,7 +157,7 @@ for (const q of bank.questions.filter((q) => q.votable)) {
   else if (!p.endsWith("?")) promptBad.push(`${q.id}: not a question (${p})`);
   else if (p.includes("%")) promptBad.push(`${q.id}: percentage in prompt (${p})`);
   else if (/^Have you (a|an) /i.test(p)) promptBad.push(`${q.id}: ungrammatical (${p})`);
-  else if (![5, 152].includes(q.id) && /\bthey\b|\btheir\b|\bthem\b|\bthemselves\b/i.test(p)) promptBad.push(`${q.id}: third-person pronoun (${p})`);
+  else if (/\bthey\b|\btheir\b|\bthem\b|\bthemselves\b/i.test(p)) promptBad.push(`${q.id}: third-person pronoun (${p})`);
   if (VOTE_PROMPT_EXPECTED[q.id] && p !== VOTE_PROMPT_EXPECTED[q.id]) promptBad.push(`${q.id}: expected ${VOTE_PROMPT_EXPECTED[q.id]}, got ${p}`);
 }
 check("vote prompts: no votable question falls back to 'Is this you?', every guess prompt is a real first-person question", promptBad.length === 0, promptBad.join(" | "));
@@ -243,15 +169,15 @@ check("half-court reframed to NBA fans, answer 41 (2026-11-16 audit)",
   byId.get(142)?.text === "What % of NBA fans think they could sink a half-court shot?" && byId.get(142)?.answer === 41);
 check("half-court vote prompt matches reframed text",
   byId.get(142)?.votePrompt === "Could you sink a half-court shot?");
-check("bank is 142 questions (72 guess, 25 split, 10 finale, 35 text) after 2026-11-16 audit",
+check("bank is 142 questions (72 guess, 25 split, 10 finale, 35 text) after 2026-11-17 overhaul",
   bank.questions.length === 142 &&
   bank.questions.filter((q) => q.kind === "guess" && !q.finale).length === 72 &&
   bank.questions.filter((q) => q.kind === "split").length === 25 &&
   bank.questions.filter((q) => q.finale).length === 10 &&
   bank.questions.filter((q) => q.kind === "text").length === 35);
 // 2026-11-16 research audit — researched answers are authoritative, never voted:
-check("audit: every guess/split answer is representable (0.01–100)",
-  bank.questions.filter((q) => q.kind !== "text").every((q) => q.answer != null && q.answer >= 0.01 && q.answer <= 100));
+check("audit: every guess/split answer is representable (0.01–100) and whole at >= 1% (the game rejects decimal guesses at 1%+, so the stored answer must be a whole number a player can type)",
+  bank.questions.filter((q) => q.kind !== "text").every((q) => q.answer != null && q.answer >= 0.01 && q.answer <= 100 && (q.answer < 1 || Number.isInteger(q.answer))));
 check("audit: every question has a cited source",
   bank.questions.every((q) => typeof q.source === "string" && q.source.length > 10));
 check("audit: meta counts match the bank",
@@ -301,41 +227,45 @@ check("audit: seed upserts bank.json and clears votes on answer change",
 // 2026-11-17 fix-everything pass: the reordered top 10s (researched sources) and
 // the sense-sweep merges are pinned here so a future bank edit can't silently
 // revert them. Q110 healing #1 (PixlParade 2026 + Morning Consult); Q179 2025
-// AKC; Q176 IDFA 2026 (pistachio out of the top 10, brownie/choc chip in);
-// Q178 Campbell's 2026 kept over YouGov (near-tie), pies removed as desserts;
-// Q177 APPA 2026 State of the Industry; Q108 US YouGov (Snakes #1);
+// AKC; Q177 APPA 2026 State of the Industry; Q108 US YouGov (Snakes #1);
 // Q109 MoneySuperMarket (Charger #3, Bronco #5, Cayenne #8).
+// 2026-11-17 overhaul: the killed questions are pinned GONE (79 ids), plus
+// the overhaul's judgment calls — websites list cleaned of adult/gambling
+// sites, empires decollide, films top1 per The Numbers (Box Office Mojo has
+// Avatar #1 — conflict documented in VERIFICATION.md), stock ownership
+// updated to Gallup April 2026 (58%), Taiwan in the populous list.
 const topHeads = (id, n) => byId.get(id).textAnswers.slice(0, n).map((a) => a.texts[0]);
 check("reorder Q110: healing #1",
   byId.get(110).top1 === "Healing others" &&
   JSON.stringify(topHeads(110, 5)) === JSON.stringify(["Healing others", "Teleportation", "Flying", "Time travel", "Invisibility"]));
 check("reorder Q179: 2025 AKC order",
   JSON.stringify(topHeads(179, 10)) === JSON.stringify(["French Bulldog", "Labrador Retriever", "Golden Retriever", "German Shepherd", "Dachshund", "Poodle", "Beagle", "Rottweiler", "German Shorthaired Pointer", "Bulldog"]));
-check("reorder Q176: brownie + choc chip in top 10, pistachio out",
-  topHeads(176, 10).includes("Brownie") && topHeads(176, 10).includes("Chocolate chip") &&
-  !topHeads(176, 10).includes("Pistachio") &&
-  byId.get(176).textAnswers.find((a) => a.texts[0] === "Pistachio")?.rank === 21);
-check("reorder Q178: stuffing #1, no pies in the sides list",
-  byId.get(178).top1 === "Stuffing" &&
-  !byId.get(178).textAnswers.some((a) => /\bpie\b/i.test(a.texts[0])) &&
-  byId.get(178).textAnswers.find((a) => a.texts[0] === "Scalloped potatoes")?.rank === 76);
 check("reorder Q177: reptile #4 ahead of small mammal and bird",
   JSON.stringify(topHeads(177, 6)) === JSON.stringify(["Dog", "Cat", "Fish", "Reptile", "Small mammal", "Bird"]));
 check("reorder Q108: snakes #1, public speaking #3",
   byId.get(108).top1 === "Snakes" && topHeads(108, 3)[2] === "Public speaking");
 check("reorder Q109: charger #3, bronco #5, cayenne #8",
   JSON.stringify(topHeads(109, 8)) === JSON.stringify(["Ford Mustang", "Porsche 911", "Dodge Charger", "Tesla Model 3", "Ford Bronco", "Tesla Model Y", "BMW M3", "Porsche Cayenne"]));
-check("sense Q105: Canadian bacon is not a Bacon variant",
-  !byId.get(105).textAnswers.find((a) => a.rank === 7).texts.includes("Canadian bacon"));
 check("sense Q111: babysitting merged, busboy is its own rank",
   byId.get(111).textAnswers.find((a) => a.texts[0] === "Busboy")?.rank === 80 &&
   byId.get(111).textAnswers.find((a) => a.rank === 2).texts.includes("Babysitting for family"));
-check("sense Q107: no dead-batteries rank; Q106: no overslept-because-of-kids rank",
-  !byId.get(107).textAnswers.some((a) => a.texts[0] === "Batteries that don't work") &&
-  !byId.get(106).textAnswers.some((a) => a.texts[0] === "Overslept because of kids"));
-check("sense Q178: potato salad is just potato salad; hash-brown family at 29",
-  byId.get(178).textAnswers.find((a) => a.rank === 13).texts.length === 1 &&
-  byId.get(178).textAnswers.find((a) => a.rank === 29).texts.includes("Cheesy potatoes"));
+const KILLED_IDS = [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 13, 14, 17, 18, 19, 22, 25, 28, 29, 30, 31, 33, 34, 35, 44, 46, 51, 52, 54, 60, 62, 66, 67, 68, 69, 76, 77, 82, 83, 84, 85, 86, 87, 103, 104, 105, 106, 107, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 125, 126, 127, 128, 129, 130, 131, 132, 144, 148, 149, 150, 151, 152, 153, 154, 175, 176, 178];
+check("overhaul: all 79 killed question ids are gone from the bank",
+  KILLED_IDS.every((id) => !byId.has(id)));
+check("overhaul: websites list has no adult or gambling site",
+  !byId.get(224).textAnswers.some((a) => /pornhub|xhamster|xvideos|stripchat|xnxx|eporner|chaturbate|\bbet\b/i.test(a.texts[0])) &&
+  byId.get(224).top1 === "Google" &&
+  byId.get(224).textAnswers.find((a) => a.texts[0] === "OpenAI")?.rank === 80);
+check("overhaul: empires list has no bare 'France' variant",
+  !byId.get(189).textAnswers.some((a) => a.texts.some((t) => t.toLowerCase().trim() === "france")));
+check("overhaul: films top1 is Endgame per The Numbers",
+  byId.get(236).top1 === "Avengers: Endgame");
+check("overhaul: stock ownership is Gallup April 2026 (58%)",
+  byId.get(248)?.answer === 58 && /April 2026/.test(byId.get(248)?.source || ""));
+check("overhaul: Taiwan sits in the populous list",
+  byId.get(210).textAnswers.find((a) => a.texts[0] === "Taiwan")?.rank === 57);
+check("overhaul: bank carries no old brand names",
+  !/crowdle/i.test(JSON.stringify(bank)) && !/usually/i.test(JSON.stringify(bank)));
 let ausInDaily = false;
 for (let d = 0; d < 365; d++) {
   for (const id of composeSet(bank.questions, `daily:${addDays(today, d)}`)) {
