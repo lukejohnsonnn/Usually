@@ -19,6 +19,13 @@ const byId = new Map(BANK.map((q) => [q.id, q]));
 const store = await createStore();
 await store.seedBank(bankFile);
 
+// Self-heal today's frozen set on boot (2026-11-18 bug): a set frozen under
+// an old bank silently shrinks as questions are deleted from the bank, and
+// nothing ever repaired it — the live 2026-11-18 set served 3 questions.
+// Healing here lands the fix on deploy, not on first request. A healthy
+// frozen set is never rewritten (healDailySet returns it untouched).
+await healDailySet(etDateStr());
+
 const app = express();
 app.use(express.json({ limit: "64kb" }));
 app.use(express.static(path.join(__dirname, "client")));
@@ -65,11 +72,35 @@ async function liveQuestion(q) {
   return q;
 }
 
-async function ensureDailySet(date) {
+/** A frozen set is valid iff it is exactly 7 unique ids, all in the bank. */
+function isValidDailySet(ids) {
+  return Array.isArray(ids) && ids.length === 7 &&
+    new Set(ids).size === 7 && ids.every((id) => byId.has(id));
+}
+
+// Guarded self-heal (2026-11-18 bug): frozen sets were never validated or
+// repaired, so a set frozen under an old bank silently shrank as questions
+// were deleted (today's live set decayed to 3). A healthy set is returned
+// untouched — never rewritten. A missing/invalid/short set is recomposed
+// from the current bank, validated (never save a short set), stored, and
+// any daily plays built from the malformed set are discarded so affected
+// players get the full 7-round game instead of a completed 3-round one.
+async function healDailySet(date) {
   const existing = await store.getDailySet(date);
-  if (existing) return existing;
+  if (isValidDailySet(existing)) return { ids: existing, healed: false };
   const ids = composeSet(BANK, `daily:${date}`);
-  return store.saveDailySet(date, ids);
+  if (!isValidDailySet(ids)) {
+    throw new Error(`healDailySet(${date}): composed set is invalid: ${JSON.stringify(ids)}`);
+  }
+  await store.replaceDailySet(date, ids);
+  const dropped = await store.deleteStaleDailyPlays(date, ids);
+  console.log(`healed daily set for ${date}: replaced malformed set ${JSON.stringify(existing)} with ${JSON.stringify(ids)} (dropped ${dropped} stale daily play(s))`);
+  return { ids, healed: true };
+}
+
+async function ensureDailySet(date) {
+  const { ids } = await healDailySet(date);
+  return ids;
 }
 
 async function snapshotFor(ids) {

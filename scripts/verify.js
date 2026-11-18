@@ -147,6 +147,21 @@ check("set shape guess,guess,text,split,split,text,finale",
   byId.get(setA[6]).finale === true);
 check("different date = different set", JSON.stringify(setA) !== JSON.stringify(composeSet(bank.questions, `daily:${addDays(today, 1)}`)));
 check("no repeats within a set", new Set(setA).size === 7);
+// 2026-11-18 bug 1: a frozen set decayed to 3 questions after bank deletions.
+// composeSet must always return exactly 7 valid, unique, bank-present ids.
+{
+  const bankIds = new Set(bank.questions.map((q) => q.id));
+  const bad = [];
+  for (let d = 0; d < 60; d++) {
+    const ids = composeSet(bank.questions, `daily:${addDays(today, d)}`);
+    if (ids.length !== 7 || new Set(ids).size !== 7 || ids.some((id) => !bankIds.has(id))) bad.push(addDays(today, d));
+  }
+  for (let i = 0; i < 20; i++) {
+    const ids = composeSet(bank.questions, `endless:verify-seed-${i}`);
+    if (ids.length !== 7 || new Set(ids).size !== 7 || ids.some((id) => !bankIds.has(id))) bad.push(`endless:${i}`);
+  }
+  check("composeSet returns exactly 7 valid unique bank ids for 60 dates + 20 endless seeds", bad.length === 0, bad.join(", "));
+}
 // 2026-11-18: Contribute was removed entirely (Luke: "it's useless").
 // No votePrompt fields in the bank, no deriveVotePrompt in lib/game.js,
 // no vote tables in db.js, no /api/contribute endpoints in server.js,
@@ -537,13 +552,35 @@ check("grid: fine-tune rows stack at the 14.4px pitch (small rows, .4px margin)"
 // (palindromic, grow then shrink), the widest row is 12 cells. The widest
 // row fits its box at the declared cell size: main 12*10 + 11*2.5 = 147.5px
 // (<= 188px), fine-tune 12*14 + 11*4 = 212px (<= 224px).
-// Regularity: the outline's top edge is (topRow-1)*(d+gap) and each slant
-// side is hypot(dx, dy) with dx = (widest-topRow)/2 rows' worth of pitch
-// and dy = (rows-1)/2 row pitches. New shape: top 62.5px, slant 62.5px —
-// exactly equal (the old hex shape was 81.0 vs 82.8, 2.2% apart). The
-// slant angle is 53.1° rather than 60°; a perfect regular hexagon is
-// impossible with exactly 100 cells (91 or 127 would be); the check pins
-// side deviation <= 3% and reports the numbers.
+// DIAGONAL NESTING (2026-11-18 bug 2): centered rows nest diagonally only
+// on odd width steps — the relative offset is (Δw/2) * pitch, a half pitch
+// for Δw odd, a full pitch (vertical alignment, no nesting) for Δw even.
+// The 6→8 step at the top and the 8→6 step at the bottom are both Δw = 2,
+// so the top and bottom rows sat flat over their neighbors. Rows 1–9 now
+// carry the half-pitch shift (SHIFTS in grid.js, .shift translateX in
+// grid.css: 6.25px main, 9px fine-tune), so EVERY adjacent pair — top pair
+// and bottom pair included — is offset by exactly half a pitch, and every
+// circle sits in the pocket between two circles of the neighboring row.
+// The check below computes each pair's offset from ROWS + SHIFTS and pins
+// all ten at 6.25px; the shift pattern itself is pinned by rule (it flips
+// exactly at the even width steps) and by the renderGrid logic test.
+// Regularity: the outline is measured in outer-edge terms — top =
+// (topRow-1)*pitch + diameter, slants = hypot(run, dy) between the outer
+// edges of the corner rows. The shift trades slant equality for nesting:
+// top 72.5px, left slant 59.0px, right slant 66.4px. The old <= 3%
+// side-deviation check is REPLACED by pinned exact values, not loosened:
+// equal slants and all-pairs nesting are mathematically incompatible at
+// 100 cells for this pattern, and the numeric search
+// (scripts/grid-search.mjs, 409 symmetric patterns, 9–13 rows) ranks this
+// first — the all-odd-step alternatives that need no shift are wider and
+// flatter (top 60 vs slant 75.3, slant angle 41.6° vs 60° ideal) and read
+// as squashed hexagons, and a perfect regular hexagon is impossible with
+// exactly 100 cells (91 or 127 would be). A step-by-exactly-one-cell
+// pattern is impossible too: only R=10 admits one ([8,9,10,11,12,12,…]),
+// top 97.5 vs slant 47.2 (2.1×), and its middle pair (Δw = 0) still needs
+// a shear-inducing shift to nest at all. The rendered span grows by the
+// shift (main 147.5 + 6.25 = 153.75px, fine-tune 212 + 9 = 221px) and must
+// still fit its box.
 // No overlap: the diagonal center distance sqrt((pitch/2)^2 + v^2) must
 // clear the diameter, and the vertical pitch must be >= the diameter
 // (aligned neighbors touch exactly, never overlap). One-screen budget:
@@ -553,6 +590,23 @@ check("grid: fine-tune rows stack at the 14.4px pitch (small rows, .4px margin)"
 // the circle grid is 117px).
 const rowsMatch = appJs.match(/const ROWS = \[([\d,\s]+)\];/);
 const BIG_HEX_ROWS = rowsMatch ? rowsMatch[1].split(",").map(Number) : [];
+const shiftsMatch = appJs.match(/const SHIFTS = \[([\d,\s]+)\];/);
+const BIG_HEX_SHIFTS = shiftsMatch ? shiftsMatch[1].split(",").map(Number) : [];
+check("big honeycomb: 11 rows, symmetric, sum to exactly 100 cells",
+  BIG_HEX_ROWS.length === 11 &&
+  BIG_HEX_ROWS.reduce((a, b) => a + b, 0) === 100 &&
+  JSON.stringify(BIG_HEX_ROWS) === JSON.stringify([...BIG_HEX_ROWS].reverse()) &&
+  Math.max(...BIG_HEX_ROWS) === 12);
+check("big honeycomb: SHIFTS parses — 11 entries, rows 1-9 shifted, top/bottom centered",
+  BIG_HEX_SHIFTS.length === 11 &&
+  JSON.stringify(BIG_HEX_SHIFTS) === JSON.stringify([0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]));
+check("big honeycomb: shift flips exactly at the even width steps (6→8, 8→6) and nowhere else",
+  BIG_HEX_ROWS.length === 11 && BIG_HEX_SHIFTS.length === 11 &&
+  BIG_HEX_SHIFTS.every((s, i) => i === 0 ? s === 0 :
+    s === (BIG_HEX_SHIFTS[i - 1] ^ ((BIG_HEX_ROWS[i] - BIG_HEX_ROWS[i - 1]) % 2 === 0 ? 1 : 0))));
+check("grid: .shift is a half-pitch translateX — 6.25px main, 9px fine-tune",
+  /\.grid \.hrow\.shift\s*\{[^}]*transform:\s*translateX\(6\.25px\)/.test(css) &&
+  /\.grid\.small \.hrow\.shift\s*\{[^}]*transform:\s*translateX\(9px\)/.test(css));
 check("big honeycomb: 11 rows, symmetric, sum to exactly 100 cells",
   BIG_HEX_ROWS.length === 11 &&
   BIG_HEX_ROWS.reduce((a, b) => a + b, 0) === 100 &&
@@ -577,17 +631,36 @@ const gridGeo = (() => {
   const m = Math.max(...BIG_HEX_ROWS);
   const topRow = BIG_HEX_ROWS[0];
   const k = BIG_HEX_ROWS.length;
-  const top = t10((topRow - 1) * (w + gap));
-  const dx = t10(((m - topRow) / 2) * (w + gap));
+  const halfPitch = (w + gap) / 2; // 6.25 — the diagonal-nesting offset
+  const rowW = (n) => n * w + (n - 1) * gap;
+  // Row left edges (outer) with the half-pitch shifts applied.
+  const lefts = BIG_HEX_ROWS.map((n, i) => (rowW(m) - rowW(n)) / 2 + BIG_HEX_SHIFTS[i] * halfPitch);
+  // Per-pair nesting: first-cell-center offset between adjacent rows, mod
+  // the in-row pitch — must be exactly half a pitch on every pair.
+  const offsets = [];
+  for (let i = 0; i < k - 1; i++) {
+    const raw = lefts[i + 1] - lefts[i];
+    offsets.push(((raw % (w + gap)) + (w + gap)) % (w + gap));
+  }
+  const nestAll = offsets.every((o) => Math.abs(o - halfPitch) < 0.01);
+  // Outline, outer-edge terms: top = center span + diameter; slants from
+  // the outer edges of the corner rows to the outer edges of the max row.
+  const top = t10((topRow - 1) * (w + gap) + w);
+  const runL = lefts[0] - lefts[(k - 1) / 2];
+  const runR = (lefts[(k - 1) / 2] + rowW(m)) - (lefts[0] + rowW(topRow));
   const dy = t10(((k - 1) / 2) * pitch);
-  const slant = t10(Math.hypot(dx / 10, dy / 10));
+  const slantL = t10(Math.hypot(runL, dy / 10));
+  const slantR = t10(Math.hypot(runR, dy / 10));
   const diag = Math.sqrt(Math.pow((w + gap) / 2, 2) + Math.pow(pitch, 2));
   return {
-    widestMain: t10(m * w + (m - 1) * gap),
+    widestMain: t10(rowW(m)),
+    spanMain: rowW(m) + halfPitch, // widest row + one half-pitch shift
     widestSmall: t10(m * sw + (m - 1) * sgap),
+    spanSmall: m * sw + (m - 1) * sgap + (sw + sgap) / 2, // + 9px shift
     height: t10((k - 1) * pitch + h + pad),
-    top, slant,
-    sideDev: Math.abs(top - slant) / Math.min(top, slant),
+    top, slantL, slantR,
+    sideDev: Math.max(top / 10, slantL / 10, slantR / 10) / Math.min(top / 10, slantL / 10, slantR / 10) - 1,
+    offsets, nestAll,
     diagClear: t10(diag - w),
     vertClear: t10(pitch - h),
     cellRatio: h / w,
@@ -596,8 +669,14 @@ const gridGeo = (() => {
 check("big honeycomb: geometry parses from CSS", !!gridGeo);
 if (gridGeo) {
   check("big honeycomb: widest row fits the 188px box (147.5px)", gridGeo.widestMain === 1475);
+  check("big honeycomb: rendered span incl. shift fits the 188px box (153.75px)",
+    Math.abs(gridGeo.spanMain - 153.75) < 0.01 && gridGeo.spanMain <= 188);
   check("big honeycomb: fine-tune widest row fits the 224px box (212px)", gridGeo.widestSmall === 2120);
-  check(`big honeycomb: outline sides near-equal — top ${gridGeo.top / 10}px, slant ${gridGeo.slant / 10}px, ${(gridGeo.sideDev * 100).toFixed(1)}% apart (<= 3%)`, gridGeo.sideDev <= 0.03);
+  check("big honeycomb: fine-tune rendered span incl. shift fits the 224px box (221px)",
+    Math.abs(gridGeo.spanSmall - 221) < 0.01 && gridGeo.spanSmall <= 224);
+  check(`big honeycomb: EVERY adjacent pair nests diagonally — offsets ${gridGeo.offsets.map((o) => o.toFixed(2)).join(", ")}px, all exactly half a pitch (6.25px), top 6→8 and bottom 8→6 included`, gridGeo.nestAll);
+  check(`big honeycomb: outline sides pinned — top ${gridGeo.top / 10}px, left slant ${gridGeo.slantL / 10}px, right slant ${gridGeo.slantR / 10}px (shift trades slant equality for nesting; equal sides + all-pairs nesting are incompatible at 100 cells — see comment)`,
+    gridGeo.top === 725 && gridGeo.slantL === 590 && gridGeo.slantR === 664);
   check("big honeycomb: cells are circles (height/width = 1 within 0.01)",
     Math.abs(gridGeo.cellRatio - 1) <= 0.01);
   check("big honeycomb: no cell overlap — diagonal clearance >= 1px and vertical pitch >= diameter",
@@ -796,6 +875,12 @@ if (gridSrc) {
   check("big honeycomb: renderGrid builds 11 .hrow rows with lengths [6,8,9,10,11,12,11,10,9,8,6]",
     hexRows.length === 11 && hexRows.every((r) => r.className === "hrow") &&
     JSON.stringify(hexRows.map((r) => r.children.length)) === JSON.stringify([6, 8, 9, 10, 11, 12, 11, 10, 9, 8, 6]));
+  // Bug 2: the half-pitch shift is wired in renderGrid itself — rows 1–9
+  // carry .shift, the top and bottom rows do not. The stub records
+  // classList.add calls, so this asserts the actual DOM the function builds.
+  check("big honeycomb: renderGrid shifts rows 1-9 (half-pitch), top/bottom rows unshifted",
+    JSON.stringify(hexRows.map((r) => r._added.includes("shift"))) ===
+    JSON.stringify([false, true, true, true, true, true, true, true, true, true, false]));
   check("big honeycomb: rows hold 100 dots in row-major order",
     hexRows.reduce((n, r) => n + r.children.length, 0) === 100 &&
     runGrid({ entry: "guess", value: 50 }).length === 100);
@@ -948,7 +1033,34 @@ check("ruby bee: CSS entrance + sparkle keyframes, biggest burst (scale 1.4 peak
 
 // ------------------------------------------------------- integration: HTTP
 console.log("== integration: server ==");
+// 2026-11-18 bug 1: today's live set decayed to 3 questions. Pre-seed the
+// real malformed v1 frozen set for today ([70,141,113,84,49,114,42] — ids
+// 70/113/84/114 were deleted by the audit + overhaul) plus a stale
+// completed 3-round daily play built from it, then boot: the server must
+// heal the set at boot and discard the stale play.
+const MALFORMED_V1 = [70, 141, 113, 84, 49, 114, 42];
+const STALE_PLAY_ID = "verify-stale-play-001";
 try { fs.unlinkSync(TMP); } catch {}
+fs.writeFileSync(TMP, JSON.stringify({
+  dailySets: { [today]: MALFORMED_V1 },
+  plays: {
+    [STALE_PLAY_ID]: {
+      id: STALE_PLAY_ID, playerId: "verify-player-001", mode: "daily", playDate: today,
+      questionIds: [141, 49, 42],
+      snapshot: [
+        { id: 141, kind: "guess", answer: 50, textAnswers: null, unlisted: null, top1: null },
+        { id: 49, kind: "split", answer: 50, textAnswers: null, unlisted: null, top1: null },
+        { id: 42, kind: "finale", answer: 50, textAnswers: null, unlisted: null, top1: null },
+      ],
+      results: [
+        { kind: "guess", questionId: 141, guess: 50, answer: 50, points: 175, tier: "Bullseye", diff: 0 },
+        { kind: "split", questionId: 49, guess: 50, answer: 50, points: 175, tier: "Bullseye", diff: 0 },
+        { kind: "finale", questionId: 42, guess: 50, answer: 50, points: 175, tier: "Bullseye", diff: 0 },
+      ],
+      score: 525, completed: true,
+    },
+  },
+}, null, 2));
 const child = spawn("node", ["server.js"], {
   cwd: path.resolve(__dirname, ".."),
   env: { ...process.env, PORT: String(PORT), LOCAL_DATA_PATH: TMP },
@@ -976,6 +1088,15 @@ const t2 = await api("/api/today");
 check("today returns 7 questions", t1.body.questions?.length === 7);
 check("today is frozen (two calls identical)", JSON.stringify(t1.body.questions) === JSON.stringify(t2.body.questions));
 check("today has no answers leaked", !t1.raw.includes('"answer":') && !t1.raw.includes("textAnswer"));
+// Bug 1 heal: the pre-seeded malformed v1 set must be replaced at boot by
+// the fresh deterministic composition for today — never the 3 survivors.
+const healedSet = composeSet(bank.questions, `daily:${today}`);
+check("malformed frozen set healed to today's full composition at boot",
+  JSON.stringify(t1.body.questions.map((q) => q.id)) === JSON.stringify(healedSet),
+  JSON.stringify(t1.body.questions.map((q) => q.id)));
+await sleep(300); // file store flushes on a 50ms debounce
+check("healed set persisted to the store",
+  JSON.stringify(JSON.parse(fs.readFileSync(TMP, "utf8")).dailySets[today]) === JSON.stringify(healedSet));
 
 const home = await fetch(BASE + "/");
 const homeText = await home.text();
@@ -1056,6 +1177,14 @@ check("contribute vote endpoint is gone (404)", gone2.status === 404);
 const play1 = await api("/api/play", { method: "POST", body: JSON.stringify({ playerId: pid, mode: "daily" }) });
 const play2 = await api("/api/play", { method: "POST", body: JSON.stringify({ playerId: pid, mode: "daily" }) });
 check("one run per day: second startPlay resumes same play", play1.body.playId === play2.body.playId);
+// Bug 1 heal: the pre-seeded stale completed 3-round play must be gone —
+// the player gets a fresh 7-round play on the healed set, not the old one.
+check("stale 3-round play discarded on heal: fresh 7-round play, not the stale one",
+  play1.body.playId !== STALE_PLAY_ID && play1.body.questions?.length === 7 &&
+  play1.body.results?.length === 0 && play1.body.completed === false,
+  `playId=${play1.body.playId} questions=${play1.body.questions?.length}`);
+check("perfect daily plays the healed set",
+  JSON.stringify(play1.body.questions.map((q) => q.id)) === JSON.stringify(healedSet));
 const play = play1.body;
 let perfect = true;
 for (let i = 0; i < 7; i++) {
@@ -1133,6 +1262,41 @@ const y = await api("/api/yesterday");
 check("yesterday returns 7 rounds with answers", y.body.rounds?.length === 7 && y.body.rounds.every((r) => r.answer !== undefined && r.answer !== null));
 check("yesterday peek still shows the text #1 (out of scope, unchanged)",
   y.body.rounds.filter((r) => typeof r.answer === "string").length === 2);
+
+console.log("== integration: healthy frozen set is never rewritten ==");
+// Bug 1 guard: a valid 7-id set that is NOT today's deterministic
+// composition must survive boot + /api/today byte-for-byte — the heal only
+// fires on malformed sets. Uses a second server on its own port + store.
+const TMP2 = "/tmp/crowdle-verify-local-2.json";
+const PORT2 = 3458;
+const BASE2 = `http://127.0.0.1:${PORT2}`;
+const healthySet = composeSet(bank.questions, `daily:${addDays(today, 1)}`);
+check("healthy-set fixture differs from today's composition (guard is not vacuous)",
+  JSON.stringify(healthySet) !== JSON.stringify(healedSet));
+try { fs.unlinkSync(TMP2); } catch {}
+fs.writeFileSync(TMP2, JSON.stringify({ dailySets: { [today]: healthySet }, plays: {} }, null, 2));
+const child2 = spawn("node", ["server.js"], {
+  cwd: path.resolve(__dirname, ".."),
+  env: { ...process.env, PORT: String(PORT2), LOCAL_DATA_PATH: TMP2 },
+  stdio: "ignore",
+});
+let health2Ok = false;
+for (let i = 0; i < 40; i++) {
+  await sleep(250);
+  try { const r = await fetch(BASE2 + "/health"); if (r.ok) { health2Ok = true; break; } } catch {}
+}
+check("second server boots and /health is ok", health2Ok);
+if (health2Ok) {
+  const ht = await (await fetch(BASE2 + "/api/today")).json();
+  check("healthy frozen set returned unchanged by /api/today",
+    JSON.stringify(ht.questions.map((q) => q.id)) === JSON.stringify(healthySet),
+    JSON.stringify(ht.questions.map((q) => q.id)));
+  await sleep(300); // file store flushes on a 50ms debounce
+  check("healthy frozen set not rewritten on disk",
+    JSON.stringify(JSON.parse(fs.readFileSync(TMP2, "utf8")).dailySets[today]) === JSON.stringify(healthySet));
+}
+child2.kill();
+try { fs.unlinkSync(TMP2); } catch {}
 
 console.log("== integration: real DOM (jsdom) — entry grid actually renders ==");
 // 2026-11-16 entry-grid collapse (live-site bug): the DOM was always correct
@@ -1360,6 +1524,21 @@ const seedTest = await new Promise((resolve) => {
 });
 check("seed upsert: old answers update, removed deleted, no vote tables (pg-mem)",
   seedTest.code === 0, seedTest.out.split("\n").filter((l) => l.startsWith("FAIL")).join(" | "));
+
+// 2026-11-18 bug 1: the self-heal store methods (PgStore is the live Render
+// path — a SQL typo there would only surface on deploy).
+console.log("== integration: heal store methods (pg-mem) ==");
+const healTest = await new Promise((resolve) => {
+  const p = spawn("node", ["--loader", "./scripts/pg-mem-loader.mjs", "scripts/test-heal-store.mjs"], {
+    cwd: path.resolve(__dirname, ".."), stdio: "pipe",
+  });
+  let out = "";
+  p.stdout.on("data", (d) => { out += d; });
+  p.stderr.on("data", (d) => { out += d; });
+  p.on("close", (code) => resolve({ code, out }));
+});
+check("heal store methods: replaceDailySet upserts, deleteStaleDailyPlays drops only stale daily plays (pg-mem)",
+  healTest.code === 0, healTest.out.split("\n").filter((l) => l.startsWith("FAIL")).join(" | "));
 
 child.kill();
 try { fs.unlinkSync(TMP); } catch {}

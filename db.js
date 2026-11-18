@@ -45,6 +45,23 @@ class FileStore {
   async getBank() { return this.bank.questions; }
   async getDailySet(date) { return this.state.dailySets[date] || null; }
   async saveDailySet(date, ids) { this.state.dailySets[date] = ids; this.save(); return ids; }
+  // Overwrite a frozen set (the self-heal path). Unlike saveDailySet, this
+  // replaces an existing row — a healthy set is never passed here.
+  async replaceDailySet(date, ids) { this.state.dailySets[date] = ids; this.save(); return ids; }
+  // Drop daily plays built from a malformed set (their questionIds don't
+  // equal the healed set) so the player gets a fresh full 7-round game.
+  async deleteStaleDailyPlays(date, validIds) {
+    const want = JSON.stringify(validIds);
+    let dropped = 0;
+    for (const [id, p] of Object.entries(this.state.plays)) {
+      if (p.mode === "daily" && p.playDate === date && JSON.stringify(p.questionIds) !== want) {
+        delete this.state.plays[id];
+        dropped++;
+      }
+    }
+    if (dropped) this.save();
+    return dropped;
+  }
   async getDailyPlay(playerId, date) {
     return Object.values(this.state.plays).find((p) => p.playerId === playerId && p.mode === "daily" && p.playDate === date) || null;
   }
@@ -127,6 +144,23 @@ class PgStore {
     await this.pool.query(
       `INSERT INTO daily_sets(date, question_ids) VALUES($1,$2) ON CONFLICT (date) DO NOTHING`, [date, ids]);
     return (await this.getDailySet(date)) || ids;
+  }
+  // Overwrite a frozen set (the self-heal path). Upsert so a missing row is
+  // created too — a pure UPDATE would silently no-op on a never-frozen date.
+  async replaceDailySet(date, ids) {
+    await this.pool.query(
+      `INSERT INTO daily_sets(date, question_ids) VALUES($1,$2)
+       ON CONFLICT (date) DO UPDATE SET question_ids=EXCLUDED.question_ids`, [date, ids]);
+    return ids;
+  }
+  // Drop daily plays built from a malformed set (their questionIds don't
+  // equal the healed set) so the player gets a fresh full 7-round game.
+  // Postgres array equality is ordered and element-wise, so != is exact.
+  async deleteStaleDailyPlays(date, validIds) {
+    const r = await this.pool.query(
+      `DELETE FROM plays WHERE mode='daily' AND play_date=$1 AND question_ids <> $2::int[]`,
+      [date, validIds]);
+    return r.rowCount;
   }
   async getDailyPlay(playerId, date) {
     const r = await this.pool.query(

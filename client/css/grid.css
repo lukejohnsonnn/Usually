@@ -8,22 +8,43 @@
    fiddly to get right — circles in the same big-hexagon outline are the
    reliable build. The 100 cells form ONE BIG HONEYCOMB: 11 rows that grow
    then shrink — 6,8,9,10,11,12,11,10,9,8,6 — laid out by renderGrid as
-   centered .hrow flex rows, so the outline is a big hexagon. Rows are
-   centered, so a one-cell step staggers the next row by half a cell
-   pitch — a proper hex lattice. Main cells 10px diameter, 2.5px in-row
-   gap (12.5px pitch), 10px row pitch (margin-bottom:0); fine-tune cells
-   14px, 4px gap (18px pitch), 14.4px row pitch (margin-bottom:.4px).
+   centered .hrow flex rows, so the outline is a big hexagon.
+   DIAGONAL NESTING (2026-11-18 bug 2): centered rows nest diagonally only
+   on odd width steps — the relative offset is (Δw/2) * pitch, a half pitch
+   for Δw odd, a full pitch (vertical alignment) for Δw even. The 6→8 step
+   at the top and the 8→6 step at the bottom are both Δw = 2, so the top
+   and bottom rows sat flat over their neighbors instead of nesting into
+   them. Rows 1–9 now carry .shift (see SHIFTS in grid.js): a half-pitch
+   translateX — 6.25px on the main grid, 9px on the fine-tune grid (half
+   the in-row pitch in each size) — so every adjacent pair is offset by
+   exactly half a pitch and every circle sits in the pocket between two
+   circles of the neighboring row, top and bottom rows included. The shift
+   is a transform, so it moves no layout: row-major fill, the four color
+   states, and the staggered fill animation are untouched, and the grid
+   element stays 188×117px. The rendered span grows by the shift: widest
+   row 147.5px + 6.25px = 153.75px, still inside the 188px box; fine-tune
+   212px + 9px = 221px, still inside the 224px box.
+   REGULARITY (measured, see VERIFICATION.md): the shift trades slant
+   equality for nesting — top edge 72.5px, left slant 59.0px, right slant
+   66.4px (mean slant 62.7px, 13.5% off the top; the old centered outline
+   was 62.5/62.5). The left slant is perfectly straight (uniform 6.25px
+   steps); the right slant has one 18.75px step at each end. The numeric
+   search (scripts/grid-search.mjs, 409 patterns) ranks this first: the
+   all-odd-step alternatives are wider and flatter (top 60 vs slant 75.3,
+   slant angle 41.6° vs 60° ideal) and read as squashed hexagons, and a
+   perfect regular hexagon is impossible with exactly 100 cells (91 or 127
+   would be). A step-by-exactly-one-cell pattern is impossible too (only
+   R=10 admits one, top 97.5 vs slant 47.2 — 2.1× — and its middle pair
+   still needs a shear-inducing shift).
+   Main cells 10px diameter, 2.5px in-row gap (12.5px pitch), 10px row pitch
+   (margin-bottom:0); fine-tune cells 14px, 4px gap (18px pitch), 14.4px row
+   pitch (margin-bottom:.4px).
    No-overlap rule: the diagonal center distance sqrt(6.25^2 + 10^2) =
    11.8px clears the 10px diameter, and vertically aligned neighbors
    touch exactly (pitch = diameter), never overlap. The inset ring works
    on circles the same way (box-shadow inset 2px). The 2.5px gap lives
    on the rows, not the container — a container gap would add to the row
    pitch.
-   REGULARITY (measured, see VERIFICATION.md): the outline's top edge is
-   62.5px and each slant side hypot(3*12.5, 5*10) = 62.5px — exactly
-   equal (the old hex shape was 81.0 vs 82.8, 2.2% apart). The slant
-   angle is 53.1° rather than 60°, so the outline reads as a hexagon
-   with equal sides — the best the 100-cell count allows.
    ONE-SCREEN BUDGET: the grid element is 117px tall (10 x 10 pitch +
    10 cell + 7 padding), inside a 120px budget pinned by verify — at
    that height the question + grid + reveal fit a 390x844 phone screen
@@ -36,6 +57,12 @@
 .grid::before{content:"";position:absolute;inset:-24px -46px;z-index:-1;pointer-events:none;
   background:radial-gradient(ellipse at center, rgba(255,214,10,.09), transparent 65%)}
 .grid .hrow{display:flex;gap:2.5px;margin-bottom:0}
+/* Half-pitch shift (bug 2): rows carrying .shift sit half an in-row pitch
+   right of center, so every adjacent pair nests diagonally — 6.25px on
+   the main grid (12.5px pitch), 9px on the fine-tune grid (18px pitch).
+   A transform, so it moves no layout. */
+.grid .hrow.shift{transform:translateX(6.25px)}
+.grid.small .hrow.shift{transform:translateX(9px)}
 .grid .hrow:last-child{margin-bottom:0}
 .grid .dot{width:10px;height:10px;border-radius:50%;background:var(--dot-unlit)}
 .grid .dot.white{background:#ffffff}
