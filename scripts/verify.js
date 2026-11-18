@@ -308,7 +308,7 @@ check("old tagline gone from client", !html.includes("what do people usually do?
 // Wordmark, fonts, and no trace of the old names in client-facing strings.
 // (Crowdle was the 2026-11-17 brand; Usually the 2026-11-16 one.)
 check("brand: header wordmark is HONEYDLE", html.includes(`<div class="brand">HONEYDLE</div>`));
-check("brand: cache-bust bumped to honeydle2", html.includes("styles.css?v=honeydle2") && html.includes("app.js?v=honeydle2"));
+check("brand: cache-bust bumped to honeydle3", html.includes("styles.css?v=honeydle3") && html.includes("app.js?v=honeydle3"));
 const serverJs = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
 check("brand: no 'Crowdle' left in client-facing strings",
   !html.includes("Crowdle") && !appJs.includes("Crowdle") && !serverJs.includes("Crowdle"));
@@ -329,20 +329,25 @@ check("brand: server share card leads with Honeydle", serverJs.includes("Honeydl
 const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "client", "manifest.json"), "utf8"));
 check("brand: manifest name + short_name are Honeydle", manifest.name === "Honeydle" && manifest.short_name === "Honeydle");
 
-// Bee mascot (2026-11-18): five pixel-art states in client/assets, wired by
+// Bee mascot (2026-11-18): six pixel-art states in client/assets, wired by
 // points in showReveal (175 gold, 100 head-to-toe honey, 90 one drop, else
-// thirsty) + the idle bee on the home screen. Dots stay circles — no honeycomb.
-const BEE_FILES = ["bee-normal.png", "bee-golden.png", "bee-little-honey.png", "bee-drop.png", "bee-thirsty.png"];
+// thirsty) + the idle bee on the home screen. A second consecutive Bullseye
+// in the same play turns the bee diamond (bee-diamond.png). Dots stay
+// circles — no honeycomb.
+const BEE_FILES = ["bee-normal.png", "bee-golden.png", "bee-little-honey.png", "bee-drop.png", "bee-thirsty.png", "bee-diamond.png"];
 const beeBufs = BEE_FILES.map((f) => { try { return fs.readFileSync(path.join(__dirname, "..", "client", "assets", f)); } catch { return null; } });
-check("bee: all five state PNGs exist in client/assets", beeBufs.every(Boolean));
-check("bee: all five are real PNGs (magic bytes)", beeBufs.every((b) => b && b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47));
+check("bee: all six state PNGs exist in client/assets", beeBufs.every(Boolean));
+check("bee: all six are real PNGs (magic bytes)", beeBufs.every((b) => b && b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47));
 check("bee: home screen shows the idle bee", appJs.includes('src="assets/bee-normal.png"'));
 check("bee: reveal maps points to states (175 gold, 100 honey, 90 drop, else thirsty)",
   appJs.includes("points >= 175") && appJs.includes('"bee-golden.png"') &&
   appJs.includes("points >= 100") && appJs.includes('"bee-little-honey.png"') &&
   appJs.includes("points >= 90") && appJs.includes('"bee-drop.png"') &&
   appJs.includes('return "bee-thirsty.png"'));
-check("bee: reveal renders the mapped bee image", appJs.includes('src="assets/${beeForPoints(r.points)}"'));
+check("bee: diamond streak maps a second consecutive 175 to the diamond bee",
+  appJs.includes('"bee-diamond.png"') && appJs.includes("streak >= 2") &&
+  appJs.includes("function beeForPoints(points, streak"));
+check("bee: reveal renders the mapped bee image with the streak", appJs.includes('src="assets/${beeForPoints(r.points, streak)}"'));
 check("bee: CSS keeps pixels crisp", /\.bee\{[^}]*image-rendering:\s*pixelated/.test(css));
 
 console.log("== unit: 2026-11-16 entry grid + warm paper ==");
@@ -480,7 +485,7 @@ check("fine-tune dots are yellow 28% mix over dark + inset ring",
 check("answering legend (Guess) is exactly 'Yellow ring = your guess'",
   appJs.includes("Yellow ring = your guess"));
 check("reveal legend (Guess) is the exact three lines",
-  appJs.includes("White = the crowd") && appJs.includes("Yellow = you got these") && appJs.includes("Yellow ring = your guess only"));
+  appJs.includes("White = the real number") && appJs.includes("Yellow = you got these") && appJs.includes("Yellow ring = your guess only"));
 check("reveal legend (Guess) uses the gold-fill swatch for 'you got these'",
   appJs.includes('<span class="sw goldfill"></span>Yellow = you got these'));
 check("reveal legend (Split) uses white/amber swatches + yellow for your split",
@@ -490,7 +495,7 @@ check("old reveal legend copy gone",
   !appJs.includes("crowd ${r.answer}%") && !appJs.includes("Each dot is 0.01%") &&
   !appJs.includes("Both = you got these") && !appJs.includes("Gold ring = your split") &&
   !appJs.includes("Navy = the crowd") && !appJs.includes("Gold = you got these") &&
-  !appJs.includes("Gold ring = your guess"));
+  !appJs.includes("Gold ring = your guess") && !appJs.includes("White = the crowd"));
 check("reveal legend (Split) is labels + 'Yellow = your split'",
   appJs.includes("Yellow = your split") && appJs.includes('<span class="sw goldfill"></span>Yellow = your split'));
 check("reveal split passes the player's split to the grid",
@@ -570,6 +575,84 @@ if (gridSrc) {
     dots.slice(35).every((d) => !d._added.includes("gold")));
 }
 
+console.log("== unit: 2026-11-18 in-place reveal + diamond streak ==");
+// Reveal copy: real-stats wording, no crowd wording.
+check("reveal answer line names the real number, not the crowd",
+  appJs.includes("the real number is") && !appJs.includes("the crowd says"));
+check("reveal legend (Guess) names the real number",
+  appJs.includes("White = the real number") && !appJs.includes("White = the crowd"));
+check("text reveal says 'not on the list'",
+  appJs.includes("not on the list") && !appJs.includes("not in the crowd's list"));
+// In-place: showReveal must not replace the round screen with a separate
+// card — it hides the answering controls, re-renders the on-screen entry
+// grid, and inserts the tier + bee + answer + Next block in place.
+const revealSrc = appJs.slice(appJs.indexOf("function showReveal(r)"), appJs.indexOf("function escapeHtml"));
+check("in-place reveal: showReveal does not replace the screen with a separate card",
+  revealSrc.length > 100 && !revealSrc.includes("screen.innerHTML"));
+check("in-place reveal: answering controls are hidden and the on-screen grid is re-rendered",
+  revealSrc.includes('classList.add("hidden")') && revealSrc.includes('$("#entry-grid")') &&
+  revealSrc.includes('grid.after(reveal)') && revealSrc.includes('reveal.id = "reveal"') &&
+  revealSrc.includes('id="next"'));
+check("in-place reveal: old whole-card burst is gone",
+  !/@keyframes burst\{/.test(css) && !/\.burst\s*\{/.test(css) && !appJs.includes("const burst"));
+check("in-place reveal: grid fill animation is staggered per cell",
+  /\.grid\.reveal-fill \.dot\s*\{[^}]*animation:\s*cell-fill/.test(css) &&
+  /@keyframes cell-fill/.test(css) && appJs.includes("reveal-fill") &&
+  appJs.includes("animationDelay"));
+// Bee entrances: one distinct entrance class per tier + diamond, CSS
+// keyframes (transform/opacity), honey splash and diamond sparkle elements.
+check("bee entrances: all five entrance classes exist in CSS",
+  css.includes(".bee-entrance-burst") && css.includes(".bee-entrance-honey") &&
+  css.includes(".bee-entrance-pop") && css.includes(".bee-entrance-gentle") &&
+  css.includes(".bee-entrance-diamond"));
+check("bee entrances: keyframes for burst / honey / pop / gentle / diamond + splash + sparkle",
+  /@keyframes bee-burst/.test(css) && /@keyframes bee-honey-in/.test(css) &&
+  /@keyframes bee-pop/.test(css) && /@keyframes bee-gentle/.test(css) &&
+  /@keyframes bee-diamond/.test(css) && /@keyframes honey-splash/.test(css) &&
+  /@keyframes diamond-sparkle/.test(css));
+check("bee entrances: honey splash and diamond sparkle elements are rendered by showReveal",
+  appJs.includes("honey-splash") && appJs.includes("diamond-sparkle") &&
+  appJs.includes("function beeEntranceFor"));
+check("bee entrances: diamond entrance is the biggest burst (scale 1.4 peak)",
+  (() => { const s = css.indexOf("@keyframes bee-diamond"); const e = css.indexOf("@keyframes diamond-sparkle", s); return s !== -1 && e !== -1 && css.slice(s, e).includes("scale(1.4)"); })());
+// Diamond streak mapping, run against the real functions (pure + testable).
+const beeSrc = extractFn(appJs, "beeForPoints");
+check("beeForPoints source extractable for logic test", !!beeSrc);
+if (beeSrc) {
+  const beeForPoints = new Function(`${beeSrc}; return beeForPoints;`)();
+  check("diamond streak: first 175 = gold", beeForPoints(175, 0) === "bee-golden.png" && beeForPoints(175, 1) === "bee-golden.png");
+  check("diamond streak: second consecutive 175 = diamond", beeForPoints(175, 2) === "bee-diamond.png");
+  check("diamond streak: third+ consecutive 175 stays diamond", beeForPoints(175, 3) === "bee-diamond.png" && beeForPoints(175, 9) === "bee-diamond.png");
+  check("diamond streak: streak does not change sub-175 mapping",
+    beeForPoints(100, 2) === "bee-little-honey.png" && beeForPoints(90, 2) === "bee-drop.png" && beeForPoints(5, 2) === "bee-thirsty.png");
+}
+const streakSrc = extractFn(appJs, "bullseyeStreak");
+check("bullseyeStreak source extractable for logic test", !!streakSrc);
+if (streakSrc) {
+  const streakOf = (results) => new Function("currentPlay", `${streakSrc}; return bullseyeStreak();`)({ results });
+  check("streak: trailing run counts consecutive 175s", streakOf([{ points: 175 }, { points: 175 }]) === 2);
+  check("streak: resets the moment a round scores below 175",
+    streakOf([{ points: 175 }, { points: 175 }, { points: 90 }]) === 0 &&
+    streakOf([{ points: 175 }, { points: 100 }, { points: 175 }]) === 1);
+  check("streak: empty play is zero", streakOf([]) === 0);
+}
+const entranceSrc = extractFn(appJs, "beeEntranceFor");
+check("beeEntranceFor source extractable for logic test", !!entranceSrc);
+if (entranceSrc) {
+  const beeEntranceFor = new Function(`${entranceSrc}; return beeEntranceFor;`)();
+  check("entrances: 175 first = burst, 175 second+ = diamond",
+    beeEntranceFor(175, 0) === "bee-entrance-burst" && beeEntranceFor(175, 1) === "bee-entrance-burst" &&
+    beeEntranceFor(175, 2) === "bee-entrance-diamond" && beeEntranceFor(175, 3) === "bee-entrance-diamond");
+  check("entrances: 100 = honey, 90 = pop, lower = gentle",
+    beeEntranceFor(100, 0) === "bee-entrance-honey" && beeEntranceFor(90, 0) === "bee-entrance-pop" &&
+    beeEntranceFor(75, 0) === "bee-entrance-gentle" && beeEntranceFor(5, 0) === "bee-entrance-gentle");
+}
+check("diamond streak: showReveal derives the streak from currentPlay.results and passes it through",
+  revealSrc.includes("bullseyeStreak()") && revealSrc.includes("beeForPoints(r.points, streak)") &&
+  revealSrc.includes("beeEntranceFor(r.points, streak)"));
+check("diamond streak: text rounds feed the same streak (no kind gate on the bee)",
+  !/isText \? [^:]*bee/.test(revealSrc) && revealSrc.includes('src="assets/${beeForPoints(r.points, streak)}"'));
+
 // ------------------------------------------------------- integration: HTTP
 console.log("== integration: server ==");
 try { fs.unlinkSync(TMP); } catch {}
@@ -623,16 +706,24 @@ check("served app.js renders entry grid on Guess/Split answering screens",
 check("served app.js entry grid uses gold-only modes, no crowd data",
   servedJs.includes('entry: "guess"') && servedJs.includes('entry: "split"'));
 check("served app.js has exact legends + playerSplit reveal + fine-tune spec",
-  servedJs.includes("Yellow ring = your guess") && servedJs.includes("White = the crowd") &&
+  servedJs.includes("Yellow ring = your guess") && servedJs.includes("White = the real number") &&
   servedJs.includes("Yellow = you got these") && servedJs.includes("Yellow ring = your guess only") &&
-  servedJs.includes("Yellow = your split") && !servedJs.includes("Both = you got these") &&
-  !servedJs.includes("Gold ring = your split") &&
+  servedJs.includes("Yellow = your split") && servedJs.includes("the real number is") &&
+  !servedJs.includes("Both = you got these") && !servedJs.includes("White = the crowd") &&
+  !servedJs.includes("the crowd says") && !servedJs.includes("Gold ring = your split") &&
   servedJs.includes("playerSplit: r.guess") && servedJs.includes('entry: "fine"'));
 const servedHowto = homeText.slice(homeText.indexOf('id="howto"'), homeText.indexOf('id="howto-close"'));
 check("served How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(servedHowto));
 const beeRes = await fetch(BASE + "/assets/bee-golden.png");
 check("served bee asset returns a PNG", beeRes.ok && (beeRes.headers.get("content-type") || "").includes("image/png"));
-check("served app.js wires the bee (mapping + home idle + reveal)", servedJs.includes("beeForPoints") && servedJs.includes('assets/bee-normal.png') && servedJs.includes("bee-golden.png") && servedJs.includes("bee-thirsty.png"));
+const beeDiamondRes = await fetch(BASE + "/assets/bee-diamond.png");
+check("served diamond bee asset returns a PNG", beeDiamondRes.ok && (beeDiamondRes.headers.get("content-type") || "").includes("image/png"));
+check("served app.js wires the bee (mapping + home idle + reveal + diamond streak)", servedJs.includes("beeForPoints") && servedJs.includes('assets/bee-normal.png') && servedJs.includes("bee-golden.png") && servedJs.includes("bee-thirsty.png") && servedJs.includes("bee-diamond.png") && servedJs.includes("beeEntranceFor") && servedJs.includes("bullseyeStreak"));
+check("served styles.css has the five bee entrances + diamond keyframes, old burst gone",
+  servedCss.includes(".bee-entrance-burst") && servedCss.includes(".bee-entrance-honey") &&
+  servedCss.includes(".bee-entrance-pop") && servedCss.includes(".bee-entrance-gentle") &&
+  servedCss.includes(".bee-entrance-diamond") && servedCss.includes("@keyframes bee-diamond") &&
+  servedCss.includes("@keyframes cell-fill") && !/@keyframes burst\{/.test(servedCss));
 
 const pid = "verify-player-001";
 // Contribute locked before playing
@@ -784,7 +875,7 @@ const gridCounts = (el) => {
 };
 await waitForDom(() => domDoc.querySelector("#btn-endless"), "home Endless button");
 domDoc.querySelector("#btn-endless").click();
-let domEntryOk = true, domRevealOk = true;
+let domEntryOk = true, domRevealOk = true, domInPlaceOk = true;
 for (let round = 1; round <= 7; round++) {
   await waitForDom(() => domDoc.querySelector("#slider") || domDoc.querySelector("#text-answer"), `round ${round} controls`);
   await sleep(200);
@@ -814,7 +905,17 @@ for (let round = 1; round <= 7; round++) {
   domDoc.querySelector("#submit").click();
   await waitForDom(() => domDoc.querySelector("#next") || domDoc.querySelector(".score-big"), `round ${round} reveal/results`);
   await sleep(200);
-  const reveal = domDoc.querySelector("#grid");
+  // In-place reveal: the round screen stays — question text and the same
+  // entry grid are still there with the reveal block on the same screen,
+  // and the answering controls are hidden.
+  if (!domDoc.querySelector(".qtext") || !domDoc.querySelector("#next")) domInPlaceOk = false;
+  if (!isText && !domDoc.querySelector("#entry-grid")) domInPlaceOk = false;
+  const sliderEl = domDoc.querySelector("#slider");
+  if (sliderEl && !sliderEl.classList.contains("hidden") && !sliderEl.closest(".controls")?.classList.contains("hidden")) domInPlaceOk = false;
+  const textEl = domDoc.querySelector("#text-answer");
+  if (textEl && !textEl.closest(".type-row")?.classList.contains("hidden")) domInPlaceOk = false;
+  if (!domDoc.querySelector("#reveal")) domInPlaceOk = false;
+  const reveal = domDoc.querySelector("#entry-grid");
   if (reveal) {
     const rc = gridCounts(reveal);
     if (!(rc && rc.n === 100)) domRevealOk = false;
@@ -825,6 +926,7 @@ for (let round = 1; round <= 7; round++) {
 await waitForDom(() => domDoc.querySelector(".score-big"), "results screen");
 check("real DOM: entry grid has 100 children, right classes, on every Guess/Split round (render + slider input)", domEntryOk);
 check("real DOM: reveal grid has 100 children after every submit", domRevealOk);
+check("real DOM: reveal is in place — round screen, grid and question stay, controls hidden, #reveal present", domInPlaceOk);
 check("real DOM: no JS errors during the full Endless play", jsdomErrors.length === 0, jsdomErrors.join(" | "));
 dom.window.close();
 

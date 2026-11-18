@@ -264,11 +264,37 @@ async function submitRound(body) {
 // The bee reacts to the round's points: 175 Bullseye = pure gold,
 // 100 Dead On = covered head to toe in honey, 90 Razor Close = one drop,
 // anything lower = thirsty. Text rounds use their tier points the same way.
-function beeForPoints(points) {
-  if (points >= 175) return "bee-golden.png";
+// Diamond streak (Luke's rule): a second consecutive Bullseye in the same
+// play turns the bee diamond; third+ consecutive Bullseyes stay diamond.
+// The streak is the trailing run of exact 175s in currentPlay.results, so
+// any sub-175 round resets it and a fresh play starts at zero.
+function bullseyeStreak() {
+  const results = (currentPlay && currentPlay.results) || [];
+  let n = 0;
+  for (let i = results.length - 1; i >= 0; i--) {
+    if (results[i].points === 175) n++;
+    else break;
+  }
+  return n;
+}
+
+function beeForPoints(points, streak = 0) {
+  if (points >= 175) return streak >= 2 ? "bee-diamond.png" : "bee-golden.png";
   if (points >= 100) return "bee-little-honey.png";
   if (points >= 90) return "bee-drop.png";
   return "bee-thirsty.png";
+}
+
+// One distinct entrance per tier, applied to the reveal hero (tier name +
+// points + bee arrive together). 175 first-in-streak bursts; 175 second+
+// in a streak gets the biggest entrance of all, diamond burst + sparkle;
+// 100 arrives with a honey splash behind it; 90 pops in fast; anything
+// lower pulses gently in.
+function beeEntranceFor(points, streak = 0) {
+  if (points >= 175) return streak >= 2 ? "bee-entrance-diamond" : "bee-entrance-burst";
+  if (points >= 100) return "bee-entrance-honey";
+  if (points >= 90) return "bee-entrance-pop";
+  return "bee-entrance-gentle";
 }
 
 function showReveal(r) {
@@ -276,39 +302,81 @@ function showReveal(r) {
   const isText = r.kind === "text";
   const isSplit = r.kind === "split";
   const sub1 = !isText && r.answer < 1;
-  let gridHtml = "";
+  const streak = bullseyeStreak();
+  const entrance = beeEntranceFor(r.points, streak);
+  const nudge = r.tier === "Dead On" ? `<div class="nudge">One away — so close to a Bullseye.</div>` : "";
+
+  // In-place reveal: stay on the round screen — no separate reveal card.
+  // Hide/disable the answering controls, re-render the on-screen entry
+  // grid with the reveal colors (fill animation, cells lighting up in
+  // sequence), then show the tier + bee + answer line + legend + Next
+  // button in place on the same screen. Text rounds get the same
+  // treatment (input hidden, tier + bee + "You said" line appear on the
+  // same screen) — and the #1 answer still stays hidden on the reveal.
+  const hide = (sel) => { const el = document.querySelector(sel); if (el) el.classList.add("hidden"); };
+  const hideSubmitRow = () => { const s = $("#submit"); if (s && s.closest(".row")) s.closest(".row").classList.add("hidden"); };
+  if (isText) {
+    const input = $("#text-answer");
+    if (input) input.disabled = true;
+    hide(".type-row");
+    document.querySelectorAll(".hint").forEach((el) => el.classList.add("hidden"));
+    hideSubmitRow();
+  } else if (isSplit) {
+    const slider = $("#slider");
+    if (slider) slider.disabled = true;
+    hide("#slider");
+    hide(".split-labels");
+    hideSubmitRow();
+  } else {
+    hide(".legend"); // answering legend ("Yellow ring = your guess")
+    hide(".controls"); // slider + typed input + fine-tune + submit
+  }
+
   let legend = "";
   if (!isText) {
     if (isSplit) {
-      gridHtml = `<div id="grid" class="grid"></div>`;
       legend = `<div class="legend"><span class="sw white"></span>${q.leftLabel}<span class="sw amber"></span>${q.rightLabel}<span class="sw goldfill"></span>Yellow = your split</div>`;
     } else {
-      gridHtml = `<div id="grid" class="grid"></div>`;
-      legend = `<div class="legend"><span class="sw white"></span>White = the crowd<br><span class="sw goldfill"></span>Yellow = you got these<br><span class="sw gold"></span>Yellow ring = your guess only</div>`;
+      legend = `<div class="legend"><span class="sw white"></span>White = the real number<br><span class="sw goldfill"></span>Yellow = you got these<br><span class="sw gold"></span>Yellow ring = your guess only</div>`;
     }
   }
-  const burst = r.tier === "Bullseye" ? "burst" : "";
-  const nudge = r.tier === "Dead On" ? `<div class="nudge">One away — so close to a Bullseye.</div>` : "";
 
-  screen.innerHTML = `
-    <div class="card ${burst}">
-      <div class="tier-line"><div class="tier-name">${r.tier}</div><div class="tier-points">+${r.points} points</div></div>
-      <img class="bee bee-reveal" src="assets/${beeForPoints(r.points)}" alt="Honeydle bee" width="112" height="112">
-      ${nudge}
-      ${isText ? `
-        <p class="answer-line">You said: <b>${escapeHtml(r.textGuess || "—")}</b>${r.textRank ? ` · #${r.textRank}` : " · not in the crowd's list"}</p>`
-      : `
-        <p class="answer-line">You guessed <b>${isSplit ? `${r.guess} / ${100 - r.guess}` : sub1 ? r.guess.toFixed(2) + "%" : r.guess + "%"}</b> · the crowd says <b>${sub1 ? r.answer.toFixed(2) + "%" : r.answer + "%"}</b></p>
-        ${r.note ? `<p class="note">${escapeHtml(r.note)}</p>` : ""}
-        ${gridHtml}${legend}`}
-      <div class="row"><button class="primary" id="next">${currentPlay.completed ? "See my score" : "Next round"}</button></div>
-    </div>`;
+  // Re-render the grid that is already on screen with the reveal colors.
   if (!isText) {
-    const g = $("#grid");
+    const g = $("#entry-grid");
     if (isSplit) renderGrid(g, { split: { left: r.answer, right: 100 - r.answer }, playerSplit: r.guess });
     else if (sub1) renderGrid(g, { crowd: Math.round(r.answer * 100), guess: Math.round(r.guess * 100) });
     else renderGrid(g, { crowd: r.answer, guess: r.guess });
+    // Staggered fill: the cells light up in sequence, left to right.
+    g.classList.add("reveal-fill");
+    [...g.children].forEach((d, i) => { d.style.animationDelay = `${Math.min(i * 8, 800)}ms`; });
   }
+
+  const heroExtras = entrance === "bee-entrance-honey"
+    ? `<div class="honey-splash" aria-hidden="true"></div>`
+    : entrance === "bee-entrance-diamond"
+      ? `<span class="diamond-sparkle s1" aria-hidden="true">✦</span><span class="diamond-sparkle s2" aria-hidden="true">✦</span>`
+      : "";
+  const reveal = document.createElement("div");
+  reveal.id = "reveal";
+  reveal.innerHTML = `
+      <div class="reveal-hero ${entrance}">
+        <div class="tier-line"><div class="tier-name">${r.tier}</div><div class="tier-points">+${r.points} points</div></div>
+        <div class="bee-wrap">${heroExtras}<img class="bee bee-reveal" src="assets/${beeForPoints(r.points, streak)}" alt="Honeydle bee" width="112" height="112"></div>
+      </div>
+      ${nudge}
+      ${isText ? `
+        <p class="answer-line">You said: <b>${escapeHtml(r.textGuess || "—")}</b>${r.textRank ? ` · #${r.textRank}` : " · not on the list"}</p>`
+      : `
+        <p class="answer-line">You guessed <b>${isSplit ? `${r.guess} / ${100 - r.guess}` : sub1 ? r.guess.toFixed(2) + "%" : r.guess + "%"}</b> · the real number is <b>${sub1 ? r.answer.toFixed(2) + "%" : r.answer + "%"}</b></p>
+        ${r.note ? `<p class="note">${escapeHtml(r.note)}</p>` : ""}
+        ${legend}`}
+      <div class="row"><button class="primary" id="next">${currentPlay.completed ? "See my score" : "Next round"}</button></div>`;
+  // Insert in place: right after the grid on Guess/Split rounds, at the
+  // end of the screen on text rounds (no grid there).
+  const grid = $("#entry-grid");
+  if (grid) grid.after(reveal);
+  else screen.appendChild(reveal);
   $("#next").addEventListener("click", () => {
     if (currentPlay.completed) showResults(currentPlay);
     else showRound();
