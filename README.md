@@ -1,7 +1,8 @@
-# Crowdle
+# Honeydle
 
-How well do you know people? Guess what percentage of people do things.
-Same 7 prompts for everyone, one run a day. Free to play, free to host.
+How well do you know people? Think your way to a real number —
+history, science, space, and more. Same 7 prompts for everyone, one run a day.
+Free to play, free to host.
 
 **Play:** Daily (7 rounds: guess, guess, text, split, split, text, finale),
 Endless practice, and Contribute — vote on the real preference behind a
@@ -11,7 +12,7 @@ question to shape the crowd's numbers.
 ```bash
 npm install
 npm start        # http://localhost:3000
-npm run verify   # 164 automated checks
+npm run verify   # 187 automated checks
 ```
 
 ## Deploy

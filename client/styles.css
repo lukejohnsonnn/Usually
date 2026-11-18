@@ -1,12 +1,13 @@
 :root{
-  --navy:#232c42; --navy-soft:#2c3e63; --gold:#cf9a06; --gold-soft:#f3d27a;
-  --poppy:#e8442e; --ink:#1c2434; --muted:#68707f; --line:#e3ddd0; --on-navy:#fff;
-  --bg:#f4f1ec; --card:#fffdf9; --surface:#fffdf9; --dot-unlit:#e7e1d2; --radius:16px;
-  --chip-bg:#fff7e0; --chip-text:#7a5b00; color-scheme:light;
-  /* Fraunces (editorial serif) carries the wordmark and headings; Libre
+  --gold:#cf9a06; --gold-bright:#ffd60a; --gold-soft:#f3d27a;
+  --ink:#ffffff; --muted:#a8a8a8; --line:#2e2e2e;
+  --bg:#000000; --card:#111111; --surface:#111111; --dot-unlit:#2e2e2e; --radius:10px;
+  --chip-bg:#241d00; --chip-text:#f3d27a; --on-accent:#111111; color-scheme:dark;
+  /* Press Start 2P (pixel font) carries the wordmark and headings; Libre
      Franklin (Franklin Gothic revival grotesque) carries the UI and body.
-     Neither is part of the generic AI-built stack. */
-  --font-display:"Fraunces",Georgia,"Times New Roman",serif;
+     Neither is part of the generic AI-built stack. One theme only: black,
+     yellows, whites — no light theme, no system-theme split. */
+  --font-display:"Press Start 2P","Courier New",monospace;
   --font-body:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
@@ -14,51 +15,57 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   font-family:var(--font-body);}
 #app{max-width:620px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:20px 18px calc(20px + env(safe-area-inset-bottom));}
 header{text-align:center;padding:6px 0 2px}
-.brand{font-family:var(--font-display);font-size:36px;font-weight:900;letter-spacing:.06em;color:var(--navy)}
+/* Press Start 2P runs wide — 26px keeps HONEYDLE on one line on phones. */
+.brand{font-family:var(--font-display);font-size:26px;font-weight:400;letter-spacing:0;color:var(--gold-bright)}
 .brand::after{content:".";color:var(--gold)}
-.sub{color:var(--muted);font-size:14px;margin-top:2px}
+.sub{color:var(--muted);font-size:14px;margin-top:8px}
 .date-line{margin-top:10px;font-size:13px;color:var(--muted);display:flex;gap:10px;justify-content:center;align-items:center}
 .chip{background:var(--chip-bg);border:1px solid var(--gold-soft);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--chip-text)}
 .hidden{display:none !important}
 main{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
 footer{text-align:center;padding-top:14px}
-.linklike{background:none;border:none;color:var(--navy);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.linklike{background:none;border:none;color:var(--gold-soft);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .dot-sep{color:var(--muted);margin:0 6px}
 
-/* cards & buttons */
+/* cards & buttons — chunky pixel-block buttons: square corners, hard offset edge */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:12px 0}
-.card h2{margin:0 0 10px;font-size:20px;color:var(--navy);font-family:var(--font-display);font-weight:700}
+.card h2{margin:0 0 10px;font-size:15px;line-height:1.6;color:var(--ink);font-family:var(--font-display);font-weight:400}
 .card p{margin:8px 0;line-height:1.5;font-size:15px}
 .muted{color:var(--muted);font-size:13px}
 button{font-family:inherit}
-.primary{background:var(--navy);color:var(--on-navy);border:none;border-radius:999px;padding:13px 26px;font-size:16px;font-weight:600;cursor:pointer;width:100%}
-.primary:disabled{opacity:.45;cursor:default}
-.ghost{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:13px 20px;font-size:15px;cursor:pointer;flex:1;color:var(--ink)}
+.primary{background:var(--gold-bright);color:var(--on-accent);border:2px solid var(--gold-bright);border-radius:6px;padding:13px 26px;font-size:16px;font-weight:700;cursor:pointer;width:100%;box-shadow:0 4px 0 #8a6d00}
+.primary:disabled{opacity:.45;cursor:default;box-shadow:none}
+.ghost{background:var(--card);border:2px solid var(--line);border-radius:6px;padding:13px 20px;font-size:15px;cursor:pointer;flex:1;color:var(--ink)}
 .row{display:flex;gap:10px;margin-top:14px}
 .row .primary{flex:2}
 .stat-row{display:flex;gap:8px;margin:14px 0}
 .stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 4px;text-align:center}
-.stat b{display:block;font-size:20px;color:var(--navy)}
+.stat b{display:block;font-size:20px;color:var(--gold-bright)}
 .stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+
+/* bee mascot: pixel-art PNGs, rendered crisp (no smoothing) */
+.bee{display:block;margin:2px auto 6px;image-rendering:pixelated}
+.bee-home{width:96px;height:96px}
+.bee-reveal{width:112px;height:112px}
 
 /* question */
 .kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.qtext{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1.25;margin:8px 0 4px;color:var(--navy)}
+.qtext{font-family:var(--font-display);font-size:16px;font-weight:400;line-height:1.7;margin:8px 0 4px;color:var(--ink)}
 .progress{font-size:12px;color:var(--muted);margin-bottom:18px}
-.big-guess{text-align:center;font-size:56px;font-weight:800;color:var(--navy);line-height:1;margin:10px 0 4px}
+.big-guess{text-align:center;font-size:56px;font-weight:800;color:var(--gold-bright);line-height:1;margin:10px 0 4px}
 .big-guess .pct{font-size:26px;color:var(--muted);font-weight:600}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:999px;background:var(--line);outline:none;margin:18px 0 6px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--navy);border:3px solid var(--card);box-shadow:0 1px 5px rgba(0,0,0,.25);cursor:pointer}
-input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--navy);border:3px solid var(--card);box-shadow:0 1px 5px rgba(0,0,0,.25);cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--gold-bright);border:3px solid var(--card);box-shadow:0 1px 5px rgba(0,0,0,.5);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--gold-bright);border:3px solid var(--card);box-shadow:0 1px 5px rgba(0,0,0,.5);cursor:pointer}
 .slider-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
 .type-row{display:flex;gap:8px;margin-top:14px}
 .type-row input[type=text],.type-row input[type=number]{flex:1;border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:17px;font-family:inherit;outline:none;background:var(--card);color:var(--ink)}
-/* placeholder must stay visible on the dark card in dark mode too */
+/* placeholder must stay visible on the dark card */
 .type-row input::placeholder{color:var(--muted);opacity:1}
-.type-row input:focus{border-color:var(--navy)}
-.type-row input:disabled{background:#efe7d3;color:var(--muted)}
+.type-row input:focus{border-color:var(--gold-bright)}
+.type-row input:disabled{background:#1f1f1f;color:var(--muted)}
 .split-labels{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-top:6px}
-.split-labels .l{color:var(--navy)} .split-labels .r{color:var(--poppy)}
+.split-labels .l{color:var(--ink)} .split-labels .r{color:var(--gold)}
 /* pinned answer controls: slider, typed input, fine-tune and submit stay
    glued to the bottom of the screen, so the fine-tune button is right where
    the player's thumb is the moment the guess hits 1% or under. */
@@ -69,20 +76,24 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
 /* reveal */
 .tier-line{text-align:center;margin:6px 0 2px}
-.tier-name{font-family:var(--font-display);font-size:26px;font-weight:900;color:var(--navy)}
+.tier-name{font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--gold-bright)}
 .tier-points{font-size:15px;color:var(--muted)}
 .answer-line{text-align:center;font-size:17px;margin:10px 0 2px}
-.answer-line b{color:var(--navy)}
+.answer-line b{color:var(--gold-soft)}
 .note{font-size:14px;color:var(--muted);text-align:center;line-height:1.45;margin:6px 0 12px}
+/* CrowdGrid: four instantly distinct states, black/yellow/white only.
+   crowd-only = white, guess-only = dark + yellow inset ring,
+   overlap ("you got these") = solid bright-yellow fill, unlit = charcoal.
+   Split: crowd halves white / gold, player region bright-yellow fill. */
 .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;max-width:188px;margin:14px auto 6px}
 .grid .dot{aspect-ratio:1;border-radius:50%;background:var(--dot-unlit)}
-.grid .dot.navy{background:var(--navy)}
-.grid .dot.gold{box-shadow:inset 0 0 0 2px var(--gold);background:var(--surface)}
-.grid .dot.navy.gold{background:var(--gold)}
-.grid .dot.poppy{background:var(--poppy)}
-.grid .dot.poppy.gold{background:var(--gold)}
-/* fine-tune dots: gold 28% mix over surface + inset gold ring */
-.grid .dot.ft{background:color-mix(in srgb, var(--gold) 28%, var(--surface));box-shadow:inset 0 0 0 2px var(--gold)}
+.grid .dot.white{background:#ffffff}
+.grid .dot.gold{box-shadow:inset 0 0 0 2px var(--gold-bright);background:#1a1a1a}
+.grid .dot.white.gold{background:var(--gold-bright)}
+.grid .dot.amber{background:var(--gold)}
+.grid .dot.amber.gold{background:var(--gold-bright)}
+/* fine-tune dots: bright yellow 28% mix over dark + inset yellow ring */
+.grid .dot.ft{background:color-mix(in srgb, var(--gold-bright) 28%, #1a1a1a);box-shadow:inset 0 0 0 2px var(--gold-bright)}
 .grid.small{max-width:224px;gap:3px}
 /* entry grid: same shared 188px size as the reveal grid, so answering and
    reveal are identical in size.
@@ -99,15 +110,15 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .grid.entry{width:100%;max-width:188px;gap:3px;margin:10px auto 4px}
 .legend{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 10px}
 .legend .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 3px 0 10px;vertical-align:-1px}
-.legend .sw.navy{background:var(--navy)} .legend .sw.poppy{background:var(--poppy)}
-.legend .sw.gold{background:var(--surface);border:2px solid var(--gold)}
-.legend .sw.goldfill{background:var(--gold)}
+.legend .sw.white{background:#ffffff} .legend .sw.amber{background:var(--gold)}
+.legend .sw.gold{background:#1a1a1a;border:2px solid var(--gold-bright)}
+.legend .sw.goldfill{background:var(--gold-bright)}
 .burst{animation:burst .6s ease-out}
 @keyframes burst{0%{transform:scale(.92)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
 .nudge{text-align:center;font-size:14px;color:var(--chip-text);background:var(--chip-bg);border:1px solid var(--gold-soft);border-radius:10px;padding:8px;margin:8px 0}
 
 /* results / share */
-.score-big{text-align:center;font-size:52px;font-weight:800;color:var(--navy);line-height:1}
+.score-big{text-align:center;font-size:52px;font-weight:800;color:var(--gold-bright);line-height:1}
 .score-max{text-align:center;color:var(--muted);font-size:14px;margin-top:2px}
 .result-row{display:flex;justify-content:space-between;gap:8px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:14px}
 .result-row:last-child{border-bottom:none}
@@ -117,22 +128,16 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 /* contribute */
 .vote-card{transition:transform .35s ease,opacity .35s ease}
 .vote-card.leaving{transform:translateX(-40px);opacity:0}
-.vote-prompt{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--navy);line-height:1.3;margin:6px 0 14px}
+.vote-prompt{font-family:var(--font-display);font-size:14px;font-weight:400;color:var(--ink);line-height:1.7;margin:6px 0 14px}
 .vote-btns{display:flex;gap:10px}
-.vote-btns button{flex:1;padding:14px 8px;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer}
-.vote-yes{background:var(--navy);color:var(--on-navy);border:none}
+.vote-btns button{flex:1;padding:14px 8px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer}
+.vote-yes{background:var(--gold-bright);color:var(--on-accent);border:none}
 .vote-no{background:var(--card);border:1px solid var(--line);color:var(--ink)}
-.vote-side-l{background:var(--navy);color:var(--on-navy);border:none}
-.vote-side-r{background:var(--poppy);color:#fff;border:none}
+.vote-side-l{background:var(--gold-bright);color:var(--on-accent);border:none}
+.vote-side-r{background:#ffffff;color:#111111;border:none}
 
 /* overlays */
-.overlay{position:fixed;inset:0;background:rgba(20,24,31,.45);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0}
 .overlay .card{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:85dvh;overflow:auto;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
-.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--navy);color:var(--on-navy);padding:10px 18px;border-radius:999px;font-size:14px;z-index:80;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--gold-bright);color:var(--on-accent);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:80;box-shadow:0 4px 18px rgba(0,0,0,.5)}
 @media (min-width:520px){.overlay{align-items:center;padding:20px}.overlay .card{border-radius:20px}}
-
-/* dark mode: same palette family, values measured from the Muse version */
-@media (prefers-color-scheme: dark){
-  :root{--bg:#101623;--navy:#aebddb;--gold:#ffd60a;--dot-empty:#2e3a52;--surface:#1a2233;--card:#1a2233;--ink:#f2f0ea;--muted:#9aa3b5;--line:#2e3a52;--on-navy:#0d1320;--chip-bg:#2a2617;--chip-text:#f3d27a;color-scheme:dark}
-  .type-row input:disabled{background:#2e3a52}
-}

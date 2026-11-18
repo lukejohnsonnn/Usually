@@ -307,7 +307,7 @@ app.get("/api/share", ah(async (req, res) => {
   const play = await getDailyPlayAligned(playerId, date || etDateStr());
   if (!play || !play.completed) return res.json({ ok: false, error: "Finish today's daily first." });
   const lines = play.results.map((r) => TIER_EMOJI[r.tier] || "⬜").join("");
-  res.json({ ok: true, text: `Crowdle ${play.playDate}\n${lines}\n${play.score}/1225` });
+  res.json({ ok: true, text: `Honeydle ${play.playDate}\n${lines}\n${play.score}/1225` });
 }));
 
 // Any error forwarded by ah() (or thrown by body parsing) ends up here as
@@ -322,5 +322,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Usually listening on ${PORT} (store: ${store.kind}, bank: ${BANK.length} questions)`);
+  console.log(`Honeydle listening on ${PORT} (store: ${store.kind}, bank: ${BANK.length} questions)`);
 });

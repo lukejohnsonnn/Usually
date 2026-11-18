@@ -1,6 +1,6 @@
-# Crowdle — deploy guide (free, $0, no accounts for players)
+# Honeydle — deploy guide (free, $0, no accounts for players)
 
-What this repo is: a standalone rebuild of the Crowdle daily game
+What this repo is: a standalone rebuild of the Honeydle daily game
 (guess the %, name the crowd's #1, split the crowd), ready for Render's
 free tier. No cron job — daily sets freeze lazily on first load each
 Eastern day, which is the $0 path (Render cron is not free).
@@ -65,7 +65,7 @@ The question bank seeds itself on first boot (`server.js` calls
   rotation, and Contribute's 7-day embargo generates future daily sets
   on demand the same way.
 - **Costs:** $0. The only future costs are a custom domain (optional,
-  e.g. playcrowdle.com ~$12/yr — not bought yet) and moving off the
+  e.g. playhoneydle.com ~$12/yr — not bought yet) and moving off the
   free tier if traffic outgrows it.
 
 ## Local development

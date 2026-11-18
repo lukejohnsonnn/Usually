@@ -1,4 +1,4 @@
-// Crowdle — client. Vanilla JS, no build step.
+// Honeydle — client. Vanilla JS, no build step.
 const $ = (s) => document.querySelector(s);
 const screen = $("#screen");
 
@@ -32,42 +32,42 @@ function skeleton() {
 function sliderFill(el) {
   const min = +el.min, max = +el.max, v = +el.value;
   const pct = ((v - min) / (max - min)) * 100;
-  el.style.background = `linear-gradient(to right, var(--navy) 0%, var(--navy) ${pct}%, var(--line) ${pct}%, var(--line) 100%)`;
+  el.style.background = `linear-gradient(to right, var(--gold-bright) 0%, var(--gold-bright) ${pct}%, var(--line) ${pct}%, var(--line) 100%)`;
 }
 
 // ------------------------------------------------------------ grid rendering
 function renderGrid(container, spec) {
   // One shared 100-dot grid (188px) for answering and reveal, same component.
-  // Reveal Guess {crowd, guess}: dots are REGIONS — every dot up to the crowd
-  // is solid navy, every dot up to the guess carries the inset gold ring, and
-  // overlap (in both) is a solid GOLD fill, so "you got these" reads instantly
-  // against crowd-only navy: overlap = gold fill, crowd-only = navy,
-  // guess-only = surface + ring. Gold fill = you, everywhere on the reveal.
+  // Black/yellow/white only — four instantly distinct reveal states:
+  // crowd-only = white, guess-only = dark + yellow inset ring, overlap
+  // (in both) = solid bright-yellow FILL, unlit = charcoal. Yellow fill =
+  // you, everywhere on the reveal.
   // Reveal Split {split:{left,right}, playerSplit}: halves by the crowd's
-  // split; the dots up to the player's split are gold-filled, so the gold
-  // region is the player's split and the navy/poppy after it is the crowd's.
+  // split (white / gold); the dots up to the player's split are bright-yellow
+  // filled, so the yellow region is the player's split and the white/gold
+  // after it is the crowd's.
   // Entry specs (while answering, never any crowd data):
-  //   {entry:"guess", value} — surface fill + inset gold ring on exactly
+  //   {entry:"guess", value} — dark fill + inset yellow ring on exactly
   //     round(value) dots in row-major order
-  //   {entry:"split", left} — navy/poppy halves, NO gold ring at all
-  //   {entry:"fine", value} — fine-tune hundredths: gold 28% mix + ring
+  //   {entry:"split", left} — white/gold halves, NO yellow ring at all
+  //   {entry:"fine", value} — fine-tune hundredths: yellow 28% mix + ring
   container.innerHTML = "";
   for (let i = 0; i < 100; i++) {
     const d = document.createElement("div");
     d.className = "dot";
     if (spec.entry === "split") {
-      if (i < spec.left) d.classList.add("navy");
-      else d.classList.add("poppy");
+      if (i < spec.left) d.classList.add("white");
+      else d.classList.add("amber");
     } else if (spec.entry === "fine") {
       if (i < Math.round(spec.value)) d.classList.add("ft");
     } else if (spec.entry === "guess") {
       if (i < Math.round(spec.value)) d.classList.add("gold");
     } else if (spec.split) {
-      if (i < spec.split.left) d.classList.add("navy");
-      else d.classList.add("poppy");
+      if (i < spec.split.left) d.classList.add("white");
+      else d.classList.add("amber");
       if (spec.playerSplit != null && i < spec.playerSplit) d.classList.add("gold");
     } else {
-      if (i < spec.crowd) d.classList.add("navy");
+      if (i < spec.crowd) d.classList.add("white");
       if (spec.guess != null && i < Math.round(spec.guess)) d.classList.add("gold");
     }
     container.appendChild(d);
@@ -105,10 +105,11 @@ async function showHome() {
       <div class="stat"><b>${stats ? stats.avgScore : 0}</b><span>Avg</span></div>
     </div>
     <div class="card">
+      <img class="bee bee-home" src="assets/bee-normal.png" alt="Honeydle bee" width="96" height="96">
       <div class="kicker">Today's Daily · 7 rounds</div>
       <p style="font-size:17px">Seven prompts, the same for everyone.<br>One run a day.</p>
       ${done && done.completed
-        ? `<p class="muted">Done for today — <b style="color:#232c42">${done.score} / 1225</b></p>
+        ? `<p class="muted">Done for today — <b style="color:#ffd60a">${done.score} / 1225</b></p>
            <button class="primary" id="btn-results">See my results</button>`
         : `<button class="primary" id="btn-daily">${done && done.results && done.results.length ? "Resume today's Daily" : "Play today's Daily"}</button>`}
       <div class="row"><button class="ghost" id="btn-endless">Endless practice</button></div>
@@ -162,7 +163,7 @@ function showRound() {
     ` : `
       <div class="big-guess"><span id="guess-num">50</span><span class="pct">%</span></div>
       <div id="entry-grid" class="grid entry"></div>
-      <div class="legend"><span class="sw gold"></span>Gold ring = your guess</div>
+      <div class="legend"><span class="sw gold"></span>Yellow ring = your guess</div>
       <div class="controls">
       <div style="text-align:center"><button class="finetune-btn hidden" id="finetune-btn">Fine-tune hundredths ↓</button></div>
       <input type="range" id="slider" min="0" max="100" step="1" value="50">
@@ -206,9 +207,9 @@ function showRound() {
     const ft = $("#finetune-btn");
     if (ft) ft.classList.toggle("hidden", !(v <= 1));
   }
-  // Live entry grid: gold rings up to the current guess (Guess rounds), or
-  // navy/poppy halves with the split gold-ringed (Split rounds). Never any
-  // crowd data — the crowd coloring only appears on the reveal.
+  // Live entry grid: yellow rings up to the current guess (Guess rounds), or
+  // white/gold halves (Split rounds). Never any crowd data — the crowd
+  // coloring only appears on the reveal.
   function renderEntryGrid() {
     const g = $("#entry-grid");
     if (!g) return;
@@ -260,6 +261,16 @@ async function submitRound(body) {
 }
 
 // ------------------------------------------------------------------ reveal
+// The bee reacts to the round's points: 175 Bullseye = pure gold,
+// 100 Dead On = covered head to toe in honey, 90 Razor Close = one drop,
+// anything lower = thirsty. Text rounds use their tier points the same way.
+function beeForPoints(points) {
+  if (points >= 175) return "bee-golden.png";
+  if (points >= 100) return "bee-little-honey.png";
+  if (points >= 90) return "bee-drop.png";
+  return "bee-thirsty.png";
+}
+
 function showReveal(r) {
   const q = currentPlay.questions[currentPlay.currentRound - 1];
   const isText = r.kind === "text";
@@ -270,10 +281,10 @@ function showReveal(r) {
   if (!isText) {
     if (isSplit) {
       gridHtml = `<div id="grid" class="grid"></div>`;
-      legend = `<div class="legend"><span class="sw navy"></span>${q.leftLabel}<span class="sw poppy"></span>${q.rightLabel}<span class="sw goldfill"></span>Gold = your split</div>`;
+      legend = `<div class="legend"><span class="sw white"></span>${q.leftLabel}<span class="sw amber"></span>${q.rightLabel}<span class="sw goldfill"></span>Yellow = your split</div>`;
     } else {
       gridHtml = `<div id="grid" class="grid"></div>`;
-      legend = `<div class="legend"><span class="sw navy"></span>Navy = the crowd<br><span class="sw goldfill"></span>Gold = you got these<br><span class="sw gold"></span>Gold ring = your guess only</div>`;
+      legend = `<div class="legend"><span class="sw white"></span>White = the crowd<br><span class="sw goldfill"></span>Yellow = you got these<br><span class="sw gold"></span>Yellow ring = your guess only</div>`;
     }
   }
   const burst = r.tier === "Bullseye" ? "burst" : "";
@@ -282,6 +293,7 @@ function showReveal(r) {
   screen.innerHTML = `
     <div class="card ${burst}">
       <div class="tier-line"><div class="tier-name">${r.tier}</div><div class="tier-points">+${r.points} points</div></div>
+      <img class="bee bee-reveal" src="assets/${beeForPoints(r.points)}" alt="Honeydle bee" width="112" height="112">
       ${nudge}
       ${isText ? `
         <p class="answer-line">You said: <b>${escapeHtml(r.textGuess || "—")}</b>${r.textRank ? ` · #${r.textRank}` : " · not in the crowd's list"}</p>`
@@ -327,7 +339,7 @@ async function showResults(play) {
   $("#share").addEventListener("click", async () => {
     try {
       const s = await api(`/api/share?playerId=${playerId()}&date=${play.playDate}`);
-      const text = s.text + "\n\nPlay Crowdle — How well do you know people?";
+      const text = s.text + "\n\nPlay Honeydle — How well do you know people?";
       if (navigator.share) await navigator.share({ text });
       else { await navigator.clipboard.writeText(text); toast("Share card copied."); }
     } catch { toast("Couldn't build the share card."); }
@@ -394,7 +406,7 @@ function openFineTune(current, onOk) {
 }
 function syncFt() {
   $("#ft-value").textContent = ftValue.toFixed(2);
-  // Fine-tune grid: gold 28% mix over surface + inset gold ring.
+  // Fine-tune grid: bright yellow 28% mix over dark + inset yellow ring.
   renderGrid($("#ft-grid"), { entry: "fine", value: Math.round(ftValue * 100) });
 }
 $("#ft-ok").addEventListener("click", () => {

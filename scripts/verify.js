@@ -1,4 +1,4 @@
-// End-to-end verification for Crowdle. Spawns the real server against a throwaway
+// End-to-end verification for Honeydle. Spawns the real server against a throwaway
 // local file store, plays a full daily + endless, and checks Contribute, the
 // freeze, stats, and scoring. Run: npm run verify  (or: node scripts/verify.js)
 // Exit 0 = all checks passed.
@@ -296,31 +296,54 @@ check("text reveal never renders the crowd's #1 answer", !appJs.includes("r.text
 check("text reveal has no 'The crowd's #1' answer line", !appJs.includes("The crowd's #1: <b>"));
 check("text reveal still shows your own answer + rank", appJs.includes("You said:") && appJs.includes("r.textRank"));
 // Tagline: exact in every spot, old tagline gone.
-check("tagline: page title exact", html.includes(`<title>Crowdle — ${TAGLINE}</title>`));
+check("tagline: page title exact", html.includes(`<title>Honeydle — ${TAGLINE}</title>`));
 check("tagline: header sub exact", html.includes(`<div class="sub">${TAGLINE}</div>`));
 check("tagline: meta description leads with it", html.includes(`<meta name="description" content="${TAGLINE}`));
-check("tagline: og title + description", html.includes(`<meta property="og:title" content="Crowdle — ${TAGLINE}">`) && html.includes(`<meta property="og:description" content="${TAGLINE}`));
-check("tagline: twitter title + description", html.includes(`<meta name="twitter:title" content="Crowdle — ${TAGLINE}">`) && html.includes(`<meta name="twitter:description" content="${TAGLINE}`));
-check("tagline: share card closing line", appJs.includes(`Play Crowdle — ${TAGLINE}`));
+check("tagline: og title + description", html.includes(`<meta property="og:title" content="Honeydle — ${TAGLINE}">`) && html.includes(`<meta property="og:description" content="${TAGLINE}`));
+check("tagline: twitter title + description", html.includes(`<meta name="twitter:title" content="Honeydle — ${TAGLINE}">`) && html.includes(`<meta name="twitter:description" content="${TAGLINE}`));
+check("tagline: share card closing line", appJs.includes(`Play Honeydle — ${TAGLINE}`));
 check("old tagline gone from client", !html.includes("what do people usually do?") && !appJs.includes("what do people usually do?"));
 
-// Rebrand (2026-11-17): public brand is Crowdle, site playcrowdle.com.
-// Wordmark, fonts, and no trace of the old name in client-facing strings.
-check("brand: header wordmark is CROWDLE", html.includes(`<div class="brand">CROWDLE</div>`));
-check("brand: Google Fonts pairing loaded (Fraunces + Libre Franklin)",
-  html.includes("fonts.googleapis.com/css2?family=Fraunces") && html.includes("Libre+Franklin"));
+// Rebrand (2026-11-18): public brand is Honeydle, site playhoneydle.com.
+// Wordmark, fonts, and no trace of the old names in client-facing strings.
+// (Crowdle was the 2026-11-17 brand; Usually the 2026-11-16 one.)
+check("brand: header wordmark is HONEYDLE", html.includes(`<div class="brand">HONEYDLE</div>`));
+check("brand: cache-bust bumped to honeydle2", html.includes("styles.css?v=honeydle2") && html.includes("app.js?v=honeydle2"));
+const serverJs = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
+check("brand: no 'Crowdle' left in client-facing strings",
+  !html.includes("Crowdle") && !appJs.includes("Crowdle") && !serverJs.includes("Crowdle"));
+check("brand: Google Fonts pairing loaded (Press Start 2P + Libre Franklin)",
+  html.includes("fonts.googleapis.com/css2?family=Press+Start+2P") && html.includes("Libre+Franklin"));
 check("brand: no AI-default fonts in the stack (no Inter/Poppins/Roboto)",
   !css.includes("Inter") && !css.includes("Poppins") && !css.includes("Roboto"));
-check("brand: display serif on wordmark + headings, grotesque on body",
+check("brand: no Fraunces left (editorial serif is out)",
+  !css.includes("Fraunces") && !html.includes("Fraunces"));
+check("brand: pixel font on wordmark + headings, grotesque on body",
   css.includes("--font-display") && css.includes("--font-body") &&
+  /--font-display:\s*"Press Start 2P"/.test(css) &&
   /\.brand\{[^}]*font-family:\s*var\(--font-display\)/.test(css) &&
   /html,body\{[^}]*font-family:\s*var\(--font-body\)/.test(css));
 check("brand: no 'Usually' left in client-facing strings",
   !html.includes("Usually") && !appJs.includes("Usually"));
-const serverJs = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
-check("brand: server share card leads with Crowdle", serverJs.includes("Crowdle ${play.playDate}"));
+check("brand: server share card leads with Honeydle", serverJs.includes("Honeydle ${play.playDate}"));
 const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "client", "manifest.json"), "utf8"));
-check("brand: manifest name + short_name are Crowdle", manifest.name === "Crowdle" && manifest.short_name === "Crowdle");
+check("brand: manifest name + short_name are Honeydle", manifest.name === "Honeydle" && manifest.short_name === "Honeydle");
+
+// Bee mascot (2026-11-18): five pixel-art states in client/assets, wired by
+// points in showReveal (175 gold, 100 head-to-toe honey, 90 one drop, else
+// thirsty) + the idle bee on the home screen. Dots stay circles — no honeycomb.
+const BEE_FILES = ["bee-normal.png", "bee-golden.png", "bee-little-honey.png", "bee-drop.png", "bee-thirsty.png"];
+const beeBufs = BEE_FILES.map((f) => { try { return fs.readFileSync(path.join(__dirname, "..", "client", "assets", f)); } catch { return null; } });
+check("bee: all five state PNGs exist in client/assets", beeBufs.every(Boolean));
+check("bee: all five are real PNGs (magic bytes)", beeBufs.every((b) => b && b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47));
+check("bee: home screen shows the idle bee", appJs.includes('src="assets/bee-normal.png"'));
+check("bee: reveal maps points to states (175 gold, 100 honey, 90 drop, else thirsty)",
+  appJs.includes("points >= 175") && appJs.includes('"bee-golden.png"') &&
+  appJs.includes("points >= 100") && appJs.includes('"bee-little-honey.png"') &&
+  appJs.includes("points >= 90") && appJs.includes('"bee-drop.png"') &&
+  appJs.includes('return "bee-thirsty.png"'));
+check("bee: reveal renders the mapped bee image", appJs.includes('src="assets/${beeForPoints(r.points)}"'));
+check("bee: CSS keeps pixels crisp", /\.bee\{[^}]*image-rendering:\s*pixelated/.test(css));
 
 console.log("== unit: 2026-11-16 entry grid + warm paper ==");
 // Entry grid: present on the answering screen for Guess and Split rounds,
@@ -338,10 +361,10 @@ check("entry grid sits above the Guess controls", entryIdx.length === 2 &&
 check("entry grid lights live from sync + fine-tune",
   (appJs.match(/renderEntryGrid\(\);/g) || []).length >= 2 &&
   appJs.includes('entry: "split"') && appJs.includes('entry: "guess"'));
-// Warm paper + top-anchored layout, no vertical centering.
-check("warm paper background set", css.includes("--bg:#f4f1ec") && css.includes("--card:#fffdf9"));
+// Black theme + top-anchored layout, no vertical centering.
+check("black background set", css.includes("--bg:#000000") && css.includes("--card:#111111"));
 check("no pure-white background left", !css.includes("--bg:#ffffff") && !css.includes("background:#fff;"));
-check("unlit dots use the measured warm grey", css.includes("--dot-unlit:#e7e1d2") && css.includes("background:var(--dot-unlit)"));
+check("unlit dots are dim charcoal", css.includes("--dot-unlit:#2e2e2e") && css.includes("background:var(--dot-unlit)"));
 check("old unlit colors gone", !css.includes("#e3e5e8") && !css.includes("#c9bda0"));
 check("main is top-anchored, not vertically centered",
   /main\s*\{[^}]*justify-content:\s*flex-start/.test(css) && !/main\s*\{[^}]*justify-content:\s*center/.test(css));
@@ -381,20 +404,21 @@ check("text rounds show the crowd reminder above the text box",
   appJs.includes("Reminder: guess what the crowd would most likely say.") &&
   appJs.indexOf("Reminder: guess what the crowd would most likely say.") < appJs.indexOf('id="text-answer"'));
 
-console.log("== unit: 2026-11-16 exact-spec alignment (Muse-measured values) ==");
-// Theme values, copied exactly from the Muse version.
-check("theme: bg/card/surface/navy/gold/poppy/dot-empty exact",
-  css.includes("--bg:#f4f1ec") && css.includes("--card:#fffdf9") && css.includes("--surface:#fffdf9") &&
-  css.includes("--navy:#232c42") && css.includes("--gold:#cf9a06") &&
-  css.includes("--poppy:#e8442e") && css.includes("--dot-unlit:#e7e1d2"));
+console.log("== unit: 2026-11-18 black theme (black + yellows + whites) ==");
+// Theme values: one black theme, no light/dark split.
+check("theme: bg/card/surface/gold/gold-bright/unlit exact",
+  css.includes("--bg:#000000") && css.includes("--card:#111111") && css.includes("--surface:#111111") &&
+  css.includes("--gold:#cf9a06") && css.includes("--gold-bright:#ffd60a") &&
+  css.includes("--dot-unlit:#2e2e2e") && css.includes("color-scheme:dark"));
 check("theme: old values gone",
   !css.includes("#faf5ec") && !css.includes("#fffdf7") && !css.includes("#1b2a4a") &&
-  !css.includes("#d4a017") && !css.includes("#e4572e") && !css.includes("#c9bda0"));
+  !css.includes("#d4a017") && !css.includes("#e4572e") && !css.includes("#c9bda0") &&
+  !css.includes("#f4f1ec") && !css.includes("#fffdf9") && !css.includes("#232c42") &&
+  !css.includes("#e8442e") && !css.includes("#e7e1d2") && !css.includes("#aebddb") &&
+  !css.includes("#101623") && !css.includes("--navy") && !css.includes("--poppy"));
 check("theme: main column is 620px wide", /#app\s*\{[^}]*max-width:\s*620px/.test(css));
-check("theme: dark-mode overrides present with exact values",
-  /@media\s*\(prefers-color-scheme:\s*dark\)/.test(css) &&
-  css.includes("--bg:#101623") && css.includes("--navy:#aebddb") && css.includes("--gold:#ffd60a") &&
-  css.includes("--dot-empty:#2e3a52") && css.includes("--surface:#1a2233"));
+check("theme: single black theme — no prefers-color-scheme block anywhere",
+  !/@media\s*\(prefers-color-scheme:\s*dark\)/.test(css) && !/prefers-color-scheme/.test(css));
 // One shared grid size everywhere: answering and reveal identical.
 check("grid: reveal grid is 188px / 3px gap",
   /\.grid\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid\s*\{[^}]*gap:\s*3px/.test(css));
@@ -403,37 +427,41 @@ check("grid: entry grid is 188px / 3px gap",
 check("grid: fine-tune grid is 224px / 3px gap",
   /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid\.small\s*\{[^}]*gap:\s*3px/.test(css));
 // Rings are INSET everywhere they are used; no outset ring left. Since the
-// 2026-11-17 reveal-readability fix, overlap dots are a solid gold FILL, not
+// 2026-11-17 reveal-readability fix, overlap dots are a solid yellow FILL, not
 // a ring — so only the guess-entry dots and the fine-tune dots still ring.
-check("rings are inset (box-shadow: inset 0 0 0 2px var(--gold))",
-  (css.match(/box-shadow:\s*inset 0 0 0 2px var\(--gold\)/g) || []).length === 2 &&
-  !/box-shadow:\s*0 0 0 2px var\(--gold\)/.test(css));
-check("overlap dots are a solid gold fill, not navy + ring",
-  /\.grid \.dot\.navy\.gold\s*\{[^}]*background:\s*var\(--gold\)/.test(css) &&
-  /\.grid \.dot\.poppy\.gold\s*\{[^}]*background:\s*var\(--gold\)/.test(css) &&
-  !/\.grid \.dot\.navy\.gold\s*\{[^}]*box-shadow/.test(css) &&
-  !/\.grid \.dot\.poppy\.gold\s*\{[^}]*box-shadow/.test(css));
-check("legend gold-fill swatch is solid gold",
-  /\.legend \.sw\.goldfill\s*\{[^}]*background:\s*var\(--gold\)/.test(css));
-check("guess dots fill with surface, not grey",
-  /\.grid \.dot\.gold\s*\{[^}]*background:\s*var\(--surface\)/.test(css));
-check("fine-tune dots are gold 28% mix over surface + inset ring",
-  /\.grid \.dot\.ft\s*\{[^}]*color-mix\(in srgb,\s*var\(--gold\) 28%,\s*var\(--surface\)\)/.test(css) &&
-  /\.grid \.dot\.ft\s*\{[^}]*box-shadow:\s*inset 0 0 0 2px var\(--gold\)/.test(css));
-// Legends, exact text. Answering legend unchanged; reveal legends rewritten
-// for the 2026-11-17 gold-fill overlap (old "Both = you got these" / ring-only
-// split copy is gone).
-check("answering legend (Guess) is exactly 'Gold ring = your guess'",
-  appJs.includes("Gold ring = your guess"));
+check("rings are inset (box-shadow: inset 0 0 0 2px var(--gold-bright))",
+  (css.match(/box-shadow:\s*inset 0 0 0 2px var\(--gold-bright\)/g) || []).length === 2 &&
+  !/box-shadow:\s*0 0 0 2px var\(--gold-bright\)/.test(css));
+check("overlap dots are a solid yellow fill, not white + ring",
+  /\.grid \.dot\.white\.gold\s*\{[^}]*background:\s*var\(--gold-bright\)/.test(css) &&
+  /\.grid \.dot\.amber\.gold\s*\{[^}]*background:\s*var\(--gold-bright\)/.test(css) &&
+  !/\.grid \.dot\.white\.gold\s*\{[^}]*box-shadow/.test(css) &&
+  !/\.grid \.dot\.amber\.gold\s*\{[^}]*box-shadow/.test(css));
+check("legend gold-fill swatch is solid bright yellow",
+  /\.legend \.sw\.goldfill\s*\{[^}]*background:\s*var\(--gold-bright\)/.test(css));
+check("guess-only dots are dark, not surface",
+  /\.grid \.dot\.gold\s*\{[^}]*background:\s*#1a1a1a/.test(css));
+check("fine-tune dots are yellow 28% mix over dark + inset ring",
+  /\.grid \.dot\.ft\s*\{[^}]*color-mix\(in srgb,\s*var\(--gold-bright\) 28%,\s*#1a1a1a\)/.test(css) &&
+  /\.grid \.dot\.ft\s*\{[^}]*box-shadow:\s*inset 0 0 0 2px var\(--gold-bright\)/.test(css));
+// Legends, exact text. Answering legend unchanged in meaning; reveal legends
+// rewritten for the black theme (white crowd, yellow fill, yellow ring).
+check("answering legend (Guess) is exactly 'Yellow ring = your guess'",
+  appJs.includes("Yellow ring = your guess"));
 check("reveal legend (Guess) is the exact three lines",
-  appJs.includes("Navy = the crowd") && appJs.includes("Gold = you got these") && appJs.includes("Gold ring = your guess only"));
+  appJs.includes("White = the crowd") && appJs.includes("Yellow = you got these") && appJs.includes("Yellow ring = your guess only"));
 check("reveal legend (Guess) uses the gold-fill swatch for 'you got these'",
-  appJs.includes('<span class="sw goldfill"></span>Gold = you got these'));
+  appJs.includes('<span class="sw goldfill"></span>Yellow = you got these'));
+check("reveal legend (Split) uses white/amber swatches + yellow for your split",
+  appJs.includes('<span class="sw white"></span>') && appJs.includes('<span class="sw amber"></span>') &&
+  appJs.includes('<span class="sw goldfill"></span>Yellow = your split'));
 check("old reveal legend copy gone",
   !appJs.includes("crowd ${r.answer}%") && !appJs.includes("Each dot is 0.01%") &&
-  !appJs.includes("Both = you got these") && !appJs.includes("Gold ring = your split"));
-check("reveal legend (Split) is labels + 'Gold = your split'",
-  appJs.includes("Gold = your split") && appJs.includes('<span class="sw goldfill"></span>Gold = your split'));
+  !appJs.includes("Both = you got these") && !appJs.includes("Gold ring = your split") &&
+  !appJs.includes("Navy = the crowd") && !appJs.includes("Gold = you got these") &&
+  !appJs.includes("Gold ring = your guess"));
+check("reveal legend (Split) is labels + 'Yellow = your split'",
+  appJs.includes("Yellow = your split") && appJs.includes('<span class="sw goldfill"></span>Yellow = your split'));
 check("reveal split passes the player's split to the grid",
   appJs.includes("playerSplit: r.guess"));
 check("fine-tune grid uses the fine-tune spec",
@@ -476,7 +504,7 @@ if (gridSrc) {
   let dots = runGrid({ entry: "guess", value: 50 });
   check("entry guess 50: gold rings on first 50 dots, no crowd colors",
     dots.length === 100 && dots.slice(0, 50).every((d) => d._added.includes("gold")) &&
-    dots.slice(50).every((d) => d._added.length === 0) && noneHas(dots, "navy", "poppy"));
+    dots.slice(50).every((d) => d._added.length === 0) && noneHas(dots, "white", "amber"));
   dots = runGrid({ entry: "guess", value: 0 });
   check("entry guess 0: no dots lit", dots.every((d) => d._added.length === 0));
   dots = runGrid({ entry: "guess", value: 37 });
@@ -484,29 +512,29 @@ if (gridSrc) {
     dots.slice(0, 37).every((d) => d._added.includes("gold")) && dots.slice(37).every((d) => d._added.length === 0));
   dots = runGrid({ entry: "fine", value: 37 });
   check("fine-tune 37: gold-mix dots on first 37 only",
-    dots.slice(0, 37).every((d) => d._added.includes("ft")) && dots.slice(37).every((d) => d._added.length === 0) && noneHas(dots, "gold", "navy", "poppy"));
+    dots.slice(0, 37).every((d) => d._added.includes("ft")) && dots.slice(37).every((d) => d._added.length === 0) && noneHas(dots, "gold", "white", "amber"));
   dots = runGrid({ entry: "split", left: 35 });
-  check("entry split 35/65: navy left, poppy right, NO gold ring while answering",
-    dots.slice(0, 35).every((d) => d._added.includes("navy")) &&
-    dots.slice(35).every((d) => d._added.includes("poppy")) && noneHas(dots, "gold"));
+  check("entry split 35/65: white left, amber right, NO gold ring while answering",
+    dots.slice(0, 35).every((d) => d._added.includes("white")) &&
+    dots.slice(35).every((d) => d._added.includes("amber")) && noneHas(dots, "gold"));
   dots = runGrid({ crowd: 29, guess: 50 });
-  check("reveal guess 50 vs crowd 29: overlap navy+gold 0-28, guess-only gold 29-49, rest unlit",
-    dots.slice(0, 29).every((d) => d._added.includes("navy") && d._added.includes("gold")) &&
-    dots.slice(29, 50).every((d) => d._added.includes("gold") && !d._added.includes("navy")) &&
+  check("reveal guess 50 vs crowd 29: overlap white+gold 0-28, guess-only gold 29-49, rest unlit",
+    dots.slice(0, 29).every((d) => d._added.includes("white") && d._added.includes("gold")) &&
+    dots.slice(29, 50).every((d) => d._added.includes("gold") && !d._added.includes("white")) &&
     dots.slice(50).every((d) => d._added.length === 0));
   dots = runGrid({ crowd: 50, guess: 50 });
-  check("reveal exact match: every filled dot is navy + gold",
-    dots.slice(0, 50).every((d) => d._added.includes("navy") && d._added.includes("gold")) &&
+  check("reveal exact match: every filled dot is white + gold",
+    dots.slice(0, 50).every((d) => d._added.includes("white") && d._added.includes("gold")) &&
     dots.slice(50).every((d) => d._added.length === 0));
   dots = runGrid({ crowd: 50, guess: 20 });
-  check("reveal guess below crowd: overlap 0-19 navy+gold, crowd-only 20-49 navy, rest unlit",
-    dots.slice(0, 20).every((d) => d._added.includes("navy") && d._added.includes("gold")) &&
-    dots.slice(20, 50).every((d) => d._added.includes("navy") && !d._added.includes("gold")) &&
+  check("reveal guess below crowd: overlap 0-19 white+gold, crowd-only 20-49 white, rest unlit",
+    dots.slice(0, 20).every((d) => d._added.includes("white") && d._added.includes("gold")) &&
+    dots.slice(20, 50).every((d) => d._added.includes("white") && !d._added.includes("gold")) &&
     dots.slice(50).every((d) => d._added.length === 0));
   dots = runGrid({ split: { left: 65, right: 35 }, playerSplit: 35 });
-  check("reveal split: crowd halves navy/poppy, gold ring on dots up to player's split only",
-    dots.slice(0, 65).every((d) => d._added.includes("navy")) &&
-    dots.slice(65).every((d) => d._added.includes("poppy")) &&
+  check("reveal split: crowd halves white/amber, yellow fill on dots up to player's split only",
+    dots.slice(0, 65).every((d) => d._added.includes("white")) &&
+    dots.slice(65).every((d) => d._added.includes("amber")) &&
     dots.slice(0, 35).every((d) => d._added.includes("gold")) &&
     dots.slice(35).every((d) => !d._added.includes("gold")));
 }
@@ -544,17 +572,18 @@ check("today has no answers leaked", !t1.raw.includes('"answer":') && !t1.raw.in
 
 const home = await fetch(BASE + "/");
 const homeText = await home.text();
-check("served index.html carries new tagline + CROWDLE wordmark + fonts, old tagline gone",
-  homeText.includes("How well do you know people?") && homeText.includes("CROWDLE") &&
-  homeText.includes("fonts.googleapis.com/css2?family=Fraunces") &&
+check("served index.html carries new tagline + HONEYDLE wordmark + fonts, old tagline gone",
+  homeText.includes("How well do you know people?") && homeText.includes("HONEYDLE") &&
+  homeText.includes("fonts.googleapis.com/css2?family=Press+Start+2P") &&
   !homeText.includes("what do people usually do?"));
 
 const servedCss = await (await fetch(BASE + "/styles.css")).text();
-check("served styles.css has exact theme + shared 188px grid + inset rings + dark mode",
-  servedCss.includes("--bg:#f4f1ec") && servedCss.includes("--navy:#232c42") &&
-  servedCss.includes("--gold:#cf9a06") && servedCss.includes("--dot-unlit:#e7e1d2") &&
-  servedCss.includes("max-width:188px") && servedCss.includes("box-shadow:inset 0 0 0 2px var(--gold)") &&
-  servedCss.includes("@media (prefers-color-scheme: dark)") && servedCss.includes("--bg:#101623"));
+check("served styles.css has black theme + shared 188px grid + inset rings, no light theme",
+  servedCss.includes("--bg:#000000") && servedCss.includes("--gold-bright:#ffd60a") &&
+  servedCss.includes("--dot-unlit:#2e2e2e") && servedCss.includes("color-scheme:dark") &&
+  servedCss.includes("max-width:188px") && servedCss.includes("box-shadow:inset 0 0 0 2px var(--gold-bright)") &&
+  !servedCss.includes("@media (prefers-color-scheme: dark)") && !servedCss.includes("--bg:#f4f1ec") &&
+  !servedCss.includes("Fraunces"));
 check("served styles.css has top-anchored main, no vertical centering",
   /main\s*\{[^}]*justify-content:\s*flex-start/.test(servedCss) && !/main\s*\{[^}]*justify-content:\s*center/.test(servedCss));
 const servedJs = await (await fetch(BASE + "/app.js")).text();
@@ -563,13 +592,16 @@ check("served app.js renders entry grid on Guess/Split answering screens",
 check("served app.js entry grid uses gold-only modes, no crowd data",
   servedJs.includes('entry: "guess"') && servedJs.includes('entry: "split"'));
 check("served app.js has exact legends + playerSplit reveal + fine-tune spec",
-  servedJs.includes("Gold ring = your guess") && servedJs.includes("Navy = the crowd") &&
-  servedJs.includes("Gold = you got these") && servedJs.includes("Gold ring = your guess only") &&
-  servedJs.includes("Gold = your split") && !servedJs.includes("Both = you got these") &&
+  servedJs.includes("Yellow ring = your guess") && servedJs.includes("White = the crowd") &&
+  servedJs.includes("Yellow = you got these") && servedJs.includes("Yellow ring = your guess only") &&
+  servedJs.includes("Yellow = your split") && !servedJs.includes("Both = you got these") &&
   !servedJs.includes("Gold ring = your split") &&
   servedJs.includes("playerSplit: r.guess") && servedJs.includes('entry: "fine"'));
 const servedHowto = homeText.slice(homeText.indexOf('id="howto"'), homeText.indexOf('id="howto-close"'));
 check("served How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(servedHowto));
+const beeRes = await fetch(BASE + "/assets/bee-golden.png");
+check("served bee asset returns a PNG", beeRes.ok && (beeRes.headers.get("content-type") || "").includes("image/png"));
+check("served app.js wires the bee (mapping + home idle + reveal)", servedJs.includes("beeForPoints") && servedJs.includes('assets/bee-normal.png') && servedJs.includes("bee-golden.png") && servedJs.includes("bee-thirsty.png"));
 
 const pid = "verify-player-001";
 // Contribute locked before playing
@@ -717,7 +749,7 @@ const gridCounts = (el) => {
   if (!el) return null;
   const kids = [...el.children];
   const has = (name) => kids.filter((k) => k.classList.contains(name)).length;
-  return { n: kids.length, gold: has("gold"), navy: has("navy"), poppy: has("poppy"), ft: has("ft") };
+  return { n: kids.length, gold: has("gold"), white: has("white"), amber: has("amber"), ft: has("ft") };
 };
 await waitForDom(() => domDoc.querySelector("#btn-endless"), "home Endless button");
 domDoc.querySelector("#btn-endless").click();
@@ -730,9 +762,9 @@ for (let round = 1; round <= 7; round++) {
     const isSplit = !!domDoc.querySelector(".split-labels");
     const entry = gridCounts(domDoc.querySelector("#entry-grid"));
     if (isSplit) {
-      if (!(entry && entry.n === 100 && entry.navy === 50 && entry.poppy === 50 && entry.gold === 0)) domEntryOk = false;
+      if (!(entry && entry.n === 100 && entry.white === 50 && entry.amber === 50 && entry.gold === 0)) domEntryOk = false;
     } else {
-      if (!(entry && entry.n === 100 && entry.gold === 50 && entry.navy === 0)) domEntryOk = false;
+      if (!(entry && entry.n === 100 && entry.gold === 50 && entry.white === 0)) domEntryOk = false;
     }
     // Slider input must re-light the grid live (the exact gesture the bug hid).
     const s = domDoc.querySelector("#slider");
@@ -741,9 +773,9 @@ for (let round = 1; round <= 7; round++) {
     await sleep(200);
     const after = gridCounts(domDoc.querySelector("#entry-grid"));
     if (isSplit) {
-      if (!(after && after.n === 100 && after.navy === 96 && after.poppy === 4 && after.gold === 0)) domEntryOk = false;
+      if (!(after && after.n === 100 && after.white === 96 && after.amber === 4 && after.gold === 0)) domEntryOk = false;
     } else {
-      if (!(after && after.n === 100 && after.gold === 70 && after.navy === 0)) domEntryOk = false;
+      if (!(after && after.n === 100 && after.gold === 70 && after.white === 0)) domEntryOk = false;
     }
   } else {
     domDoc.querySelector("#text-answer").value = "verify answer";
@@ -765,30 +797,15 @@ check("real DOM: reveal grid has 100 children after every submit", domRevealOk);
 check("real DOM: no JS errors during the full Endless play", jsdomErrors.length === 0, jsdomErrors.join(" | "));
 dom.window.close();
 
-console.log("== integration: dark mode — no black text on dark surfaces (served CSS) ==");
-// 2026-11-17 dark-mode fix: enabled inputs had no color, so the browser
-// default (black) showed on the dark card; .ghost had no color either, and
-// .chip/.finetune-btn/.nudge used hardcoded light-theme colors. jsdom does
-// not evaluate prefers-color-scheme, so this applies the whole dark media
-// block from the served stylesheet as a later plain <style> block, then
-// asserts every text element has >= 4.5:1 contrast against its effective
-// background (the WCAG AA bar for normal text). The disabled input is
-// intentionally muted, so it gets a 4.0 bar instead.
+console.log("== integration: black theme — contrast on black (served CSS) ==");
+// 2026-11-18 theme redirect: one black theme, no light/dark split. The
+// 2026-11-17 contrast rule still holds — every text element needs >= 4.5:1
+// contrast against its effective background (WCAG AA bar for normal text),
+// and no text may compute to black on the black surfaces. The disabled
+// input is intentionally muted, so it gets a 4.0 bar instead.
 const diskCss = fs.readFileSync(path.join(__dirname, "..", "client", "styles.css"), "utf8");
 check("served styles.css is byte-identical to the repo file", servedCss === diskCss);
-function extractDarkBlock(css) {
-  const at = css.indexOf("@media (prefers-color-scheme: dark)");
-  if (at < 0) return null;
-  const open = css.indexOf("{", at);
-  let depth = 0;
-  for (let i = open; i < css.length; i++) {
-    if (css[i] === "{") depth++;
-    else if (css[i] === "}") { depth--; if (depth === 0) return css.slice(open + 1, i); }
-  }
-  return null;
-}
-const darkBlock = extractDarkBlock(servedCss);
-check("dark-mode overrides exist in the served CSS", typeof darkBlock === "string" && darkBlock.includes("--ink"));
+check("black theme: no prefers-color-scheme block in the served CSS", !servedCss.includes("prefers-color-scheme"));
 function lum(rgb) {
   const m = rgb.match(/rgba?\(([^)]+)\)/);
   if (!m) return null;
@@ -802,7 +819,7 @@ function contrast(fg, bg) {
   const [hi, lo] = l1 > l2 ? [l1, l2] : [l2, l1];
   return (hi + 0.05) / (lo + 0.05);
 }
-const darkHtml = `<!doctype html><html><head><style>${servedCss}</style><style>${darkBlock}</style></head><body>
+const darkHtml = `<!doctype html><html><head><style>${servedCss}</style></head><body>
 <p id="body-text">body</p>
 <div class="card">
   <div class="type-row"><input type="number" id="typed" value="50"></div>
@@ -827,7 +844,7 @@ function effBg(el) {
     if (bg && bg !== "transparent" && !/^rgba\(0, 0, 0, 0\)$/.test(bg)) return bg;
     node = node.parentElement;
   }
-  return "rgb(16, 22, 35)";
+  return "rgb(0, 0, 0)";
 }
 const darkTargets = ["#body-text", "#typed", "#text-answer", "#guess-num", "#ghost-btn", "#primary-btn", "#vote-no-btn", "#chip", "#ft-btn", "#nudge"];
 const darkBad = [];
@@ -839,25 +856,26 @@ for (const sel of darkTargets) {
   if (ratio == null || ratio < 4.5) darkBad.push(`${sel}: ${fg} on ${bg} = ${ratio === null ? "?" : ratio.toFixed(2)}`);
   if (/^rgb\(0, 0, 0\)$/.test(fg)) darkBad.push(`${sel}: computed black text`);
 }
-check("dark mode: every text element has >= 4.5:1 contrast, no black text on dark (jsdom computed style)", darkBad.length === 0, darkBad.join(" | "));
+check("black theme: every text element has >= 4.5:1 contrast, no black text on black (jsdom computed style)", darkBad.length === 0, darkBad.join(" | "));
 {
   const el = ddoc.querySelector("#typed-disabled");
   const ratio = contrast(dcs(el).color, effBg(el));
-  check("dark mode: disabled input stays readable (muted, >= 4.0:1)", ratio !== null && ratio >= 4.0, `${dcs(el).color} on ${effBg(el)} = ${ratio === null ? "?" : ratio.toFixed(2)}`);
+  check("black theme: disabled input stays readable (muted, >= 4.0:1)", ratio !== null && ratio >= 4.0, `${dcs(el).color} on ${effBg(el)} = ${ratio === null ? "?" : ratio.toFixed(2)}`);
 }
-check("dark mode: placeholder rule exists and uses the muted variable", /\.type-row input::placeholder\s*\{[^}]*color:\s*var\(--muted\)/.test(servedCss));
-check("dark mode: .big-guess stays pale navy (not black)", dcs(ddoc.querySelector("#guess-num")).color === "rgb(174, 189, 219)");
+check("black theme: placeholder rule exists and uses the muted variable", /\.type-row input::placeholder\s*\{[^}]*color:\s*var\(--muted\)/.test(servedCss));
+check("black theme: .big-guess is bright yellow (not black)", dcs(ddoc.querySelector("#guess-num")).color === "rgb(255, 214, 10)");
 darkDom.window.close();
 
-// 2026-11-17 reveal readability: overlap dots are a solid gold FILL, so
-// they must differ from crowd-only navy in BOTH modes — asserted on computed
-// style, not just CSS text. Gold fill = you, everywhere on the reveal.
+// 2026-11-18 theme redirect: the four reveal states must be instantly
+// distinct on computed style in the single black theme — crowd-only white,
+// overlap solid bright yellow, guess-only dark + yellow inset ring, unlit
+// charcoal. Yellow fill = you, everywhere on the reveal.
 function gridDotBgs(cssText) {
   const dom = new JSDOM(`<!doctype html><html><head><style>${cssText}</style></head><body>
 <div class="grid">
-  <div class="dot navy" id="d-crowd"></div>
-  <div class="dot navy gold" id="d-overlap"></div>
-  <div class="dot poppy gold" id="d-split"></div>
+  <div class="dot white" id="d-crowd"></div>
+  <div class="dot white gold" id="d-overlap"></div>
+  <div class="dot amber gold" id="d-split"></div>
   <div class="dot gold" id="d-guessonly"></div>
   <div class="dot" id="d-unlit"></div>
 </div></body></html>`, { pretendToBeVisual: true });
@@ -868,20 +886,20 @@ function gridDotBgs(cssText) {
     overlap: cs(doc.querySelector("#d-overlap")).backgroundColor,
     split: cs(doc.querySelector("#d-split")).backgroundColor,
     guessOnly: cs(doc.querySelector("#d-guessonly")).backgroundColor,
+    guessOnlyRing: cs(doc.querySelector("#d-guessonly")).boxShadow,
+    unlit: cs(doc.querySelector("#d-unlit")).backgroundColor,
   };
   dom.window.close();
   return out;
 }
-const lightDots = gridDotBgs(servedCss);
-check("light mode: overlap dots are gold, crowd-only navy, guess-only surface",
-  lightDots.overlap === "rgb(207, 154, 6)" && lightDots.crowd === "rgb(35, 44, 66)" &&
-  lightDots.split === "rgb(207, 154, 6)" && lightDots.guessOnly === "rgb(255, 253, 249)" &&
-  lightDots.overlap !== lightDots.crowd, JSON.stringify(lightDots));
-const darkDots = gridDotBgs(`${servedCss}\n${darkBlock}`);
-check("dark mode: overlap dots are gold, crowd-only pale navy, guess-only dark surface",
-  darkDots.overlap === "rgb(255, 214, 10)" && darkDots.crowd === "rgb(174, 189, 219)" &&
-  darkDots.split === "rgb(255, 214, 10)" && darkDots.guessOnly === "rgb(26, 34, 51)" &&
-  darkDots.overlap !== darkDots.crowd, JSON.stringify(darkDots));
+const blackDots = gridDotBgs(servedCss);
+check("black theme: overlap yellow, crowd-only white, guess-only dark + ring, unlit charcoal — all four distinct",
+  blackDots.overlap === "rgb(255, 214, 10)" && blackDots.crowd === "rgb(255, 255, 255)" &&
+  blackDots.split === "rgb(255, 214, 10)" && blackDots.guessOnly === "rgb(26, 26, 26)" &&
+  blackDots.unlit === "rgb(46, 46, 46)" &&
+  blackDots.overlap !== blackDots.crowd && blackDots.crowd !== blackDots.unlit &&
+  blackDots.overlap !== blackDots.unlit && blackDots.guessOnly !== blackDots.unlit &&
+  /inset/.test(blackDots.guessOnlyRing) && blackDots.guessOnlyRing.includes("255, 214, 10"), JSON.stringify(blackDots));
 
 // ------------------------------------------------- integration: seed upsert (pg-mem)
 // The seed must upsert bank.json over an existing Postgres DB (the live Render
