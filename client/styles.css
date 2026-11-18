@@ -65,11 +65,12 @@ button{font-family:inherit}
 .bee-ruby{width:112px;height:112px}
 /* entry scene: the whole bee crew parades in one row across the home screen,
    between the stats and the Daily card — normal first as the starting/host
-   bee, then the score states worst to best: thirsty, drop, honey-covered,
-   golden, diamond, and ruby last as the ultimate prize. Staggered heights
-   + a gentle bob (staggered delays) so they read as flying in formation,
-   not standing in a row. Seven bees at 32px (diamond 36px) + 6px gaps is
-   264px, inside the 284px content width of a 320px phone. */
+   bee, then the score states worst to best: drop, honey-covered, golden,
+   diamond, ruby, with the thirsty bee last as the tail of the line.
+   Staggered heights + a gentle bob (staggered delays) so they read as
+   flying in formation, not standing in a row. Seven bees at 32px
+   (diamond 36px) + 6px gaps is 264px, inside the 284px content width of
+   a 320px phone. */
 .bee-crew{display:flex;justify-content:center;align-items:flex-end;gap:6px;margin:2px auto 4px}
 .bee-crew .crew-bee{position:relative;display:block;transform:translateY(var(--y,0px))}
 .bee-crew .crew-bee img{width:32px;height:32px;margin:0;animation:crew-bob 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
@@ -89,7 +90,7 @@ button{font-family:inherit}
 
 /* question */
 .kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.qtext{font-family:var(--font-display);font-size:16px;font-weight:400;line-height:1.7;margin:8px 0 4px;color:var(--ink)}
+.qtext{font-family:var(--font-display);font-size:16px;font-weight:400;line-height:1.9;letter-spacing:.02em;margin:8px 0 4px;color:var(--ink)}
 .progress{font-size:12px;color:var(--muted);margin-bottom:18px}
 .big-guess{text-align:center;font-size:56px;font-weight:800;color:var(--gold-bright);line-height:1;margin:10px 0 4px}
 .big-guess .pct{font-size:26px;color:var(--muted);font-weight:600}
@@ -120,44 +121,41 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .answer-line{text-align:center;font-size:17px;margin:10px 0 2px}
 .answer-line b{color:var(--gold-soft)}
 .note{font-size:14px;color:var(--muted);text-align:center;line-height:1.45;margin:6px 0 12px}
-/* HoneycombGrid: hexagon cells in a honeycomb field, black/yellow/white only.
+/* HoneycombGrid: CIRCLE cells in a big-hexagon outline, black/yellow/white only.
    real-number-only = white, guess-only = dark + yellow inset ring,
    overlap ("you got these") = solid bright-yellow fill, unlit = charcoal.
    Split: real-number halves white / DEEP AMBER (see --amber-deep), player
    region bright-yellow fill.
-   Cells are flat-top hexagons (clip-path). The 100 cells form ONE BIG
-   HONEYCOMB: 13 rows that grow then shrink — 6,6,7,8,9,9,10,9,9,8,7,6,6 —
-   laid out by renderGrid as centered .hrow flex rows, so the outline is a
-   big hexagon. Regular-hexagon rework (2026-11-18): a cell is a REGULAR
-   hexagon, so its height is (sqrt(3)/2) x width — 12px wide x 10.4px tall
-   main, 18px x 15.6px fine-tune — NOT square (the old aspect-ratio:1 made
-   squat hexagons). Rows nest vertically: each row is pulled up by a
-   negative bottom margin so the hexagons interlock at the 3/4 row pitch.
-   No-overlap rule: the row pitch must stay above the touching pitch
-   v_touch = h x (1 - gap/w), else diagonally adjacent cells overlap. The
-   old -4px margin (12.1px pitch on 16.1px cells) overlapped by ~0.5px;
-   the new margins sit 0.3px above exact touching (main 8.1 vs 7.79,
-   fine-tune 12.0 vs 11.69). The inset ring survives clip-path: the
-   computed box-shadow is unchanged (clip-path only trims it at the hex
-   corners, negligible at ~12px). Do NOT switch to outline — it is
-   rectangular and wrong on a hex. The 3px gap lives on the rows, not the
-   container — a container gap would add to the row pitch.
+   Circles, not hexagons (2026-11-18): the hex cells looked broken and were
+   fiddly to get right — circles in the same big-hexagon outline are the
+   reliable build. The 100 cells form ONE BIG HONEYCOMB: 11 rows that grow
+   then shrink — 6,8,9,10,11,12,11,10,9,8,6 — laid out by renderGrid as
+   centered .hrow flex rows, so the outline is a big hexagon. Rows are
+   centered, so a one-cell step staggers the next row by half a cell
+   pitch — a proper hex lattice. Main cells 10px diameter, 2.5px in-row
+   gap (12.5px pitch), 10px row pitch (margin-bottom:0); fine-tune cells
+   14px, 4px gap (18px pitch), 14.4px row pitch (margin-bottom:.4px).
+   No-overlap rule: the diagonal center distance sqrt(6.25^2 + 10^2) =
+   11.8px clears the 10px diameter, and vertically aligned neighbors
+   touch exactly (pitch = diameter), never overlap. The inset ring works
+   on circles the same way (box-shadow inset 2px). The 2.5px gap lives
+   on the rows, not the container — a container gap would add to the row
+   pitch.
    REGULARITY (measured, see VERIFICATION.md): the outline's top edge is
-   81.0px and each slant side 82.8px — 2.2% apart (the old shape was
-   84.5 vs 122.6, 45% apart). A perfect regular hexagon is impossible
-   with exactly 100 cells (91 or 127 would be); the slant angle is 40.5°
-   rather than 60°, so the outline reads as a wide hexagon with equal
-   sides — the best the cell count allows.
-   ONE-SCREEN BUDGET: the grid element is 114.6px tall (12 x 8.1 pitch +
-   10.4 cell + 7 padding), inside a 120px budget pinned by verify — at
+   62.5px and each slant side hypot(3*12.5, 5*10) = 62.5px — exactly
+   equal (the old hex shape was 81.0 vs 82.8, 2.2% apart). The slant
+   angle is 53.1° rather than 60°, so the outline reads as a hexagon
+   with equal sides — the best the 100-cell count allows.
+   ONE-SCREEN BUDGET: the grid element is 117px tall (10 x 10 pitch +
+   10 cell + 7 padding), inside a 120px budget pinned by verify — at
    that height the question + grid + reveal fit a 390x844 phone screen
    without scrolling (measured docScroll 831px <= 844). A 667px-tall
    phone (iPhone SE) still scrolls on the reveal; fitting it would need
    shrinking the reveal bee/controls too, not just the grid. */
 .grid{display:flex;flex-direction:column;align-items:center;max-width:188px;margin:14px auto 6px;padding-bottom:7px}
-.grid .hrow{display:flex;gap:3px;margin-bottom:-2.3px}
+.grid .hrow{display:flex;gap:2.5px;margin-bottom:0}
 .grid .hrow:last-child{margin-bottom:0}
-.grid .dot{width:12px;height:10.4px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--dot-unlit)}
+.grid .dot{width:10px;height:10px;border-radius:50%;background:var(--dot-unlit)}
 .grid .dot.white{background:#ffffff}
 .grid .dot.gold{box-shadow:inset 0 0 0 2px var(--gold-bright);background:#1a1a1a}
 .grid .dot.white.gold{background:var(--gold-bright)}
@@ -166,15 +164,15 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 /* fine-tune dots: bright yellow 28% mix over dark + inset yellow ring */
 .grid .dot.ft{background:color-mix(in srgb, var(--gold-bright) 28%, #1a1a1a);box-shadow:inset 0 0 0 2px var(--gold-bright)}
 .grid.small{max-width:224px;padding-bottom:8px}
-/* fine-tune cells are 18px x 15.6px, so the honeycomb pitch is 12.0px =
-   3/4 of the cell + 0.3px clearance: -3.6px bottom margin on the row
-   (15.6 - 3.6 = 12.0). The row gap is 4.5px here (0.25 x cell width) —
-   the no-overlap pitch for an 18px cell needs a 4.5px gap, not the
-   main grid's 3px. Same hexagon shape, same big-honeycomb rows. Widest
-   row: 9 x 22.5 + 18 = 220.5px, inside the 224px box. */
-.grid.small .hrow{gap:4.5px;margin-bottom:-3.6px}
+/* fine-tune cells are 14px circles, so the honeycomb pitch is 14.4px:
+   0.4px bottom margin on the row (14 + 0.4 = 14.4). The row gap is 4px
+   here (18px pitch) — the no-overlap pitch for a 14px cell needs a 4px
+   gap, not the main grid's 2.5px. Same hexagon shape, same
+   big-honeycomb rows. Widest row: 11 x 18 + 14 = 212px, inside the
+   224px box. */
+.grid.small .hrow{gap:4px;margin-bottom:.4px}
 .grid.small .hrow:last-child{margin-bottom:0}
-.grid.small .dot{width:18px;height:15.6px}
+.grid.small .dot{width:14px;height:14px}
 /* entry grid: same shared 188px size as the reveal grid, so answering and
    reveal are identical in size.
    NOTE: #entry-grid is a direct child of main#screen, which is a FLEX
@@ -189,7 +187,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
    fills). Do not remove it. */
 .grid.entry{width:100%;max-width:188px;margin:10px auto 4px}
 .legend{text-align:center;font-size:12px;color:var(--muted);margin:4px 0 10px}
-.legend .sw{display:inline-block;width:10px;height:10px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);margin:0 3px 0 10px;vertical-align:-1px}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 3px 0 10px;vertical-align:-1px}
 .legend .sw.white{background:#ffffff} .legend .sw.amber{background:var(--amber-deep)}
 /* ring swatch keeps the inset-ring treatment (same as the guess-only dots):
    a border would be clipped at the hex corners, the inset shadow is not. */
@@ -233,17 +231,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .result-row:last-child{border-bottom:none}
 .result-row .t{color:var(--muted);flex:1}
 .result-row b{white-space:nowrap}
-
-/* contribute */
-.vote-card{transition:transform .35s ease,opacity .35s ease}
-.vote-card.leaving{transform:translateX(-40px);opacity:0}
-.vote-prompt{font-family:var(--font-display);font-size:14px;font-weight:400;color:var(--ink);line-height:1.7;margin:6px 0 14px}
-.vote-btns{display:flex;gap:10px}
-.vote-btns button{flex:1;padding:14px 8px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer}
-.vote-yes{background:var(--gold-bright);color:var(--on-accent);border:none}
-.vote-no{background:var(--card);border:1px solid var(--line);color:var(--ink)}
-.vote-side-l{background:var(--gold-bright);color:var(--on-accent);border:none}
-.vote-side-r{background:#ffffff;color:#111111;border:none}
 
 /* overlays */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0}

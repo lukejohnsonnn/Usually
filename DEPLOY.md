@@ -45,10 +45,10 @@ Then **Manual Deploy → Deploy latest commit** (or wait for auto-deploy).
 
 ### 5. Verify
 - `https://usually.onrender.com/health` → `{"ok":true,"db":"postgres","bankQuestions":119,...}`
-- Open the URL in a browser, play a full Daily, check Contribute unlocks after it.
+- Open the URL in a browser, play a full Daily.
 
 The question bank seeds itself on first boot (`server.js` calls
-`seedBank` at startup). Re-seeding never wipes plays or votes.
+`seedBank` at startup). Re-seeding never wipes plays.
 
 ## Notes on the free tier
 
@@ -58,12 +58,12 @@ The question bank seeds itself on first boot (`server.js` calls
 - **Free Postgres lifetime:** Render's free Postgres is time-limited —
   check the current terms on Render's pricing page at signup. If the
   database expires, create a fresh free database, point `DATABASE_URL`
-  at it, and re-seed with `npm run seed`. Plays and votes live in that
+  at it, and re-seed with `npm run seed`. Plays live in that
   database, so if they matter, export them before it expires.
 - **No cron:** there is deliberately no cron job in `render.yaml`.
   Do not add one — it is not free. The lazy freeze covers the daily
-  rotation, and Contribute's 7-day embargo generates future daily sets
-  on demand the same way.
+  rotation. The lazy freeze generates future daily sets on demand
+  the same way.
 - **Costs:** $0. The only future costs are a custom domain (optional,
   e.g. playhoneydle.com ~$12/yr — not bought yet) and moving off the
   free tier if traffic outgrows it.

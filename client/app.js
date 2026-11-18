@@ -51,24 +51,26 @@ function renderGrid(container, spec) {
   //     round(value) dots in row-major order
   //   {entry:"split", left} — white/deep-amber halves, NO yellow ring at all
   //   {entry:"fine", value} — fine-tune hundredths: yellow 28% mix + ring
-  // Big-honeycomb shape (2026-11-18): the 100 cells are laid out in 13 rows
-  // that grow then shrink — [6,6,7,8,9,9,10,9,9,8,7,6,6] — so together
-  // they form one big hexagon. Rows are centered, so a one-cell step nests
-  // by half a cell: a proper hex lattice at the standing 3/4 row pitch.
-  // Regular-hexagon rework (2026-11-18): the old rows [5,6,7,8,9,10,10,10,
-  // 9,8,7,6,5] at 16.1px square cells gave an outline with a 84.5px top
-  // edge and 122.6px slant sides (45% apart) and a 12.1px row pitch that
-  // overlapped diagonally adjacent cells by ~0.5px. The new rows put 6
-  // cells on the top edge and 10 across the middle, with REGULAR hexagon
-  // cells (12px x 10.4px main, 18px x 15.6px fine-tune) and a row pitch
-  // 0.3px above exact touching, so no cells overlap. Outline sides:
-  // top 81.0px, slant 82.8px — 2.2% apart (see VERIFICATION.md; a perfect
-  // regular hexagon needs 91 or 127 cells, not 100). Grid height 114.6px,
-  // inside the 120px one-screen budget. Fill order is still row-major
-  // (index i runs across rows in order), so all guess/reveal math is
-  // untouched — only the layout changed. Each row is a .hrow flex row so it
-  // centers itself; the dots stay flat .dot children of their row.
-  const ROWS = [6, 6, 7, 8, 9, 9, 10, 9, 9, 8, 7, 6, 6];
+  // Big-honeycomb shape (2026-11-18): the 100 cells are laid out in 11 rows
+  // that grow then shrink — [6,8,9,10,11,12,11,10,9,8,6] — so together
+  // they form one big hexagon. The cells are CIRCLES now, not hexagons:
+  // the hex cells looked broken and fiddly, circles in the same hex
+  // outline are the reliable build. Rows are centered, so a one-cell step
+  // staggers the next row by half a cell pitch — a proper hex lattice.
+  // Circle geometry (see VERIFICATION.md): main cells 10px diameter,
+  // 2.5px in-row gap (12.5px pitch), 10px row pitch; fine-tune cells
+  // 14px, 4px gap (18px pitch), 14.4px row pitch. The outline is a
+  // hexagon with near-equal sides: top edge 62.5px, each slant side
+  // hypot(3*12.5, 5*10) = 62.5px — 0% apart (the slant angle is 53.1°,
+  // not 60°, the closest the 100-cell count allows). No overlap: the
+  // diagonal center distance sqrt(6.25^2 + 10^2) = 11.8px clears the
+  // 10px diameter, and vertically aligned neighbors touch exactly
+  // (pitch = diameter), never overlap. Grid height 117px, inside the
+  // 120px one-screen budget. Fill order is still row-major (index i runs
+  // across rows in order), so all guess/reveal math is untouched — only
+  // the layout changed. Each row is a .hrow flex row so it centers
+  // itself; the dots stay flat .dot children of their row.
+  const ROWS = [6, 8, 9, 10, 11, 12, 11, 10, 9, 8, 6];
   container.innerHTML = "";
   let i = 0;
   for (const len of ROWS) {
@@ -119,7 +121,6 @@ async function showHome() {
   $("#today-date").textContent = today ? new Date(today.date + "T12:00:00").toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }) : "";
   await refreshStats();
   const done = today ? await api(`/api/results?playerId=${playerId()}&date=${today.date}`).catch(() => null) : null;
-  const contrib = await api(`/api/contribute?playerId=${playerId()}`).catch(() => null);
 
   screen.innerHTML = `
     <div class="stat-row">
@@ -130,12 +131,12 @@ async function showHome() {
     </div>
     <div class="bee-crew" aria-label="The Honeydle bee crew">
       <span class="crew-bee" style="--y:2px;--d:0s"><img class="bee" src="assets/bee-normal.png" alt="Bee" width="32" height="32"></span>
-      <span class="crew-bee" style="--y:-6px;--d:.2s"><img class="bee" src="assets/bee-thirsty.png" alt="Thirsty bee" width="32" height="32"></span>
-      <span class="crew-bee" style="--y:0px;--d:.4s"><img class="bee" src="assets/bee-drop.png" alt="Bee with a honey drop" width="32" height="32"></span>
-      <span class="crew-bee" style="--y:-8px;--d:.6s"><img class="bee" src="assets/bee-little-honey.png" alt="Honey-covered bee" width="32" height="32"></span>
-      <span class="crew-bee" style="--y:2px;--d:.8s"><img class="bee" src="assets/bee-golden.png" alt="Golden bee" width="32" height="32"></span>
-      <span class="crew-bee crew-diamond" style="--y:-5px;--d:1s"><img class="bee" src="assets/bee-diamond.png" alt="Diamond bee" width="36" height="36"><span class="crew-sparkle" aria-hidden="true">✦</span></span>
-      <span class="crew-bee" style="--y:-8px;--d:1.2s"><img class="bee" src="assets/bee-ruby.png" alt="Ruby bee" width="32" height="32"></span>
+      <span class="crew-bee" style="--y:0px;--d:.2s"><img class="bee" src="assets/bee-drop.png" alt="Bee with a honey drop" width="32" height="32"></span>
+      <span class="crew-bee" style="--y:-8px;--d:.4s"><img class="bee" src="assets/bee-little-honey.png" alt="Honey-covered bee" width="32" height="32"></span>
+      <span class="crew-bee" style="--y:2px;--d:.6s"><img class="bee" src="assets/bee-golden.png" alt="Golden bee" width="32" height="32"></span>
+      <span class="crew-bee crew-diamond" style="--y:-5px;--d:.8s"><img class="bee" src="assets/bee-diamond.png" alt="Diamond bee" width="36" height="36"><span class="crew-sparkle" aria-hidden="true">✦</span></span>
+      <span class="crew-bee" style="--y:-8px;--d:1s"><img class="bee" src="assets/bee-ruby.png" alt="Ruby bee" width="32" height="32"></span>
+      <span class="crew-bee" style="--y:-6px;--d:1.2s"><img class="bee" src="assets/bee-thirsty.png" alt="Thirsty bee" width="32" height="32"></span>
     </div>
     <div class="card">
       <div class="kicker">Today's Daily · 7 rounds</div>
@@ -145,19 +146,11 @@ async function showHome() {
            <button class="primary" id="btn-results">See my results</button>`
         : `<button class="primary" id="btn-daily">${done && done.results && done.results.length ? "Resume today's Daily" : "Play today's Daily"}</button>`}
       <div class="row"><button class="ghost" id="btn-endless">Endless practice</button></div>
-    </div>
-    <div class="card">
-      <div class="kicker">Contribute</div>
-      <p>Answer the real preference behind a question. Your vote is recorded.</p>
-      ${contrib && contrib.unlocked
-        ? `<button class="primary" id="btn-contrib">Contribute (${contrib.questions.length} to vote on)</button>`
-        : `<button class="primary" disabled>Locked — finish today's Daily first</button>`}
     </div>`;
 
   $("#btn-daily")?.addEventListener("click", () => startPlay("daily"));
   $("#btn-results")?.addEventListener("click", () => showResults(done));
   $("#btn-endless")?.addEventListener("click", () => startPlay("endless"));
-  $("#btn-contrib")?.addEventListener("click", showContribute);
 }
 
 // -------------------------------------------------------------------- play
@@ -182,9 +175,8 @@ function showRound() {
     <div class="kicker">${q.category}</div>
     <div class="qtext">${q.text}</div>
     ${isText ? `
-      <p class="hint">Reminder: guess the most popular answer.</p>
       <div class="type-row"><input type="text" id="text-answer" placeholder="Type your answer…" autocomplete="off" enterkeyhint="go"></div>
-      <p class="hint">One answer — the #1 scores the most.</p>
+      <p class="hint">Tip: name the most common answer.</p>
       <div class="row"><button class="primary" id="submit">Submit</button></div>
     ` : isSplit ? `
       <div class="big-guess"><span id="guess-num">50</span></div>
@@ -463,50 +455,6 @@ async function showResults(play) {
     } catch { toast("Couldn't build the share card."); }
   });
   await refreshStats();
-}
-
-// -------------------------------------------------------------- contribute
-async function showContribute() {
-  skeleton();
-  const data = await api(`/api/contribute?playerId=${playerId()}`).catch(() => null);
-  if (!data || !data.unlocked) { toast("Contribute unlocks after today's Daily."); return showHome(); }
-  renderContribute(data.questions);
-}
-
-function renderContribute(questions) {
-  if (!questions.length) {
-    screen.innerHTML = `<div class="card"><h2>Contribute</h2><p>You're all caught up — no questions to vote on right now. New ones appear as more questions are added.</p><div class="row"><button class="primary" id="back-home">Home</button></div></div>`;
-    $("#back-home").addEventListener("click", showHome);
-    return;
-  }
-  const q = questions[0];
-  screen.innerHTML = `
-    <div class="progress">Contribute · ${questions.length} left</div>
-    <div class="card vote-card" id="vote-card">
-      <div class="kicker">${q.category}</div>
-      <div class="vote-prompt">${escapeHtml(q.votePrompt)}</div>
-      ${q.kind === "split" ? `
-        <div class="vote-btns">
-          <button class="vote-side-l" data-vote="left">${escapeHtml(q.leftLabel)}</button>
-          <button class="vote-side-r" data-vote="right">${escapeHtml(q.rightLabel)}</button>
-        </div>`
-      : `
-        <div class="vote-btns">
-          <button class="vote-yes" data-vote="yes">Yes</button>
-          <button class="vote-no" data-vote="no">No</button>
-        </div>`}
-      <p class="hint">Your vote is recorded. Percentages are never shown.</p>
-    </div>
-    <div class="row"><button class="ghost" id="back-home">Done for now</button></div>`;
-  $("#back-home").addEventListener("click", showHome);
-  document.querySelectorAll("[data-vote]").forEach((b) => b.addEventListener("click", async () => {
-    const card = $("#vote-card");
-    card.classList.add("leaving");
-    try {
-      await api("/api/contribute/vote", { method: "POST", body: JSON.stringify({ playerId: playerId(), questionId: q.id, vote: b.dataset.vote }) });
-    } catch { /* vote errors stay silent; the card still moves on */ }
-    setTimeout(() => renderContribute(questions.slice(1)), 320);
-  }));
 }
 
 // --------------------------------------------------------------- fine-tune

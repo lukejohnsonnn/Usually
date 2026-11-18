@@ -1,8 +1,11 @@
 // Regression test for PgStore.seedBank (db.js): bank.json is authoritative.
-// Old bank rows + votes -> seed new bank -> answers update, votes for changed
-// answers clear, votes for unchanged answers survive, removed questions and
-// their votes/stats are deleted. Runs against in-memory Postgres (pg-mem) via
+// Old bank rows -> seed new bank -> answers update, removed questions are
+// deleted. Runs against in-memory Postgres (pg-mem) via
 // scripts/pg-mem-loader.mjs; exit code 0 = pass. Spawned by scripts/verify.js.
+//
+// Contribute was removed 2026-11-18: there are no votes or question_stats
+// tables any more, so this test asserts the seed works without them and
+// that no vote tables exist after init.
 //
 // 2026-11-17 overhaul: the old fixtures used Q2 (changed) and Q148
 // (inserted), both killed in the overhaul. Fixtures now use kept questions:
@@ -31,12 +34,6 @@ const oldQs = [
 const r1 = await store.seedBank({ questions: oldQs });
 console.log("seed old:", JSON.stringify(r1));
 
-await store.castVote("player-a", 142, "yes");
-await store.castVote("player-b", 142, "yes");
-await store.castVote("player-a", 168, "yes");
-await store.castVote("player-a", 59, "no");
-await store.castVote("player-a", 16, "yes");
-
 const db = globalThis.__pgmemDb;
 const q = async (sql, p) => (await db.public.query(sql, p)).rows;
 
@@ -45,8 +42,14 @@ console.log("seed new:", JSON.stringify(r2));
 
 const rows = await q("SELECT id, answer FROM questions WHERE id IN (2, 59, 142, 168, 16, 53, 148) ORDER BY id");
 const byId = new Map(rows.map((r) => [r.id, Number(r.answer)]));
-const voted = new Set((await q("SELECT question_id FROM votes")).map((r) => r.question_id));
-const statIds = new Set((await q("SELECT question_id FROM question_stats")).map((r) => r.question_id));
+// pg-mem has no pg_tables catalog view: probe the tables directly — a
+// missing table throws "relation does not exist", which proves it is gone.
+async function tableExists(name) {
+  try { await q(`SELECT 1 FROM ${name} LIMIT 1`); return true; }
+  catch (e) { if (/does not exist/.test(e.message)) return false; throw e; }
+}
+const votesExists = await tableExists("votes");
+const qstatsExists = await tableExists("question_stats");
 const total = (await q("SELECT COUNT(*)::int AS n FROM questions"))[0].n;
 
 const assert = (name, cond) => { console.log((cond ? "PASS " : "FAIL ") + name); if (!cond) process.exitCode = 1; };
@@ -57,10 +60,6 @@ assert("Q16 row deleted", !byId.has(16));
 assert("Q53 row deleted", !byId.has(53));
 assert("Q2 (killed in overhaul) is absent", !byId.has(2));
 assert("Q148 (killed in overhaul) is absent", !byId.has(148));
-assert("Q142 votes cleared (answer changed)", !voted.has(142));
-assert("Q168 votes cleared (answer changed)", !voted.has(168));
-assert("Q59 votes kept (answer unchanged)", voted.has(59));
-assert("Q16 votes cleared (question removed)", !voted.has(16));
-assert("Q142 stats cleared", !statIds.has(142));
-assert("Q59 stats kept", statIds.has(59));
+assert("no votes table (Contribute removed)", !votesExists);
+assert("no question_stats table (Contribute removed)", !qstatsExists);
 assert("question count is 142", total === 142);

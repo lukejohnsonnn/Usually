@@ -15,7 +15,7 @@ export function loadBank() {
 }
 
 function emptyState() {
-  return { dailySets: {}, plays: {}, votes: {}, qstats: {} };
+  return { dailySets: {}, plays: {} };
 }
 
 // ---------------------------------------------------------------- file store
@@ -57,23 +57,6 @@ class FileStore {
   async listCompletedPlays(playerId) {
     return Object.values(this.state.plays).filter((p) => p.playerId === playerId && p.completed);
   }
-  async hasVoted(playerId, qid) { return Boolean(this.state.votes[`${playerId}:${qid}`]); }
-  async castVote(playerId, qid, vote) {
-    if (await this.hasVoted(playerId, qid)) return { ok: false, error: "Already voted on this one." };
-    this.state.votes[`${playerId}:${qid}`] = { playerId, questionId: qid, vote, at: new Date().toISOString() };
-    const s = this.state.qstats[qid] || (this.state.qstats[qid] = { yes: 0, no: 0, left: 0, right: 0, total: 0 });
-    if (vote === "yes") s.yes++;
-    if (vote === "no") s.no++;
-    if (vote === "left") s.left++;
-    if (vote === "right") s.right++;
-    s.total++;
-    this.save();
-    return { ok: true, total: s.total };
-  }
-  async getQStats(qid) { return this.state.qstats[qid] || { yes: 0, no: 0, left: 0, right: 0, total: 0 }; }
-  async votedIds(playerId) {
-    return Object.values(this.state.votes).filter((v) => v.playerId === playerId).map((v) => v.questionId);
-  }
   async health() { return { ok: true, db: "file", bankQuestions: this.bank.questions.length }; }
 }
 
@@ -85,7 +68,7 @@ class PgStore {
       id INT PRIMARY KEY, kind TEXT NOT NULL, category TEXT, text TEXT NOT NULL,
       answer NUMERIC, note TEXT, left_label TEXT, right_label TEXT,
       finale BOOLEAN NOT NULL DEFAULT FALSE, votable BOOLEAN NOT NULL DEFAULT TRUE,
-      vote_prompt TEXT, text_answers JSONB, unlisted JSONB)`);
+      text_answers JSONB, unlisted JSONB)`);
     await this.pool.query(`CREATE TABLE IF NOT EXISTS daily_sets(
       date TEXT PRIMARY KEY, question_ids INT[] NOT NULL, created_at TIMESTAMPTZ DEFAULT now())`);
     await this.pool.query(`CREATE TABLE IF NOT EXISTS plays(
@@ -95,41 +78,25 @@ class PgStore {
       completed BOOLEAN NOT NULL DEFAULT FALSE,
       created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now())`);
     await this.pool.query(`CREATE INDEX IF NOT EXISTS plays_player_daily ON plays(player_id, mode, play_date)`);
-    await this.pool.query(`CREATE TABLE IF NOT EXISTS votes(
-      player_id TEXT NOT NULL, question_id INT NOT NULL, vote TEXT NOT NULL,
-      created_at TIMESTAMPTZ DEFAULT now(), PRIMARY KEY(player_id, question_id))`);
-    await this.pool.query(`CREATE TABLE IF NOT EXISTS question_stats(
-      question_id INT PRIMARY KEY, yes INT NOT NULL DEFAULT 0, no INT NOT NULL DEFAULT 0,
-      left_votes INT NOT NULL DEFAULT 0, right_votes INT NOT NULL DEFAULT 0, total INT NOT NULL DEFAULT 0)`);
   }
-  // bank.json is authoritative: upsert every question, and when a stored answer
-  // changes, clear that question's votes + stats (old votes judged the old answer).
-  // Questions dropped from bank.json are deleted with their votes/stats; frozen
-  // daily sets only store ids and are never rewritten here.
+  // bank.json is authoritative: upsert every question.
+  // Questions dropped from bank.json are deleted; frozen daily sets only
+  // store ids and are never rewritten here.
   async seedBank(bank) {
-    let inserted = 0, updated = 0, votesCleared = 0;
+    let inserted = 0, updated = 0;
     const ids = bank.questions.map((q) => q.id);
     for (const q of bank.questions) {
       const cur = await this.pool.query(`SELECT answer FROM questions WHERE id=$1`, [q.id]);
-      const oldAnswer = cur.rows[0] ? cur.rows[0].answer : null;
-      const changed = cur.rows[0] && (oldAnswer == null
-        ? q.answer != null
-        : q.answer == null || Number(oldAnswer) !== Number(q.answer));
-      if (changed) {
-        await this.pool.query(`DELETE FROM votes WHERE question_id=$1`, [q.id]);
-        await this.pool.query(`DELETE FROM question_stats WHERE question_id=$1`, [q.id]);
-        votesCleared++;
-      }
       const r = await this.pool.query(
-        `INSERT INTO questions(id,kind,category,text,answer,note,left_label,right_label,finale,votable,vote_prompt,text_answers,unlisted)
-         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+        `INSERT INTO questions(id,kind,category,text,answer,note,left_label,right_label,finale,votable,text_answers,unlisted)
+         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
          ON CONFLICT (id) DO UPDATE SET kind=EXCLUDED.kind, category=EXCLUDED.category,
            text=EXCLUDED.text, answer=EXCLUDED.answer, note=EXCLUDED.note,
            left_label=EXCLUDED.left_label, right_label=EXCLUDED.right_label,
-           finale=EXCLUDED.finale, votable=EXCLUDED.votable, vote_prompt=EXCLUDED.vote_prompt,
+           finale=EXCLUDED.finale, votable=EXCLUDED.votable,
            text_answers=EXCLUDED.text_answers, unlisted=EXCLUDED.unlisted`,
         [q.id, q.kind, q.category, q.text, q.answer, q.note, q.leftLabel || null, q.rightLabel || null,
-         q.finale, q.votable, q.votePrompt || null,
+         q.finale, q.votable,
          q.textAnswers ? JSON.stringify(q.textAnswers) : null,
          q.unlisted ? JSON.stringify(q.unlisted) : null]);
       if (r.rowCount) { if (cur.rows[0]) updated++; else inserted++; }
@@ -138,11 +105,9 @@ class PgStore {
     const keep = new Set(ids);
     const staleIds = existing.rows.map((r) => r.id).filter((id) => !keep.has(id));
     for (const id of staleIds) {
-      await this.pool.query(`DELETE FROM votes WHERE question_id=$1`, [id]);
-      await this.pool.query(`DELETE FROM question_stats WHERE question_id=$1`, [id]);
       await this.pool.query(`DELETE FROM questions WHERE id=$1`, [id]);
     }
-    return { inserted, updated, votesCleared, staleRemoved: staleIds.length };
+    return { inserted, updated, staleRemoved: staleIds.length };
   }
   async getBank() {
     const r = await this.pool.query(`SELECT * FROM questions ORDER BY id`);
@@ -150,7 +115,7 @@ class PgStore {
       id: row.id, kind: row.kind, category: row.category, text: row.text,
       answer: row.answer == null ? null : Number(row.answer), note: row.note,
       leftLabel: row.left_label, rightLabel: row.right_label, finale: row.finale,
-      votable: row.votable, votePrompt: row.vote_prompt,
+      votable: row.votable,
       textAnswers: row.text_answers || undefined, unlisted: row.unlisted || undefined,
     }));
   }
@@ -195,32 +160,6 @@ class PgStore {
     const r = await this.pool.query(
       `SELECT * FROM plays WHERE player_id=$1 AND completed=TRUE ORDER BY created_at`, [playerId]);
     return r.rows.map(rowToPlay);
-  }
-  async hasVoted(playerId, qid) {
-    const r = await this.pool.query(`SELECT 1 FROM votes WHERE player_id=$1 AND question_id=$2`, [playerId, qid]);
-    return r.rowCount > 0;
-  }
-  async castVote(playerId, qid, vote) {
-    const r = await this.pool.query(
-      `INSERT INTO votes(player_id, question_id, vote) VALUES($1,$2,$3) ON CONFLICT DO NOTHING RETURNING *`,
-      [playerId, qid, vote]);
-    if (!r.rows[0]) return { ok: false, error: "Already voted on this one." };
-    const col = vote === "yes" ? "yes" : vote === "no" ? "no" : vote === "left" ? "left_votes" : "right_votes";
-    const s = await this.pool.query(
-      `INSERT INTO question_stats(question_id, ${col}, total) VALUES($1, 1, 1)
-       ON CONFLICT (question_id) DO UPDATE SET ${col} = question_stats.${col} + 1, total = question_stats.total + 1
-       RETURNING total`, [qid]);
-    return { ok: true, total: s.rows[0].total };
-  }
-  async getQStats(qid) {
-    const r = await this.pool.query(`SELECT * FROM question_stats WHERE question_id=$1`, [qid]);
-    const row = r.rows[0];
-    return row ? { yes: row.yes, no: row.no, left: row.left_votes, right: row.right_votes, total: row.total }
-               : { yes: 0, no: 0, left: 0, right: 0, total: 0 };
-  }
-  async votedIds(playerId) {
-    const r = await this.pool.query(`SELECT question_id FROM votes WHERE player_id=$1`, [playerId]);
-    return r.rows.map((x) => x.question_id);
   }
   async health() {
     const r = await this.pool.query(`SELECT COUNT(*)::int AS n FROM questions`);

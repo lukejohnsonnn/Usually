@@ -68,7 +68,6 @@
       "note": null,
       "finale": false,
       "votable": true,
-      "votePrompt": "Could you qualify for the 2028 Olympics if you started training today?",
       "source": "YouGov, August 2024 (n=2,070 GB adults)",
       "sourceUrl": "https://yougov.co.uk/sport/articles/50301-a-quarter-of-britons-think-they-could-qualify-for-the-2028-olympics"
     },
@@ -4451,7 +4450,6 @@
       "note": null,
       "finale": false,
       "votable": true,
-      "votePrompt": "Could you sink a half-court shot?",
       "source": "The Action Network survey of US NBA fans, October 2026 (n=4,398)",
       "sourceUrl": "https://www.yardbarker.com/nba/articles/survey_1_in_3_nba_fans_think_their_three_point_shot_rivals_the_pros/s1_17354_44422942"
     },

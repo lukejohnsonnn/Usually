@@ -1,4 +1,4 @@
-// Seed the question bank into the database WITHOUT wiping plays or votes.
+// Seed the question bank into the database WITHOUT wiping plays.
 // Safe to re-run: INSERT ... ON CONFLICT DO NOTHING (Postgres) / no-op (file store).
 // Usage (Render): set DATABASE_URL, then `npm run seed`.
 // Usage (local):  `npm run seed` (uses data/bank.json; file store reads it directly).

@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { createStore, loadBank } from "./db.js";
 import {
   scoreGuess, scoreText, validateGuess, matchTextAnswer, normalizeText,
-  etDateStr, addDays, seededShuffle, composeSet, deriveVotePrompt,
+  etDateStr, addDays, seededShuffle, composeSet,
 } from "./lib/game.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -246,56 +246,6 @@ app.get("/api/yesterday", ah(async (req, res) => {
     rounds.push({ ...pub(q), answer: q.kind === "text" ? q.top1 : q.answer, note: q.note || null });
   }
   res.json({ ok: true, date, rounds });
-}));
-
-// -------------------------------------------------------------- contribute
-const EMBARGO_DAYS = 7;
-
-async function embargoedIds(today) {
-  const ids = new Set();
-  for (let i = 0; i <= EMBARGO_DAYS; i++) {
-    const set = await ensureDailySet(addDays(today, i));
-    for (const id of set) ids.add(id);
-  }
-  return ids;
-}
-
-app.get("/api/contribute", ah(async (req, res) => {
-  const { playerId } = req.query;
-  if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
-  const today = etDateStr();
-  const daily = await getDailyPlayAligned(playerId, today);
-  const votablePool = BANK.filter((q) => q.votable);
-  if (!daily || !daily.completed) {
-    return res.json({
-      ok: true, unlocked: false,
-      reason: "Finish today's 7 rounds first — then your votes can't be spoiled by seeing questions early.",
-      questions: [], votableTotal: votablePool.length, votedCount: (await store.votedIds(playerId)).length,
-    });
-  }
-  const voted = new Set(await store.votedIds(playerId));
-  const blocked = await embargoedIds(today);
-  const available = votablePool.filter((q) => !voted.has(q.id) && !blocked.has(q.id));
-  const ordered = seededShuffle(available, `contribute:${playerId}:${today}`);
-  const questions = ordered.slice(0, 6).map((q) => ({ ...pub(q), votePrompt: deriveVotePrompt(q) }));
-  res.json({ ok: true, unlocked: true, reason: null, questions, votableTotal: votablePool.length, votedCount: voted.size });
-}));
-
-app.post("/api/contribute/vote", ah(async (req, res) => {
-  const { playerId, questionId, vote } = req.body || {};
-  if (!validPlayerId(playerId)) return res.status(400).json({ ok: false, error: "Missing playerId." });
-  const q = byId.get(Number(questionId));
-  if (!q || !q.votable) return res.json({ ok: false, error: "That question can't be voted on." });
-  const today = etDateStr();
-  const daily = await getDailyPlayAligned(playerId, today);
-  if (!daily || !daily.completed) return res.json({ ok: false, error: "Finish today's daily first." });
-  const blocked = await embargoedIds(today);
-  if (blocked.has(q.id)) return res.json({ ok: false, error: "That question is in an upcoming daily — try again later." });
-  const want = q.kind === "split" ? ["left", "right"] : ["yes", "no"];
-  if (!want.includes(vote)) return res.json({ ok: false, error: "Bad vote." });
-  const r = await store.castVote(playerId, q.id, vote);
-  if (!r.ok) return res.json({ ok: false, error: r.error });
-  res.json({ ok: true });
 }));
 
 // ------------------------------------------------------------------- share

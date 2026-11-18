@@ -1,5 +1,5 @@
 // End-to-end verification for Honeydle. Spawns the real server against a throwaway
-// local file store, plays a full daily + endless, and checks Contribute, the
+// local file store, plays a full daily + endless, and checks the
 // freeze, stats, and scoring. Run: npm run verify  (or: node scripts/verify.js)
 // Exit 0 = all checks passed.
 import { spawn } from "node:child_process";
@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 import { JSDOM, VirtualConsole } from "jsdom";
 import {
   scoreGuess, scoreText, matchTextAnswer, normalizeText, canonicalTokens,
-  composeSet, etDateStr, addDays, deriveVotePrompt,
+  composeSet, etDateStr, addDays, validateGuess,
 } from "../lib/game.js";
 import { loadBank } from "../db.js";
 
@@ -38,6 +38,17 @@ check("16-25 off = 15", scoreGuess(57, 80).points === 15);
 check("26+ off = 5", scoreGuess(57, 90).points === 5);
 check("hundredths: 0.2 vs 0.21 = 100", scoreGuess(0.2, 0.21).points === 100);
 check("hundredths: 0.2 vs 0.2 = 175", scoreGuess(0.2, 0.2).points === 175);
+// 2026-11-18: validateGuess rejected the exact answer to Q79 (0.07%) —
+// 0.07 * 100 is 7.000000000000001 in floating point, so the exact compare
+// failed. The hundredths check now uses a 1e-9 epsilon. Every sub-1%
+// answer in the bank must validate, and real non-hundredths must not.
+check("validateGuess accepts the exact answer to Q79 (0.07%)",
+  validateGuess(0.07) === null && validateGuess(0.01) === null && validateGuess(0.29) === null);
+check("validateGuess still rejects non-hundredths below 1%",
+  validateGuess(0.071) !== null && validateGuess(0.005) !== null && validateGuess(0.333) !== null);
+check("validateGuess accepts every sub-1% answer in the bank",
+  bank.questions.filter((q) => q.kind !== "text" && q.answer != null && q.answer < 1)
+    .every((q) => validateGuess(q.answer) === null));
 check("hundredths: 0.2 vs 0.80 = 5", scoreGuess(0.2, 0.8).points === 5);
 check("hundredths: 0.01 vs 0.02 = 100", scoreGuess(0.01, 0.02).points === 100);
 check("text rank 1 = 175", scoreText(1).points === 175);
@@ -126,49 +137,28 @@ check("set shape guess,guess,text,split,split,text,finale",
   byId.get(setA[6]).finale === true);
 check("different date = different set", JSON.stringify(setA) !== JSON.stringify(composeSet(bank.questions, `daily:${addDays(today, 1)}`)));
 check("no repeats within a set", new Set(setA).size === 7);
-check("vote prompt derived for guess", deriveVotePrompt(byId.get(11)).length > 3);
-check("vote prompt for split", deriveVotePrompt(byId.get(45)) === "Pick your side");
-// 2026-11-17 Contribute fix: 22 votable guess questions fell through to the
-// meaningless "Is this you?" fallback. Nine now derive via new transforms
-// (think their / think / believe / pick / say they are / say they, plus
-// Facebook users / Brits / NBA fans in the population strip), twelve carry
-// an explicit votePrompt, and id 56 (osteoporosis breakage) is non-votable
-// like id 59 (third nipple) — a population stat, not a self-voteable
-// behavior. The same pass fixed 11 older derived prompts that were
-// themselves wrong (third-person pronouns and "Have you a ..." grammar).
-// 2026-11-17 overhaul: most of those questions are gone (killed ids
-// removed from VOTE_PROMPT_EXPECTED below). The six that survive keep their
-// pinned prompts. The old pronoun-rule exceptions (ids 5 and 152) are gone
-// with their questions — no exemptions remain: every derived prompt must
-// be first-person.
-const VOTE_PROMPT_EXPECTED = {
-  24: "Would you give up Facebook for a month for $500?",
-  32: "Could you qualify for the 2028 Olympics if you started training today?",
-  145: "Are you afraid of public speaking?",
-  155: "Do you believe some UFOs have been alien spacecraft?",
-  167: "Do you think your three-point shot is better than or the same as an average pro's?",
-  168: "Could you score 3 or more buckets in a pick-up game against an average pro?",
-};
-const promptBad = [];
-for (const q of bank.questions.filter((q) => q.votable)) {
-  const p = deriveVotePrompt(q);
-  if (q.kind === "split") { if (p !== "Pick your side") promptBad.push(`${q.id}: split prompt is ${p}`); continue; }
-  if (p === "Is this you?") promptBad.push(`${q.id}: fallback`);
-  else if (!p.endsWith("?")) promptBad.push(`${q.id}: not a question (${p})`);
-  else if (p.includes("%")) promptBad.push(`${q.id}: percentage in prompt (${p})`);
-  else if (/^Have you (a|an) /i.test(p)) promptBad.push(`${q.id}: ungrammatical (${p})`);
-  else if (/\bthey\b|\btheir\b|\bthem\b|\bthemselves\b/i.test(p)) promptBad.push(`${q.id}: third-person pronoun (${p})`);
-  if (VOTE_PROMPT_EXPECTED[q.id] && p !== VOTE_PROMPT_EXPECTED[q.id]) promptBad.push(`${q.id}: expected ${VOTE_PROMPT_EXPECTED[q.id]}, got ${p}`);
-}
-check("vote prompts: no votable question falls back to 'Is this you?', every guess prompt is a real first-person question", promptBad.length === 0, promptBad.join(" | "));
+// 2026-11-18: Contribute was removed entirely (Luke: "it's useless").
+// No votePrompt fields in the bank, no deriveVotePrompt in lib/game.js,
+// no vote tables in db.js, no /api/contribute endpoints in server.js,
+// no Contribute UI or API calls in the client.
+check("no votePrompt fields in the bank", !bank.questions.some((q) => "votePrompt" in q));
+check("no deriveVotePrompt in lib/game.js",
+  !fs.readFileSync(path.join(__dirname, "..", "lib", "game.js"), "utf8").includes("deriveVotePrompt"));
+check("no vote tables in db.js",
+  !/CREATE TABLE IF NOT EXISTS (votes|question_stats)/.test(fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8")) &&
+  !/hasVoted|castVote|getQStats|votedIds/.test(fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8")));
+check("no /api/contribute endpoints in server.js",
+  !fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8").includes("/api/contribute"));
+check("no Contribute UI or API calls in the client",
+  !/Contribute|contribute|castVote|votePrompt/.test(fs.readFileSync(path.join(__dirname, "..", "client", "app.js"), "utf8")) &&
+  !/Contribute/.test(fs.readFileSync(path.join(__dirname, "..", "client", "index.html"), "utf8")) &&
+  !/\.vote-/.test(fs.readFileSync(path.join(__dirname, "..", "client", "styles.css"), "utf8")));
 check("population stat id 56 (osteoporosis) is not votable", byId.get(56)?.votable === false);
 
 console.log("== unit: 2026-11-16 sync fixes ==");
 check("Australia finale retired from bank", !bank.questions.some((q) => /australian/i.test(q.text)));
 check("half-court reframed to NBA fans, answer 41 (2026-11-16 audit)",
   byId.get(142)?.text === "What % of NBA fans think they could sink a half-court shot?" && byId.get(142)?.answer === 41);
-check("half-court vote prompt matches reframed text",
-  byId.get(142)?.votePrompt === "Could you sink a half-court shot?");
 check("bank is 142 questions (72 guess, 25 split, 10 finale, 35 text) after 2026-11-17 overhaul",
   bank.questions.length === 142 &&
   bank.questions.filter((q) => q.kind === "guess" && !q.finale).length === 72 &&
@@ -221,9 +211,8 @@ check("audit: 10-vote live-answer flip is gone (no setLiveAnswer anywhere)",
   !fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8").includes("setLiveAnswer") &&
   !fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("setLiveAnswer") &&
   !fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("getLiveAnswer"));
-check("audit: seed upserts bank.json and clears votes on answer change",
-  fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("ON CONFLICT (id) DO UPDATE") &&
-  fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("DELETE FROM votes WHERE question_id=$1"));
+check("audit: seed upserts bank.json (ON CONFLICT DO UPDATE)",
+  fs.readFileSync(path.join(__dirname, "..", "db.js"), "utf8").includes("ON CONFLICT (id) DO UPDATE"));
 // 2026-11-17 fix-everything pass: the reordered top 10s (researched sources) and
 // the sense-sweep merges are pinned here so a future bank edit can't silently
 // revert them. Q110 healing #1 (PixlParade 2026 + Morning Consult); Q179 2025
@@ -323,7 +312,7 @@ check("brand: tracking — Y and L carry the -0.125em pull",
 check("brand: tracking — gold full-stop ::after pulls left -0.25em",
   /\.brand::after\s*\{[^}]*content:\s*"\."[^}]*margin-left:\s*-0\.25em/.test(css) ||
   /\.brand::after\s*\{[^}]*margin-left:\s*-0\.25em[^}]*content:\s*"\."/.test(css));
-check("brand: cache-bust bumped to honeydle5", html.includes("styles.css?v=honeydle5") && html.includes("app.js?v=honeydle5"));
+check("brand: cache-bust bumped to honeydle6", html.includes("styles.css?v=honeydle6") && html.includes("app.js?v=honeydle6"));
 const serverJs = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
 check("brand: no 'Crowdle' left in client-facing strings",
   !html.includes("Crowdle") && !appJs.includes("Crowdle") && !serverJs.includes("Crowdle"));
@@ -361,13 +350,14 @@ check("bee: home entry scene shows the whole crew incl. diamond AND ruby, one sc
     ["bee-normal.png", "bee-thirsty.png", "bee-drop.png", "bee-little-honey.png", "bee-golden.png", "bee-diamond.png", "bee-ruby.png"].every((f) => h.includes(f)) &&
     !h.includes("bee-home"); })());
 // Parade order (2026-11-18): normal first as the starting/host bee, then
-// the score states worst to best — thirsty, drop, honey-coated, golden,
-// diamond, ruby last as the ultimate prize. All seven in one row at 32px
-// (diamond 36px) + 6px gaps = 264px, inside the 284px content width of a
-// 320px phone. Flagged for Luke's veto: the normal bee leads the parade.
-check("bee: parade runs normal first, then worst-to-best (thirsty, drop, honey, golden, diamond, ruby)",
+// the score states worst to best — drop, honey-coated, golden, diamond,
+// ruby — with the thirsty bee LAST as the tail of the line. All seven in
+// one row at 32px (diamond 36px) + 6px gaps = 264px, inside the 284px
+// content width of a 320px phone. Flagged for Luke's veto: the thirsty
+// bee is the tail, not second.
+check("bee: parade runs normal first, then worst-to-best (drop, honey, golden, diamond, ruby), thirsty last",
   (() => { const h = extractFn(appJs, "showHome"); if (!h) return false;
-    const order = ["bee-normal.png", "bee-thirsty.png", "bee-drop.png", "bee-little-honey.png", "bee-golden.png", "bee-diamond.png", "bee-ruby.png"];
+    const order = ["bee-normal.png", "bee-drop.png", "bee-little-honey.png", "bee-golden.png", "bee-diamond.png", "bee-ruby.png", "bee-thirsty.png"];
     const idx = order.map((f) => h.indexOf(f));
     return idx.every((i) => i !== -1) && idx.every((v, i, a) => i === 0 || v > a[i - 1]); })());
 check("bee: parade fits one row on a 320px phone (7 bees at 32px, diamond 36px, 6px gaps = 264px <= 284px)",
@@ -432,17 +422,15 @@ check("How to Play keeps the no-math wording",
 check("How to Play names the modes without crowd wording",
   howto.includes("Name the #1:") && howto.includes("type the most popular answer.") &&
   howto.includes("Split the 100:") && !/crowd/i.test(howto));
-// 2026-11-17 Contribute honesty: researched answers are authoritative
-// (server.js) and votes never change them — they are only stored and used to
-// mark a question as already-voted. The live copy used to claim the opposite.
+// 2026-11-18: Contribute was removed entirely (Luke: "it's useless").
+// No Contribute copy anywhere: no home card, no How to Play line, no
+// vote hint, no "Your vote is recorded" anywhere in the shipped text.
 const readme = fs.readFileSync(path.join(__dirname, "..", "README.md"), "utf8");
-check("Contribute copy never claims votes shape the crowd's numbers",
-  !html.includes("shapes the crowd") && !appJs.includes("shapes the crowd") &&
-  !readme.includes("shape the crowd") && readme.includes("Your vote is recorded."));
-check("Contribute copy says the vote is recorded (how-to, home card, vote hint)",
-  howto.includes("Your vote is recorded.") &&
-  appJs.includes("Answer the real preference behind a question. Your vote is recorded.") &&
-  appJs.includes("Your vote is recorded. Percentages are never shown."));
+check("Contribute is gone from all shipped copy",
+  !/Contribute|contribute|Your vote is recorded/.test(html) &&
+  !/Contribute|contribute|Your vote is recorded/.test(appJs) &&
+  !/Contribute|contribute|Your vote is recorded/.test(readme) &&
+  !/Contribute/.test(fs.readFileSync(path.join(__dirname, "..", "DEPLOY.md"), "utf8")));
 // 2026-11-17 space-question reword (wording only: answer/source unchanged).
 check("Q78 space question is the plain rewording, answer and source unchanged",
   byId.get(78).text === "Of all the people who have ever been to space, what % went as a private citizen instead of a professional astronaut?" &&
@@ -450,14 +438,15 @@ check("Q78 space question is the plain rewording, answer and source unchanged",
   byId.get(78).sourceUrl.includes("spacedaily.com"));
 check("old Q78 wording gone from the bank",
   !bank.questions.some((q) => (q.text || "").includes("flew as a private citizen")));
-// 2026-11-17 text-round reminder: visible above the text box while typing.
-check("text rounds show the reminder above the text box",
-  appJs.includes("Reminder: guess the most popular answer.") &&
-  appJs.indexOf("Reminder: guess the most popular answer.") < appJs.indexOf('id="text-answer"'));
+// 2026-11-18 text-round tip: exactly ONE tip, and it lives BELOW the text
+// box — "Tip: name the most common answer." No reminder above the box.
+check("text rounds show exactly one tip, below the text box",
+  appJs.includes("Tip: name the most common answer.") &&
+  appJs.indexOf('id="text-answer"') < appJs.indexOf("Tip: name the most common answer.") &&
+  !appJs.includes("Reminder: guess the most popular answer.") &&
+  !appJs.includes("One answer — the #1 scores the most."));
 check("text rounds score the #1, no crowd wording",
-  appJs.includes("One answer — the #1 scores the most.") && !appJs.includes("the crowd's #1 scores the most"));
-check("Contribute empty state has the real-stats wording",
-  appJs.includes("New ones appear as more questions are added.") && !appJs.includes("as the crowd grows"));
+  !appJs.includes("the crowd's #1 scores the most"));
 
 console.log("== unit: 2026-11-18 black theme (black + yellows + whites) ==");
 // Theme values: one black theme, no light/dark split.
@@ -476,108 +465,118 @@ check("theme: single black theme — no prefers-color-scheme block anywhere",
   !/@media\s*\(prefers-color-scheme:\s*dark\)/.test(css) && !/prefers-color-scheme/.test(css));
 // One shared grid size everywhere: answering and reveal identical.
 // 2026-11-18 big honeycomb: the grid is a flex column of centered .hrow
-// rows, and the 3px gap lives on the rows, not the container — a container
+// rows, and the 2.5px gap lives on the rows, not the container — a container
 // gap would add to the vertical row pitch.
-check("grid: reveal grid is 188px, rows carry the 3px gap",
-  /\.grid\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid \.hrow\s*\{[^}]*gap:\s*3px/.test(css) &&
-  !/\.grid\s*\{[^}]*gap:\s*3px/.test(css));
+check("grid: reveal grid is 188px, rows carry the 2.5px gap",
+  /\.grid\s*\{[^}]*max-width:\s*188px/.test(css) && /\.grid \.hrow\s*\{[^}]*gap:\s*2\.5px/.test(css) &&
+  !/\.grid\s*\{[^}]*gap:\s*2\.5px/.test(css));
 check("grid: entry grid is 188px (definite width, no container gap)",
-  /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css) && !/\.grid\.entry\s*\{[^}]*gap:\s*3px/.test(css));
-check("grid: fine-tune grid is 224px, rows carry their own 4.5px gap (not the shared 3px)",
-  /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid\.small \.hrow\s*\{[^}]*gap:\s*4\.5px/.test(css) &&
-  !/\.grid\.small\s*\{[^}]*gap:\s*3px/.test(css));
-// 2026-11-18 regular-hexagon rework: the 100 dots are hexagon cells in 13
-// rows that grow then shrink, so together they form one big hexagon. Rows
-// nest vertically with a negative bottom margin on the row (row pitch 3/4
-// of the cell + 0.3px clearance above exact touching). Cells are REGULAR
-// hexagons — height = (sqrt(3)/2) x width — so the dot carries an explicit
-// height, not aspect-ratio:1. Main 12px x 10.4px, fine-tune 18px x 15.6px.
-// The old 16.1px square cells made squat hexagons, an outline 45% off
-// regular, and a row pitch that overlapped diagonally adjacent cells.
-// Legend swatches are hexagons too.
-check("grid: dots are hexagons (clip-path polygon, no border-radius)",
-  /\.grid \.dot\s*\{[^}]*clip-path:\s*polygon\(/.test(css) &&
-  !/\.grid \.dot\s*\{[^}]*border-radius:\s*50%/.test(css));
-check("grid: main cells are regular hexagons, 12px wide x 10.4px tall; fine-tune 18px x 15.6px",
-  /\.grid \.dot\s*\{[^}]*width:\s*12px/.test(css) && /\.grid \.dot\s*\{[^}]*height:\s*10\.4px/.test(css) &&
-  /\.grid\.small \.dot\s*\{[^}]*width:\s*18px/.test(css) && /\.grid\.small \.dot\s*\{[^}]*height:\s*15\.6px/.test(css) &&
+  /\.grid\.entry\s*\{[^}]*max-width:\s*188px/.test(css) && !/\.grid\.entry\s*\{[^}]*gap:\s*2\.5px/.test(css));
+check("grid: fine-tune grid is 224px, rows carry their own 4px gap (not the shared 2.5px)",
+  /\.grid\.small\s*\{[^}]*max-width:\s*224px/.test(css) && /\.grid\.small \.hrow\s*\{[^}]*gap:\s*4px/.test(css) &&
+  !/\.grid\.small\s*\{[^}]*gap:\s*2\.5px/.test(css));
+// 2026-11-18 question spacing: .qtext loosened from line-height 1.7 with
+// no letter-spacing to 1.9 / .02em, measured in headless Chromium at
+// 390x844 (see VERIFICATION.md): line-height 27.2px -> 30.4px, leading
+// 11.2px -> 14.4px, tracking 0 -> 0.32px. 2.0 was tried first and rejected
+// by measurement — the reveal screen went to 850px docScroll (6px of
+// scroll on a 390x844 phone); at 1.9 both answer and reveal stay at
+// exactly 844, the same as before the change.
+check("question text breathes: .qtext line-height 1.9, letter-spacing .02em",
+  /\.qtext\s*\{[^}]*line-height:\s*1\.9/.test(css) && /\.qtext\s*\{[^}]*letter-spacing:\s*\.02em/.test(css));
+// 2026-11-18 circle honeycomb: the 100 dots are CIRCLE cells in 11 rows
+// that grow then shrink, forming one big hexagon. The hex cells looked
+// broken and were fiddly; circles in the same hex outline are the
+// reliable build. Main cells 10px diameter, 2.5px in-row gap (12.5px
+// pitch), 10px row pitch (margin-bottom:0 — rows stack, they don't nest).
+// Fine-tune cells 14px, 4px gap (18px pitch), 14.4px row pitch
+// (margin-bottom:.4px). Legend swatches are circles too.
+check("grid: dots are circles (border-radius:50%, no clip-path)",
+  /\.grid \.dot\s*\{[^}]*border-radius:\s*50%/.test(css) &&
+  !/\.grid \.dot\s*\{[^}]*clip-path:\s*polygon\(/.test(css));
+check("grid: main cells are 10px circles; fine-tune 14px circles",
+  /\.grid \.dot\s*\{[^}]*width:\s*10px/.test(css) && /\.grid \.dot\s*\{[^}]*height:\s*10px/.test(css) &&
+  /\.grid\.small \.dot\s*\{[^}]*width:\s*14px/.test(css) && /\.grid\.small \.dot\s*\{[^}]*height:\s*14px/.test(css) &&
   !/\.grid \.dot\s*\{[^}]*aspect-ratio:\s*1/.test(css));
-check("grid: rows nest vertically (negative bottom margin on .hrow, honeycomb pitch)",
-  /\.grid \.hrow\s*\{[^}]*margin-bottom:\s*-2\.3px/.test(css));
-check("grid: fine-tune grid nests too (small rows, -3.6px margin)",
-  /\.grid\.small \.hrow\s*\{[^}]*margin-bottom:\s*-3\.6px/.test(css));
+check("grid: rows stack at the 10px pitch (margin-bottom:0 on .hrow)",
+  /\.grid \.hrow\s*\{[^}]*margin-bottom:\s*0/.test(css));
+check("grid: fine-tune rows stack at the 14.4px pitch (small rows, .4px margin)",
+  /\.grid\.small \.hrow\s*\{[^}]*margin-bottom:\s*\.4px/.test(css));
 // Big-honeycomb geometry, by math from the CSS values (integer tenths, no
 // float slop). Row lengths sum to exactly 100, the arrangement is symmetric
-// (palindromic, grow then shrink), the widest row is 10 cells. The widest
-// row fits its box at the declared cell size: main 10*120 + 9*30 = 1470
-// (147px <= 188px), fine-tune 10*180 + 9*45 = 2205 (220.5px <= 224px).
-// Regularity: the outline's top edge is (topRow-1)*(w+gap) + w/2 and each
-// slant side is hypot(dx, dy) with dx = widest-row right point minus top
-// edge right end and dy = (rows-1)*pitch/2 + h/2. New shape: top 81.0px,
-// slant 82.8px — 2.2% apart (old shape: 84.5 vs 122.6, 45% apart). A
-// perfect regular hexagon is impossible with exactly 100 cells (91 or 127
-// would be); the check pins side deviation <= 3% and reports the numbers.
-// No overlap: the row pitch (cell height + negative row margin) must sit
-// above the touching pitch h*(1 - gap/w) — the old -4px margin overlapped
-// diagonally adjacent cells by ~0.5px. One-screen budget: the grid
-// element ((rows-1)*pitch + cell height + padding-bottom) must be <= 120px,
-// so question + grid + reveal fit a 390x844 phone without scrolling
-// (measured docScroll 831px <= 844 with the 114.6px grid).
+// (palindromic, grow then shrink), the widest row is 12 cells. The widest
+// row fits its box at the declared cell size: main 12*10 + 11*2.5 = 147.5px
+// (<= 188px), fine-tune 12*14 + 11*4 = 212px (<= 224px).
+// Regularity: the outline's top edge is (topRow-1)*(d+gap) and each slant
+// side is hypot(dx, dy) with dx = (widest-topRow)/2 rows' worth of pitch
+// and dy = (rows-1)/2 row pitches. New shape: top 62.5px, slant 62.5px —
+// exactly equal (the old hex shape was 81.0 vs 82.8, 2.2% apart). The
+// slant angle is 53.1° rather than 60°; a perfect regular hexagon is
+// impossible with exactly 100 cells (91 or 127 would be); the check pins
+// side deviation <= 3% and reports the numbers.
+// No overlap: the diagonal center distance sqrt((pitch/2)^2 + v^2) must
+// clear the diameter, and the vertical pitch must be >= the diameter
+// (aligned neighbors touch exactly, never overlap). One-screen budget:
+// the grid element ((rows-1)*pitch + cell height + padding-bottom) must
+// be <= 120px, so question + grid + reveal fit a 390x844 phone without
+// scrolling (measured docScroll 831px <= 844 with the 114.6px hex grid;
+// the circle grid is 117px).
 const rowsMatch = appJs.match(/const ROWS = \[([\d,\s]+)\];/);
 const BIG_HEX_ROWS = rowsMatch ? rowsMatch[1].split(",").map(Number) : [];
-check("big honeycomb: 13 rows, symmetric, sum to exactly 100 cells",
-  BIG_HEX_ROWS.length === 13 &&
+check("big honeycomb: 11 rows, symmetric, sum to exactly 100 cells",
+  BIG_HEX_ROWS.length === 11 &&
   BIG_HEX_ROWS.reduce((a, b) => a + b, 0) === 100 &&
   JSON.stringify(BIG_HEX_ROWS) === JSON.stringify([...BIG_HEX_ROWS].reverse()) &&
-  Math.max(...BIG_HEX_ROWS) === 10);
+  Math.max(...BIG_HEX_ROWS) === 12);
 const cssNum = (re) => { const m = css.match(re); return m ? parseFloat(m[1]) : null; };
 const t10 = (x) => Math.round(x * 10);
 const gridGeo = (() => {
   const w = cssNum(/\.grid \.dot\s*\{[^}]*width:\s*([\d.]+)px/);
   const h = cssNum(/\.grid \.dot\s*\{[^}]*height:\s*([\d.]+)px/);
   const gap = cssNum(/\.grid \.hrow\s*\{[^}]*gap:\s*([\d.]+)px/);
-  const mg = cssNum(/\.grid \.hrow\s*\{[^}]*margin-bottom:\s*(-?[\d.]+)px/);
+  const mg = cssNum(/\.grid \.hrow\s*\{[^}]*margin-bottom:\s*(-?[\d.]+)(?:px)?/);
   const pad = cssNum(/\.grid\s*\{[^}]*padding-bottom:\s*([\d.]+)px/);
   const sw = cssNum(/\.grid\.small \.dot\s*\{[^}]*width:\s*([\d.]+)px/);
   const sh = cssNum(/\.grid\.small \.dot\s*\{[^}]*height:\s*([\d.]+)px/);
   const sgap = cssNum(/\.grid\.small \.hrow\s*\{[^}]*gap:\s*([\d.]+)px/);
-  const smg = cssNum(/\.grid\.small \.hrow\s*\{[^}]*margin-bottom:\s*(-?[\d.]+)px/);
+  const smg = cssNum(/\.grid\.small \.hrow\s*\{[^}]*margin-bottom:\s*(-?[\d.]+)(?:px)?/);
   const spad = cssNum(/\.grid\.small\s*\{[^}]*padding-bottom:\s*([\d.]+)px/);
   if ([w, h, gap, mg, pad, sw, sh, sgap, smg, spad].some((v) => v == null)) return null;
-  const pitch = h + mg; // row pitch = cell height + negative row margin
+  const pitch = h + mg; // row pitch = cell height + row margin
   const spitch = sh + smg;
   const m = Math.max(...BIG_HEX_ROWS);
   const topRow = BIG_HEX_ROWS[0];
   const k = BIG_HEX_ROWS.length;
-  const top = t10((topRow - 1) * (w + gap) + w / 2);
-  const dx = t10((m - 1) * (w + gap) + w - ((topRow - 1) * (w + gap) + 0.75 * w));
-  const dy = t10((k - 1) * pitch / 2 + h / 2);
+  const top = t10((topRow - 1) * (w + gap));
+  const dx = t10(((m - topRow) / 2) * (w + gap));
+  const dy = t10(((k - 1) / 2) * pitch);
   const slant = t10(Math.hypot(dx / 10, dy / 10));
+  const diag = Math.sqrt(Math.pow((w + gap) / 2, 2) + Math.pow(pitch, 2));
   return {
     widestMain: t10(m * w + (m - 1) * gap),
     widestSmall: t10(m * sw + (m - 1) * sgap),
     height: t10((k - 1) * pitch + h + pad),
     top, slant,
     sideDev: Math.abs(top - slant) / Math.min(top, slant),
-    pitchClear: t10(pitch - h * (1 - gap / w)),
-    spitchClear: t10(spitch - sh * (1 - sgap / sw)),
+    diagClear: t10(diag - w),
+    vertClear: t10(pitch - h),
     cellRatio: h / w,
   };
 })();
 check("big honeycomb: geometry parses from CSS", !!gridGeo);
 if (gridGeo) {
-  check("big honeycomb: widest row fits the 188px box (147px)", gridGeo.widestMain === 1470);
-  check("big honeycomb: fine-tune widest row fits the 224px box (220.5px)", gridGeo.widestSmall === 2205);
+  check("big honeycomb: widest row fits the 188px box (147.5px)", gridGeo.widestMain === 1475);
+  check("big honeycomb: fine-tune widest row fits the 224px box (212px)", gridGeo.widestSmall === 2120);
   check(`big honeycomb: outline sides near-equal — top ${gridGeo.top / 10}px, slant ${gridGeo.slant / 10}px, ${(gridGeo.sideDev * 100).toFixed(1)}% apart (<= 3%)`, gridGeo.sideDev <= 0.03);
-  check("big honeycomb: cells are regular hexagons (height/width = sqrt(3)/2 within 0.01)",
-    Math.abs(gridGeo.cellRatio - Math.sqrt(3) / 2) <= 0.01);
-  check("big honeycomb: no cell overlap — row pitch sits 0.3px above exact touching (main and fine-tune)",
-    gridGeo.pitchClear >= 2 && gridGeo.spitchClear >= 2);
+  check("big honeycomb: cells are circles (height/width = 1 within 0.01)",
+    Math.abs(gridGeo.cellRatio - 1) <= 0.01);
+  check("big honeycomb: no cell overlap — diagonal clearance >= 1px and vertical pitch >= diameter",
+    gridGeo.diagClear >= 10 && gridGeo.vertClear >= 0);
   check(`big honeycomb: grid height ${gridGeo.height / 10}px fits the 120px one-screen budget`, gridGeo.height <= 1200);
 }
-check("legend: swatches are hexagons too",
-  /\.legend \.sw\s*\{[^}]*clip-path:\s*polygon\(/.test(css) &&
-  !/\.legend \.sw\s*\{[^}]*border-radius:\s*50%/.test(css));
+check("legend: swatches are circles too",
+  /\.legend \.sw\s*\{[^}]*border-radius:\s*50%/.test(css) &&
+  !/\.legend \.sw\s*\{[^}]*clip-path:\s*polygon\(/.test(css));
 check("legend: ring swatch uses the inset ring, not a border",
   /\.legend \.sw\.gold\s*\{[^}]*box-shadow:\s*inset 0 0 0 2px var\(--gold-bright\)/.test(css) &&
   !/\.legend \.sw\.gold\s*\{[^}]*border:/.test(css));
@@ -692,12 +691,12 @@ if (gridSrc) {
     renderGrid(c, spec);
     return c.children; // the .hrow rows
   };
-  // Big-honeycomb row structure: 13 rows, lengths grow then shrink, 100
+  // Big-honeycomb row structure: 11 rows, lengths grow then shrink, 100
   // dots total in row-major order.
   const hexRows = runGridRows({ entry: "guess", value: 50 });
-  check("big honeycomb: renderGrid builds 13 .hrow rows with lengths [6,6,7,8,9,9,10,9,9,8,7,6,6]",
-    hexRows.length === 13 && hexRows.every((r) => r.className === "hrow") &&
-    JSON.stringify(hexRows.map((r) => r.children.length)) === JSON.stringify([6, 6, 7, 8, 9, 9, 10, 9, 9, 8, 7, 6, 6]));
+  check("big honeycomb: renderGrid builds 11 .hrow rows with lengths [6,8,9,10,11,12,11,10,9,8,6]",
+    hexRows.length === 11 && hexRows.every((r) => r.className === "hrow") &&
+    JSON.stringify(hexRows.map((r) => r.children.length)) === JSON.stringify([6, 8, 9, 10, 11, 12, 11, 10, 9, 8, 6]));
   check("big honeycomb: rows hold 100 dots in row-major order",
     hexRows.reduce((n, r) => n + r.children.length, 0) === 100 &&
     runGrid({ entry: "guess", value: 50 }).length === 100);
@@ -934,10 +933,11 @@ check("served styles.css has the ruby entrance + sparkle keyframes and the crew 
   servedCss.includes(".ruby-sparkle") && servedCss.includes(".bee-crew") && servedCss.includes("@keyframes crew-bob"));
 
 const pid = "verify-player-001";
-// Contribute locked before playing
-const locked = await api(`/api/contribute?playerId=${pid}`);
-check("contribute locked before daily", locked.body.unlocked === false && locked.body.questions.length === 0);
-check("contribute lock reason present", typeof locked.body.reason === "string" && locked.body.reason.length > 10);
+// 2026-11-18: Contribute was removed — the endpoints are gone (404).
+const gone1 = await api(`/api/contribute?playerId=${pid}`);
+check("contribute GET endpoint is gone (404)", gone1.status === 404);
+const gone2 = await api("/api/contribute/vote", { method: "POST", body: JSON.stringify({ playerId: pid, questionId: 59, vote: "yes" }) });
+check("contribute vote endpoint is gone (404)", gone2.status === 404);
 
 // Full daily, perfect answers -> 1225
 const play1 = await api("/api/play", { method: "POST", body: JSON.stringify({ playerId: pid, mode: "daily" }) });
@@ -969,26 +969,6 @@ check("stats: 1 game, 1 day, streak 1, best 1225", st.body.gamesPlayed === 1 && 
 
 const share = await api(`/api/share?playerId=${pid}&date=${today}`);
 check("share card has 7 emojis + score", (share.body.text.match(/\u{1F3AF}/gu) || []).length === 7 && share.body.text.includes("1225"), share.body.text || "");
-
-// Contribute unlocked after daily
-const unlocked = await api(`/api/contribute?playerId=${pid}`);
-check("contribute unlocked after daily", unlocked.body.unlocked === true);
-check("contribute serves 6 questions with vote prompts", unlocked.body.questions?.length === 6 && unlocked.body.questions.every((q) => q.votePrompt));
-check("contribute never shows the 'Is this you?' fallback", unlocked.body.questions.every((q) => q.votePrompt !== "Is this you?") && unlocked.body.questions.every((q) => q.kind === "split" || q.votePrompt.endsWith("?")));
-check("contribute response leaks no answers/percentages", !unlocked.raw.includes('"answer"') && !/:\s*\d+\s*%/.test(unlocked.raw));
-const servedIds = new Set(unlocked.body.questions.map((q) => q.id));
-const embargo = new Set();
-for (let d = 0; d <= 7; d++) for (const id of composeSet(bank.questions, `daily:${addDays(today, d)}`)) embargo.add(id);
-check("contribute never serves a question in today..+7 daily sets", [...servedIds].every((id) => !embargo.has(id)));
-const firstQ = unlocked.body.questions[0];
-const vote1 = await api("/api/contribute/vote", { method: "POST", body: JSON.stringify({ playerId: pid, questionId: firstQ.id, vote: firstQ.kind === "split" ? "left" : "yes" }) });
-check("vote accepted, returns only ok", vote1.body.ok === true && Object.keys(vote1.body).length === 1, JSON.stringify(vote1.body));
-const vote2 = await api("/api/contribute/vote", { method: "POST", body: JSON.stringify({ playerId: pid, questionId: firstQ.id, vote: firstQ.kind === "split" ? "left" : "yes" }) });
-check("second vote on same question rejected", vote2.body.ok === false);
-const voteBad = await api("/api/contribute/vote", { method: "POST", body: JSON.stringify({ playerId: pid, questionId: 59, vote: "yes" }) });
-check("population stat (id 59) is not votable", voteBad.body.ok === false);
-const unlocked2 = await api(`/api/contribute?playerId=${pid}`);
-check("voted question disappears from the list", !unlocked2.body.questions.some((q) => q.id === firstQ.id));
 
 // Endless: hundredths round end-to-end (find a sub-1% finale within a few plays)
 let hundredthsOk = false;
@@ -1169,7 +1149,6 @@ const darkHtml = `<!doctype html><html><head><style>${servedCss}</style></head><
   <div class="big-guess"><span id="guess-num">50</span></div>
   <button class="ghost" id="ghost-btn">x</button>
   <button class="primary" id="primary-btn">x</button>
-  <button class="vote-no" id="vote-no-btn">x</button>
 </div>
 <span class="chip" id="chip">x</span>
 <button class="finetune-btn" id="ft-btn">x</button>
@@ -1187,7 +1166,7 @@ function effBg(el) {
   }
   return "rgb(0, 0, 0)";
 }
-const darkTargets = ["#body-text", "#typed", "#text-answer", "#guess-num", "#ghost-btn", "#primary-btn", "#vote-no-btn", "#chip", "#ft-btn", "#nudge"];
+const darkTargets = ["#body-text", "#typed", "#text-answer", "#guess-num", "#ghost-btn", "#primary-btn", "#chip", "#ft-btn", "#nudge"];
 const darkBad = [];
 for (const sel of darkTargets) {
   const el = ddoc.querySelector(sel);
@@ -1229,8 +1208,9 @@ function gridDotBgs(cssText) {
     guessOnly: cs(doc.querySelector("#d-guessonly")).backgroundColor,
     guessOnlyRing: cs(doc.querySelector("#d-guessonly")).boxShadow,
     unlit: cs(doc.querySelector("#d-unlit")).backgroundColor,
-    // honeycomb: the hexagon clip-path must survive as a computed style,
-    // and the inset ring must still be computed on the clipped dot.
+    // honeycomb: the cells are circles now — border-radius:50% in computed
+    // style, no clip-path — and the inset ring still computes on the dot.
+    radius: cs(doc.querySelector("#d-guessonly")).borderRadius,
     clip: cs(doc.querySelector("#d-guessonly")).clipPath,
   };
   dom.window.close();
@@ -1244,14 +1224,14 @@ check("black theme: overlap yellow, crowd-only white, guess-only dark + ring, un
   blackDots.overlap !== blackDots.crowd && blackDots.crowd !== blackDots.unlit &&
   blackDots.overlap !== blackDots.unlit && blackDots.guessOnly !== blackDots.unlit &&
   /inset/.test(blackDots.guessOnlyRing) && blackDots.guessOnlyRing.includes("255, 214, 10"), JSON.stringify(blackDots));
-check("black theme: dots carry the hexagon clip-path in computed style (ring intact on the clipped dot)",
-  /^polygon\(/.test(blackDots.clip || "") && (blackDots.clip || "").includes("100% 50%") &&
-  /inset/.test(blackDots.guessOnlyRing), blackDots.clip || "(no clip-path)");
+check("black theme: dots are circles in computed style (border-radius 50%, no clip-path; ring intact)",
+  blackDots.radius === "50%" && (!blackDots.clip || blackDots.clip === "none") &&
+  /inset/.test(blackDots.guessOnlyRing), `${blackDots.radius} / ${blackDots.clip || "(no clip-path)"}`);
 
 // ------------------------------------------------- integration: seed upsert (pg-mem)
 // The seed must upsert bank.json over an existing Postgres DB (the live Render
-// path): answers update, votes for changed answers clear, votes for unchanged
-// answers survive, removed questions + their votes/stats are deleted.
+// path): answers update, removed questions are deleted, and no vote tables
+// exist (Contribute was removed 2026-11-18).
 console.log("== integration: seed upsert (pg-mem) ==");
 const seedTest = await new Promise((resolve) => {
   const p = spawn("node", ["--loader", "./scripts/pg-mem-loader.mjs", "scripts/test-seed-upsert.mjs"], {
@@ -1262,7 +1242,7 @@ const seedTest = await new Promise((resolve) => {
   p.stderr.on("data", (d) => { out += d; });
   p.on("close", (code) => resolve({ code, out }));
 });
-check("seed upsert: old answers update, changed votes clear, unchanged kept, removed deleted (pg-mem)",
+check("seed upsert: old answers update, removed deleted, no vote tables (pg-mem)",
   seedTest.code === 0, seedTest.out.split("\n").filter((l) => l.startsWith("FAIL")).join(" | "));
 
 child.kill();

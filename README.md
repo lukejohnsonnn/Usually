@@ -4,9 +4,8 @@ How well do you know the world? Think your way to a real number —
 history, science, space, and more. Same 7 prompts for everyone, one run a day.
 Free to play, free to host.
 
-**Play:** Daily (7 rounds: guess, guess, text, split, split, text, finale),
-Endless practice, and Contribute — vote on the real preference behind a
-question. Your vote is recorded.
+**Play:** Daily (7 rounds: guess, guess, text, split, split, text, finale) and
+Endless practice.
 
 ## Quick start
 ```bash

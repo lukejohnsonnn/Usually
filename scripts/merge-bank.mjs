@@ -67,19 +67,6 @@ for (const f of files) {
   }
 }
 
-// Vote prompts harvested from the live game's Contribute screen (2026-11-16).
-const votePrompts = {
-  142: "Could you sink a half-court shot within 5 tries?",
-  70: "Have you ever appeared on TV?",
-  31: "Have you rewatched your favorite show more than three times?",
-  35: "Have you ever bought something just because it was on sale?",
-  53: "Pick your side",
-};
-for (const [id, prompt] of Object.entries(votePrompts)) {
-  const q = byId.get(Number(id));
-  if (q) q.votePrompt = prompt;
-}
-
 const questions = [...byId.values()].sort((a, b) => a.id - b.id);
 const counts = {
   guess: questions.filter((q) => q.kind === "guess" && !q.finale).length,
