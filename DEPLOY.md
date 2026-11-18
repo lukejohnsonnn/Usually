@@ -1,7 +1,7 @@
 # Honeydle — deploy guide (free, $0, no accounts for players)
 
 What this repo is: a standalone rebuild of the Honeydle daily game
-(guess the %, name the crowd's #1, split the crowd), ready for Render's
+(guess the %, name the #1, split the 100), ready for Render's
 free tier. No cron job — daily sets freeze lazily on first load each
 Eastern day, which is the $0 path (Render cron is not free).
 

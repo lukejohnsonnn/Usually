@@ -1,12 +1,12 @@
 # Honeydle
 
-How well do you know people? Think your way to a real number —
+How well do you know the world? Think your way to a real number —
 history, science, space, and more. Same 7 prompts for everyone, one run a day.
 Free to play, free to host.
 
 **Play:** Daily (7 rounds: guess, guess, text, split, split, text, finale),
 Endless practice, and Contribute — vote on the real preference behind a
-question to shape the crowd's numbers.
+question. Your vote is recorded.
 
 ## Quick start
 ```bash

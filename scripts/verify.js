@@ -288,12 +288,12 @@ check("fine-tune button shows at guess <= 1% (drag or typed)", appJs.includes("!
 
 console.log("== unit: 2026-11-16 text reveal + tagline sync ==");
 const html = fs.readFileSync(path.join(__dirname, "..", "client", "index.html"), "utf8");
-const TAGLINE = "How well do you know people?";
-// Text reveal: the crowd's #1 answer must not be rendered anywhere in the playing flow.
-// The mode wording ("Name the crowd's #1", "the crowd's #1 scores the most") stays —
+const TAGLINE = "How well do you know the world?";
+// Text reveal: the #1 answer must not be rendered anywhere in the playing flow.
+// The mode wording ("Name the #1", "the #1 scores the most") stays —
 // only the actual #1 answer is gone.
-check("text reveal never renders the crowd's #1 answer", !appJs.includes("r.textAnswer"));
-check("text reveal has no 'The crowd's #1' answer line", !appJs.includes("The crowd's #1: <b>"));
+check("text reveal never renders the #1 answer", !appJs.includes("r.textAnswer"));
+check("text reveal has no '#1 answer' line", !appJs.includes("The crowd's #1: <b>"));
 check("text reveal still shows your own answer + rank", appJs.includes("You said:") && appJs.includes("r.textRank"));
 // Tagline: exact in every spot, old tagline gone.
 check("tagline: page title exact", html.includes(`<title>Honeydle — ${TAGLINE}</title>`));
@@ -302,7 +302,7 @@ check("tagline: meta description leads with it", html.includes(`<meta name="desc
 check("tagline: og title + description", html.includes(`<meta property="og:title" content="Honeydle — ${TAGLINE}">`) && html.includes(`<meta property="og:description" content="${TAGLINE}`));
 check("tagline: twitter title + description", html.includes(`<meta name="twitter:title" content="Honeydle — ${TAGLINE}">`) && html.includes(`<meta name="twitter:description" content="${TAGLINE}`));
 check("tagline: share card closing line", appJs.includes(`Play Honeydle — ${TAGLINE}`));
-check("old tagline gone from client", !html.includes("what do people usually do?") && !appJs.includes("what do people usually do?"));
+check("old tagline gone from client", !html.includes("what do people usually do?") && !appJs.includes("what do people usually do?") && !html.includes("How well do you know people?") && !appJs.includes("How well do you know people?"));
 
 // Rebrand (2026-11-18): public brand is Honeydle, site playhoneydle.com.
 // Wordmark, fonts, and no trace of the old names in client-facing strings.
@@ -383,11 +383,18 @@ const howto = html.slice(html.indexOf('id="howto"'), html.indexOf('id="howto-clo
 check("How to Play shows no scoring math", !/points off|=\s*\d|0[–-]20|\b\d+\s*pts\b/.test(howto));
 check("How to Play keeps the no-math wording",
   howto.includes("The closer your guess, the more points. A perfect guess is a Bullseye."));
+// 2026-11-18 real-stats reframe: modes are "Name the #1" / "Split the 100",
+// no crowd wording in the overlay.
+check("How to Play names the modes without crowd wording",
+  howto.includes("Name the #1:") && howto.includes("type the most popular answer.") &&
+  howto.includes("Split the 100:") && !/crowd/i.test(howto));
 // 2026-11-17 Contribute honesty: researched answers are authoritative
 // (server.js) and votes never change them — they are only stored and used to
 // mark a question as already-voted. The live copy used to claim the opposite.
+const readme = fs.readFileSync(path.join(__dirname, "..", "README.md"), "utf8");
 check("Contribute copy never claims votes shape the crowd's numbers",
-  !html.includes("shapes the crowd") && !appJs.includes("shapes the crowd"));
+  !html.includes("shapes the crowd") && !appJs.includes("shapes the crowd") &&
+  !readme.includes("shape the crowd") && readme.includes("Your vote is recorded."));
 check("Contribute copy says the vote is recorded (how-to, home card, vote hint)",
   howto.includes("Your vote is recorded.") &&
   appJs.includes("Answer the real preference behind a question. Your vote is recorded.") &&
@@ -400,9 +407,13 @@ check("Q78 space question is the plain rewording, answer and source unchanged",
 check("old Q78 wording gone from the bank",
   !bank.questions.some((q) => (q.text || "").includes("flew as a private citizen")));
 // 2026-11-17 text-round reminder: visible above the text box while typing.
-check("text rounds show the crowd reminder above the text box",
-  appJs.includes("Reminder: guess what the crowd would most likely say.") &&
-  appJs.indexOf("Reminder: guess what the crowd would most likely say.") < appJs.indexOf('id="text-answer"'));
+check("text rounds show the reminder above the text box",
+  appJs.includes("Reminder: guess the most popular answer.") &&
+  appJs.indexOf("Reminder: guess the most popular answer.") < appJs.indexOf('id="text-answer"'));
+check("text rounds score the #1, no crowd wording",
+  appJs.includes("One answer — the #1 scores the most.") && !appJs.includes("the crowd's #1 scores the most"));
+check("Contribute empty state has the real-stats wording",
+  appJs.includes("New ones appear as more questions are added.") && !appJs.includes("as the crowd grows"));
 
 console.log("== unit: 2026-11-18 black theme (black + yellows + whites) ==");
 // Theme values: one black theme, no light/dark split.
@@ -573,7 +584,7 @@ check("today has no answers leaked", !t1.raw.includes('"answer":') && !t1.raw.in
 const home = await fetch(BASE + "/");
 const homeText = await home.text();
 check("served index.html carries new tagline + HONEYDLE wordmark + fonts, old tagline gone",
-  homeText.includes("How well do you know people?") && homeText.includes("HONEYDLE") &&
+  homeText.includes("How well do you know the world?") && homeText.includes("HONEYDLE") &&
   homeText.includes("fonts.googleapis.com/css2?family=Press+Start+2P") &&
   !homeText.includes("what do people usually do?"));
 

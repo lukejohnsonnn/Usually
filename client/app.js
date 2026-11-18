@@ -150,9 +150,9 @@ function showRound() {
     <div class="kicker">${q.category}</div>
     <div class="qtext">${q.text}</div>
     ${isText ? `
-      <p class="hint">Reminder: guess what the crowd would most likely say.</p>
+      <p class="hint">Reminder: guess the most popular answer.</p>
       <div class="type-row"><input type="text" id="text-answer" placeholder="Type your answer…" autocomplete="off" enterkeyhint="go"></div>
-      <p class="hint">One answer — the crowd's #1 scores the most.</p>
+      <p class="hint">One answer — the #1 scores the most.</p>
       <div class="row"><button class="primary" id="submit">Submit</button></div>
     ` : isSplit ? `
       <div class="big-guess"><span id="guess-num">50</span></div>
@@ -339,7 +339,7 @@ async function showResults(play) {
   $("#share").addEventListener("click", async () => {
     try {
       const s = await api(`/api/share?playerId=${playerId()}&date=${play.playDate}`);
-      const text = s.text + "\n\nPlay Honeydle — How well do you know people?";
+      const text = s.text + "\n\nPlay Honeydle — How well do you know the world?";
       if (navigator.share) await navigator.share({ text });
       else { await navigator.clipboard.writeText(text); toast("Share card copied."); }
     } catch { toast("Couldn't build the share card."); }
@@ -357,7 +357,7 @@ async function showContribute() {
 
 function renderContribute(questions) {
   if (!questions.length) {
-    screen.innerHTML = `<div class="card"><h2>Contribute</h2><p>You're all caught up — no questions to vote on right now. New ones appear as the crowd grows.</p><div class="row"><button class="primary" id="back-home">Home</button></div></div>`;
+    screen.innerHTML = `<div class="card"><h2>Contribute</h2><p>You're all caught up — no questions to vote on right now. New ones appear as more questions are added.</p><div class="row"><button class="primary" id="back-home">Home</button></div></div>`;
     $("#back-home").addEventListener("click", showHome);
     return;
   }
