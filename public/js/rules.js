@@ -2,7 +2,10 @@
 
 export const ROUND_KINDS = ["guess", "guess", "text", "guess", "guess", "text", "finale"];
 export const ROUNDS = ROUND_KINDS.length;
-export const ROUND_SECONDS = 30; // the timer on every round
+// Round timers: quick for number guesses, a little longer to type a text answer.
+export const GUESS_SECONDS = 15;
+export const TEXT_SECONDS = 25;
+export const secondsFor = (kind) => (kind === "text" ? TEXT_SECONDS : GUESS_SECONDS);
 export const ROUND_MAX = 175;
 export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225 — never shown to players
 export const JAR_FULL = 1000; // the honey jar reads full at this score
