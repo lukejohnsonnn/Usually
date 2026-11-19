@@ -1,78 +1,48 @@
-# Honeydle — deploy guide (free, $0, no accounts for players)
+# Deploying Honeydle on Render (free)
 
-What this repo is: a standalone rebuild of the Honeydle daily game
-(guess the %, name the #1, split the 100), ready for Render's
-free tier. No cron job — daily sets freeze lazily on first load each
-Eastern day, which is the $0 path (Render cron is not free).
+`render.yaml` is a Render Blueprint. It defines:
 
-## What you need first (Luke's steps)
+- **usually**: a free Node web service that runs `npm start`, health-checks
+  `/health` and auto-deploys from `main`
+- **usually-db**: a free Postgres database, wired in through `DATABASE_URL`
 
-1. **A GitHub account** — created 2026-11-16, not yet connected to Render.
-2. **A Render account** — created 2026-11-16 via Google signup.
+The names match the v1 Blueprint, so merging to `main` updates the existing
+service instead of creating a new one.
 
-## Steps
+## First-time or fresh setup
 
-### 1. Put this repo on GitHub
-```bash
-cd usually-deploy/repo
-git init
-git add .
-git commit -m "Usually v1 — standalone Render deploy"
-git branch -M main
-git remote add origin https://github.com/<your-username>/usually.git
-git push -u origin main
-```
-(If GitHub asks for credentials, use a personal access token, not a password.)
+1. Render dashboard → **New +** → **Blueprint** → pick this repo → **Apply**.
+2. Wait for the first deploy, then open `https://<service>.onrender.com/health`.
+   It should return
+   `{"ok":true,"db":"postgres","bankQuestions":142,"date":"…"}`.
 
-### 2. Connect GitHub to Render
-Render dashboard → **Account Settings** → **GitHub** → **Connect**.
-Authorize the `usually` repo.
+The server creates its tables on boot. There is nothing to seed, because the
+question bank ships in `data/bank.json`.
 
-### 3. Deploy from the Blueprint
-Render dashboard → **New +** → **Blueprint** → pick the `usually` repo.
-Render reads `render.yaml` and creates:
-- **usually** — free web service (Node, `npm install` → `npm start`)
-- **usually-db** — free Postgres
+## Resuming the suspended v1 service
 
-Click **Apply**. First deploy takes a few minutes.
+1. Merge this branch into `main`.
+2. Render dashboard → the **usually** service → **Resume service**.
+3. If it doesn't deploy on its own: **Manual Deploy → Deploy latest commit**.
+4. Check `/health` as above.
 
-### 4. Set the public URL
-After the first deploy, Render gives the service a URL like
-`https://usually.onrender.com`. In the service's **Environment** tab, set:
-- `APP_URL` = that URL
+If the old database still exists, its v1 tables are left alone. v2 uses its
+own `hd_daily_sets` and `hd_plays` tables, so the two never collide.
 
-Then **Manual Deploy → Deploy latest commit** (or wait for auto-deploy).
+## Free-tier notes
 
-### 5. Verify
-- `https://usually.onrender.com/health` → `{"ok":true,"db":"postgres","bankQuestions":119,...}`
-- Open the URL in a browser, play a full Daily.
+- **Sleep.** Free web services sleep after about 15 minutes idle, and the first
+  visitor waits while it wakes. To keep it awake, point a free uptime monitor
+  (UptimeRobot, cron-job.org, etc.) at `/health` every 10 minutes.
+- **Free Postgres expires.** Render's free databases are time-limited (30 days
+  at the time of writing), and only one free database is allowed per
+  workspace. When it expires, create a new free database, set the service's
+  `DATABASE_URL` to its connection string, and redeploy. Plays and streaks
+  live in the database, so they reset with it. The game itself is unaffected.
+- **No cron.** The Daily freezes on the first request of each Eastern day, so
+  no scheduler is needed.
 
-The question bank seeds itself on first boot (`server.js` calls
-`seedBank` at startup). Re-seeding never wipes plays.
+## Custom domain
 
-## Notes on the free tier
-
-- **Sleep:** the free web service sleeps after ~15 min idle. The first
-  player of the day waits ~1 min while it wakes. Daily sets freeze on
-  first load, so the wake-up still serves the right day.
-- **Free Postgres lifetime:** Render's free Postgres is time-limited —
-  check the current terms on Render's pricing page at signup. If the
-  database expires, create a fresh free database, point `DATABASE_URL`
-  at it, and re-seed with `npm run seed`. Plays live in that
-  database, so if they matter, export them before it expires.
-- **No cron:** there is deliberately no cron job in `render.yaml`.
-  Do not add one — it is not free. The lazy freeze covers the daily
-  rotation. The lazy freeze generates future daily sets on demand
-  the same way.
-- **Costs:** $0. The only future costs are a custom domain (optional,
-  e.g. playhoneydle.com ~$12/yr — not bought yet) and moving off the
-  free tier if traffic outgrows it.
-
-## Local development
-```bash
-npm install
-npm start            # http://localhost:3000 (JSON file store, data/local.json)
-npm run verify       # 54 automated checks (unit + live server)
-npm run seed         # seed the bank (safe to re-run)
-```
-With `DATABASE_URL` set, the server uses Postgres instead of the file store.
+Optional. playhoneydle.com was checked and was free but has **not** been
+bought. Add one later under the service's **Settings → Custom Domains**.
