@@ -37,7 +37,7 @@ describe("server", () => {
   test("health reports status, store, bank size and Eastern date", async () => {
     const r = await s.call("/health");
     assert.equal(r.status, 200);
-    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 142, date: "2026-11-19" });
+    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 152, date: "2026-11-19" });
   });
 
   test("today: frozen 7-round set in public shape, deterministic from the date", async () => {
@@ -150,7 +150,7 @@ describe("server", () => {
     assert.deepEqual([blank.points, blank.tier], [0, "Blank"]);
     for (const r of [3, 4]) await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: r, value: 50 } });
     const unl = (await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: 5, value: "qwertyuiop" } })).json.result;
-    assert.deepEqual([unl.points, unl.tier, unl.rank], [5, "Way Off", null]);
+    assert.deepEqual([unl.points, unl.tier, unl.rank], [10, "Way Off", null]);
   });
 
   test("stats: streak, games, best, average; Endless never touches the streak", async () => {
@@ -313,7 +313,7 @@ describe("the real process", () => {
       for (let i = 0; i < 50 && !out.includes("Honeydle on"); i++) await new Promise((r) => setTimeout(r, 100));
       const h = await (await fetch(`http://127.0.0.1:${port}/health`)).json();
       assert.equal(h.ok, true);
-      assert.equal(h.bankQuestions, 142);
+      assert.equal(h.bankQuestions, 152);
       assert.match(h.date, /^\d{4}-\d{2}-\d{2}$/);
     } finally { child.kill("SIGTERM"); }
   });

@@ -75,7 +75,7 @@ const PIP = {
   warm: pipSvg("#f3d27a", "#b8952f"),
   cold: pipSvg("#5a5a5a", "#3e3e3e"),
 };
-const pipFor = (r) => (r.points >= 90 ? PIP.hot : r.points >= 55 ? PIP.warm : PIP.cold);
+const pipFor = (r) => (r.points >= 135 ? PIP.hot : r.points >= 95 ? PIP.warm : PIP.cold);
 const swatch = (color, ring) => h("img", { class: "sw", alt: "", src: pipSvg(color, ring || color) });
 
 // ---------------------------------------------------------------- chrome

@@ -11,9 +11,9 @@ const bank = loadBank(path.join(root, "data", "bank.json"));
 const byId = new Map(bank.map((q) => [q.id, q]));
 
 test("difference tiers match the shipped curve exactly", () => {
-  const cases = [[0, 175, "Bullseye"], [1, 100, "One Off"], [2, 90, "Razor Close"], [3, 90, "Razor Close"],
-    [4, 75, "Close"], [6, 75, "Close"], [7, 55, "Warm"], [10, 55, "Warm"], [11, 35, "Lukewarm"], [15, 35, "Lukewarm"],
-    [16, 15, "Cold"], [25, 15, "Cold"], [26, 5, "Way Off"], [50, 5, "Way Off"]];
+  const cases = [[0, 175, "Bullseye"], [1, 150, "One Off"], [2, 135, "Razor Close"], [3, 135, "Razor Close"],
+    [4, 115, "Close"], [6, 115, "Close"], [7, 95, "Warm"], [10, 95, "Warm"], [11, 70, "Lukewarm"], [15, 70, "Lukewarm"],
+    [16, 40, "Cold"], [25, 40, "Cold"], [26, 10, "Way Off"], [50, 10, "Way Off"]];
   for (const [diff, pts, name] of cases) {
     const up = G.scoreNumeric(50, 50 + diff), down = G.scoreNumeric(50, 50 - diff);
     assert.deepEqual([up.points, up.tier, up.diff], [pts, name, diff], `diff +${diff}`);
@@ -30,13 +30,13 @@ test("sub-1% answers are scored in hundredths on the same curve", () => {
   assert.equal(G.scoreNumeric(0.2, 0.24).tier, "Close");
   assert.equal(G.scoreNumeric(0.01, 0.02).diff, 1);
   assert.equal(G.scoreNumeric(0.2, 1).diff, 80);
-  assert.equal(G.scoreNumeric(0.29, 0.3).points, 100, "float noise never changes a tier");
+  assert.equal(G.scoreNumeric(0.29, 0.3).points, 150, "float noise never changes a tier");
 });
 
 test("text rank bands", () => {
-  const cases = [[1, 175], [2, 100], [3, 100], [4, 90], [6, 90], [7, 75], [10, 75], [11, 55], [15, 55], [16, 35], [20, 35], [21, 15], [30, 15], [31, 5], [99, 5]];
+  const cases = [[1, 175], [2, 150], [3, 150], [4, 135], [6, 135], [7, 115], [10, 115], [11, 95], [15, 95], [16, 70], [20, 70], [21, 40], [30, 40], [31, 10], [99, 10]];
   for (const [rank, pts] of cases) assert.equal(G.scoreRank(rank).points, pts, `rank ${rank}`);
-  assert.deepEqual(G.scoreRank(null), { points: 5, tier: "Way Off", rank: null });
+  assert.deepEqual(G.scoreRank(null), { points: 10, tier: "Way Off", rank: null });
   assert.deepEqual(G.scoreRank(null, true), { points: 0, tier: "Blank", rank: null });
 });
 
@@ -91,11 +91,11 @@ test("bee rules: diamond streak and ruby finish", () => {
   assert.equal(G.beeForRound(175, 1), "golden");
   assert.equal(G.beeForRound(175, 2), "diamond");
   assert.equal(G.beeForRound(175, 5), "diamond");
-  assert.equal(G.beeForRound(100, 0), "honey");
-  assert.equal(G.beeForRound(90, 0), "drop");
-  assert.equal(G.beeForRound(75, 0), "normal");
-  assert.equal(G.beeForRound(55, 0), "normal");
-  for (const p of [35, 15, 5, 0]) assert.equal(G.beeForRound(p, 0), "thirsty");
+  assert.equal(G.beeForRound(150, 0), "honey");
+  assert.equal(G.beeForRound(135, 0), "drop");
+  assert.equal(G.beeForRound(115, 0), "normal");
+  assert.equal(G.beeForRound(95, 0), "normal");
+  for (const p of [70, 40, 10, 0]) assert.equal(G.beeForRound(p, 0), "thirsty");
   assert.equal(G.isRuby(900, true), true);
   assert.equal(G.isRuby(899, true), false);
   assert.equal(G.isRuby(1000, false), false, "ruby is for a completed run only");
@@ -139,12 +139,12 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 142);
+  assert.equal(bank.length, 152);
   const count = (k) => bank.filter((q) => G.poolOf(q) === k).length;
-  assert.equal(count("guess"), 97);
-  assert.equal(count("finale"), 10);
+  assert.equal(count("guess"), 106);
+  assert.equal(count("finale"), 14);
   assert.ok(!bank.some((q) => q.kind === "split" || "leftLabel" in q || "rightLabel" in q), "no Split questions remain");
-  assert.equal(count("text"), 35);
+  assert.equal(count("text"), 32);
   for (const q of bank) {
     assert.ok(q.source && q.source.length > 10, `q${q.id} has a source`);
     assert.ok(!("votable" in q), `q${q.id} has no voting field`);
@@ -163,4 +163,22 @@ test("bank meets the standard", () => {
       assert.equal(G.validateGuess(q.answer), null, `q${q.id} answer is valid input`);
     }
   }
+});
+
+test("a decent run scores well: within ~5 on every guess and a top-6 text answer", () => {
+  const decent = [3, 5, 4, 6, 2].map((d) => G.scoreNumeric(50, 50 + d).points);
+  const text = [G.scoreRank(2).points, G.scoreRank(5).points];
+  const total = [...decent, ...text].reduce((a, b) => a + b, 0);
+  assert.ok(total >= 800 && total < G.RUBY_THRESHOLD + 100, `decent run scores ${total}`);
+  const mediocre = [10, 12, 8, 15, 9].map((d) => G.scoreNumeric(50, 50 + d).points).concat(G.scoreRank(12).points, G.scoreRank(25).points);
+  const m = mediocre.reduce((a, b) => a + b, 0);
+  assert.ok(m >= 500 && m < 700, `mediocre run scores ${m}`);
+});
+
+test("bank: no self-assessment, belief-poll or duplicate prompts", () => {
+  for (const q of bank) {
+    assert.doesNotMatch(q.text, /think they could|believe|would give up|could do a random/i, `q${q.id} "${q.text}"`);
+  }
+  const texts = bank.map((q) => q.text.toLowerCase());
+  assert.equal(new Set(texts).size, texts.length, "no duplicate prompts");
 });

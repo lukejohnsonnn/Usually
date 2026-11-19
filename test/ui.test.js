@@ -36,7 +36,7 @@ const pageHeight = (page) => page.evaluate(() => {
   return Math.ceil(Math.max(...els.map((e) => e.getBoundingClientRect().bottom + window.scrollY)));
 });
 // The longest prompts and notes in the bank, in a valid Daily order — the layout worst case.
-const WORST_CASE_SET = [161, 59, 249, 170, 173, 189, 78];
+const WORST_CASE_SET = [186, 170, 249, 173, 260, 189, 78];
 
 test("a full Daily on a phone: one screen per round, nothing leaks before submit", { skip }, async () => {
   await s.store.putDailySet("2026-11-19", WORST_CASE_SET, { replace: true });

@@ -35,7 +35,7 @@ Below 1%, the reveal zooms in so each cell is 0.01%.
 ```bash
 npm install
 npm start            # http://localhost:3000, JSON file store in data/local.json
-npm test             # 34 checks: game logic, HTTP end to end, Postgres store
+npm test             # 36 checks: game logic, HTTP end to end, Postgres store
 npm run test:ui      # 7 browser checks with Playwright (one-screen rule, full Daily…)
 npm run verify       # both
 ```
@@ -53,7 +53,7 @@ src/app.js             Express routes, rate limit, JSON errors
 src/store/file.js      local JSON store        ┐ same interface
 src/store/postgres.js  production Postgres     ┘
 public/                the client: vanilla ES modules, no build step
-data/bank.json         142 questions, each with a real published source
+data/bank.json         152 questions, each with a real published source
 tools/                 pixel-frame generator, screenshot script
 test/                  unit, server, postgres (pg-mem) and browser tests
 ```

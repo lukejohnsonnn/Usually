@@ -14,7 +14,7 @@ service instead of creating a new one.
 1. Render dashboard → **New +** → **Blueprint** → pick this repo → **Apply**.
 2. Wait for the first deploy, then open `https://<service>.onrender.com/health`.
    It should return
-   `{"ok":true,"db":"postgres","bankQuestions":142,"date":"…"}`.
+   `{"ok":true,"db":"postgres","bankQuestions":152,"date":"…"}`.
 
 The server creates its tables on boot. There is nothing to seed, because the
 question bank ships in `data/bank.json`.

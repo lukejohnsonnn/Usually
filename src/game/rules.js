@@ -7,15 +7,17 @@ export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225
 export const RUBY_THRESHOLD = 900;
 
 // Difference tiers for Guess and Finale rounds. Names are player copy.
+// The curve rewards a good estimate: within 6 points keeps well over half
+// the round, and a decent run of 7 lands around 650–800 out of 1225.
 export const TIERS = [
-  { maxDiff: 0, points: 175, name: "Bullseye", emoji: "🎯" },
-  { maxDiff: 1, points: 100, name: "One Off", emoji: "✅" },
-  { maxDiff: 3, points: 90, name: "Razor Close", emoji: "🔥" },
-  { maxDiff: 6, points: 75, name: "Close", emoji: "🙂" },
-  { maxDiff: 10, points: 55, name: "Warm", emoji: "😐" },
-  { maxDiff: 15, points: 35, name: "Lukewarm", emoji: "😬" },
-  { maxDiff: 25, points: 15, name: "Cold", emoji: "🥶" },
-  { maxDiff: Infinity, points: 5, name: "Way Off", emoji: "❌" },
+  { maxDiff: 0, points: 175, name: "Bullseye", emoji: "🎯", bee: "golden" },
+  { maxDiff: 1, points: 150, name: "One Off", emoji: "✅", bee: "honey" },
+  { maxDiff: 3, points: 135, name: "Razor Close", emoji: "🔥", bee: "drop" },
+  { maxDiff: 6, points: 115, name: "Close", emoji: "🙂", bee: "normal" },
+  { maxDiff: 10, points: 95, name: "Warm", emoji: "😐", bee: "normal" },
+  { maxDiff: 15, points: 70, name: "Lukewarm", emoji: "😬", bee: "thirsty" },
+  { maxDiff: 25, points: 40, name: "Cold", emoji: "🥶", bee: "thirsty" },
+  { maxDiff: Infinity, points: 10, name: "Way Off", emoji: "❌", bee: "thirsty" },
 ];
 export const BLANK = { points: 0, name: "Blank", emoji: "⬜" };
 
@@ -57,7 +59,7 @@ export function scoreNumeric(answer, guess) {
 /** Score a text round by rank. rank null = unlisted, blank = empty answer. */
 export function scoreRank(rank, blank = false) {
   if (blank) return { points: BLANK.points, tier: BLANK.name, rank: null };
-  if (rank == null) return { points: 5, tier: "Way Off", rank: null };
+  if (rank == null) return { points: TIERS.at(-1).points, tier: TIERS.at(-1).name, rank: null };
   const t = TIERS[RANK_BANDS.find((b) => rank <= b.maxRank).tier];
   return { points: t.points, tier: t.name, rank };
 }
@@ -178,11 +180,8 @@ export function bullseyeStreak(results) {
  * Bullseye within the same play; ruby is results-only and never per-round.
  */
 export function beeForRound(points, streak) {
-  if (points === 175) return streak >= 2 ? "diamond" : "golden";
-  if (points === 100) return "honey";
-  if (points === 90) return "drop";
-  if (points === 75 || points === 55) return "normal";
-  return "thirsty";
+  if (points === ROUND_MAX) return streak >= 2 ? "diamond" : "golden";
+  return TIERS.find((t) => t.points === points)?.bee || "thirsty";
 }
 
 export function isRuby(score, completed) {
