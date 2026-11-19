@@ -35,7 +35,7 @@ export async function startServer({ store = createFileStore(null), at = "2026-11
 export function secretsFor(ids) {
   const out = [];
   const visible = ids.map((id) => bank.find((x) => x.id === id))
-    .map((q) => [q.text, q.category, q.leftLabel, q.rightLabel].join(" ").toLowerCase()).join(" ");
+    .map((q) => [q.text, q.category].join(" ").toLowerCase()).join(" ");
   for (const id of ids) {
     const q = bank.find((x) => x.id === id);
     if (q.kind === "text") {

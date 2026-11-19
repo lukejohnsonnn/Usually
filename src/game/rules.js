@@ -1,12 +1,12 @@
 // Honeydle — pure game rules. No I/O. Everything here is unit-tested.
 
-export const ROUND_KINDS = ["guess", "guess", "text", "split", "split", "text", "finale"];
+export const ROUND_KINDS = ["guess", "guess", "text", "guess", "guess", "text", "finale"];
 export const ROUNDS = ROUND_KINDS.length;
 export const ROUND_MAX = 175;
 export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225
 export const RUBY_THRESHOLD = 900;
 
-// Difference tiers for Guess, Split and Finale rounds. Names are player copy.
+// Difference tiers for Guess and Finale rounds. Names are player copy.
 export const TIERS = [
   { maxDiff: 0, points: 175, name: "Bullseye", emoji: "🎯" },
   { maxDiff: 1, points: 100, name: "One Off", emoji: "✅" },
@@ -82,16 +82,6 @@ export function cleanGuess(value) {
   return g >= 1 ? Math.round(g) : Math.round(g * 100) / 100;
 }
 
-/** Validate a split (left side) value: whole numbers 0–100. */
-export function validateSplit(value) {
-  if (value === null || value === undefined || value === "") return "Choose a split first.";
-  const g = Number(value);
-  if (!Number.isFinite(g) || g < 0 || g > 100 || Math.abs(g - Math.round(g)) > 1e-9) {
-    return "Split must be a whole number from 0 to 100.";
-  }
-  return null;
-}
-
 // ---------- dates ----------
 
 export const TIME_ZONE = "America/New_York";
@@ -142,22 +132,22 @@ export function seededShuffle(arr, seed) {
 
 export function poolOf(q) {
   if (q.kind === "guess") return q.finale ? "finale" : "guess";
-  return q.kind; // split | text
+  return q.kind; // text
 }
 
 /**
- * Compose a 7-round set in the fixed order: guess, guess, text, split,
- * split, text, finale. Same seed + same bank → same ids, on any server.
+ * Compose a 7-round set in the fixed order: guess, guess, text, guess,
+ * guess, text, finale. Same seed + same bank → same ids, on any server.
  * Throws rather than ever returning a short or duplicated set.
  */
 export function composeSet(bank, seed) {
-  const pools = { guess: [], text: [], split: [], finale: [] };
+  const pools = { guess: [], text: [], finale: [] };
   for (const q of bank) pools[poolOf(q)]?.push(q);
   const shuffled = {};
   for (const k of Object.keys(pools)) {
     shuffled[k] = seededShuffle(pools[k].sort((a, b) => a.id - b.id), `${seed}:${k}`);
   }
-  const used = { guess: 0, text: 0, split: 0, finale: 0 };
+  const used = { guess: 0, text: 0, finale: 0 };
   const ids = ROUND_KINDS.map((kind) => {
     const q = shuffled[kind][used[kind]++];
     if (!q) throw new Error(`composeSet(${seed}): the ${kind} pool ran dry — bank too small for a full set`);
@@ -204,7 +194,6 @@ export function isRuby(score, completed) {
 /** The only fields of a question that may ever reach a client before submit. */
 export function publicQuestion(q) {
   const out = { id: q.id, kind: q.kind === "guess" && q.finale ? "finale" : q.kind, category: q.category, text: q.text, finale: Boolean(q.finale) };
-  if (q.kind === "split") { out.leftLabel = q.leftLabel; out.rightLabel = q.rightLabel; }
   return out;
 }
 

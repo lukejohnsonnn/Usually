@@ -53,7 +53,7 @@ async function api(path, { method = "GET", body } = {}) {
   return data;
 }
 
-const BEE_SRC = (name, small) => `/img/bee-${name}${small ? "-sm" : ""}.png`;
+const BEE_SRC = (name) => `/img/bee-${name}.png`;
 const ENTRANCE = { golden: "enter-burst", diamond: "enter-diamond", honey: "enter-splash", drop: "enter-pop", normal: "enter-pulse", thirsty: "enter-gentle", ruby: "enter-diamond" };
 
 function fullDate(dateStr) {
@@ -133,9 +133,13 @@ function renderHome() {
   const { stats, daily } = state;
   const fmt = (v) => (v == null ? "–" : String(v));
   const statCard = (v, l) => h("div", { class: "stat" }, h("span", { class: "v" }, fmt(v)), h("span", { class: "l" }, l));
-  const crew = ["normal", "drop", "honey", "golden", "diamond", "ruby", "thirsty"];
-  const parade = h("div", { class: "parade", "aria-hidden": "true" },
-    crew.map((b, i) => h("img", { src: BEE_SRC(b, true), alt: "", class: b, style: `--i:${i}`, width: 32, height: 32 })));
+  // the crew, worst to best — the score ladder made visible
+  const crew = ["thirsty", "normal", "drop", "honey", "golden", "diamond", "ruby"];
+  const parade = h("div", { class: "parade-wrap", "aria-hidden": "true" }, h("div", { class: "parade" },
+    crew.map((b, i) => h("div", { class: `bee-slot ${b}`, style: `--i:${i}` },
+      h("div", { class: "bee-fly" }, h("img", { src: `/img/bee-${b}-96.png`, srcset: `/img/bee-${b}-96.png 2x, /img/bee-${b}-144.png 3x`, alt: "", width: 44, height: 44, draggable: "false" })),
+      h("span", { class: "bee-shadow" })))),
+    h("div", { class: "parade-scale" }, h("span", {}, "Way off"), h("span", { class: "line" }), h("span", {}, "Bullseye")));
 
   let action;
   if (daily?.completed) {
@@ -196,13 +200,12 @@ function lockButton(label = "Lock it in") {
 }
 
 function buildNumberRound(screen, q) {
-  const isSplit = q.kind === "split";
   let value = 50;
   const big = h("div", { class: "bignum", "aria-live": "polite" });
   const combHost = h("div", { class: "comb" });
   const combWrap = h("div", { class: "comb-wrap" }, combHost);
-  const slider = h("input", { type: "range", min: 0, max: 100, step: 1, value: 50, class: isSplit ? "split" : "", "aria-label": isSplit ? `${q.leftLabel} share` : "Your guess, percent" });
-  const typed = h("input", { class: "field", type: "text", inputmode: isSplit ? "numeric" : "decimal", value: "50", "aria-label": "Type your guess", autocomplete: "off", maxlength: 6 });
+  const slider = h("input", { type: "range", min: 0, max: 100, step: 1, value: 50, "aria-label": "Your guess, percent" });
+  const typed = h("input", { class: "field", type: "text", inputmode: "decimal", value: "50", "aria-label": "Type your guess", autocomplete: "off", maxlength: 6 });
   const fineBtn = h("button", { class: "btn ghost small fine-btn", type: "button", hidden: true, onclick: () => openFineTune(value, (v) => setValue(v)) }, "Fine-tune hundredths");
   const form = h("form", { class: "controls pinnable" });
 
@@ -210,20 +213,15 @@ function buildNumberRound(screen, q) {
   const comb = new Honeycomb(combHost);
 
   function paint() {
-    if (isSplit) {
-      big.replaceChildren(h("span", { class: "l" }, value), h("span", { class: "sep" }, "/"), h("span", { class: "r" }, 100 - value));
-      comb.set({ mode: "split", left: value }, `${q.leftLabel} ${value}, ${q.rightLabel} ${100 - value}`);
-    } else {
-      big.replaceChildren(formatPct(value), h("small", {}, "%"));
-      comb.set({ mode: "guess", guess: value > 0 && value < 1 ? 1 : value }, `Your guess: ${formatPct(value)} percent`);
-      fineBtn.hidden = !(value <= 1);
-    }
+    big.replaceChildren(formatPct(value), h("small", {}, "%"));
+    comb.set({ mode: "guess", guess: value > 0 && value < 1 ? 1 : value }, `Your guess: ${formatPct(value)} percent`);
+    fineBtn.hidden = !(value <= 1);
     slider.style.setProperty("--v", `${Math.round(value)}%`);
   }
   function setValue(v, from) {
     value = v;
     if (from !== "slider") slider.value = String(Math.round(v));
-    if (from !== "typed") typed.value = isSplit ? String(v) : formatPct(v).replace(/\.00$/, "");
+    if (from !== "typed") typed.value = formatPct(v).replace(/\.00$/, "");
     paint();
   }
   slider.addEventListener("input", () => setValue(Number(slider.value), "slider"));
@@ -233,17 +231,13 @@ function buildNumberRound(screen, q) {
     let n = Number(raw);
     if (!Number.isFinite(n)) return;
     n = Math.min(100, Math.max(0, n));
-    if (isSplit || n >= 1) n = Math.round(n); else n = Math.round(n * 100) / 100;
+    if (n >= 1) n = Math.round(n); else n = Math.round(n * 100) / 100;
     setValue(n, "typed");
   });
   typed.addEventListener("focus", () => typed.select());
 
-  if (isSplit) {
-    form.append(h("div", { class: "split-labels" }, h("span", { class: "l" }, q.leftLabel), h("span", { class: "r" }, q.rightLabel)), slider, lockButton());
-  } else {
-    form.append(h("div", { class: "slider-row" }, slider, typed), fineBtn,
-      h("p", { class: "hint" }, "Decimals only below 1% — slide to 1 or under, then fine-tune."), lockButton());
-  }
+  form.append(h("div", { class: "slider-row" }, slider, typed), fineBtn,
+    h("p", { class: "hint" }, "Decimals only below 1% — slide to 1 or under, then fine-tune."), lockButton());
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = form.querySelector("button[type=submit]");
@@ -252,7 +246,7 @@ function buildNumberRound(screen, q) {
       const out = await api(`/play/${state.play.id}/submit`, { method: "POST", body: { round: state.play.round, value } });
       state.play = out.play;
       form.remove();
-      showNumberReveal(screen, q, out.result, comb, big);
+      showNumberReveal(screen, out.result, comb, big);
     } catch (err) {
       btn.disabled = false;
       toast(err.message);
@@ -264,7 +258,7 @@ function buildNumberRound(screen, q) {
 
 function buildTextRound(screen, q) {
   const input = h("input", { class: "field text", type: "text", placeholder: "Your answer", "aria-label": "Your answer", autocomplete: "off", autocapitalize: "sentences", spellcheck: "false", maxlength: 80, enterkeyhint: "go" });
-  const form = h("form", { class: "controls text-area" }, input, h("p", { class: "hint" }, "Tip: name the most common answer."), lockButton());
+  const form = h("form", { class: "controls text-controls" }, input, h("p", { class: "hint" }, "Tip: name the most common answer."), lockButton());
   screen.append(form);
   setTimeout(() => input.focus({ preventScroll: true }), 50);
   form.addEventListener("submit", async (e) => {
@@ -309,33 +303,19 @@ function nextButton() {
   return h("button", { class: "btn primary", onclick: () => (last ? renderResults(state.play) : renderRound()) }, last ? "See my score" : "Next round");
 }
 
-function showNumberReveal(screen, q, result, comb, big) {
-  const isSplit = result.kind === "split";
-  const zoom = !isSplit && result.answer < 1 && result.guess <= 1;
+function showNumberReveal(screen, result, comb, big) {
+  const zoom = result.answer < 1 && result.guess <= 1;
   const cells = (v) => (zoom ? Math.round(v * 100) : v > 0 && v < 1 ? 1 : Math.round(v));
   const reveal = h("section", { class: "reveal", "aria-live": "polite" });
-  let legend;
-  if (isSplit) {
-    big.replaceChildren(h("span", { class: "l" }, result.answer), h("span", { class: "sep" }, "/"), h("span", { class: "r" }, 100 - result.answer));
-    comb.reveal({ mode: "revealSplit", guess: result.guess, real: result.answer },
-      `Real split ${q.leftLabel} ${result.answer}, ${q.rightLabel} ${100 - result.answer}. You said ${result.guess}.`);
-    legend = h("div", { class: "legend" },
-      h("span", { class: "chip" }, swatch("#ffffff"), q.leftLabel),
-      h("span", { class: "chip" }, swatch("#b45309"), q.rightLabel),
-      h("span", { class: "chip" }, swatch("#ffd60a"), "Yellow = your split"));
-  } else {
-    big.replaceChildren(formatPct(result.answer), h("small", {}, "%"));
-    comb.reveal({ mode: "reveal", guess: cells(result.guess), real: cells(result.answer) },
-      `The real number is ${formatPct(result.answer)} percent. You guessed ${formatPct(result.guess)}.`);
-    legend = h("div", { class: "legend" },
-      h("span", { class: "chip" }, swatch("#ffffff"), "White = the real number"),
-      h("span", { class: "chip" }, swatch("#ffd60a"), "Yellow = you got these"),
-      h("span", { class: "chip" }, swatch("#1a1a1a", "#ffd60a"), "Yellow ring = your guess only"));
-    if (zoom) comb.host.parentElement.append(h("span", { class: "comb-scale" }, "Zoomed · each cell = 0.01%"));
-  }
-  const line = isSplit
-    ? h("p", { class: "answer-line" }, `You split it `, h("b", {}, `${result.guess}\u00a0/\u00a0${100 - result.guess}`), ` · the real split is `, h("b", {}, `${result.answer}\u00a0/\u00a0${100 - result.answer}`))
-    : h("p", { class: "answer-line" }, `You guessed `, h("b", {}, `${formatPct(result.guess)}%`), ` · the real number is `, h("b", {}, `${formatPct(result.answer)}%`));
+  big.replaceChildren(formatPct(result.answer), h("small", {}, "%"));
+  comb.reveal({ mode: "reveal", guess: cells(result.guess), real: cells(result.answer) },
+    `The real number is ${formatPct(result.answer)} percent. You guessed ${formatPct(result.guess)}.`);
+  const legend = h("div", { class: "legend" },
+    h("span", { class: "chip" }, swatch("#ffffff"), "White = the real number"),
+    h("span", { class: "chip" }, swatch("#ffd60a"), "Yellow = you got these"),
+    h("span", { class: "chip" }, swatch("#1a1a1a", "#ffd60a"), "Yellow ring = your guess only"));
+  if (zoom) comb.host.parentElement.append(h("span", { class: "comb-scale" }, "Zoomed · each cell = 0.01%"));
+  const line = h("p", { class: "answer-line" }, `You guessed `, h("b", {}, `${formatPct(result.guess)}%`), ` · the real number is `, h("b", {}, `${formatPct(result.answer)}%`));
   reveal.append(...[heroFor(result, { line }), result.note ? h("p", { class: "note" }, result.note) : null, legend, nextButton()].filter(Boolean));
   screen.append(reveal);
   reveal.querySelector(".btn").focus({ preventScroll: true });
@@ -344,7 +324,7 @@ function showNumberReveal(screen, q, result, comb, big) {
 function showTextReveal(screen, result) {
   const said = result.guess || "—";
   const rankBit = result.rank ? ` · #${result.rank}` : " · not on the list";
-  const reveal = h("section", { class: "reveal text-area", "aria-live": "polite" },
+  const reveal = h("section", { class: "reveal text-reveal", "aria-live": "polite" },
     heroFor(result, { center: true }),
     h("p", { class: "answer-line", style: "text-align:center" }, "You said: ", h("b", {}, said), rankBit,
       result.readBack ? h("span", {}, " · read as ", h("b", {}, result.readBack)) : null),
@@ -407,7 +387,6 @@ function showHowTo() {
     h("p", {}, h("b", {}, "Daily. "), "One set of seven prompts, the same for everyone, one run a day. Every answer is a real published statistic."),
     h("p", {}, h("b", {}, "Guess the %. "), "Slide or type your guess. Under 1%, Fine-tune works in hundredths."),
     h("p", {}, h("b", {}, "Name the #1. "), "Type the most popular answer on a ranked list."),
-    h("p", {}, h("b", {}, "Split the 100. "), "Slide to divide 100 between the two sides."),
     h("p", {}, "The closer your guess, the more points. A perfect guess is a Bullseye."),
     h("button", { class: "btn primary", onclick: closeOverlay }, "Got it")));
 }
@@ -446,9 +425,7 @@ async function showYesterday() {
         h("div", { class: "qq" }, q.text),
         q.kind === "text"
           ? h("div", { class: "a" }, `#1 ${q.top1}`)
-          : q.kind === "split"
-            ? h("div", { class: "a" }, `${q.leftLabel} ${q.answer} / ${q.rightLabel} ${100 - q.answer}`)
-            : h("div", { class: "a" }, `${formatPct(q.answer)}%`),
+          : h("div", { class: "a" }, `${formatPct(q.answer)}%`),
         q.source && h("div", { class: "src" }, q.sourceUrl ? h("a", { href: q.sourceUrl, target: "_blank", rel: "noopener" }, q.source) : q.source))),
       h("button", { class: "btn primary", onclick: closeOverlay }, "Close"));
   } catch (err) {

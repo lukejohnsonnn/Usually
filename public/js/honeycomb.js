@@ -28,9 +28,6 @@ const C = {
   emptyHi: "#1d1a10",
   white: "#ffffff",
   whiteShade: "#d9d6cc",
-  amber: "#b45309",
-  amberShade: "#8a3f06",
-  amberHi: "#d0701f",
   yellow: "#ffd60a",
   yellowShade: "#d9a300",
   yellowHi: "#fff3a3",
@@ -77,9 +74,6 @@ function paintSprite(look) {
         case "white":
           px(x, y, edge && lowerHalf ? C.whiteShade : C.white);
           break;
-        case "amber":
-          px(x, y, edge && lowerHalf ? C.amberShade : C.amber);
-          break;
         case "honey":
           px(x, y, edge && lowerHalf ? C.yellowShade : C.yellow);
           break;
@@ -91,8 +85,8 @@ function paintSprite(look) {
     }
   }
   // specular glints: two pixels of shine on the upper-left, like wet honey
-  if (look === "honey" || look === "white" || look === "amber") {
-    const hi = look === "honey" ? C.yellowHi : look === "amber" ? C.amberHi : "#ffffff";
+  if (look === "honey" || look === "white") {
+    const hi = look === "honey" ? C.yellowHi : "#ffffff";
     if (look !== "white") { px(3, 4, hi); px(4, 3, hi); px(3, 5, hi); }
     else { px(3, 4, "#ffffff"); }
   }
@@ -112,18 +106,14 @@ function cellOrigin(i) {
  * Turn a value into a per-cell look array.
  * modes:
  *   { mode: "guess", guess }                  answering a % (ring cells)
- *   { mode: "split", left }                   answering a split (white | amber)
  *   { mode: "fine", value }                   fine-tune entry (yellow tint)
  *   { mode: "reveal", guess, real }           guess reveal
- *   { mode: "revealSplit", guess, real }      split reveal
  */
 export function looksFor(state) {
   const out = new Array(100).fill("empty");
   const n = (v) => Math.max(0, Math.min(100, Math.round(v)));
   if (state.mode === "guess") {
     for (let i = 0; i < n(state.guess); i++) out[i] = "ring";
-  } else if (state.mode === "split") {
-    for (let i = 0; i < 100; i++) out[i] = i < n(state.left) ? "white" : "amber";
   } else if (state.mode === "fine") {
     for (let i = 0; i < n(state.value); i++) out[i] = "tint";
   } else if (state.mode === "reveal") {
@@ -133,9 +123,6 @@ export function looksFor(state) {
       else if (i < r) out[i] = "white";
       else if (i < g) out[i] = "ring";
     }
-  } else if (state.mode === "revealSplit") {
-    const g = n(state.guess), r = n(state.real);
-    for (let i = 0; i < 100; i++) out[i] = i < g ? "honey" : i < r ? "white" : "amber";
   }
   return out;
 }
@@ -155,7 +142,7 @@ export class Honeycomb {
     this.host.append(this.art, this.glow);
     this.g = this.art.getContext("2d");
     this.sprites = {};
-    for (const k of ["empty", "ring", "white", "amber", "honey", "tint"]) this.sprites[k] = paintSprite(k);
+    for (const k of ["empty", "ring", "white", "honey", "tint"]) this.sprites[k] = paintSprite(k);
     this.looks = new Array(100).fill("empty");
     this.anim = null;
     this.label = opts.label || "Honeycomb";
