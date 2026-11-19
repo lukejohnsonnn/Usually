@@ -79,6 +79,10 @@ export function createFileStore(filePath) {
         .filter((p) => p.mode === "daily" && p.date === date && !p.completedAt)
         .map((p) => ({ id: p.id, questionIds: [...p.questionIds] }));
     },
+    /** Ids of every Daily play (finished or not) for a date. */
+    async dailyPlayIds(date) {
+      return Object.values(state.plays).filter((p) => p.mode === "daily" && p.date === date).map((p) => p.id);
+    },
     /** Completed plays for one player, lightweight rows for stats. */
     async completedPlays(playerId) {
       return Object.values(state.plays)

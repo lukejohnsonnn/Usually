@@ -7,6 +7,7 @@ import os from "node:os";
 import path from "node:path";
 import fs from "node:fs";
 import { startServer, bank, root, secretsFor, FORBIDDEN_KEYS, findKeys } from "./harness.js";
+import { loadOverrides } from "../src/load.js";
 import { composeSet, matchTextAnswer, MAX_SCORE } from "../src/game/index.js";
 
 const byId = new Map(bank.map((q) => [q.id, q]));
@@ -37,7 +38,7 @@ describe("server", () => {
   test("health reports status, store, bank size and Eastern date", async () => {
     const r = await s.call("/health");
     assert.equal(r.status, 200);
-    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 152, date: "2026-11-19" });
+    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 142, date: "2026-11-19" });
   });
 
   test("today: frozen 7-round set in public shape, deterministic from the date", async () => {
@@ -225,7 +226,9 @@ describe("server", () => {
     assert.equal(home.status, 200);
     assert.match(home.text, /<div id="app">/);
     assert.equal((await s.call("/js/app.js")).status, 200);
-    assert.equal((await s.call("/shared/rules.js")).status, 200);
+    assert.equal((await s.call("/js/rules.js")).status, 200);
+    assert.equal((await s.call("/../data/bank.json")).status, 200, "path traversal falls back to the app shell");
+    assert.doesNotMatch((await s.call("/%2e%2e/data/bank.json")).text, /textAnswers/, "encoded traversal never escapes public/");
     assert.equal((await s.call("/src/service.js")).status, 200, "unknown paths fall back to the app shell…");
     assert.doesNotMatch((await s.call("/src/service.js")).text, /createService/, "…never server source");
     assert.doesNotMatch((await s.call("/data/bank.json")).text, /textAnswers/, "the bank is never served");
@@ -275,6 +278,38 @@ describe("self-heal", () => {
     } finally { await t.close(); }
   });
 
+  test("a pinned Daily replaces the set and clears that day's plays exactly once", async () => {
+    const date = "2026-11-19";
+    const pin = { date, ids: [183, 271, 191, 280, 279, 236, 301], resetPlays: true };
+    const t = await startServer({ overrides: [pin] });
+    try {
+      // a set and a finished play from before the override
+      await t.store.putDailySet(date, composeSet(bank, `daily:${date}`), { replace: true });
+      await t.store.createPlay({ id: "p-old", playerId: "u-replayer0000000", mode: "daily", date, questionIds: [], snapshot: [], results: [], score: 500, completedAt: "2026-11-19T12:00:00Z" });
+      await t.store.createPlay({ id: "p-endless", playerId: "u-replayer0000000", mode: "endless", date, questionIds: [], snapshot: [], results: [], score: 0, completedAt: null });
+      assert.deepEqual((await t.call("/api/today")).json.questions.map((q) => q.id), pin.ids);
+      assert.equal(await t.store.getPlay("p-old"), null, "finished Daily cleared so it can be replayed");
+      assert.ok(await t.store.getPlay("p-endless"), "Endless plays are untouched");
+      // replay, finish, and the override must not wipe it again
+      const p = (await t.call("/api/play", { method: "POST", player: "u-replayer0000000", body: { mode: "daily" } })).json;
+      assert.equal(p.completed, false);
+      assert.deepEqual(p.questions.map((q) => q.id), pin.ids);
+      await t.call(`/api/play/${p.id}/submit`, { method: "POST", player: "u-replayer0000000", body: { round: 0, value: 33 } });
+      await t.call("/api/today");
+      assert.ok(await t.store.getPlay(p.id), "applied once: later reads keep new plays");
+    } finally { await t.close(); }
+  });
+
+  test("overrides: the shipped file is valid; bad entries are skipped", () => {
+    const shipped = loadOverrides(path.join(root, "data", "daily-overrides.json"), bank);
+    assert.ok(shipped.length >= 1);
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "hd-ov-"));
+    const f = path.join(dir, "o.json");
+    fs.writeFileSync(f, JSON.stringify([{ date: "2026-11-19", ids: [1, 2, 3] }, { date: "nope", ids: shipped[0].ids }, shipped[0]]));
+    assert.deepEqual(loadOverrides(f, bank), [shipped[0]]);
+    assert.deepEqual(loadOverrides(path.join(dir, "missing.json"), bank), []);
+  });
+
   test("concurrent first requests freeze exactly one set", async () => {
     const t = await startServer({ at: "2026-12-25T15:00:00Z" });
     try {
@@ -300,7 +335,7 @@ describe("the real process", () => {
       for (let i = 0; i < 50 && !out.includes("Honeydle on"); i++) await new Promise((r) => setTimeout(r, 100));
       const h = await (await fetch(`http://127.0.0.1:${port}/health`)).json();
       assert.equal(h.ok, true);
-      assert.equal(h.bankQuestions, 152);
+      assert.equal(h.bankQuestions, 142);
       assert.match(h.date, /^\d{4}-\d{2}-\d{2}$/);
     } finally { child.kill("SIGTERM"); }
   });
