@@ -34,28 +34,31 @@ Below 1%, the reveal zooms in so each cell is 0.01%.
 
 ```bash
 npm install
-npm start            # http://localhost:3000, JSON file store in data/local.json
-npm test             # 37 checks: game logic, HTTP end to end, Postgres store
+npm start            # Node dev server on http://localhost:3000 (JSON file store)
+npm run dev          # the real Worker locally via wrangler (local D1)
+npm test             # 37 checks: game logic, HTTP end to end, D1 store
 npm run test:ui      # 7 browser checks with Playwright (one-screen rule, full Daily…)
-npm run verify       # both
+npm run test:worker  # 4 checks against the real Worker under wrangler dev
+npm run verify       # all of the above
 ```
-
-With `DATABASE_URL` set, the server uses Postgres instead of the file store.
 
 ## How it's built
 
 ```
-server.js              boot: bank, store, self-heal, listen
-src/game/rules.js      pure rules: scoring tiers, validation, composition, dates, bee rules
+src/worker.js          Cloudflare Worker entry: API + static assets + D1
+server.js              local Node dev server (same handler, file store)
+public/js/rules.js     pure rules shared by browser and server: tiers, validation, composition, dates, bees
 src/game/match.js      the text-answer matcher (autocorrect that never guesses on a tie)
-src/service.js         Daily freeze + self-heal, plays, submit-and-score, stats, yesterday, share
-src/app.js             Express routes, rate limit, JSON errors
-src/store/file.js      local JSON store        ┐ same interface
-src/store/postgres.js  production Postgres     ┘
+src/service.js         Daily freeze + self-heal + overrides, plays, scoring, stats, yesterday, share
+src/http.js            fetch-style routes, rate limit, JSON errors (runs on Workers and Node)
+src/store/d1.js        production store: Cloudflare D1   ┐ same interface
+src/store/file.js      local JSON store                  ┘
 public/                the client: vanilla ES modules, no build step
 data/bank.json         142 questions, each with a real published source
+data/daily-overrides.json  hand-picked Daily sets
+wrangler.jsonc         Worker, D1 and assets config
 tools/                 pixel-frame generator, screenshot script
-test/                  unit, server, postgres (pg-mem) and browser tests
+test/                  unit, server, D1, browser and Worker tests
 ```
 
 - **Answers never reach the browser before you submit.** The public question
@@ -84,4 +87,4 @@ test/                  unit, server, postgres (pg-mem) and browser tests
 
 ## Deploy
 
-See [DEPLOY.md](DEPLOY.md). It deploys to the Render free tier for $0, with no cron job.
+See [DEPLOY.md](DEPLOY.md). It runs on Cloudflare Workers + D1, free, with no cron job.

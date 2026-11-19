@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as G from "../src/game/index.js";
-import { loadBank } from "../src/service.js";
+import { loadBank } from "../src/load.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const bank = loadBank(path.join(root, "data", "bank.json"));

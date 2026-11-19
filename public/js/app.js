@@ -1,6 +1,6 @@
 // Honeydle client. Vanilla ES modules, no build step.
 import { Honeycomb } from "./honeycomb.js";
-import { MAX_SCORE, ROUNDS, beeForRound, formatPct, isRuby, tierByName } from "/shared/rules.js";
+import { MAX_SCORE, ROUNDS, beeForRound, formatPct, isRuby, tierByName } from "./rules.js";
 
 // ---------------------------------------------------------------- utilities
 const $app = document.getElementById("app");

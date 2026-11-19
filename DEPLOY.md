@@ -1,51 +1,50 @@
-# Deploying Honeydle on Render (free)
+# Deploying Honeydle on Cloudflare (free)
 
-`render.yaml` is a Render Blueprint. It defines:
+Honeydle runs as a **Cloudflare Worker**:
 
-- **usually**: a free Node web service that runs `npm start`, health-checks
-  `/health` and auto-deploys from `main`
-- **usually-db**: a free Postgres database, wired in through `DATABASE_URL`
+- **The Worker** (`src/worker.js`) serves the API and the Daily logic.
+- **D1** is the database (Cloudflare's SQLite), bound as `DB`.
+- **Static assets**: `public/` (the client, fonts, bee art) is served by
+  Cloudflare's edge.
 
-The names match the v1 Blueprint, so merging to `main` updates the existing
-service instead of creating a new one.
+All of it is in `wrangler.jsonc`. There's nothing to seed: the question bank is
+bundled into the Worker, and the database tables are created on first use.
 
-## First-time or fresh setup
+## First deploy: connect the GitHub repo (no command line)
 
-1. Render dashboard → **New +** → **Blueprint** → pick this repo → **Apply**.
-2. Wait for the first deploy, then open `https://<service>.onrender.com/health`.
-   It should return
-   `{"ok":true,"db":"postgres","bankQuestions":142,"date":"…"}`.
+1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Import a
+   repository** → connect GitHub if asked → pick **lukejohnsonnn/Usually**.
+2. Settings on the build screen:
+   - **Project name:** `honeydle` (must match `name` in `wrangler.jsonc`)
+   - **Production branch:** `main`
+   - **Build command:** leave empty
+   - **Deploy command:** `npx wrangler deploy` (the default)
+3. **Deploy.** On the first deploy Cloudflare creates the D1 database
+   automatically and binds it as `DB`, because `wrangler.jsonc` has no
+   `database_id`. Later deploys reuse the same database.
+4. Open the `*.workers.dev` URL Cloudflare shows and check
+   `/health`. It should return
+   `{"ok":true,"db":"d1","bankQuestions":142,"date":"…"}`.
 
-The server creates its tables on boot. There is nothing to seed, because the
-question bank ships in `data/bank.json`.
+From then on, every merge to `main` deploys automatically, like Render did.
 
-## Resuming the suspended v1 service
+## Put it on honeydle.com
 
-1. Merge this branch into `main`.
-2. Render dashboard → the **usually** service → **Resume service**.
-3. If it doesn't deploy on its own: **Manual Deploy → Deploy latest commit**.
-4. Check `/health` as above.
+1. The **honeydle** Worker → **Settings** → **Domains & Routes** → **Add** →
+   **Custom domain** → `honeydle.com`. Add `www.honeydle.com` too if you like.
+2. If honeydle.com is on Cloudflare (bought there, or its nameservers point
+   there), Cloudflare creates the DNS records and certificate for you.
+3. If you'd added DNS records for Render earlier, remove them first. That
+   means the `www` CNAME to `usually-wnsi.onrender.com` and any A record for
+   the bare domain.
+4. Check https://honeydle.com/health.
 
-If the old database still exists, its v1 tables are left alone. v2 uses its
-own `hd_daily_sets` and `hd_plays` tables, so the two never collide.
+## Retire Render
 
-## Free-tier notes
-
-- **Sleep.** Free web services sleep after about 15 minutes idle, and the first
-  visitor waits while it wakes. To keep it awake, point a free uptime monitor
-  (UptimeRobot, cron-job.org, etc.) at `/health` every 10 minutes.
-- **Free Postgres expires.** Render's free databases are time-limited (30 days
-  at the time of writing), and only one free database is allowed per
-  workspace. When it expires, create a new free database, set the service's
-  `DATABASE_URL` to its connection string, and redeploy. Plays and streaks
-  live in the database, so they reset with it. The game itself is unaffected.
-- **No cron.** The Daily freezes on the first request of each Eastern day, so
-  no scheduler is needed.
-
-## Custom domain
-
-Optional. playhoneydle.com was checked and was free but has **not** been
-bought. Add one later under the service's **Settings → Custom Domains**.
+Once honeydle.com serves the Worker: Render dashboard → **usually** service →
+**Suspend** (or delete), and delete the **usually-db** database. The old
+Render data isn't moved over. It was test plays only, and the free database
+was due to expire anyway.
 
 ## Hand-picking a Daily (or letting a day be replayed)
 
@@ -60,3 +59,19 @@ finale). With `resetPlays: true`, every Daily play of that date, finished or
 not, is cleared once, when the override is first applied, so everyone can
 play the day again. Plays started after that are kept. An invalid entry is
 skipped and logged.
+
+## Free-tier notes
+
+- **Workers Free:** 100,000 requests/day, no sleeping, no cold-start wait.
+- **D1 Free:** 5 GB storage and millions of row reads a day. It doesn't
+  expire.
+- **Logs:** the Worker → **Observability** shows requests, errors and
+  `console` output (enabled in `wrangler.jsonc`).
+
+## Command line (optional)
+
+```bash
+npx wrangler login     # once
+npm run deploy         # same as the dashboard deploy
+npx wrangler d1 execute DB --remote --command "SELECT count(*) FROM hd_plays"
+```

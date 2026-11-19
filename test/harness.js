@@ -1,9 +1,11 @@
 // Spins up the real Express app on a random port with a controllable clock.
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createApp } from "../src/app.js";
-import { createService, loadBank } from "../src/service.js";
+import { createHandler } from "../src/http.js";
+import { createService } from "../src/service.js";
+import { loadBank } from "../src/load.js";
 import { createFileStore } from "../src/store/file.js";
+import { listen, serveStatic } from "../src/node-server.js";
 
 export const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const bank = loadBank(path.join(root, "data", "bank.json"));
@@ -13,8 +15,8 @@ export async function startServer({ store = createFileStore(null), at = "2026-11
   const clock = { set: (iso) => { nowMs = Date.parse(iso); }, addDays: (n) => { nowMs += n * 86_400_000; } };
   await store.init();
   const service = createService({ store, bank, now: () => new Date(nowMs), overrides });
-  const app = createApp({ service, store, rateLimit });
-  const server = await new Promise((resolve) => { const s = app.listen(0, () => resolve(s)); });
+  const handle = createHandler({ service, store, rateLimit, assets: serveStatic });
+  const server = await listen(handle, 0);
   const base = `http://127.0.0.1:${server.address().port}`;
 
   async function call(p, { method = "GET", body, player = "u-testplayer000001", raw } = {}) {

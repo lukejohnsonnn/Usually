@@ -1,20 +1,20 @@
 // Honeydle game service: the Daily freeze (with self-heal), plays,
 // submit-and-score, stats, yesterday and share. No HTTP here.
-import crypto from "node:crypto";
-import fs from "node:fs";
 import {
   ROUNDS, MAX_SCORE, composeSet, isValidSet, publicQuestion, poolOf,
   validateGuess, cleanGuess, scoreNumeric, scoreRank,
   matchTextAnswer, normalizeText, easternDate, addDays, shareText, isDateStr,
 } from "./game/index.js";
 
+// Runtime-neutral: runs unchanged on Node (local dev, tests) and Cloudflare
+// Workers. No file system, no Node-only crypto.
+
 export class GameError extends Error {
   constructor(status, message) { super(message); this.status = status; }
 }
 
-/** Load and sanity-check the bank. Bad records are skipped loudly, never fatal. */
-export function loadBank(filePath) {
-  const raw = JSON.parse(fs.readFileSync(filePath, "utf8"));
+/** Sanity-check the bank (the parsed bank.json). Bad records are skipped loudly, never fatal. */
+export function prepareBank(raw) {
   const list = Array.isArray(raw) ? raw : raw.questions;
   const seen = new Set();
   const bank = [];
@@ -43,21 +43,19 @@ function bankProblem(q, seen) {
   return null;
 }
 
-const newId = (prefix) => `${prefix}${crypto.randomBytes(9).toString("base64url")}`;
+function newId(prefix) {
+  const bytes = crypto.getRandomValues(new Uint8Array(9));
+  return prefix + btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
 
 /**
- * Load hand-picked Daily overrides: [{ date, ids, resetPlays }]. An override
- * pins a date's set; with resetPlays, every Daily play of that date is cleared
- * once, the first time the override is applied, so the day can be replayed.
- * Invalid entries are skipped loudly, never fatal.
+ * Hand-picked Daily overrides (the parsed daily-overrides.json):
+ * [{ date, ids, resetPlays }]. An override pins a date's set; with
+ * resetPlays, every Daily play of that date is cleared once, the first time
+ * the override is applied, so the day can be replayed. Invalid entries are
+ * skipped loudly, never fatal.
  */
-export function loadOverrides(filePath, bank) {
-  if (!fs.existsSync(filePath)) return [];
-  let list;
-  try { list = JSON.parse(fs.readFileSync(filePath, "utf8")); } catch (err) {
-    console.warn(`[overrides] unreadable ${filePath}: ${err.message}`);
-    return [];
-  }
+export function prepareOverrides(list, bank) {
   return (Array.isArray(list) ? list : []).filter((o) => {
     const ok = o && isDateStr(o.date) && isValidSet(o.ids, bank);
     if (!ok) console.warn(`[overrides] skipping invalid override ${JSON.stringify(o)}`);

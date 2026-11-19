@@ -7,7 +7,7 @@ import os from "node:os";
 import path from "node:path";
 import fs from "node:fs";
 import { startServer, bank, root, secretsFor, FORBIDDEN_KEYS, findKeys } from "./harness.js";
-import { loadOverrides } from "../src/service.js";
+import { loadOverrides } from "../src/load.js";
 import { composeSet, matchTextAnswer, MAX_SCORE } from "../src/game/index.js";
 
 const byId = new Map(bank.map((q) => [q.id, q]));
@@ -226,7 +226,9 @@ describe("server", () => {
     assert.equal(home.status, 200);
     assert.match(home.text, /<div id="app">/);
     assert.equal((await s.call("/js/app.js")).status, 200);
-    assert.equal((await s.call("/shared/rules.js")).status, 200);
+    assert.equal((await s.call("/js/rules.js")).status, 200);
+    assert.equal((await s.call("/../data/bank.json")).status, 200, "path traversal falls back to the app shell");
+    assert.doesNotMatch((await s.call("/%2e%2e/data/bank.json")).text, /textAnswers/, "encoded traversal never escapes public/");
     assert.equal((await s.call("/src/service.js")).status, 200, "unknown paths fall back to the app shell…");
     assert.doesNotMatch((await s.call("/src/service.js")).text, /createService/, "…never server source");
     assert.doesNotMatch((await s.call("/data/bank.json")).text, /textAnswers/, "the bank is never served");

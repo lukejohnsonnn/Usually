@@ -1,24 +1,22 @@
 {
   "name": "honeydle",
-  "version": "2.0.0",
+  "version": "3.0.0",
+  "private": true,
   "description": "Honeydle — a daily guessing game built on real published statistics. Same 7 prompts for everyone, one run a day.",
   "type": "module",
-  "main": "server.js",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js",
-    "test": "node --test test/unit.test.js test/server.test.js test/postgres.test.js",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/unit.test.js test/server.test.js test/d1.test.js",
     "test:ui": "node --test test/ui.test.js",
-    "verify": "npm test && npm run test:ui"
-  },
-  "dependencies": {
-    "express": "^4.21.2",
-    "pg": "^8.13.1"
+    "test:worker": "node --test test/worker.test.js",
+    "verify": "npm test && npm run test:ui && npm run test:worker"
   },
   "devDependencies": {
-    "pg-mem": "^3.0.14"
+    "wrangler": "^4.165.0"
   }
 }
