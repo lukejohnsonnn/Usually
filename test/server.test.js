@@ -98,19 +98,6 @@ describe("server", () => {
     assert.equal(res.play.results.length, 7);
   });
 
-  test("diamond streak: 2nd consecutive Bullseye in the same play", async () => {
-    const P = "u-diamond00000000";
-    const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
-    const streaks = [];
-    const offsets = [0, 0, 0, 10, 0, 0, 0];
-    for (let r = 0; r < 7; r++) {
-      const q = byId.get(play.questions[r].id);
-      const out = (await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: r, value: answerFor(q, offsets[r]) } })).json;
-      streaks.push(out.result.streak);
-    }
-    assert.deepEqual(streaks, [1, 2, 3, 0, 1, 2, 3]);
-  });
-
   test("text rounds: rank scoring, read-back for partials, the #1 label never leaves the server", async () => {
     const P = "u-texter000000000";
     const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;

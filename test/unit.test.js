@@ -83,22 +83,20 @@ test("Eastern dates", () => {
   assert.ok(!G.isDateStr("yesterday"));
 });
 
-test("bee rules: diamond streak and ruby finish", () => {
-  const r = (...pts) => pts.map((points) => ({ points }));
-  assert.equal(G.bullseyeStreak(r(175)), 1);
-  assert.equal(G.bullseyeStreak(r(175, 175)), 2);
-  assert.equal(G.bullseyeStreak(r(175, 175, 90, 175)), 1, "any sub-175 resets");
-  assert.equal(G.beeForRound(175, 1), "golden");
-  assert.equal(G.beeForRound(175, 2), "diamond");
-  assert.equal(G.beeForRound(175, 5), "diamond");
-  assert.equal(G.beeForRound(150, 0), "honey");
-  assert.equal(G.beeForRound(135, 0), "drop");
-  assert.equal(G.beeForRound(115, 0), "normal");
-  assert.equal(G.beeForRound(95, 0), "normal");
-  for (const p of [70, 40, 10, 0]) assert.equal(G.beeForRound(p, 0), "thirsty");
-  assert.equal(G.isRuby(900, true), true);
-  assert.equal(G.isRuby(899, true), false);
-  assert.equal(G.isRuby(1000, false), false, "ruby is for a completed run only");
+test("bee rules: one bee per tier, Bullseye is diamond, ruby over 1000", () => {
+  assert.equal(G.beeForRound(175), "diamond");
+  assert.equal(G.beeForRound(150), "golden");
+  assert.equal(G.beeForRound(135), "honey");
+  assert.equal(G.beeForRound(115), "drop");
+  assert.equal(G.beeForRound(95), "normal");
+  for (const p of [70, 40, 10, 0]) assert.equal(G.beeForRound(p), "thirsty");
+  // the last answer hands over to ruby only when the finished run goes over 1000
+  assert.equal(G.beeForRound(40, { finalScore: 1001 }), "ruby");
+  assert.equal(G.beeForRound(175, { finalScore: 1000 }), "diamond", "exactly 1000 is not over");
+  assert.equal(G.beeForRound(150, { finalScore: null }), "golden");
+  assert.equal(G.isRuby(1001, true), true);
+  assert.equal(G.isRuby(1000, true), false);
+  assert.equal(G.isRuby(1200, false), false, "ruby is for a completed run only");
 });
 
 test("share card: tiers only, never answers", () => {
@@ -169,7 +167,7 @@ test("a decent run scores well: within ~5 on every guess and a top-6 text answer
   const decent = [3, 5, 4, 6, 2].map((d) => G.scoreNumeric(50, 50 + d).points);
   const text = [G.scoreRank(2).points, G.scoreRank(5).points];
   const total = [...decent, ...text].reduce((a, b) => a + b, 0);
-  assert.ok(total >= 800 && total < G.RUBY_THRESHOLD + 100, `decent run scores ${total}`);
+  assert.ok(total >= 800 && total <= G.RUBY_THRESHOLD, `decent run scores ${total}`);
   const mediocre = [10, 12, 8, 15, 9].map((d) => G.scoreNumeric(50, 50 + d).points).concat(G.scoreRank(12).points, G.scoreRank(25).points);
   const m = mediocre.reduce((a, b) => a + b, 0);
   assert.ok(m >= 500 && m < 700, `mediocre run scores ${m}`);

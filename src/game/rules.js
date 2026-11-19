@@ -4,16 +4,16 @@ export const ROUND_KINDS = ["guess", "guess", "text", "guess", "guess", "text", 
 export const ROUNDS = ROUND_KINDS.length;
 export const ROUND_MAX = 175;
 export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225
-export const RUBY_THRESHOLD = 900;
+export const RUBY_THRESHOLD = 1000; // a finished run must score OVER this for the ruby bee
 
 // Difference tiers for Guess and Finale rounds. Names are player copy.
 // The curve rewards a good estimate: within 6 points keeps well over half
 // the round, and a decent run of 7 lands around 650–800 out of 1225.
 export const TIERS = [
-  { maxDiff: 0, points: 175, name: "Bullseye", emoji: "🎯", bee: "golden" },
-  { maxDiff: 1, points: 150, name: "One Off", emoji: "✅", bee: "honey" },
-  { maxDiff: 3, points: 135, name: "Razor Close", emoji: "🔥", bee: "drop" },
-  { maxDiff: 6, points: 115, name: "Close", emoji: "🙂", bee: "normal" },
+  { maxDiff: 0, points: 175, name: "Bullseye", emoji: "🎯", bee: "diamond" },
+  { maxDiff: 1, points: 150, name: "One Off", emoji: "✅", bee: "golden" },
+  { maxDiff: 3, points: 135, name: "Razor Close", emoji: "🔥", bee: "honey" },
+  { maxDiff: 6, points: 115, name: "Close", emoji: "🙂", bee: "drop" },
   { maxDiff: 10, points: 95, name: "Warm", emoji: "😐", bee: "normal" },
   { maxDiff: 15, points: 70, name: "Lukewarm", emoji: "😬", bee: "thirsty" },
   { maxDiff: 25, points: 40, name: "Cold", emoji: "🥶", bee: "thirsty" },
@@ -168,24 +168,18 @@ export function isValidSet(ids, bank) {
 
 // ---------- the bee ----------
 
-/** Trailing run of Bullseyes (175s) in a list of round results. */
-export function bullseyeStreak(results) {
-  let n = 0;
-  for (let i = results.length - 1; i >= 0 && results[i]?.points === ROUND_MAX; i--) n++;
-  return n;
-}
-
 /**
- * Which bee hosts a reveal. The diamond bee is the 2nd+ consecutive
- * Bullseye within the same play; ruby is results-only and never per-round.
+ * Which bee hosts a reveal: one bee per tier, Bullseye is diamond. On the
+ * last round, if that answer takes the finished run over 1000, the ruby bee
+ * hosts instead. Pass finalScore only for the round that completes a play.
  */
-export function beeForRound(points, streak) {
-  if (points === ROUND_MAX) return streak >= 2 ? "diamond" : "golden";
+export function beeForRound(points, { finalScore = null } = {}) {
+  if (finalScore != null && isRuby(finalScore, true)) return "ruby";
   return TIERS.find((t) => t.points === points)?.bee || "thirsty";
 }
 
 export function isRuby(score, completed) {
-  return Boolean(completed) && score >= RUBY_THRESHOLD;
+  return Boolean(completed) && score > RUBY_THRESHOLD;
 }
 
 // ---------- public shapes ----------

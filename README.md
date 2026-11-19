@@ -35,7 +35,7 @@ Below 1%, the reveal zooms in so each cell is 0.01%.
 ```bash
 npm install
 npm start            # http://localhost:3000, JSON file store in data/local.json
-npm test             # 36 checks: game logic, HTTP end to end, Postgres store
+npm test             # 35 checks: game logic, HTTP end to end, Postgres store
 npm run test:ui      # 7 browser checks with Playwright (one-screen rule, full Daily…)
 npm run verify       # both
 ```
