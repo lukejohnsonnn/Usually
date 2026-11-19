@@ -843,3 +843,32 @@ Screenshots (2×, `/tmp/honeycomb-round2/shots-390/`): `A-live-shifted.png`, `A0
 **Files changed:** `scripts/grid-search.mjs` (round-2 section added), `scripts/verify.js` (round-2 checks), `VERIFICATION.md` (this section). **Untouched: `client/js/grid.js`, `client/css/grid.css`, and everything else — no grid change ships until Luke picks a candidate.** Compare harness (not in the repo): `/tmp/honeycomb-round2/compare.html`, `/tmp/honeycomb-round2/compare-drive.mjs`, screenshots in `/tmp/honeycomb-round2/shots-320/`, `shots-375/`, `shots-390/`.
 
 **Needs Luke's eyes:** pick B or C9 (or B11). B removes the shear completely and is the simplest change, but the grid reads wide/squat with one flat middle pair. C9 reads like a proper honeycomb and nests everywhere, but one middle row sits 6.25px right of the axis — the same kind of defect he just caught, confined to a single row instead of nine. Screenshots are in `/tmp/honeycomb-round2/shots-390/` (`B-r10.png` vs `C9-r13-9px-midshift.png`).
+
+---
+
+## Creative non-hexagon options (2026-11-18, design + render only — nothing ships)
+
+Luke asked for MORE options after round 2 — creative shapes that are NOT exact hexagons. Four candidates, all 100 circle cells, row-major fill, same cell size, centered rows (no shifts, so row-center spread is 0 by construction — no shear anywhere). Rendered with the real `theme.css` + `grid.css`, grid lit to 44 gold-ring dots (like Luke's screenshot), in real headless Chromium 157 at 320/375/390px — geometry identical at all three widths. Generator + metrics: `scripts/creative-shapes.mjs`. Compare harness: `~/workspace/honeycomb-creative/` (`compare.html`, `compare-drive.mjs`, `shots-390/`).
+
+| Shape | Rows | Box (px) | Height vs 120px budget | Flat pairs | Min diagonal center distance | Fine-tune height |
+|---|---|---|---|---|---|---|
+| **DISC** — circle / honey drop from above | [5,7,9,11,12,12,12,11,9,7,5] | 188×117 | fits | 8 of 10 | 10.00px | 166.0px |
+| **DROP** — honey drop, true point | [2,4,6,8,10,11,12,12,11,10,8,6] | 188×127 | **over by 7px** | 7 of 11 | 10.00px | 180.4px |
+| DROP11 — drop, in-budget sibling | [4,6,8,10,11,12,12,11,10,9,7] | 188×117 | fits | 5 of 10 | 10.00px | 166.0px |
+| **SKEP** — beehive dome, flat wide base | [3,6,8,10,11,12,12,12,13,13] | 188×107 | fits | 5 of 9 | 10.00px | 151.6px |
+| **POT** — honey pot / jar, flat rim, tapering base | [10,11,12,12,12,11,10,9,7,6] | 188×107 | fits | 3 of 9 | 10.00px | 151.6px |
+
+**What the renders show, by eye (screenshots in `~/workspace/honeycomb-candidates/`):**
+
+- **DISC** (`honeycomb-disc.png`): reads as a clean round disc — circular outline, symmetric, no shear. The top row of 5 is a touch flat, and the middle rows stack in vertical columns (8 flat pairs), but at phone size the eye reads it as a coin/drop from above. The least "designed" of the four — it is a circle, nothing more — but also the least that can look wrong.
+- **DROP** (`honeycomb-drop.png`): reads as an unmistakable drop of honey — a true 2-dot point at the top, fat round belly, tapered bottom. The strongest identity of the four; the shape IS the theme. Cost: 127px tall, 7px over the 120px grid budget — the answering/reveal screens currently sit exactly at 844px at 390×844, so the drop would make them scroll ~10px on a standard phone. Its in-budget sibling DROP11 (4-dot top, 117px) reads as a drop too, but the point is blunter — a rounded triangle more than a drop.
+- **SKEP** (`honeycomb-skep.png`): reads as a beehive — arched dome top, straight side walls, wide flat base. The flat pairs are the straight sides, which is correct for a skep, not a defect. The most thematic after the drop, and the widest (160px) — it fills the frame more than the others. The base flare (12→13) is gentle; the dome curve is smooth.
+- **POT** (`honeycomb-pot.png`): reads as a honey pot/jar — wide flat rim on top, gentle taper to a narrow base. The best nesting of the four (7 of 9 pairs at 6.25px, only 3 flat pairs), so the dots sit in each other's pockets almost everywhere. The flat top is the rim, so it reads as intentional. Slightly the oddest silhouette — an upside-down drop with a flat top — but the most honeycomb-like packing.
+
+**Honest read:** DROP has the clearest identity (it is literally a drop of honey) and SKEP is the most hive-y; both read as finished, deliberate shapes rather than arrangements that happen to be 100 dots. DISC is the safest and cleanest but the plainest. POT nests best but its silhouette is the least obvious. If the drop's 10px scroll cost is acceptable, DROP is the pick; if the one-screen rule is sacred, DROP11 or SKEP keep it. DISC is the fallback if Luke wants the least that can go wrong.
+
+**Verification.** `npm run verify` 299/299 green (unchanged — no shipped code touched). The creative-shapes metrics script agrees exactly with the browser measurements (box heights 117/117/127/107/107, center spread 0, offsets identical at 320/375/390px). No-overlap holds for every candidate by construction (min center distance 10.00px = touching, never under).
+
+**Files changed:** `scripts/creative-shapes.mjs` (new), `VERIFICATION.md` (this section). **Untouched: `client/js/grid.js`, `client/css/grid.css`, and everything else — no grid change ships until Luke picks.**
+
+**Needs Luke's eyes:** pick one of DISC / DROP / SKEP / POT (or DROP11 if he wants the drop inside the budget) — or B / C9 from round 2. Screenshots: `~/workspace/honeycomb-candidates/honeycomb-{disc,drop,skep,pot}.png`.
