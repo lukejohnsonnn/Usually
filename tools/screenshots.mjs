@@ -28,8 +28,8 @@ await p.getByRole("button", { name: "Next round" }).click(); await p.waitForSele
 await p.fill("input.field.text", "Business"); await shot("06-text");
 await p.getByRole("button", { name: "Lock it in" }).click(); await shot("07-text-reveal");
 await p.getByRole("button", { name: "Next round" }).click(); await p.waitForSelector(".question");
-await p.$eval("input[type=range]", (el) => { el.value = "60"; el.dispatchEvent(new Event("input")); }); await shot("08-split");
-await p.getByRole("button", { name: "Lock it in" }).click(); await shot("09-split-reveal");
+await p.fill("input.field", "60"); await shot("08-guess-2");
+await p.getByRole("button", { name: "Lock it in" }).click(); await shot("09-guess-2-reveal");
 for (let r = 4; r < 7; r++) {
   await p.getByRole("button", { name: "Next round" }).click(); await p.waitForSelector(".question");
   if (r === 5) await p.fill("input.field.text", "zzz"); else if (r === 6) await p.fill("input.field", "17");

@@ -59,8 +59,6 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
 
     if (q.kind === "text") {
       await page.fill("input.field.text", r === 2 ? q.top1 : "definitely not listed");
-    } else if (q.kind === "split") {
-      await page.$eval("input[type=range]", (el, v) => { el.value = String(v); el.dispatchEvent(new Event("input")); }, q.answer);
     } else {
       await page.fill("input.field", String(q.answer)); // the typed field mirrors into the slider
     }
@@ -194,7 +192,6 @@ test("the honeycomb: 100 cells, four reveal states, fill order", { skip }, async
       guess: tally(looksFor({ mode: "guess", guess: 37 })),
       reveal: tally(looksFor({ mode: "reveal", guess: 30, real: 52 })),
       over: tally(looksFor({ mode: "reveal", guess: 70, real: 52 })),
-      split: tally(looksFor({ mode: "revealSplit", guess: 40, real: 62 })),
       first: looksFor({ mode: "guess", guess: 1 })[0],
       length: looksFor({ mode: "guess", guess: 0 }).length,
     };
@@ -203,7 +200,16 @@ test("the honeycomb: 100 cells, four reveal states, fill order", { skip }, async
   assert.deepEqual(counts.guess, { ring: 37, empty: 63 });
   assert.deepEqual(counts.reveal, { honey: 30, white: 22, empty: 48 });
   assert.deepEqual(counts.over, { honey: 52, ring: 18, empty: 30 });
-  assert.deepEqual(counts.split, { honey: 40, white: 22, amber: 38 });
   assert.equal(counts.first, "ring");
+  await ctx.close();
+});
+
+test("home parade: the bee crew runs worst to best", { skip }, async () => {
+  const { ctx, page, errors } = await newPhone();
+  await page.goto(s.base);
+  await page.waitForSelector(".parade .bee-slot");
+  const crew = await page.$$eval(".parade .bee-slot", (els) => els.map((e) => e.className.replace("bee-slot ", "")));
+  assert.deepEqual(crew, ["thirsty", "normal", "drop", "honey", "golden", "diamond", "ruby"]);
+  assert.deepEqual(errors, []);
   await ctx.close();
 });

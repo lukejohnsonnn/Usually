@@ -44,9 +44,6 @@ test("guess validation", () => {
   for (const ok of [0, 1, 50, 100, 0.01, 0.07, 0.25, 0.99, "0.07", "42"]) assert.equal(G.validateGuess(ok), null, `accepts ${ok}`);
   for (const bad of [-1, 101, 1.5, 50.5, 0.071, 0.005, "abc", "", null, undefined, NaN, Infinity]) assert.ok(G.validateGuess(bad), `rejects ${bad}`);
   assert.equal(G.cleanGuess("0.07"), 0.07);
-  assert.equal(G.validateSplit(37), null);
-  assert.ok(G.validateSplit(37.5));
-  assert.ok(G.validateSplit(101));
 });
 
 test("composition: fixed order, deterministic, valid, never short", () => {
@@ -55,7 +52,7 @@ test("composition: fixed order, deterministic, valid, never short", () => {
   assert.deepEqual(a, b);
   assert.notDeepEqual(a, G.composeSet(bank, "daily:2026-11-20"));
   assert.deepEqual(a.map((id) => G.poolOf(byId.get(id))), G.ROUND_KINDS);
-  assert.deepEqual(G.ROUND_KINDS, ["guess", "guess", "text", "split", "split", "text", "finale"]);
+  assert.deepEqual(G.ROUND_KINDS, ["guess", "guess", "text", "guess", "guess", "text", "finale"]);
   assert.ok(G.isValidSet(a, bank));
   // bank order must not matter
   assert.deepEqual(G.composeSet([...bank].reverse(), "daily:2026-11-19"), a);
@@ -113,7 +110,7 @@ test("share card: tiers only, never answers", () => {
 test("public question shape carries no answer data", () => {
   for (const q of bank) {
     const p = G.publicQuestion(q);
-    const allowed = ["id", "kind", "category", "text", "finale", "leftLabel", "rightLabel"];
+    const allowed = ["id", "kind", "category", "text", "finale"];
     assert.deepEqual(Object.keys(p).filter((k) => !allowed.includes(k)), [], `q${q.id}`);
   }
 });
@@ -144,9 +141,9 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 test("bank meets the standard", () => {
   assert.equal(bank.length, 142);
   const count = (k) => bank.filter((q) => G.poolOf(q) === k).length;
-  assert.equal(count("guess"), 72);
+  assert.equal(count("guess"), 97);
   assert.equal(count("finale"), 10);
-  assert.equal(count("split"), 25);
+  assert.ok(!bank.some((q) => q.kind === "split" || "leftLabel" in q || "rightLabel" in q), "no Split questions remain");
   assert.equal(count("text"), 35);
   for (const q of bank) {
     assert.ok(q.source && q.source.length > 10, `q${q.id} has a source`);

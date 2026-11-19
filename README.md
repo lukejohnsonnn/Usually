@@ -6,9 +6,8 @@ and scores out of 1225.
 
 | Round | Kind | The player… |
 |---|---|---|
-| 1, 2 | Guess the % | estimates a percentage |
+| 1, 2, 4, 5 | Guess the % | estimates a percentage |
 | 3, 6 | Name the #1 | types the top answer on a ranked list |
-| 4, 5 | Split the 100 | divides 100 between two sides |
 | 7 | Finale | a Guess round from the obscure, small-answer pool |
 
 Endless practice uses the same composition with a fresh random set each time.
@@ -29,16 +28,15 @@ component shows the guess while you answer and the reveal afterwards:
 | dark with a yellow ring | your guess only |
 | solid honey yellow (glowing) | overlap, the cells you got |
 
-On a Split round the comb shows white (left side) and amber (right side), with
-your share in yellow. Below 1%, the reveal zooms in so each cell is 0.01%.
+Below 1%, the reveal zooms in so each cell is 0.01%.
 
 ## Run it
 
 ```bash
 npm install
 npm start            # http://localhost:3000, JSON file store in data/local.json
-npm test             # 33 checks: game logic, HTTP end to end, Postgres store
-npm run test:ui      # 6 browser checks with Playwright (one-screen rule, full Daily…)
+npm test             # 34 checks: game logic, HTTP end to end, Postgres store
+npm run test:ui      # 7 browser checks with Playwright (one-screen rule, full Daily…)
 npm run verify       # both
 ```
 
@@ -61,7 +59,7 @@ test/                  unit, server, postgres (pg-mem) and browser tests
 ```
 
 - **Answers never reach the browser before you submit.** The public question
-  shape is id, kind, category, text, split labels and the finale flag. Answers
+  shape is id, kind, category, text and the finale flag. Answers
   are copied into the play record on the server and scored there. A text
   round's #1 label is only ever sent by *Yesterday's answers*.
 - **The Daily** is composed deterministically from the Eastern date, frozen on

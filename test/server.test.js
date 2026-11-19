@@ -44,7 +44,7 @@ describe("server", () => {
     const r = await s.call("/api/today");
     assert.equal(r.status, 200);
     assert.equal(r.json.questions.length, 7);
-    assert.deepEqual(r.json.questions.map((q) => q.kind), ["guess", "guess", "text", "split", "split", "text", "finale"]);
+    assert.deepEqual(r.json.questions.map((q) => q.kind), ["guess", "guess", "text", "guess", "guess", "text", "finale"]);
     assert.deepEqual(r.json.questions.map((q) => q.id), composeSet(bank, "daily:2026-11-19"));
     assert.deepEqual(findKeys(r.json, FORBIDDEN_KEYS), []);
     for (const secret of secretsFor(r.json.questions.map((q) => q.id))) assert.ok(!r.text.includes(secret), `leaks "${secret}"`);

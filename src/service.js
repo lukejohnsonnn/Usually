@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import {
   ROUNDS, MAX_SCORE, composeSet, isValidSet, publicQuestion, poolOf,
-  validateGuess, validateSplit, cleanGuess, scoreNumeric, scoreRank,
+  validateGuess, cleanGuess, scoreNumeric, scoreRank,
   matchTextAnswer, normalizeText, easternDate, addDays, bullseyeStreak, shareText,
 } from "./game/index.js";
 
@@ -30,13 +30,11 @@ export function loadBank(filePath) {
 function bankProblem(q, seen) {
   if (!q || !Number.isInteger(q.id)) return "missing numeric id";
   if (seen.has(q.id)) return "duplicate id";
-  if (!["guess", "split", "text"].includes(q.kind)) return `unknown kind ${q.kind}`;
+  if (!["guess", "text"].includes(q.kind)) return `unknown kind ${q.kind}`;
   if (!q.text || !q.category) return "missing text or category";
-  if (q.kind === "guess" || q.kind === "split") {
+  if (q.kind === "guess") {
     if (validateGuess(q.answer)) return `bad answer ${q.answer}`;
   }
-  if (q.kind === "split" && (!q.leftLabel || !q.rightLabel)) return "split without side labels";
-  if (q.kind === "split" && validateSplit(q.answer)) return "split answer must be a whole number";
   if (q.kind === "text") {
     if (!Array.isArray(q.textAnswers) || q.textAnswers.length < 10) return "text round without a ranked list";
     if (!q.top1) return "text round without a #1 label";
@@ -140,7 +138,7 @@ export function createService({ store, bank, now = () => new Date() }) {
       if (m.autocorrected && s.rank != null && s.rank >= 2) out.readBack = m.matched;
       return out;
     }
-    const err = kind === "split" ? validateSplit(value) : validateGuess(value);
+    const err = validateGuess(value);
     if (err) throw new GameError(400, err);
     const guess = cleanGuess(value);
     const s = scoreNumeric(q.answer, guess);
