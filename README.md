@@ -36,8 +36,8 @@ Below 1%, the reveal zooms in so each cell is 0.01%.
 npm install
 npm start            # Node dev server on http://localhost:3000 (JSON file store)
 npm run dev          # the real Worker locally via wrangler (local D1)
-npm test             # 37 checks: game logic, HTTP end to end, D1 store
-npm run test:ui      # 10 browser checks with Playwright (one-screen rule, full Daily…)
+npm test             # 40 checks: game logic, HTTP end to end, D1 store
+npm run test:ui      # 11 browser checks with Playwright (one-screen rule, full Daily…)
 npm run test:worker  # 4 checks against the real Worker under wrangler dev
 npm run verify       # all of the above
 ```
@@ -54,7 +54,7 @@ src/http.js            fetch-style routes, rate limit, JSON errors (runs on Work
 src/store/d1.js        production store: Cloudflare D1   ┐ same interface
 src/store/file.js      local JSON store                  ┘
 public/                the client: vanilla ES modules, no build step
-data/bank.json         142 questions, each with a real published source
+data/bank.json         142 questions (135 active, 7 retired), each with a real published source
 data/daily-overrides.json  hand-picked Daily sets
 wrangler.jsonc         Worker, D1 and assets config
 tools/                 pixel-frame generator, screenshot script

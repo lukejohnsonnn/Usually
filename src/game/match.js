@@ -541,6 +541,9 @@ export function matchTextAnswer(question, submitted) {
   // its exact match outranks every prefix competitor ("blue" is rank 1's
   // word and only a prefix of rank 46's "bluefin").
   const subsetQualifiers = new Map();
+  // How many different ranks the input is a part of. 2+ means the player
+  // named a group ("whale", "star wars"), not an answer: the UI asks "which one?".
+  let spread = 0;
   if (subTokens.length === 1) {
     const t = subTokens[0];
     const exactRanks = new Map();
@@ -565,6 +568,7 @@ export function matchTextAnswer(question, submitted) {
         if (canonicalTokens(txt).includes(t)) anyTokenRanks.add(slot.rank);
       }
     }
+    spread = anyTokenRanks.size;
     if (exactRanks.size === 1) {
       const [[rank, label]] = [...exactRanks.entries()];
       const tokenElsewhere = [...anyTokenRanks].some((r) => r !== rank);
@@ -581,6 +585,7 @@ export function matchTextAnswer(question, submitted) {
         if (ok && !subsetQualifiers.has(slot.rank)) subsetQualifiers.set(slot.rank, slot.texts[0]);
       }
     }
+    spread = subsetQualifiers.size;
     if (subsetQualifiers.size === 1) {
       const [[rank, label]] = [...subsetQualifiers.entries()];
       return { rank, matched: label, autocorrected: true };
@@ -619,5 +624,6 @@ export function matchTextAnswer(question, submitted) {
       }
     }
   }
+  if (spread >= 2) return { rank: null, matched: null, ambiguous: true };
   return { rank: null, matched: null };
 }

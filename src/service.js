@@ -179,6 +179,9 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       const m = blank ? { rank: null } : matchTextAnswer(q, typed);
       if (!timedOut) {
         if (blank) throw new GameError(400, "Type an answer first.", "blank");
+        if (m.rank == null && m.ambiguous) {
+          return { refused: "ambiguous", message: `Which one? More than one answer fits “${typed.trim()}” — be more specific.` };
+        }
         if (m.rank == null) return { refused: "unlisted", message: "That's not on the list — try another answer." };
         if (!m.exact) return { suggestion: labelOf(q, m.rank) };
       }
@@ -268,5 +271,5 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     return { date, rounds: ROUNDS, maxScore: MAX_SCORE, questions: ids.map((id) => publicQuestion(byId.get(id))) };
   }
 
-  return { ensureDailySet, startPlay, submit, dailyResults, stats, yesterday, share, todaySet, today, bankSize: bank.length };
+  return { ensureDailySet, startPlay, submit, dailyResults, stats, yesterday, share, todaySet, today, bankSize: bank.filter((q) => !q.retired).length };
 }

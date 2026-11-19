@@ -91,18 +91,18 @@ test("bee rules: one bee per tier, Bullseye is diamond, ruby over 1000", () => {
   assert.equal(G.beeForRound(95), "normal");
   for (const p of [70, 40, 10, 0]) assert.equal(G.beeForRound(p), "thirsty");
   // the last answer hands over to ruby only when the finished run goes over 1000
-  assert.equal(G.beeForRound(40, { finalScore: 1001 }), "ruby");
-  assert.equal(G.beeForRound(175, { finalScore: 1000 }), "diamond", "exactly 1000 is not over");
+  assert.equal(G.beeForRound(40, { finalScore: 800 }), "ruby", "800 or more unlocks the hidden ruby bee");
+  assert.equal(G.beeForRound(175, { finalScore: 799 }), "diamond");
   assert.equal(G.beeForRound(150, { finalScore: null }), "golden");
-  assert.equal(G.isRuby(1001, true), true);
-  assert.equal(G.isRuby(1000, true), false);
+  assert.equal(G.isRuby(800, true), true);
+  assert.equal(G.isRuby(799, true), false);
   assert.equal(G.isRuby(1200, false), false, "ruby is for a completed run only");
 });
 
 test("share card: tiers only, never answers", () => {
   const results = ["Bullseye", "One Off", "Razor Close", "Close", "Warm", "Lukewarm", "Cold"].map((tier) => ({ tier }));
-  assert.equal(G.shareText("2026-11-19", results, 545), "Honeydle 2026-11-19\n🎯✅🔥🙂😐😬🥶\n🍯 545/1225");
-  assert.equal(G.shareText("d", [{ tier: "Way Off" }, { tier: "Blank" }], 5), "Honeydle d\n❌⬜\n🍯 5/1225");
+  assert.equal(G.shareText("2026-11-19", results, 545), "Honeydle 2026-11-19\n🎯✅🔥🙂😐😬🥶\n🍯 545");
+  assert.equal(G.shareText("d", [{ tier: "Way Off" }, { tier: "Blank" }], 5), "Honeydle d\n❌⬜\n🍯 5");
 });
 
 test("public question shape carries no answer data", () => {
@@ -115,7 +115,7 @@ test("public question shape carries no answer data", () => {
 
 test("matcher: the whale worked example", () => {
   const q = byId.get(202);
-  assert.equal(G.matchTextAnswer(q, "whale").rank, 1, "curated alias");
+  assert.deepEqual(G.matchTextAnswer(q, "whale"), { rank: null, matched: null, ambiguous: true }, "a group, not an answer: which one?");
   assert.equal(G.matchTextAnswer(q, "humpback").rank, 8);
   assert.equal(G.matchTextAnswer(q, "fin").rank, 4);
   assert.equal(G.matchTextAnswer(q, "blue").rank, 1);
@@ -137,12 +137,15 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 142);
-  const count = (k) => bank.filter((q) => G.poolOf(q) === k).length;
-  assert.equal(count("guess"), 101);
-  assert.equal(count("finale"), 13);
+  assert.equal(bank.length, 142, "retired questions stay in the file");
+  const active = bank.filter((q) => !q.retired);
+  assert.equal(active.length, 135);
+  const count = (k) => active.filter((q) => G.poolOf(q) === k).length;
+  assert.equal(count("guess"), 100);
+  assert.equal(count("finale"), 11);
+  for (const id of [190, 192, 203, 257, 299, 80, 255]) assert.equal(bank.find((q) => q.id === id).retired, true, `q${id} retired`);
   assert.ok(!bank.some((q) => q.kind === "split" || "leftLabel" in q || "rightLabel" in q), "no Split questions remain");
-  assert.equal(count("text"), 28);
+  assert.equal(count("text"), 24);
   for (const q of bank) {
     assert.ok(q.source && q.source.length > 10, `q${q.id} has a source`);
     assert.ok(!("votable" in q), `q${q.id} has no voting field`);
@@ -163,14 +166,14 @@ test("bank meets the standard", () => {
   }
 });
 
-test("a decent run scores well: within ~5 on every guess and a top-6 text answer", () => {
+test("a sharp run reaches the ruby bee; a mediocre one does not", () => {
   const decent = [3, 5, 4, 6, 2].map((d) => G.scoreNumeric(50, 50 + d).points);
   const text = [G.scoreRank(2).points, G.scoreRank(5).points];
   const total = [...decent, ...text].reduce((a, b) => a + b, 0);
-  assert.ok(total >= 800 && total <= G.RUBY_THRESHOLD, `decent run scores ${total}`);
+  assert.ok(total >= G.RUBY_THRESHOLD, `a sharp run (within ~5 everywhere) scores ${total} and finds the ruby bee`);
   const mediocre = [10, 12, 8, 15, 9].map((d) => G.scoreNumeric(50, 50 + d).points).concat(G.scoreRank(12).points, G.scoreRank(25).points);
   const m = mediocre.reduce((a, b) => a + b, 0);
-  assert.ok(m >= 500 && m < 700, `mediocre run scores ${m}`);
+  assert.ok(m >= 500 && m < G.RUBY_THRESHOLD, `mediocre run scores ${m}, no ruby`);
 });
 
 test("bank: no self-assessment, belief-poll or duplicate prompts", () => {
@@ -179,4 +182,24 @@ test("bank: no self-assessment, belief-poll or duplicate prompts", () => {
   }
   const texts = bank.map((q) => q.text.toLowerCase());
   assert.equal(new Set(texts).size, texts.length, "no duplicate prompts");
+});
+
+test("matcher: a group name asks which one, a specific answer is matched", () => {
+  const movie = bank.find((q) => q.id === 236);
+  const war = bank.find((q) => q.id === 191);
+  for (const [q, typed] of [[movie, "star wars"], [movie, "harry potter"], [war, "war"], [war, "world war"], [war, "civil war"]]) {
+    assert.equal(G.matchTextAnswer(q, typed).ambiguous, true, `"${typed}" asks which one`);
+  }
+  assert.equal(G.matchTextAnswer(movie, "avatar").rank, 1);
+  assert.equal(G.matchTextAnswer(movie, "star wars force awakens").rank, movie.textAnswers.find((s) => /Force Awakens/.test(s.texts[0])).rank);
+  assert.equal(G.matchTextAnswer(war, "world war two").rank, 1);
+  assert.equal(G.matchTextAnswer(war, "ww1").rank, war.textAnswers.find((s) => s.texts[0] === "World War I").rank);
+});
+
+test("composition never picks a retired question", () => {
+  const retired = new Set(bank.filter((q) => q.retired).map((q) => q.id));
+  for (let d = 0; d < 300; d++) {
+    for (const id of G.composeSet(bank, `daily:${G.addDays("2027-01-01", d)}`)) assert.ok(!retired.has(id), `day ${d} picked retired q${id}`);
+  }
+  assert.ok(G.isValidSet([183, 271, 190, 280, 279, 236, 301], bank), "a set that already uses a retired question stays valid");
 });

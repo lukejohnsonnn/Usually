@@ -79,14 +79,15 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
     assert.equal(bee.rendering, "pixelated");
     if (r < 6 && r !== 5) assert.match(bee.src, /diamond/, `round ${r + 1}: a Bullseye is the diamond bee`);
     if (r === 5) assert.match(bee.src, /thirsty/, "a low-ranked text answer is the thirsty bee");
-    if (r === 6) assert.match(bee.src, /ruby/, "the answer that takes the run over 1000 is the ruby bee");
+    if (r === 6) assert.match(bee.src, /ruby/, "the answer that takes the run to 800+ is the ruby bee");
     await page.getByRole("button", { name: r === 6 ? "See my score" : "Next round" }).click();
   }
 
   await page.waitForSelector(".total");
   const total = Number(await page.textContent(".total"));
-  assert.ok(total > 1000);
-  assert.ok(await page.isVisible(".ruby-label"), "over 1000 shows the ruby bee on results");
+  assert.ok(total >= 800);
+  assert.ok(await page.isVisible(".ruby-label"), "800+ shows the ruby bee on results");
+  assert.doesNotMatch(await page.textContent(".results-hero"), /1225/, "the max score is never shown");
   assert.equal(await page.locator(".row").count(), 7);
   void secrets;
 
@@ -96,12 +97,12 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
   await page.waitForSelector(".toast");
   assert.equal(await page.textContent(".toast"), "Share card copied.");
   const clip = await page.evaluate(() => navigator.clipboard.readText());
-  assert.match(clip, /^Honeydle 2026-11-19\n.+\n🍯 \d+\/1225\n\nPlay Honeydle — How well do you know the world\?/u);
+  assert.match(clip, /^Honeydle 2026-11-19\n.+\n🍯 \d+\n\nPlay Honeydle — How well do you know the world\?/u);
 
   // home now shows "Done for today"
   await page.getByRole("button", { name: "Home" }).click();
   await page.waitForSelector(".daily-card .done");
-  assert.match(await page.textContent(".daily-card .done"), new RegExp(`${total} / 1225`));
+  assert.match(await page.textContent(".daily-card .done"), new RegExp(`${total} points of honey`));
   assert.match(await page.textContent(".daily-card .countdown"), /^Next Daily in \d+:\d{2}:\d{2}$/, "countdown to the next Daily");
   assert.equal(await page.textContent(".stat .v"), "1", "streak card");
   assert.deepEqual(errors, []);
@@ -214,7 +215,10 @@ test("home parade: the bee crew runs worst to best", { skip }, async () => {
   await page.goto(s.base);
   await page.waitForSelector(".parade .bee-slot");
   const crew = await page.$$eval(".parade .bee-slot", (els) => els.map((e) => e.className.replace("bee-slot ", "")));
-  assert.deepEqual(crew, ["thirsty", "normal", "drop", "honey", "golden", "diamond", "ruby"]);
+  assert.deepEqual(crew, ["thirsty", "normal", "drop", "honey", "golden", "diamond"]);
+  assert.ok(await page.isVisible(".mystery .mystery-q"), "the ruby bee sits apart, hidden behind a question mark");
+  assert.equal(await page.$eval(".mystery-bee", (img) => getComputedStyle(img).filter.includes("brightness")), true, "clouded over");
+  assert.doesNotMatch(await page.textContent("main"), /1225/, "the max score is never shown");
   assert.deepEqual(errors, []);
   await ctx.close();
 });
@@ -291,6 +295,29 @@ test("honey jar: fills with the score during the run and on the results", { skip
   const pts = Number(label.match(/^(\d+)/)[1]);
   assert.ok(pts > 0, "honey went in");
   assert.equal(await page.$eval(".jar-slot canvas", (c) => getComputedStyle(c).imageRendering), "pixelated");
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test("text rounds: a group name gets a \"Which one?\" hint and keeps the text", { skip }, async () => {
+  const { ctx, page, errors } = await newPhone();
+  await page.goto(s.base);
+  await toTextRound(page);
+  const playId = await page.evaluate(() => Object.keys(localStorage).find((k) => k.startsWith("honeydle.timer."))?.split(".")[2]);
+  // put the movie question into this round
+  const play = await s.store.getPlay(playId);
+  play.snapshot[2] = bank.find((q) => q.id === 236);
+  play.questionIds[2] = 236;
+  await s.store.savePlay(play);
+  await page.fill("input.field.text", "star wars");
+  await page.press("input.field.text", "Enter");
+  await page.waitForSelector(".hint.which");
+  assert.match(await page.textContent(".hint"), /^Which one\?/);
+  assert.equal(await page.inputValue("input.field.text"), "star wars", "text kept so they can add to it");
+  assert.equal(await page.$(".reveal"), null);
+  await page.fill("input.field.text", "star wars the force awakens");
+  await page.press("input.field.text", "Enter");
+  await page.waitForSelector(".reveal .tier");
   assert.deepEqual(errors, []);
   await ctx.close();
 });

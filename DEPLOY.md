@@ -46,6 +46,14 @@ Once honeydle.com serves the Worker: Render dashboard â†’ **usually** service â†
 Render data isn't moved over. It was test plays only, and the free database
 was due to expire anyway.
 
+## Changing the question bank safely
+
+Never delete a question that has been used. Mark it `"retired": true` in
+`data/bank.json` instead. New Dailies stop picking it, but a day that already
+uses it keeps its set, so everyone who has answered stays answered and
+in-progress games carry on. Every play also stores its own copy of its 7
+questions, so finished games never change.
+
 ## Hand-picking a Daily (or letting a day be replayed)
 
 `data/daily-overrides.json` pins a date's 7 questions:

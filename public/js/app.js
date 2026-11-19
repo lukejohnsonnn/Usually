@@ -1,7 +1,7 @@
 // Honeydle client. Vanilla ES modules, no build step.
 import { Honeycomb } from "./honeycomb.js";
 import { HoneyJar } from "./jar.js";
-import { MAX_SCORE, ROUNDS, ROUND_SECONDS, beeForRound, formatPct, isRuby, tierByName } from "./rules.js";
+import { JAR_FULL, ROUNDS, ROUND_SECONDS, beeForRound, formatPct, isRuby, tierByName } from "./rules.js";
 
 // ---------------------------------------------------------------- utilities
 const $app = document.getElementById("app");
@@ -69,6 +69,11 @@ const ICON = {
   help: `<svg viewBox="0 0 5 7" fill="currentColor"><rect x="1" y="0" width="3" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="2"/><rect x="3" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/></svg>`,
 };
 const SPARKLE = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 5' shape-rendering='crispEdges'><rect x='2' y='0' width='1' height='5' fill='#fff'/><rect x='0' y='2' width='5' height='1' fill='#fff'/><rect x='2' y='2' width='1' height='1' fill='#bfe9ff'/></svg>")}`;
+// a chunky pixel question mark (7×11) that clouds over the hidden ruby bee
+const QMARK = `data:image/svg+xml,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 11' shape-rendering='crispEdges'>"
+  + "<path d='M1 1h1V0h3v1h1v1h1v3H6v1H5v1H3V5h1V4h1V2H2v1H0V1h1z' fill='#000' opacity='.55' transform='translate(.5 .5)'/>"
+  + "<path d='M1 1h1V0h3v1h1v1h1v3H6v1H5v1H3V5h1V4h1V2H2v1H0V1h1zM3 8h2v2H3z' fill='#ff5c7a'/>"
+  + "<path d='M2 0h3v1H2zM1 1h1v1H1z' fill='#ffc2cf'/></svg>")}`;
 const pipSvg = (fill, ring) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 7' shape-rendering='crispEdges'><path d='M2 0h2v1h1v1h1v3h-1v1h-1v1h-2v-1h-1v-1h-1v-3h1v-1h1z' fill='${ring}'/><path d='M2 1h2v1h1v3h-1v1h-2v-1h-1v-3h1z' fill='${fill}'/></svg>`)}`;
 const PIP = {
   future: pipSvg("#151515", "#2e2e2e"),
@@ -136,17 +141,24 @@ function renderHome() {
   const fmt = (v) => (v == null ? "–" : String(v));
   const statCard = (v, l) => h("div", { class: "stat" }, h("span", { class: "v" }, fmt(v)), h("span", { class: "l" }, l));
   // the crew, worst to best — the score ladder made visible
-  const crew = ["thirsty", "normal", "drop", "honey", "golden", "diamond", "ruby"];
+  // the crew, worst to best — and, apart from them, the hidden ruby bee
+  const crew = ["thirsty", "normal", "drop", "honey", "golden", "diamond"];
   const parade = h("div", { class: "parade-wrap", "aria-hidden": "true" }, h("div", { class: "parade" },
     crew.map((b, i) => h("div", { class: `bee-slot ${b}`, style: `--i:${i}` },
       h("div", { class: "bee-fly" }, h("img", { src: `/img/bee-${b}-96.png`, srcset: `/img/bee-${b}-96.png 2x, /img/bee-${b}-144.png 3x`, alt: "", width: 44, height: 44, draggable: "false" })),
       h("span", { class: "bee-shadow" })))),
     h("div", { class: "parade-scale" }, h("span", {}, "Way off"), h("span", { class: "line" }), h("span", {}, "Bullseye")));
+  const mystery = h("div", { class: "mystery", "aria-label": "A hidden bee. Only pros find it.", role: "img" },
+    h("div", { class: "mystery-box" },
+      h("img", { class: "mystery-bee", src: "/img/bee-ruby-96.png", srcset: "/img/bee-ruby-96.png 2x, /img/bee-ruby-144.png 3x", alt: "", width: 44, height: 44, draggable: "false" }),
+      h("img", { class: "mystery-q", src: QMARK, alt: "" })),
+    h("span", { class: "mystery-label" }, "???"));
+  const crewRow = h("div", { class: "crew-row" }, parade, mystery);
 
   let action;
   if (daily?.completed) {
     action = [
-      h("p", { class: "done" }, "Done for today — ", h("b", {}, String(daily.score)), ` / ${MAX_SCORE}`),
+      h("p", { class: "done" }, "Done for today — ", h("b", {}, String(daily.score)), " points of honey"),
       countdown(),
       h("button", { class: "btn primary", onclick: () => renderResults(daily) }, "See my results"),
     ];
@@ -158,7 +170,7 @@ function renderHome() {
     masthead({ date: state.date, streak: stats?.streak }),
     h("section", { class: "stats", "aria-label": "Your stats" },
       statCard(stats?.streak ?? 0, "Streak"), statCard(stats?.games ?? 0, "Games"), statCard(stats?.best, "Best"), statCard(stats?.avg, "Avg")),
-    parade,
+    crewRow,
     h("section", { class: "card daily-card" },
       h("p", { class: "kicker" }, "Today's Daily · 7 rounds"),
       h("h2", {}, "Seven prompts, the same for everyone. One run a day."),
@@ -198,7 +210,7 @@ function renderRound() {
   mount(screen);
   // the score jar sits in the header and fills as the run goes
   const jar = new HoneyJar(top.querySelector(".jar-slot"), { scale: 2 });
-  jar.fill(play.score / MAX_SCORE, { animate: false, label: `${play.score} points of honey so far` });
+  jar.fill(play.score / JAR_FULL, { animate: false, label: `${play.score} points of honey so far` });
   const round = { screen, q, timer, jar };
   if (q.kind === "text") buildTextRound(round);
   else buildNumberRound(round);
@@ -246,7 +258,7 @@ function lockButton(label = "Lock it in") {
 
 /** Pour this round's points into the jar with a little floating "+N". */
 function pourIntoJar(jar, result) {
-  jar.fill(state.play.score / MAX_SCORE, { label: `${state.play.score} points of honey so far` });
+  jar.fill(state.play.score / JAR_FULL, { label: `${state.play.score} points of honey so far` });
   const slot = jar.cv.parentElement;
   const plus = h("span", { class: "jar-plus" }, `+${result.points}`);
   slot.append(plus);
@@ -343,6 +355,15 @@ function buildTextRound({ screen, q, timer, jar }) {
     btn.disabled = true;
     try {
       const out = await api(`/play/${state.play.id}/submit`, { method: "POST", body: { round: state.play.round, value: input.value, timedOut } });
+      if (out.refused === "ambiguous") {
+        // a group, not an answer ("whale", "star wars"): ask which one, keep the text to build on
+        input.classList.remove("refused");
+        setHint("", "which");
+        hint.append(h("b", { class: "which-q" }, "Which one?"), " ", out.message.replace(/^Which one\?\s*/, ""));
+        input.focus({ preventScroll: true });
+        input.setSelectionRange(input.value.length, input.value.length);
+        return;
+      }
       if (out.refused) {
         input.classList.remove("refused"); void input.offsetWidth; // restart the shake
         input.classList.add("refused");
@@ -387,7 +408,7 @@ function heroFor(result, { center = false, line = null } = {}) {
     [[-4, 8], [96, 18], [88, 92]].slice(0, bee === "golden" ? 2 : 3).forEach(([x, y], i) =>
       beeBox.append(h("img", { class: "sparkle", src: SPARKLE, alt: "", style: `left:${x}px;top:${y}px;animation-delay:${i * 0.35}s` })));
   }
-  const chip = bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "Over 1,000 — a ruby run!")
+  const chip = bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "You found the hidden ruby bee!")
     : result.timedOut ? h("span", { class: "chip" }, "⏱ Time's up — locked in for you.")
       : result.tier === "One Off" ? h("span", { class: "chip" }, "One away — so close to a Bullseye.") : null;
   const words = h("div", {},
@@ -448,7 +469,7 @@ function renderResults(play) {
     ruby && h("div", { class: "enter-diamond" }, h("p", { class: "ruby-label" }, "RUBY"), h("img", { src: BEE_SRC("ruby"), alt: "Ruby bee", width: 120, height: 120 })),
     h("div", { class: "total-row" },
       h("div", { class: "jar-big" }),
-      h("div", {}, h("p", { class: "total" }, String(play.score)), h("p", { class: "outof" }, `out of ${MAX_SCORE}`))),
+      h("div", {}, h("p", { class: "total" }, String(play.score)), h("p", { class: "outof" }, "points of honey"))),
     play.mode === "daily" && countdown());
   const rows = h("section", { class: "card rows", "aria-label": "Your rounds" },
     play.results.map((r, i) => {
@@ -466,7 +487,7 @@ function renderResults(play) {
   mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, rows, actions, footer()));
   const jar = new HoneyJar(hero.querySelector(".jar-big"), { scale: 4 });
   jar.fill(0, { animate: false });
-  requestAnimationFrame(() => jar.fill(play.score / MAX_SCORE, { label: `${play.score} points of honey` }));
+  requestAnimationFrame(() => jar.fill(play.score / JAR_FULL, { label: `${play.score} points of honey` }));
 }
 
 /** Seconds until the next Daily: midnight Eastern. */
@@ -530,7 +551,7 @@ function showHowTo() {
     h("p", {}, h("b", {}, "Guess the %. "), "Slide or type your guess. Under 1%, Fine-tune works in hundredths."),
     h("p", {}, h("b", {}, "Name the #1. "), "Type an answer on the ranked list — the higher it ranks, the more points. Close spellings get corrected for you; press Enter again to lock it in."),
     h("p", {}, h("b", {}, `${ROUND_SECONDS} seconds a round. `), "When time runs out, whatever you have is locked in."),
-    h("p", {}, h("b", {}, "Fill the jar. "), "Every point is honey. Go over 1,000 for the ruby bee."),
+    h("p", {}, h("b", {}, "Fill the jar. "), "Every point is honey. Pros say there's a bee nobody's seen…"),
     h("p", {}, "The closer your guess, the more points. A perfect guess is a Bullseye."),
     h("button", { class: "btn primary", onclick: closeOverlay }, "Got it")));
 }

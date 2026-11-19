@@ -38,7 +38,7 @@ describe("server", () => {
   test("health reports status, store, bank size and Eastern date", async () => {
     const r = await s.call("/health");
     assert.equal(r.status, 200);
-    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 142, date: "2026-11-19" });
+    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 135, date: "2026-11-19" });
   });
 
   test("today: frozen 7-round set in public shape, deterministic from the date", async () => {
@@ -217,7 +217,8 @@ describe("server", () => {
     const p = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
     await playThrough(s.call, p, P, [1, 0, 0, 2, 5, 0, 0]);
     const sh = (await s.call("/api/share", { player: P })).json;
-    assert.match(sh.text, /^Honeydle 2026-11-19\n.+\n🍯 \d+\/1225$/u);
+    assert.match(sh.text, /^Honeydle 2026-11-19\n.+\n🍯 \d+$/u);
+    assert.doesNotMatch(sh.text, /1225/, "the max score is never shown");
     assert.equal([...sh.text.split("\n")[1]].length > 0, true);
     for (const secret of secretsFor(p.questions.map((q) => q.id))) assert.ok(!sh.text.includes(secret));
     assert.equal((await s.call("/api/share?date=nope", { player: P })).status, 400);
@@ -326,6 +327,23 @@ describe("self-heal", () => {
     assert.deepEqual(loadOverrides(path.join(dir, "missing.json"), bank), []);
   });
 
+  test("retiring a question never disturbs a day that already uses it, or anyone's play", async () => {
+    // Simulate a deploy that retires a question in today's frozen set.
+    const date = "2026-11-19";
+    const set = [183, 271, 190, 280, 279, 236, 301]; // 190 is retired
+    const t = await startServer();
+    try {
+      await t.store.putDailySet(date, set, { replace: true });
+      const P = "u-midgame00000000";
+      const p = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
+      await t.call(`/api/play/${p.id}/submit`, { method: "POST", player: P, body: { round: 0, value: 33 } });
+      assert.deepEqual((await t.call("/api/today")).json.questions.map((q) => q.id), set, "the frozen set is kept");
+      const again = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
+      assert.equal(again.id, p.id, "the in-progress play is kept");
+      assert.equal(again.round, 1, "with its answers");
+    } finally { await t.close(); }
+  });
+
   test("concurrent first requests freeze exactly one set", async () => {
     const t = await startServer({ at: "2026-12-25T15:00:00Z" });
     try {
@@ -351,7 +369,7 @@ describe("the real process", () => {
       for (let i = 0; i < 50 && !out.includes("Honeydle on"); i++) await new Promise((r) => setTimeout(r, 100));
       const h = await (await fetch(`http://127.0.0.1:${port}/health`)).json();
       assert.equal(h.ok, true);
-      assert.equal(h.bankQuestions, 142);
+      assert.equal(h.bankQuestions, 135);
       assert.match(h.date, /^\d{4}-\d{2}-\d{2}$/);
     } finally { child.kill("SIGTERM"); }
   });

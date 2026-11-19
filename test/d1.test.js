@@ -36,7 +36,7 @@ test("d1 store: full Daily round trip through the app", async () => {
     assert.equal(res.completed, true);
     assert.equal(res.score, 1225);
     assert.deepEqual((await t.call("/api/stats", { player: P })).json, { streak: 1, games: 1, best: 1225, avg: 1225 });
-    assert.match((await t.call("/api/share", { player: P })).json.text, /1225\/1225$/);
+    assert.match((await t.call("/api/share", { player: P })).json.text, /🍯 1225$/);
     // Endless plays don't collide with the one-Daily rule
     const e1 = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
     const e2 = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
