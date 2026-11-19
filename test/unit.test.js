@@ -137,12 +137,12 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 152);
+  assert.equal(bank.length, 142);
   const count = (k) => bank.filter((q) => G.poolOf(q) === k).length;
-  assert.equal(count("guess"), 106);
-  assert.equal(count("finale"), 14);
+  assert.equal(count("guess"), 101);
+  assert.equal(count("finale"), 13);
   assert.ok(!bank.some((q) => q.kind === "split" || "leftLabel" in q || "rightLabel" in q), "no Split questions remain");
-  assert.equal(count("text"), 32);
+  assert.equal(count("text"), 28);
   for (const q of bank) {
     assert.ok(q.source && q.source.length > 10, `q${q.id} has a source`);
     assert.ok(!("votable" in q), `q${q.id} has no voting field`);

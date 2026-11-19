@@ -8,11 +8,11 @@ import { createFileStore } from "../src/store/file.js";
 export const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const bank = loadBank(path.join(root, "data", "bank.json"));
 
-export async function startServer({ store = createFileStore(null), at = "2026-11-19T15:00:00Z", rateLimit = 10_000 } = {}) {
+export async function startServer({ store = createFileStore(null), at = "2026-11-19T15:00:00Z", rateLimit = 10_000, overrides = [] } = {}) {
   let nowMs = Date.parse(at);
   const clock = { set: (iso) => { nowMs = Date.parse(iso); }, addDays: (n) => { nowMs += n * 86_400_000; } };
   await store.init();
-  const service = createService({ store, bank, now: () => new Date(nowMs) });
+  const service = createService({ store, bank, now: () => new Date(nowMs), overrides });
   const app = createApp({ service, store, rateLimit });
   const server = await new Promise((resolve) => { const s = app.listen(0, () => resolve(s)); });
   const base = `http://127.0.0.1:${server.address().port}`;

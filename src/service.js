@@ -5,7 +5,7 @@ import fs from "node:fs";
 import {
   ROUNDS, MAX_SCORE, composeSet, isValidSet, publicQuestion, poolOf,
   validateGuess, cleanGuess, scoreNumeric, scoreRank,
-  matchTextAnswer, normalizeText, easternDate, addDays, shareText,
+  matchTextAnswer, normalizeText, easternDate, addDays, shareText, isDateStr,
 } from "./game/index.js";
 
 export class GameError extends Error {
@@ -45,8 +45,31 @@ function bankProblem(q, seen) {
 
 const newId = (prefix) => `${prefix}${crypto.randomBytes(9).toString("base64url")}`;
 
-export function createService({ store, bank, now = () => new Date() }) {
+/**
+ * Load hand-picked Daily overrides: [{ date, ids, resetPlays }]. An override
+ * pins a date's set; with resetPlays, every Daily play of that date is cleared
+ * once, the first time the override is applied, so the day can be replayed.
+ * Invalid entries are skipped loudly, never fatal.
+ */
+export function loadOverrides(filePath, bank) {
+  if (!fs.existsSync(filePath)) return [];
+  let list;
+  try { list = JSON.parse(fs.readFileSync(filePath, "utf8")); } catch (err) {
+    console.warn(`[overrides] unreadable ${filePath}: ${err.message}`);
+    return [];
+  }
+  return (Array.isArray(list) ? list : []).filter((o) => {
+    const ok = o && isDateStr(o.date) && isValidSet(o.ids, bank);
+    if (!ok) console.warn(`[overrides] skipping invalid override ${JSON.stringify(o)}`);
+    return ok;
+  });
+}
+
+const sameIds = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+export function createService({ store, bank, now = () => new Date(), overrides = [] }) {
   const byId = new Map(bank.map((q) => [q.id, q]));
+  const pinned = new Map(overrides.filter((o) => isValidSet(o.ids, bank)).map((o) => [o.date, o]));
   const locks = new Map();
   const today = () => easternDate(now());
 
@@ -66,11 +89,14 @@ export function createService({ store, bank, now = () => new Date() }) {
    * from the broken set are discarded so those players get a full game.
    */
   async function ensureDailySet(date) {
+    const pin = pinned.get(date);
+    const healthy = (set) => set && isValidSet(set.ids, bank) && (!pin || sameIds(set.ids, pin.ids));
     const existing = await store.getDailySet(date);
-    if (existing && isValidSet(existing.ids, bank)) return existing.ids;
+    if (healthy(existing)) return existing.ids;
     return withLock(`daily:${date}`, async () => {
       const again = await store.getDailySet(date);
-      if (again && isValidSet(again.ids, bank)) return again.ids;
+      if (healthy(again)) return again.ids;
+      if (pin) return applyPin(date, pin, again);
       const ids = composeSet(bank, `daily:${date}`);
       const stored = await store.putDailySet(date, ids, { replace: Boolean(again) });
       if (!isValidSet(stored.ids, bank)) throw new Error(`daily set for ${date} failed validation after save`);
@@ -85,6 +111,17 @@ export function createService({ store, bank, now = () => new Date() }) {
       }
       return stored.ids;
     });
+  }
+
+  /** Swap in a hand-picked set (runs once: afterwards the stored set matches the pin). */
+  async function applyPin(date, pin, previous) {
+    const stored = await store.putDailySet(date, pin.ids, { replace: Boolean(previous) });
+    const plays = pin.resetPlays
+      ? await store.dailyPlayIds(date)
+      : (await store.dailyPlaysInProgress(date)).filter((p) => !sameIds(p.questionIds, pin.ids)).map((p) => p.id);
+    if (plays.length) await store.deletePlays(plays);
+    console.warn(`[override] daily ${date} pinned to ${pin.ids.join(",")}; cleared ${plays.length} play(s)`);
+    return stored.ids;
   }
 
   function playView(play) {

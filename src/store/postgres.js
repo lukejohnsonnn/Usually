@@ -99,6 +99,10 @@ export function createPostgresStore(connectionString, { Pool = pg.Pool } = {}) {
       const { rows } = await q("SELECT id, question_ids FROM hd_plays WHERE mode = 'daily' AND date = $1 AND completed_at IS NULL", [date]);
       return rows.map((r) => ({ id: r.id, questionIds: r.question_ids }));
     },
+    async dailyPlayIds(date) {
+      const { rows } = await q("SELECT id FROM hd_plays WHERE mode = 'daily' AND date = $1", [date]);
+      return rows.map((r) => r.id);
+    },
     async completedPlays(playerId) {
       const { rows } = await q("SELECT mode, date, score FROM hd_plays WHERE player_id = $1 AND completed_at IS NOT NULL", [playerId]);
       return rows.map((r) => ({ mode: r.mode, date: r.date, score: r.score }));

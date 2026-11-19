@@ -14,7 +14,7 @@ service instead of creating a new one.
 1. Render dashboard → **New +** → **Blueprint** → pick this repo → **Apply**.
 2. Wait for the first deploy, then open `https://<service>.onrender.com/health`.
    It should return
-   `{"ok":true,"db":"postgres","bankQuestions":152,"date":"…"}`.
+   `{"ok":true,"db":"postgres","bankQuestions":142,"date":"…"}`.
 
 The server creates its tables on boot. There is nothing to seed, because the
 question bank ships in `data/bank.json`.
@@ -46,3 +46,17 @@ own `hd_daily_sets` and `hd_plays` tables, so the two never collide.
 
 Optional. playhoneydle.com was checked and was free but has **not** been
 bought. Add one later under the service's **Settings → Custom Domains**.
+
+## Hand-picking a Daily (or letting a day be replayed)
+
+`data/daily-overrides.json` pins a date's 7 questions:
+
+```json
+[{ "date": "2026-11-19", "ids": [183, 271, 191, 280, 279, 236, 301], "resetPlays": true }]
+```
+
+The ids must follow the Daily order (guess, guess, text, guess, guess, text,
+finale). With `resetPlays: true`, every Daily play of that date, finished or
+not, is cleared once, when the override is first applied, so everyone can
+play the day again. Plays started after that are kept. An invalid entry is
+skipped and logged.

@@ -2,7 +2,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createApp } from "./src/app.js";
-import { createService, loadBank } from "./src/service.js";
+import { createService, loadBank, loadOverrides } from "./src/service.js";
 import { createFileStore } from "./src/store/file.js";
 import { createPostgresStore } from "./src/store/postgres.js";
 
@@ -17,7 +17,8 @@ const store = process.env.DATABASE_URL
   : createFileStore(process.env.LOCAL_DATA_PATH || path.join(root, "data", "local.json"));
 
 await store.init();
-const service = createService({ store, bank });
+const overrides = loadOverrides(path.join(root, "data", "daily-overrides.json"), bank);
+const service = createService({ store, bank, overrides });
 
 // Self-heal on boot: make sure today's set is frozen and healthy.
 try {

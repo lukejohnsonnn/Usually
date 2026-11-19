@@ -343,10 +343,14 @@ function renderResults(play) {
     h("p", { class: "total" }, String(play.score)),
     h("p", { class: "outof" }, `out of ${MAX_SCORE}`));
   const rows = h("section", { class: "card rows", "aria-label": "Your rounds" },
-    play.results.map((r, i) => h("div", { class: "row" },
-      h("span", { class: "n" }, i + 1),
-      h("div", {}, h("span", { class: "q" }, play.questions[i].text), h("span", { class: "t" }, `${(tierByName(r.tier) || {}).emoji || ""} ${r.tier}`)),
-      h("span", { class: "p" }, r.points))));
+    play.results.map((r, i) => {
+      const bee = tierByName(r.tier)?.bee || "thirsty"; // by tier name, so older plays map too
+      return h("div", { class: "row" },
+        h("span", { class: "n" }, i + 1),
+        h("div", {}, h("span", { class: "q" }, play.questions[i].text), h("span", { class: "t" }, r.tier)),
+        h("img", { class: "row-bee", src: `/img/bee-${bee}-96.png`, alt: `${bee} bee`, width: 36, height: 36 }),
+        h("span", { class: "p" }, r.points));
+    }));
   const actions = h("div", { class: "actions" });
   if (play.mode === "daily") actions.append(h("button", { class: "btn primary", onclick: () => share(play.date) }, "Share my score"));
   else actions.append(h("button", { class: "btn primary", onclick: () => startPlay("endless") }, "Play again"));
