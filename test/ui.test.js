@@ -58,7 +58,7 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
     assert.ok(hq <= 844, `round ${r + 1} question + controls fit (got ${hq}px)`);
 
     if (q.kind === "text") {
-      await page.fill("input.field.text", r === 2 ? q.top1 : "definitely not listed");
+      await page.fill("input.field.text", r === 2 ? q.top1 : q.textAnswers.at(-1).texts[0]); // #1, then the lowest-ranked real answer
     } else {
       await page.fill("input.field", String(q.answer)); // the typed field mirrors into the slider
     }
@@ -71,12 +71,14 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
     if (r !== 5) assert.equal(tier, "Bullseye", `round ${r + 1}`);
     if (q.kind === "text") {
       const revealText = await page.textContent(".reveal");
-      if (r === 5) assert.match(revealText, /not on the list/);
+      if (r === 5) assert.match(revealText, new RegExp(`#${q.textAnswers.at(-1).rank}`));
+      assert.equal(await page.locator(".top3 li").count(), 3, "the top 3 are shown");
+      assert.match(revealText, new RegExp(q.top1.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
     }
     const bee = await page.$eval(".hero img.bee", (img) => ({ src: img.getAttribute("src"), rendering: getComputedStyle(img).imageRendering }));
     assert.equal(bee.rendering, "pixelated");
     if (r < 6 && r !== 5) assert.match(bee.src, /diamond/, `round ${r + 1}: a Bullseye is the diamond bee`);
-    if (r === 5) assert.match(bee.src, /thirsty/, "an unlisted text answer is the thirsty bee");
+    if (r === 5) assert.match(bee.src, /thirsty/, "a low-ranked text answer is the thirsty bee");
     if (r === 6) assert.match(bee.src, /ruby/, "the answer that takes the run over 1000 is the ruby bee");
     await page.getByRole("button", { name: r === 6 ? "See my score" : "Next round" }).click();
   }
@@ -94,12 +96,13 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
   await page.waitForSelector(".toast");
   assert.equal(await page.textContent(".toast"), "Share card copied.");
   const clip = await page.evaluate(() => navigator.clipboard.readText());
-  assert.match(clip, /^Honeydle 2026-11-19\n.+\n\d+\/1225\n\nPlay Honeydle — How well do you know the world\?/u);
+  assert.match(clip, /^Honeydle 2026-11-19\n.+\n🍯 \d+\/1225\n\nPlay Honeydle — How well do you know the world\?/u);
 
   // home now shows "Done for today"
   await page.getByRole("button", { name: "Home" }).click();
   await page.waitForSelector(".daily-card .done");
   assert.match(await page.textContent(".daily-card .done"), new RegExp(`${total} / 1225`));
+  assert.match(await page.textContent(".daily-card .countdown"), /^Next Daily in \d+:\d{2}:\d{2}$/, "countdown to the next Daily");
   assert.equal(await page.textContent(".stat .v"), "1", "streak card");
   assert.deepEqual(errors, []);
   await ctx.close();
@@ -212,6 +215,82 @@ test("home parade: the bee crew runs worst to best", { skip }, async () => {
   await page.waitForSelector(".parade .bee-slot");
   const crew = await page.$$eval(".parade .bee-slot", (els) => els.map((e) => e.className.replace("bee-slot ", "")));
   assert.deepEqual(crew, ["thirsty", "normal", "drop", "honey", "golden", "diamond", "ruby"]);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+/** Starts Endless and plays the two Guess rounds, leaving the page on the first text round. */
+async function toTextRound(page) {
+  await page.getByRole("button", { name: "Endless practice" }).click();
+  for (let r = 0; r < 2; r++) {
+    await page.waitForSelector(".question");
+    await page.getByRole("button", { name: "Lock it in" }).click();
+    await page.getByRole("button", { name: "Next round" }).click();
+  }
+  await page.waitForSelector("input.field.text");
+}
+
+test("text rounds: unlisted answers are refused, near misses are corrected in the box first", { skip }, async () => {
+  const { ctx, page, errors } = await newPhone();
+  await page.goto(s.base);
+  await toTextRound(page);
+  // not on the list: refused, the round stays open
+  await page.fill("input.field.text", "qwertyuiop");
+  await page.press("input.field.text", "Enter");
+  await page.waitForSelector(".hint.refuse");
+  assert.match(await page.textContent(".hint"), /not on the list/);
+  assert.equal(await page.$(".reveal"), null, "nothing is scored");
+  // a typo of a real answer: corrected in the box, not submitted
+  const playId = await page.evaluate(() => Object.keys(localStorage).find((k) => k.startsWith("honeydle.timer."))?.split(".")[2]);
+  const play = await s.store.getPlay(playId);
+  const q = play.snapshot[2];
+  const label = q.textAnswers[0].texts[0];
+  const typo = label.length > 5 ? label.slice(0, -2) + label.at(-1) + label.at(-2) : label; // swap the last two letters
+  await page.fill("input.field.text", typo);
+  await page.press("input.field.text", "Enter");
+  await page.waitForSelector(".hint.suggest");
+  assert.equal(await page.inputValue("input.field.text"), label, "the box now holds the real answer");
+  assert.equal(await page.$(".reveal"), null, "not submitted until Enter again");
+  // Enter again locks it in
+  await page.press("input.field.text", "Enter");
+  await page.waitForSelector(".reveal .tier");
+  assert.equal(await page.textContent(".reveal .tier"), "Bullseye");
+  assert.equal(await page.locator(".top3 li.you").count(), 1, "your answer is highlighted in the top 3");
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test("timer: 30 seconds a round, then whatever you have is locked in", { skip }, async () => {
+  const { ctx, page, errors } = await newPhone();
+  await page.clock.install();
+  await page.goto(s.base);
+  await page.getByRole("button", { name: "Endless practice" }).click();
+  await page.waitForSelector(".timer-num");
+  assert.equal(await page.textContent(".timer-num"), "0:30");
+  await page.$eval("input[type=range]", (el) => { el.value = "37"; el.dispatchEvent(new Event("input")); });
+  await page.clock.runFor(21_000);
+  assert.match(await page.getAttribute(".timer", "class"), /low/, "turns orange under 10 seconds");
+  await page.clock.runFor(10_000);
+  await page.waitForSelector(".reveal .tier");
+  assert.match(await page.textContent(".reveal"), /Time's up/);
+  assert.match(await page.textContent(".reveal .answer-line"), /You guessed 37%/, "the slider value was locked in");
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test("honey jar: fills with the score during the run and on the results", { skip }, async () => {
+  const { ctx, page, errors } = await newPhone();
+  await page.goto(s.base);
+  await page.getByRole("button", { name: "Endless practice" }).click();
+  await page.waitForSelector(".jar-slot canvas.jar");
+  assert.match(await page.getAttribute(".jar-slot canvas", "aria-label"), /^0 points of honey/);
+  await page.getByRole("button", { name: "Lock it in" }).click();
+  await page.waitForSelector(".jar-plus");
+  assert.match(await page.textContent(".jar-plus"), /^\+\d+$/);
+  const label = await page.getAttribute(".jar-slot canvas", "aria-label");
+  const pts = Number(label.match(/^(\d+)/)[1]);
+  assert.ok(pts > 0, "honey went in");
+  assert.equal(await page.$eval(".jar-slot canvas", (c) => getComputedStyle(c).imageRendering), "pixelated");
   assert.deepEqual(errors, []);
   await ctx.close();
 });

@@ -60,7 +60,7 @@ export function createHandler({ service, store, assets, rateLimit = 200 }) {
     ["POST", /^\/api\/play$/, async (req) => service.startPlay(player(req), (await body(req)).mode)],
     ["POST", /^\/api\/play\/([^/]+)\/submit$/, async (req, _url, m) => {
       const b = await body(req);
-      return service.submit(player(req), decodeURIComponent(m[1]), { round: Number(b.round), value: b.value });
+      return service.submit(player(req), decodeURIComponent(m[1]), { round: Number(b.round), value: b.value, timedOut: b.timedOut === true });
     }],
     ["GET", /^\/api\/results$/, async (req, url) => ({ play: await service.dailyResults(player(req), dateParam(url)) })],
     ["GET", /^\/api\/stats$/, async (req) => service.stats(player(req))],
@@ -86,7 +86,7 @@ export function createHandler({ service, store, assets, rateLimit = 200 }) {
       }
       return await assets(req);
     } catch (err) {
-      if (err instanceof GameError) return json({ error: err.message }, err.status);
+      if (err instanceof GameError) return json({ error: err.message, ...(err.code ? { code: err.code } : {}) }, err.status);
       console.error("[error]", err);
       return json({ error: "Something went wrong on our side. Please try again." }, 500);
     }

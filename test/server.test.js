@@ -14,7 +14,7 @@ const byId = new Map(bank.map((q) => [q.id, q]));
 
 /** A value that scores a Bullseye (or a chosen difference) for a question. */
 function answerFor(q, offset = 0) {
-  if (q.kind === "text") return offset === 0 ? q.top1 : "zzzz not a thing";
+  if (q.kind === "text") return offset === 0 ? q.top1 : q.textAnswers.at(-1).texts[0]; // the lowest-ranked real answer
   const a = q.answer;
   if (a < 1) return Math.min(0.99, Math.round((a + offset / 100) * 100) / 100);
   return Math.min(100, Math.max(0, a + offset));
@@ -99,7 +99,7 @@ describe("server", () => {
     assert.equal(res.play.results.length, 7);
   });
 
-  test("text rounds: rank scoring, read-back for partials, the #1 label never leaves the server", async () => {
+  test("text rounds: an exact answer scores by rank and reveals the top 3", async () => {
     const P = "u-texter000000000";
     const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
     for (let r = 0; r < 2; r++) {
@@ -110,35 +110,51 @@ describe("server", () => {
     assert.equal(out.json.result.rank, 1);
     assert.equal(out.json.result.points, 175);
     assert.equal(out.json.result.readBack, undefined);
-    assert.deepEqual(findKeys(out.json, ["top1", "textAnswers", "unlisted", "matched"]), []);
-    const leaks = out.text.split(q.top1.toUpperCase()).length - 1;
-    assert.equal(leaks, 2, "the #1 only appears as the player's own typed text (result + play results)");
+    assert.deepEqual(out.json.result.top3, [1, 2, 3].map((r) => q.textAnswers.find((x) => x.rank === r).texts[0]));
+    assert.deepEqual(findKeys(out.json, ["top1", "textAnswers", "unlisted", "matched"]), [], "never the full list");
   });
 
-  test("text read-back only for autocorrected ranks 2 and lower", async () => {
+  test("text rounds: near misses come back as a suggestion to confirm; unlisted answers are refused", async () => {
     const whale = byId.get(202);
-    // Drive the service directly with a play whose round 3 is the whale question.
     const P = "u-whale0000000000";
     const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
     const stored = await s.store.getPlay(play.id);
     stored.snapshot[2] = whale; stored.questionIds[2] = 202;
     await s.store.savePlay(stored);
     for (let r = 0; r < 2; r++) await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: r, value: 50 } });
-    const out = (await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: 2, value: "humpback" } })).json.result;
-    assert.equal(out.rank, 8);
-    assert.equal(out.readBack, "Humpback whale");
-    assert.equal(matchTextAnswer(whale, "whale").rank, 1);
+    const submit = (value, extra = {}) => s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: 2, value, ...extra } });
+
+    // not on the list: refused, round not used up
+    const refused = (await submit("Megalodon")).json;
+    assert.deepEqual([refused.refused, refused.result, refused.play], ["unlisted", undefined, undefined]);
+    assert.match(refused.message, /not on the list/);
+    // a partial or typo: the real answer comes back to put in the box, nothing scored
+    assert.deepEqual((await submit("humpback")).json, { suggestion: "Humpback whale" });
+    assert.deepEqual((await submit("humpbak whale")).json, { suggestion: "Humpback whale" });
+    assert.equal((await s.store.getPlay(play.id)).results.length, 2, "suggestions never use up the round");
+    // blank without a timeout is a plain error
+    assert.equal((await submit("   ")).status, 400);
+    // confirming the suggestion scores it
+    const out = (await submit("Humpback whale")).json.result;
+    assert.deepEqual([out.rank, out.points, out.tier], [8, 115, "Close"]);
+    assert.equal(out.readBack, undefined);
+    assert.equal(out.top3.length, 3);
   });
 
-  test("blank text scores 0 server-side; unlisted scores 5", async () => {
-    const P = "u-blank0000000000";
+  test("text rounds: when time runs out, whatever was typed is scored", async () => {
+    const P = "u-timeout00000000";
     const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
-    for (let r = 0; r < 2; r++) await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: r, value: 50 } });
-    const blank = (await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: 2, value: "   " } })).json.result;
-    assert.deepEqual([blank.points, blank.tier], [0, "Blank"]);
-    for (const r of [3, 4]) await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: r, value: 50 } });
-    const unl = (await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: 5, value: "qwertyuiop" } })).json.result;
+    const submit = (round, value, timedOut = true) => s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round, value, timedOut } });
+    const g = (await submit(0, 50)).json.result;
+    assert.equal(g.timedOut, true);
+    await submit(1, 50, false);
+    const blank = (await submit(2, "")).json.result;
+    assert.deepEqual([blank.points, blank.tier, blank.timedOut], [0, "Blank", true]);
+    await submit(3, 50); await submit(4, 50);
+    const unl = (await submit(5, "qwertyuiop")).json.result;
     assert.deepEqual([unl.points, unl.tier, unl.rank], [10, "Way Off", null]);
+    const q6 = byId.get(play.questions[5].id);
+    assert.ok(unl.top3.includes(q6.top1));
   });
 
   test("stats: streak, games, best, average; Endless never touches the streak", async () => {
@@ -201,7 +217,7 @@ describe("server", () => {
     const p = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
     await playThrough(s.call, p, P, [1, 0, 0, 2, 5, 0, 0]);
     const sh = (await s.call("/api/share", { player: P })).json;
-    assert.match(sh.text, /^Honeydle 2026-11-19\n.+\n\d+\/1225$/u);
+    assert.match(sh.text, /^Honeydle 2026-11-19\n.+\n🍯 \d+\/1225$/u);
     assert.equal([...sh.text.split("\n")[1]].length > 0, true);
     for (const secret of secretsFor(p.questions.map((q) => q.id))) assert.ok(!sh.text.includes(secret));
     assert.equal((await s.call("/api/share?date=nope", { player: P })).status, 400);

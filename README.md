@@ -37,7 +37,7 @@ npm install
 npm start            # Node dev server on http://localhost:3000 (JSON file store)
 npm run dev          # the real Worker locally via wrangler (local D1)
 npm test             # 37 checks: game logic, HTTP end to end, D1 store
-npm run test:ui      # 7 browser checks with Playwright (one-screen rule, full Daily…)
+npm run test:ui      # 10 browser checks with Playwright (one-screen rule, full Daily…)
 npm run test:worker  # 4 checks against the real Worker under wrangler dev
 npm run verify       # all of the above
 ```

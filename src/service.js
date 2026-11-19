@@ -10,8 +10,11 @@ import {
 // Workers. No file system, no Node-only crypto.
 
 export class GameError extends Error {
-  constructor(status, message) { super(message); this.status = status; }
+  constructor(status, message, code) { super(message); this.status = status; this.code = code; }
 }
+
+/** The display label for a rank of a text question. */
+const labelOf = (q, rank) => q.textAnswers.find((s) => s.rank === rank)?.texts[0] ?? null;
 
 /** Sanity-check the bank (the parsed bank.json). Bad records are skipped loudly, never fatal. */
 export function prepareBank(raw) {
@@ -162,15 +165,28 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     return playView(await store.createPlay(play));
   }
 
-  function scoreRound(q, value) {
+  /**
+   * Score a round. Text answers must be on the list: an exact match is
+   * scored, a near miss returns { suggestion } (the client puts it in the box
+   * for the player to confirm), and anything unlisted is refused without
+   * using up the round. When the timer ran out, whatever was typed is scored.
+   */
+  function scoreRound(q, value, { timedOut = false } = {}) {
     const kind = poolOf(q);
     if (kind === "text") {
       const typed = typeof value === "string" ? value.slice(0, 120) : "";
-      const m = matchTextAnswer(q, typed);
-      const s = scoreRank(m.rank, Boolean(m.blank) || !normalizeText(typed));
+      const blank = !normalizeText(typed);
+      const m = blank ? { rank: null } : matchTextAnswer(q, typed);
+      if (!timedOut) {
+        if (blank) throw new GameError(400, "Type an answer first.", "blank");
+        if (m.rank == null) return { refused: "unlisted", message: "That's not on the list — try another answer." };
+        if (!m.exact) return { suggestion: labelOf(q, m.rank) };
+      }
+      const s = scoreRank(m.rank, blank);
       const out = { kind, guess: typed.trim(), points: s.points, tier: s.tier, rank: s.rank };
-      // Read-back of an autocorrected partial — never for #1 (the #1 label never leaves the server).
-      if (m.autocorrected && s.rank != null && s.rank >= 2) out.readBack = m.matched;
+      if (m.rank != null && !m.exact) out.readBack = labelOf(q, m.rank);
+      out.top3 = [1, 2, 3].map((r) => labelOf(q, r)).filter(Boolean);
+      if (timedOut) out.timedOut = true;
       return out;
     }
     const err = validateGuess(value);
@@ -179,10 +195,11 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     const s = scoreNumeric(q.answer, guess);
     const out = { kind, guess, answer: q.answer, points: s.points, tier: s.tier, diff: s.diff };
     if (q.note) out.note = q.note;
+    if (timedOut) out.timedOut = true;
     return out;
   }
 
-  async function submit(playerId, playId, { round, value } = {}) {
+  async function submit(playerId, playId, { round, value, timedOut = false } = {}) {
     return withLock(`play:${playId}`, async () => {
       const play = await store.getPlay(playId);
       if (!play || play.playerId !== playerId) throw new GameError(404, "Play not found.");
@@ -190,7 +207,10 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       const next = play.results.length;
       if (round !== next) throw new GameError(409, `Round ${round + 1} is not the next unanswered round.`);
       const q = play.snapshot[next];
-      const result = { round: next, questionId: q.id, ...scoreRound(q, value) };
+      const scored = scoreRound(q, value, { timedOut: timedOut === true });
+      if (scored.suggestion !== undefined) return { suggestion: scored.suggestion }; // not scored yet
+      if (scored.refused) return { refused: scored.refused, message: scored.message }; // round not used up
+      const result = { round: next, questionId: q.id, ...scored };
       play.results.push(result);
       play.score = play.results.reduce((a, r) => a + r.points, 0);
       if (play.results.length === ROUNDS) play.completedAt = now().toISOString();

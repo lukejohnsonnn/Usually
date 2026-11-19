@@ -13,7 +13,7 @@
 // "keychain", "dog" is not "hot dog", "phone" is not "phone screen").
 
 export function normalizeText(s) {
-  return String(s || "")
+  const base = String(s || "")
     .toLowerCase()
     .normalize("NFKD")
     .replace(/[’‘]/g, "'")
@@ -21,7 +21,43 @@ export function normalizeText(s) {
     .replace(/\b(a|an|the)\b/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+  return normalizeNumbers(base);
 }
+
+// Numbers are written many ways: "World War II", "world war 2", "world war
+// two", "WW2", "WWII". Bring them all to digits so they compare equal, and
+// so "World War I" and "World War II" stay different answers.
+const NUMBER_WORDS = {
+  one: "1", two: "2", three: "3", four: "4", five: "5", six: "6", seven: "7", eight: "8", nine: "9", ten: "10",
+  eleven: "11", twelve: "12", thirteen: "13", fourteen: "14", fifteen: "15", sixteen: "16", seventeen: "17",
+  eighteen: "18", nineteen: "19", twenty: "20",
+};
+// "i" and "x" are only numerals at the end of a name ("Louis XIV", "World War I").
+const ROMAN = { ii: "2", iii: "3", iv: "4", v: "5", vi: "6", vii: "7", viii: "8", ix: "9", xi: "11", xii: "12", xiii: "13", xiv: "14", xv: "15", xvi: "16" };
+const ROMAN_TAIL_ONLY = { i: "1", x: "10", v: "5" };
+
+function normalizeNumbers(n) {
+  if (!n) return n;
+  let words = n.split(" ");
+  // ww1 / wwi / ww2 / wwii / worldwar 2 → world war N
+  words = words.flatMap((w) => {
+    const m = w.match(/^ww(1|2|i|ii)$/);
+    if (m) return ["world", "war", m[1] === "i" ? "1" : m[1] === "ii" ? "2" : m[1]];
+    const glued = w.match(/^worldwar(1|2|i|ii)?$/);
+    if (glued) return ["world", "war", ...(glued[1] ? [glued[1] === "i" ? "1" : glued[1] === "ii" ? "2" : glued[1]] : [])];
+    return [w];
+  });
+  return words.map((w, i) => {
+    if (NUMBER_WORDS[w]) return NUMBER_WORDS[w];
+    if (ROMAN[w] && w !== "v") return ROMAN[w];
+    const last = i === words.length - 1 && words.length >= 2;
+    if (last && ROMAN_TAIL_ONLY[w]) return ROMAN_TAIL_ONLY[w];
+    return w;
+  }).join(" ");
+}
+
+/** Digit groups in a normalized string — two answers with different numbers are never typos of each other. */
+const digitsOf = (s) => (s.match(/\d+/g) || []).join(",");
 
 function singular(w) {
   if (NO_S_STRIP.has(w)) return w;
@@ -448,7 +484,7 @@ export function matchTextAnswer(question, submitted) {
   if (exact.has(subKey)) {
     const hits = exact.get(subKey);
     const ranks = [...new Set(hits.map((h) => h.rank))];
-    if (ranks.length === 1) return { rank: ranks[0], matched: hits[0].matched };
+    if (ranks.length === 1) return { rank: ranks[0], matched: hits[0].matched, exact: true };
     return { rank: null, matched: null }; // same answer stored under 2 ranks: bank bug, don't guess
   }
   // Pass 2: fuzzy scan — best score per rank, then require a clear margin.
@@ -462,7 +498,8 @@ export function matchTextAnswer(question, submitted) {
       const nt = normalizeText(v.matched);
       const dist = levenshtein(nt, norm);
       const tol = Math.max(1, Math.floor(Math.min(nt.length, norm.length) * 0.2));
-      if (dist <= tol && Math.abs(nt.length - norm.length) <= 3) score = 0.8;
+      // never across different numbers ("ww2" is not "wwi"), never on tiny strings
+      if (dist <= tol && Math.abs(nt.length - norm.length) <= 3 && digitsOf(nt) === digitsOf(norm) && Math.min(nt.length, norm.length) >= 4) score = 0.8;
     }
     if (score != null) {
       const cur = bestByRank.get(v.rank);
@@ -474,7 +511,7 @@ export function matchTextAnswer(question, submitted) {
     const [topRank, top] = ranked[0];
     const second = ranked[1]?.[1].score ?? 0;
     if (top.score >= 0.8 && top.score - second >= 0.1) {
-      return { rank: topRank, matched: top.matched };
+      return { rank: topRank, matched: top.matched, autocorrected: true }; // a typo or near-spelling
     }
     // Else: too weak or a near-tie — fall through to the distinctive-part
     // pass below instead of guessing wrong.
