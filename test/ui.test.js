@@ -216,8 +216,10 @@ test("home parade: the bee crew runs worst to best", { skip }, async () => {
   await page.waitForSelector(".parade .bee-slot");
   const crew = await page.$$eval(".parade .bee-slot", (els) => els.map((e) => e.className.replace("bee-slot ", "")));
   assert.deepEqual(crew, ["thirsty", "normal", "drop", "honey", "golden", "diamond"]);
-  assert.ok(await page.isVisible(".mystery .mystery-q"), "the ruby bee sits apart, hidden behind a question mark");
-  assert.equal(await page.$eval(".mystery-bee", (img) => getComputedStyle(img).filter.includes("brightness")), true, "clouded over");
+  assert.ok(await page.isVisible(".mystery .mystery-bee"), "the ruby bee sits apart from the crew");
+  assert.equal(await page.$(".mystery-box"), null, "no box around it");
+  const [beeBox, qBox] = await Promise.all([page.locator(".mystery-bee").boundingBox(), page.locator(".mystery-q").boundingBox()]);
+  assert.ok(qBox.y > beeBox.y + beeBox.height - 2, "one pixel question mark below it");
   assert.doesNotMatch(await page.textContent("main"), /1225/, "the max score is never shown");
   assert.deepEqual(errors, []);
   await ctx.close();
@@ -238,6 +240,7 @@ test("text rounds: unlisted answers are refused, near misses are corrected in th
   const { ctx, page, errors } = await newPhone();
   await page.goto(s.base);
   await toTextRound(page);
+  assert.equal(await page.textContent(".timer-num"), "0:25", "text rounds get 25 seconds");
   // not on the list: refused, the round stays open
   await page.fill("input.field.text", "qwertyuiop");
   await page.press("input.field.text", "Enter");
@@ -264,17 +267,17 @@ test("text rounds: unlisted answers are refused, near misses are corrected in th
   await ctx.close();
 });
 
-test("timer: 30 seconds a round, then whatever you have is locked in", { skip }, async () => {
+test("timer: 15 seconds to guess, then whatever you have is locked in", { skip }, async () => {
   const { ctx, page, errors } = await newPhone();
   await page.clock.install();
   await page.goto(s.base);
   await page.getByRole("button", { name: "Endless practice" }).click();
   await page.waitForSelector(".timer-num");
-  assert.equal(await page.textContent(".timer-num"), "0:30");
+  assert.equal(await page.textContent(".timer-num"), "0:15");
   await page.$eval("input[type=range]", (el) => { el.value = "37"; el.dispatchEvent(new Event("input")); });
-  await page.clock.runFor(21_000);
+  await page.clock.runFor(6_000);
   assert.match(await page.getAttribute(".timer", "class"), /low/, "turns orange under 10 seconds");
-  await page.clock.runFor(10_000);
+  await page.clock.runFor(10_000); // past 15s
   await page.waitForSelector(".reveal .tier");
   assert.match(await page.textContent(".reveal"), /Time's up/);
   assert.match(await page.textContent(".reveal .answer-line"), /You guessed 37%/, "the slider value was locked in");

@@ -1,7 +1,7 @@
 // Honeydle client. Vanilla ES modules, no build step.
 import { Honeycomb } from "./honeycomb.js";
 import { HoneyJar } from "./jar.js";
-import { JAR_FULL, ROUNDS, ROUND_SECONDS, beeForRound, formatPct, isRuby, tierByName } from "./rules.js";
+import { GUESS_SECONDS, JAR_FULL, ROUNDS, TEXT_SECONDS, beeForRound, formatPct, isRuby, secondsFor, tierByName } from "./rules.js";
 
 // ---------------------------------------------------------------- utilities
 const $app = document.getElementById("app");
@@ -148,11 +148,10 @@ function renderHome() {
       h("div", { class: "bee-fly" }, h("img", { src: `/img/bee-${b}-96.png`, srcset: `/img/bee-${b}-96.png 2x, /img/bee-${b}-144.png 3x`, alt: "", width: 44, height: 44, draggable: "false" })),
       h("span", { class: "bee-shadow" })))),
     h("div", { class: "parade-scale" }, h("span", {}, "Way off"), h("span", { class: "line" }), h("span", {}, "Bullseye")));
-  const mystery = h("div", { class: "mystery", "aria-label": "A hidden bee. Only pros find it.", role: "img" },
-    h("div", { class: "mystery-box" },
-      h("img", { class: "mystery-bee", src: "/img/bee-ruby-96.png", srcset: "/img/bee-ruby-96.png 2x, /img/bee-ruby-144.png 3x", alt: "", width: 44, height: 44, draggable: "false" }),
-      h("img", { class: "mystery-q", src: QMARK, alt: "" })),
-    h("span", { class: "mystery-label" }, "???"));
+  const mystery = h("div", { class: "mystery", "aria-label": "The ruby bee — a hidden prize only pros find.", role: "img" },
+    h("div", { class: "bee-fly mystery-fly" },
+      h("img", { class: "mystery-bee", src: "/img/bee-ruby-96.png", srcset: "/img/bee-ruby-96.png 2x, /img/bee-ruby-144.png 3x", alt: "", width: 48, height: 48, draggable: "false" })),
+    h("img", { class: "mystery-q", src: QMARK, alt: "" }));
   const crewRow = h("div", { class: "crew-row" }, parade, mystery);
 
   let action;
@@ -199,7 +198,7 @@ function renderRound() {
   const screen = h("main", { class: "screen round" });
   const pips = h("div", { class: "pips", "aria-hidden": "true" },
     play.questions.map((_, i) => h("img", { class: "pip", alt: "", src: i < play.results.length ? pipFor(play.results[i]) : i === r ? PIP.now : PIP.future })));
-  const timer = new RoundTimer(play.id, r);
+  const timer = new RoundTimer(play.id, r, secondsFor(q.kind));
   const head = h("div", { class: "round-head" },
     h("div", { class: "progress" }, h("span", { class: "label" }, `Round ${r + 1} of ${ROUNDS} · ${play.mode === "daily" ? "Daily" : "Endless"}`), pips),
     timer.el,
@@ -217,11 +216,12 @@ function renderRound() {
 }
 
 /**
- * The round timer: a pixel bar that drains over ROUND_SECONDS. The start
+ * The round timer: a pixel bar that drains over the round's seconds. The start
  * time is remembered per play and round, so a reload doesn't reset it.
  */
 class RoundTimer {
-  constructor(playId, round) {
+  constructor(playId, round, seconds) {
+    this.seconds = seconds;
     this.key = `honeydle.timer.${playId}.${round}`;
     this.bar = h("span", { class: "timer-fill" });
     this.num = h("span", { class: "timer-num" });
@@ -231,12 +231,12 @@ class RoundTimer {
   start(onExpire) {
     let started = Number(store.get(this.key));
     if (!started) { started = Date.now(); store.set(this.key, String(started)); }
-    const total = ROUND_SECONDS * 1000;
+    const total = this.seconds * 1000;
     const update = () => {
       const left = Math.max(0, total - (Date.now() - started));
       const secs = Math.ceil(left / 1000);
       this.num.textContent = `0:${String(secs).padStart(2, "0")}`;
-      this.bar.style.width = `${(secs / ROUND_SECONDS) * 100}%`;
+      this.bar.style.width = `${(secs / this.seconds) * 100}%`;
       this.el.classList.toggle("low", secs <= 10);
       this.el.classList.toggle("critical", secs <= 5);
       this.el.setAttribute("aria-label", `${secs} seconds left`);
@@ -550,7 +550,7 @@ function showHowTo() {
     h("p", {}, h("b", {}, "Daily. "), "One set of seven prompts, the same for everyone, one run a day. Every answer is a real published statistic."),
     h("p", {}, h("b", {}, "Guess the %. "), "Slide or type your guess. Under 1%, Fine-tune works in hundredths."),
     h("p", {}, h("b", {}, "Name the #1. "), "Type an answer on the ranked list — the higher it ranks, the more points. Close spellings get corrected for you; press Enter again to lock it in."),
-    h("p", {}, h("b", {}, `${ROUND_SECONDS} seconds a round. `), "When time runs out, whatever you have is locked in."),
+    h("p", {}, h("b", {}, `${GUESS_SECONDS} seconds to guess, ${TEXT_SECONDS} to type. `), "When time runs out, whatever you have is locked in."),
     h("p", {}, h("b", {}, "Fill the jar. "), "Every point is honey. Pros say there's a bee nobody's seen…"),
     h("p", {}, "The closer your guess, the more points. A perfect guess is a Bullseye."),
     h("button", { class: "btn primary", onclick: closeOverlay }, "Got it")));

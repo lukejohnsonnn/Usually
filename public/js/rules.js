@@ -2,7 +2,10 @@
 
 export const ROUND_KINDS = ["guess", "guess", "text", "guess", "guess", "text", "finale"];
 export const ROUNDS = ROUND_KINDS.length;
-export const ROUND_SECONDS = 30; // the timer on every round
+// Round timers: quick for number guesses, a little longer to type a text answer.
+export const GUESS_SECONDS = 15;
+export const TEXT_SECONDS = 25;
+export const secondsFor = (kind) => (kind === "text" ? TEXT_SECONDS : GUESS_SECONDS);
 export const ROUND_MAX = 175;
 export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225 — never shown to players
 export const JAR_FULL = 1000; // the honey jar reads full at this score
@@ -16,9 +19,9 @@ export const TIERS = [
   { maxDiff: 1, points: 150, name: "One Off", emoji: "✅", bee: "golden" },
   { maxDiff: 3, points: 135, name: "Razor Close", emoji: "🔥", bee: "honey" },
   { maxDiff: 6, points: 115, name: "Close", emoji: "🙂", bee: "drop" },
-  { maxDiff: 10, points: 95, name: "Warm", emoji: "😐", bee: "normal" },
-  { maxDiff: 15, points: 70, name: "Lukewarm", emoji: "😬", bee: "thirsty" },
-  { maxDiff: 25, points: 40, name: "Cold", emoji: "🥶", bee: "thirsty" },
+  { maxDiff: 12, points: 95, name: "Warm", emoji: "😐", bee: "normal" },
+  { maxDiff: 25, points: 70, name: "Lukewarm", emoji: "😬", bee: "thirsty" },
+  { maxDiff: 40, points: 40, name: "Cold", emoji: "🥶", bee: "thirsty" },
   { maxDiff: Infinity, points: 10, name: "Way Off", emoji: "❌", bee: "thirsty" },
 ];
 export const BLANK = { points: 0, name: "Blank", emoji: "⬜" };
