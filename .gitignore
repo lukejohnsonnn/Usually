@@ -1,4 +1,6 @@
 node_modules/
 data/local.json
+data/local.json.tmp
+screenshots/
 .env
 .DS_Store

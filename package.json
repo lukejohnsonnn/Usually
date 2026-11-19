@@ -1,1 +1,24 @@
-{"dependencies":{"express":"^4.21.2","pg":"^8.13.1"},"description":"Honeydle — a daily real-stats guessing game. Same 7 prompts for everyone, one run a day. Free-tier Render deploy.","engines":{"node":">=20"},"main":"server.js","name":"usually","scripts":{"merge-bank":"node scripts/merge-bank.mjs","seed":"node scripts/seed.js","start":"node server.js","verify":"node scripts/verify.js"},"type":"module","version":"1.0.0","devDependencies":{"jsdom":"^31.0.1","pg-mem":"^3.0.14"}}
+{
+  "name": "honeydle",
+  "version": "2.0.0",
+  "description": "Honeydle — a daily guessing game built on real published statistics. Same 7 prompts for everyone, one run a day.",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/unit.test.js test/server.test.js test/postgres.test.js",
+    "test:ui": "node --test test/ui.test.js",
+    "verify": "npm test && npm run test:ui"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "pg-mem": "^3.0.14"
+  }
+}
