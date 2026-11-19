@@ -4,8 +4,9 @@ export const ROUND_KINDS = ["guess", "guess", "text", "guess", "guess", "text", 
 export const ROUNDS = ROUND_KINDS.length;
 export const ROUND_SECONDS = 30; // the timer on every round
 export const ROUND_MAX = 175;
-export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225
-export const RUBY_THRESHOLD = 1000; // a finished run must score OVER this for the ruby bee
+export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225 — never shown to players
+export const JAR_FULL = 1000; // the honey jar reads full at this score
+export const RUBY_THRESHOLD = 800; // a finished run scoring this or more unlocks the hidden ruby bee
 
 // Difference tiers for Guess and Finale rounds. Names are player copy.
 // The curve rewards a good estimate: within 6 points keeps well over half
@@ -145,7 +146,8 @@ export function poolOf(q) {
  */
 export function composeSet(bank, seed) {
   const pools = { guess: [], text: [], finale: [] };
-  for (const q of bank) pools[poolOf(q)]?.push(q);
+  // retired questions stay in the bank (days that used them keep working) but are never picked again
+  for (const q of bank) if (!q.retired) pools[poolOf(q)]?.push(q);
   const shuffled = {};
   for (const k of Object.keys(pools)) {
     shuffled[k] = seededShuffle(pools[k].sort((a, b) => a.id - b.id), `${seed}:${k}`);
@@ -171,7 +173,7 @@ export function isValidSet(ids, bank) {
 
 /**
  * Which bee hosts a reveal: one bee per tier, Bullseye is diamond. On the
- * last round, if that answer takes the finished run over 1000, the ruby bee
+ * last round, if that answer takes the finished run to 800 or more, the ruby bee
  * hosts instead. Pass finalScore only for the round that completes a play.
  */
 export function beeForRound(points, { finalScore = null } = {}) {
@@ -180,7 +182,7 @@ export function beeForRound(points, { finalScore = null } = {}) {
 }
 
 export function isRuby(score, completed) {
-  return Boolean(completed) && score > RUBY_THRESHOLD;
+  return Boolean(completed) && score >= RUBY_THRESHOLD;
 }
 
 // ---------- public shapes ----------
@@ -193,7 +195,7 @@ export function publicQuestion(q) {
 
 export function shareText(date, results, score) {
   const emojis = results.map((r) => (tierByName(r.tier) || BLANK).emoji).join("");
-  return `Honeydle ${date}\n${emojis}\n🍯 ${score}/${MAX_SCORE}`;
+  return `Honeydle ${date}\n${emojis}\n🍯 ${score}`;
 }
 
 /** Format a percentage for display: hundredths below 1%, whole numbers above. */

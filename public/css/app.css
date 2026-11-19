@@ -366,3 +366,24 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .results-hero .countdown { margin-top: 10px; }
 .timer.stopped { opacity: .35; }
 .timer.stopped .timer-num { animation: none; }
+
+/* ---------- home: the crew + the hidden ruby ---------- */
+.crew-row { display: flex; align-items: flex-end; gap: 6px; }
+.crew-row .parade-wrap { flex: 1; min-width: 0; }
+.mystery { flex: none; display: flex; flex-direction: column; align-items: center; gap: 6px; padding-bottom: 2px; }
+.mystery-box {
+  position: relative; width: 58px; height: 58px; display: grid; place-items: center;
+  border: 6px solid; border-image: var(--px-card) / 6px;
+  background: radial-gradient(closest-side, rgba(255,60,100,.16), transparent);
+  animation: mystery-glow 3.6s ease-in-out infinite;
+}
+.mystery-bee { width: 40px; height: 40px; filter: brightness(.12) saturate(0) blur(1.2px); opacity: .9; image-rendering: pixelated; }
+.mystery-q { position: absolute; width: 21px; height: 33px; image-rendering: pixelated; animation: mystery-q 2.8s ease-in-out infinite; }
+.mystery-label { font-family: var(--f-pixel); font-size: 8px; letter-spacing: .2em; color: #ff7a93; opacity: .8; }
+@keyframes mystery-glow { 50% { filter: drop-shadow(0 0 8px rgba(255,60,100,.35)); } }
+@keyframes mystery-q { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@media (max-width: 360px) { .mystery-box { width: 50px; height: 50px; } }
+
+/* ---------- text: "which one?" ---------- */
+.hint.which { color: var(--soft); }
+.hint.which .which-q { font-family: var(--f-pixel); font-weight: 400; font-size: 11px; color: var(--yellow); margin-right: 4px; }
