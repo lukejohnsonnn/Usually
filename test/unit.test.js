@@ -101,8 +101,8 @@ test("bee rules: one bee per tier, Bullseye is diamond, ruby over 1000", () => {
 
 test("share card: tiers only, never answers", () => {
   const results = ["Bullseye", "One Off", "Razor Close", "Close", "Warm", "Lukewarm", "Cold"].map((tier) => ({ tier }));
-  assert.equal(G.shareText("2026-11-19", results, 545), "Honeydle 2026-11-19\n🎯✅🔥🙂😐😬🥶\n545/1225");
-  assert.equal(G.shareText("d", [{ tier: "Way Off" }, { tier: "Blank" }], 5), "Honeydle d\n❌⬜\n5/1225");
+  assert.equal(G.shareText("2026-11-19", results, 545), "Honeydle 2026-11-19\n🎯✅🔥🙂😐😬🥶\n🍯 545/1225");
+  assert.equal(G.shareText("d", [{ tier: "Way Off" }, { tier: "Blank" }], 5), "Honeydle d\n❌⬜\n🍯 5/1225");
 });
 
 test("public question shape carries no answer data", () => {

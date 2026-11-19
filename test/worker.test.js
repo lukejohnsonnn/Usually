@@ -85,7 +85,7 @@ test("worker: a full Daily — secret before submit, scored after, one per playe
   const res = (await call("/api/results", { player: P })).json.play;
   assert.equal(res.score, 1225);
   assert.equal((await call("/api/stats", { player: P })).json.streak, 1);
-  assert.match((await call("/api/share", { player: P })).json.text, /^Honeydle \d{4}-\d{2}-\d{2}\n.+\n1225\/1225$/u);
+  assert.match((await call("/api/share", { player: P })).json.text, /^Honeydle \d{4}-\d{2}-\d{2}\n.+\n🍯 1225\/1225$/u);
   assert.equal((await call("/api/yesterday")).json.rounds.length, 7);
   assert.equal((await call("/api/play", { method: "POST", player: P, body: { mode: "weekly" } })).status, 400, "bad mode is a JSON 400");
 });

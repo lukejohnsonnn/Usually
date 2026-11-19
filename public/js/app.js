@@ -1,6 +1,7 @@
 // Honeydle client. Vanilla ES modules, no build step.
 import { Honeycomb } from "./honeycomb.js";
-import { MAX_SCORE, ROUNDS, beeForRound, formatPct, isRuby, tierByName } from "./rules.js";
+import { HoneyJar } from "./jar.js";
+import { MAX_SCORE, ROUNDS, ROUND_SECONDS, beeForRound, formatPct, isRuby, tierByName } from "./rules.js";
 
 // ---------------------------------------------------------------- utilities
 const $app = document.getElementById("app");
@@ -28,6 +29,7 @@ function toast(msg) {
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch { return null; } },
   set(k, v) { try { localStorage.setItem(k, v); } catch { /* private mode: fine */ } },
+  remove(k) { try { localStorage.removeItem(k); } catch { /* private mode: fine */ } },
 };
 
 function playerId() {
@@ -49,7 +51,7 @@ async function api(path, { method = "GET", body } = {}) {
   });
   let data = null;
   try { data = await res.json(); } catch { /* empty */ }
-  if (!res.ok) throw Object.assign(new Error(data?.error || "Something went wrong."), { status: res.status });
+  if (!res.ok) throw Object.assign(new Error(data?.error || "Something went wrong."), { status: res.status, code: data?.code });
   return data;
 }
 
@@ -89,7 +91,7 @@ function masthead({ compact = false, date, streak } = {}) {
     return h("header", { class: "masthead compact" },
       h("button", { class: "icon-btn", "aria-label": "Home", onclick: goHome, html: ICON.back }),
       wordmark(),
-      h("button", { class: "icon-btn", "aria-label": "How to play", onclick: showHowTo, html: ICON.help }));
+      h("div", { class: "jar-slot" }));
   }
   return h("header", { class: "masthead" },
     wordmark(),
@@ -145,6 +147,7 @@ function renderHome() {
   if (daily?.completed) {
     action = [
       h("p", { class: "done" }, "Done for today — ", h("b", {}, String(daily.score)), ` / ${MAX_SCORE}`),
+      countdown(),
       h("button", { class: "btn primary", onclick: () => renderResults(daily) }, "See my results"),
     ];
   } else {
@@ -184,23 +187,75 @@ function renderRound() {
   const screen = h("main", { class: "screen round" });
   const pips = h("div", { class: "pips", "aria-hidden": "true" },
     play.questions.map((_, i) => h("img", { class: "pip", alt: "", src: i < play.results.length ? pipFor(play.results[i]) : i === r ? PIP.now : PIP.future })));
+  const timer = new RoundTimer(play.id, r);
   const head = h("div", { class: "round-head" },
     h("div", { class: "progress" }, h("span", { class: "label" }, `Round ${r + 1} of ${ROUNDS} · ${play.mode === "daily" ? "Daily" : "Endless"}`), pips),
+    timer.el,
     h("p", { class: "kicker" }, q.category),
     h("h2", { class: "question" }, q.text));
-  screen.append(masthead({ compact: true }), head);
+  const top = masthead({ compact: true });
+  screen.append(top, head);
   mount(screen);
+  // the score jar sits in the header and fills as the run goes
+  const jar = new HoneyJar(top.querySelector(".jar-slot"), { scale: 2 });
+  jar.fill(play.score / MAX_SCORE, { animate: false, label: `${play.score} points of honey so far` });
+  const round = { screen, q, timer, jar };
+  if (q.kind === "text") buildTextRound(round);
+  else buildNumberRound(round);
+}
 
-  if (q.kind === "text") buildTextRound(screen, q);
-  else buildNumberRound(screen, q);
+/**
+ * The round timer: a pixel bar that drains over ROUND_SECONDS. The start
+ * time is remembered per play and round, so a reload doesn't reset it.
+ */
+class RoundTimer {
+  constructor(playId, round) {
+    this.key = `honeydle.timer.${playId}.${round}`;
+    this.bar = h("span", { class: "timer-fill" });
+    this.num = h("span", { class: "timer-num" });
+    this.el = h("div", { class: "timer", role: "timer", "aria-live": "off" }, h("span", { class: "timer-track" }, this.bar), this.num);
+    this.tick = null;
+  }
+  start(onExpire) {
+    let started = Number(store.get(this.key));
+    if (!started) { started = Date.now(); store.set(this.key, String(started)); }
+    const total = ROUND_SECONDS * 1000;
+    const update = () => {
+      const left = Math.max(0, total - (Date.now() - started));
+      const secs = Math.ceil(left / 1000);
+      this.num.textContent = `0:${String(secs).padStart(2, "0")}`;
+      this.bar.style.width = `${(secs / ROUND_SECONDS) * 100}%`;
+      this.el.classList.toggle("low", secs <= 10);
+      this.el.classList.toggle("critical", secs <= 5);
+      this.el.setAttribute("aria-label", `${secs} seconds left`);
+      if (left <= 0) { this.stop(); onExpire(); }
+    };
+    update();
+    if (this.num.textContent !== "0:00") this.tick = setInterval(update, 200);
+  }
+  stop({ clear = false } = {}) {
+    clearInterval(this.tick);
+    this.tick = null;
+    if (clear) { store.remove(this.key); this.el.classList.add("stopped"); }
+  }
 }
 
 function lockButton(label = "Lock it in") {
   return h("button", { class: "btn primary", type: "submit" }, label);
 }
 
-function buildNumberRound(screen, q) {
+/** Pour this round's points into the jar with a little floating "+N". */
+function pourIntoJar(jar, result) {
+  jar.fill(state.play.score / MAX_SCORE, { label: `${state.play.score} points of honey so far` });
+  const slot = jar.cv.parentElement;
+  const plus = h("span", { class: "jar-plus" }, `+${result.points}`);
+  slot.append(plus);
+  setTimeout(() => plus.remove(), 1400);
+}
+
+function buildNumberRound({ screen, q, timer, jar }) {
   let value = 50;
+  let sent = false;
   const big = h("div", { class: "bignum", "aria-live": "polite" });
   const combHost = h("div", { class: "comb" });
   const combWrap = h("div", { class: "comb-wrap" }, combHost);
@@ -238,45 +293,87 @@ function buildNumberRound(screen, q) {
 
   form.append(h("div", { class: "slider-row" }, slider, typed), fineBtn,
     h("p", { class: "hint" }, "Decimals only below 1% — slide to 1 or under, then fine-tune."), lockButton());
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+
+  async function send({ timedOut = false } = {}) {
+    if (sent) return;
+    sent = true;
+    timer.stop();
+    if (timedOut) closeOverlay();
     const btn = form.querySelector("button[type=submit]");
     btn.disabled = true;
     try {
-      const out = await api(`/play/${state.play.id}/submit`, { method: "POST", body: { round: state.play.round, value } });
+      const out = await api(`/play/${state.play.id}/submit`, { method: "POST", body: { round: state.play.round, value, timedOut } });
+      timer.stop({ clear: true });
       state.play = out.play;
       form.remove();
       showNumberReveal(screen, out.result, comb, big);
+      pourIntoJar(jar, out.result);
     } catch (err) {
+      sent = false;
       btn.disabled = false;
       toast(err.message);
       if (err.status === 409 || err.status === 404) startPlay(state.play.mode);
     }
-  });
+  }
+  form.addEventListener("submit", (e) => { e.preventDefault(); send(); });
   paint();
+  timer.start(() => send({ timedOut: true }));
 }
 
-function buildTextRound(screen, q) {
+function buildTextRound({ screen, q, timer, jar }) {
   const input = h("input", { class: "field text", type: "text", placeholder: "Your answer", "aria-label": "Your answer", autocomplete: "off", autocapitalize: "sentences", spellcheck: "false", maxlength: 80, enterkeyhint: "go" });
-  const form = h("form", { class: "controls text-controls" }, input, h("p", { class: "hint" }, "Tip: name the most common answer."), lockButton());
+  const hint = h("p", { class: "hint", "aria-live": "polite" }, "Tip: name the most common answer.");
+  const form = h("form", { class: "controls text-controls" }, input, hint, lockButton());
   screen.append(form);
   setTimeout(() => input.focus({ preventScroll: true }), 50);
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!input.value.trim()) { toast("Type an answer first."); input.focus(); return; }
+  let sending = false;
+  let done = false;
+
+  const setHint = (text, kind = "") => { hint.textContent = text; hint.className = `hint ${kind}`; };
+  input.addEventListener("input", () => {
+    input.classList.remove("suggested", "refused");
+    if (hint.classList.contains("suggest") || hint.classList.contains("refuse")) setHint("Tip: name the most common answer.");
+  });
+
+  async function send({ timedOut = false } = {}) {
+    if (done || (sending && !timedOut)) return;
+    if (!timedOut && !input.value.trim()) { toast("Type an answer first."); input.focus(); return; }
+    sending = true;
     const btn = form.querySelector("button[type=submit]");
     btn.disabled = true;
     try {
-      const out = await api(`/play/${state.play.id}/submit`, { method: "POST", body: { round: state.play.round, value: input.value } });
+      const out = await api(`/play/${state.play.id}/submit`, { method: "POST", body: { round: state.play.round, value: input.value, timedOut } });
+      if (out.refused) {
+        input.classList.remove("refused"); void input.offsetWidth; // restart the shake
+        input.classList.add("refused");
+        setHint(out.message, "refuse");
+        input.select();
+        return;
+      }
+      if (out.suggestion !== undefined) {
+        // a near miss: put the real answer in the box; Enter again locks it in
+        input.value = out.suggestion;
+        input.classList.add("suggested");
+        setHint(`Did you mean “${out.suggestion}”? Press Enter to lock it in, or keep typing.`, "suggest");
+        input.focus({ preventScroll: true });
+        return;
+      }
+      done = true;
+      timer.stop({ clear: true });
       state.play = out.play;
       form.remove();
       showTextReveal(screen, out.result);
+      pourIntoJar(jar, out.result);
     } catch (err) {
-      btn.disabled = false;
       toast(err.message);
       if (err.status === 409 || err.status === 404) startPlay(state.play.mode);
+    } finally {
+      sending = false;
+      if (!done) btn.disabled = false;
     }
-  });
+  }
+  form.addEventListener("submit", (e) => { e.preventDefault(); send(); });
+  timer.start(() => { done = false; send({ timedOut: true }); });
 }
 
 // ---------------------------------------------------------------- reveal
@@ -290,12 +387,14 @@ function heroFor(result, { center = false, line = null } = {}) {
     [[-4, 8], [96, 18], [88, 92]].slice(0, bee === "golden" ? 2 : 3).forEach(([x, y], i) =>
       beeBox.append(h("img", { class: "sparkle", src: SPARKLE, alt: "", style: `left:${x}px;top:${y}px;animation-delay:${i * 0.35}s` })));
   }
+  const chip = bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "Over 1,000 — a ruby run!")
+    : result.timedOut ? h("span", { class: "chip" }, "⏱ Time's up — locked in for you.")
+      : result.tier === "One Off" ? h("span", { class: "chip" }, "One away — so close to a Bullseye.") : null;
   const words = h("div", {},
     h("p", { class: "tier" }, result.tier),
     h("p", { class: "pts" }, `+${result.points}`, h("small", {}, "points")),
     line,
-    bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "Over 1,000 — a ruby run!")
-      : result.tier === "One Off" && h("span", { class: "chip" }, "One away — so close to a Bullseye."));
+    chip);
   hero.append(beeBox, words);
   return hero;
 }
@@ -325,12 +424,19 @@ function showNumberReveal(screen, result, comb, big) {
 
 function showTextReveal(screen, result) {
   const said = result.guess || "—";
-  const rankBit = result.rank ? ` · #${result.rank}` : " · not on the list";
+  const rankBit = result.rank ? ` · #${result.rank}` : result.guess ? " · not on the list" : "";
+  const top3 = (result.top3 || []).length
+    ? h("ol", { class: "top3", "aria-label": "The top 3 answers" },
+      result.top3.map((label, i) => h("li", { class: result.rank === i + 1 ? "you" : "" },
+        h("span", { class: "rk" }, `#${i + 1}`), h("span", { class: "lb" }, label), result.rank === i + 1 ? h("span", { class: "tag" }, "you") : null)))
+    : null;
   const reveal = h("section", { class: "reveal text-reveal", "aria-live": "polite" },
-    heroFor(result, { center: true }),
-    h("p", { class: "answer-line", style: "text-align:center" }, "You said: ", h("b", {}, said), rankBit,
-      result.readBack ? h("span", {}, " · read as ", h("b", {}, result.readBack)) : null),
-    nextButton());
+    ...[heroFor(result, { center: true }),
+      h("p", { class: "answer-line", style: "text-align:center" }, "You said: ", h("b", {}, said), rankBit,
+        result.readBack && result.readBack.toLowerCase() !== said.toLowerCase() ? h("span", {}, " · read as ", h("b", {}, result.readBack)) : null),
+      top3 && h("p", { class: "kicker", style: "text-align:center" }, "The top 3"),
+      top3,
+      nextButton()].filter(Boolean));
   screen.append(reveal);
   reveal.querySelector(".btn").focus({ preventScroll: true });
 }
@@ -340,8 +446,10 @@ function renderResults(play) {
   const ruby = isRuby(play.score, play.completed);
   const hero = h("section", { class: "results-hero" },
     ruby && h("div", { class: "enter-diamond" }, h("p", { class: "ruby-label" }, "RUBY"), h("img", { src: BEE_SRC("ruby"), alt: "Ruby bee", width: 120, height: 120 })),
-    h("p", { class: "total" }, String(play.score)),
-    h("p", { class: "outof" }, `out of ${MAX_SCORE}`));
+    h("div", { class: "total-row" },
+      h("div", { class: "jar-big" }),
+      h("div", {}, h("p", { class: "total" }, String(play.score)), h("p", { class: "outof" }, `out of ${MAX_SCORE}`))),
+    play.mode === "daily" && countdown());
   const rows = h("section", { class: "card rows", "aria-label": "Your rounds" },
     play.results.map((r, i) => {
       const bee = tierByName(r.tier)?.bee || "thirsty"; // by tier name, so older plays map too
@@ -356,6 +464,34 @@ function renderResults(play) {
   else actions.append(h("button", { class: "btn primary", onclick: () => startPlay("endless") }, "Play again"));
   actions.append(h("button", { class: "btn ghost", onclick: goHome }, "Home"));
   mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, rows, actions, footer()));
+  const jar = new HoneyJar(hero.querySelector(".jar-big"), { scale: 4 });
+  jar.fill(0, { animate: false });
+  requestAnimationFrame(() => jar.fill(play.score / MAX_SCORE, { label: `${play.score} points of honey` }));
+}
+
+/** Seconds until the next Daily: midnight Eastern. */
+function secondsToNextDaily() {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+  }).formatToParts(new Date()).map((p) => [p.type, p.value]));
+  return 86400 - (Number(parts.hour) * 3600 + Number(parts.minute) * 60 + Number(parts.second));
+}
+
+/** A live "Next Daily in 7:42:13" line; takes the player home when the new day lands. */
+function countdown() {
+  const time = h("b", { class: "cd-time" });
+  const el = h("p", { class: "countdown" }, "Next Daily in ", time);
+  const fmt = (s) => `${Math.floor(s / 3600)}:${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+  const tick = () => {
+    if (!el.isConnected && el.dataset.mounted) { clearInterval(iv); return; }
+    if (el.isConnected) el.dataset.mounted = "1";
+    const s = secondsToNextDaily();
+    time.textContent = fmt(Math.max(0, s));
+    if (s <= 1 && el.isConnected) { clearInterval(iv); setTimeout(goHome, 1500); }
+  };
+  const iv = setInterval(tick, 1000);
+  tick();
+  return el;
 }
 
 async function share(date) {
@@ -392,7 +528,9 @@ function showHowTo() {
   openOverlay("How to play", h("div", {},
     h("p", {}, h("b", {}, "Daily. "), "One set of seven prompts, the same for everyone, one run a day. Every answer is a real published statistic."),
     h("p", {}, h("b", {}, "Guess the %. "), "Slide or type your guess. Under 1%, Fine-tune works in hundredths."),
-    h("p", {}, h("b", {}, "Name the #1. "), "Type the most popular answer on a ranked list."),
+    h("p", {}, h("b", {}, "Name the #1. "), "Type an answer on the ranked list — the higher it ranks, the more points. Close spellings get corrected for you; press Enter again to lock it in."),
+    h("p", {}, h("b", {}, `${ROUND_SECONDS} seconds a round. `), "When time runs out, whatever you have is locked in."),
+    h("p", {}, h("b", {}, "Fill the jar. "), "Every point is honey. Go over 1,000 for the ruby bee."),
     h("p", {}, "The closer your guess, the more points. A perfect guess is a Bullseye."),
     h("button", { class: "btn primary", onclick: closeOverlay }, "Got it")));
 }

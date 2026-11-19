@@ -2,6 +2,7 @@
 
 export const ROUND_KINDS = ["guess", "guess", "text", "guess", "guess", "text", "finale"];
 export const ROUNDS = ROUND_KINDS.length;
+export const ROUND_SECONDS = 30; // the timer on every round
 export const ROUND_MAX = 175;
 export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225
 export const RUBY_THRESHOLD = 1000; // a finished run must score OVER this for the ruby bee
@@ -192,7 +193,7 @@ export function publicQuestion(q) {
 
 export function shareText(date, results, score) {
   const emojis = results.map((r) => (tierByName(r.tier) || BLANK).emoji).join("");
-  return `Honeydle ${date}\n${emojis}\n${score}/${MAX_SCORE}`;
+  return `Honeydle ${date}\n${emojis}\n🍯 ${score}/${MAX_SCORE}`;
 }
 
 /** Format a percentage for display: hundredths below 1%, whole numbers above. */
