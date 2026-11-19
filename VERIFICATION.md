@@ -230,6 +230,45 @@ Tier bands are unchanged: expanded ranks fall into the existing 31+ band (5 pts)
 - Flake note: the pre-existing hundredths end-to-end check draws a random Endless finale and needs a sub-1% one within its attempts (~5% miss chance at 6 attempts); attempts raised 6 → 12 to make the suite reliable. No behavior change.
 - Live Render Postgres still untested for this change (pg-mem only); the first deploy after the audit + this expansion is the real test (`/health` should show `bankQuestions: 142`).
 
+## 2026-11-18 text-round autocorrect (distinctive-part matching)
+
+Trigger: Luke: "the word bank or maybe add a feature that will auto correct the word to the word the person is obviously trying to say. Like when I say whale auto correct it to blue whale when I press enter."
+
+### The rule (lib/game.js, pass 3 in `matchTextAnswer`)
+
+After the existing exact (pass 1) and fuzzy (pass 2) matching fail, a submit-time autocorrect pass fires only when the typed input unambiguously names exactly one listed answer:
+
+- **Single-token input:** must match the FIRST token of the label (exact, or a typo with the same first letter and within edit tolerance). The distinctive part of an answer is (almost) always its leading word — "Humpback" in "Humpback whale", "Fin" in "Fin whale". The trailing head noun is the shared category word: a bare head noun names the category, not the answer.
+  - The token must not appear ANYWHERE else in the question — not even as a buried token. "elephant" is the first word of rank 18's "Elephant seal" variant, but it is also a token of ranks 14, 15 and 17 (the actual elephants), so it stays unlisted. The same guard catches "king" (The Lion King rank 14 vs King Kong) for free.
+  - Prefix guard: if the token is also a proper prefix of another rank's first token, it fires only if its exact-match rank beats every prefix rank ("blue" is rank 1's word and only a prefix of rank 46's "bluefin" → fires; "sugar" is rank 9's word but rank 1's "sugarcane" cut short → stays unlisted).
+- **Multi-token input:** every input token must match some token of the label (same first-letter typo rule). "north pacific" → North Pacific right whale (rank 2); "bush elephant" → African bush elephant (rank 14); "atlantic right" → North Atlantic right whale (rank 6).
+- **Truncation:** a ≥4-char input that is a prefix of exactly one rank's label ending mid-word ("blue wh" → "Blue whale"). A complete first word is not a truncation — pass 3a already decided it — so if the typed token exactly equals some rank's first token, the truncation pass does not run ("sugar" must not become rank 1's "sugarcane" after 3a declined it).
+- **No highest-rank tiebreak (deliberate):** if two or more ranks qualify, the input stays unlisted. Bank-wide scan of single tokens appearing in ≥2 rank labels across all 35 text questions: the top-ranked candidate is the obvious referent only for "whale" → Blue whale, and coin-flippy for "ford" (Mustang rank 1 vs F-150 rank 5), "bulldog" (rank 1 vs rank 10), "war", "university", "cancer", "health", "empire". The one obvious case is a curated bank alias, not a rule.
+- Scoring unchanged: an autocorrected answer scores at the matched rank's points via the existing `scoreText` table. Streak/175 logic untouched.
+
+### The "whale" bank analysis (Q202, "Name the heaviest animal in the world", 77 ranks)
+
+"whale" is a token of 15 ranks (1–13, 16, 71) — NOT unique, so no rule could autocorrect it. Instead, one curated alias: "whale" appended to rank 1's variants (Blue whale). "whales" / "whal" also resolve via the alias + pass-2 fuzzy. The distinctive first words do the rest: "humpback" → 8, "minke" → 13, "sperm" → 7, "fin" → 4, "beluga" → 71, "blue" → 1. Ambiguous parts stay unlisted: "shark" (four sharks), "right whale" (three right whales), "elephant" (three elephants + the elephant seal), "north", "sea".
+
+### Reveal display (server.js + client/js/screens.js)
+
+- Server returns `textMatched` (the matched rank's primary label) ONLY when the match was autocorrected AND rank ≠ 1. The #1 label never leaves the server in a text-round result.
+- Client reveal: `You said: <b>typed</b> · #N · read as <b>Matched Label</b>` when textMatched is present; rank 1 shows typed text + #1 only, unchanged; unlisted shows "not on the list" as before.
+- No other surface carries textMatched (grep: only the submit handler and the reveal line).
+
+### Bank aliases NOT added (borderline — for Luke's eyes, not bulk-added)
+
+"avenger" → Endgame (Q236), "sugar" → Sugarcane (Q247 — trap: "sugar" is rank 9 "Sugar beet"'s word), "sea" → Caspian Sea (Q204), "empire" → British Empire (Q189). Each is either ambiguous or a bare category word; left unlisted by design.
+
+### Known pre-existing quirk (not caused by this change)
+
+"bear" → Wild boar (rank 74) via the OLD pass-2 token-fuzzy path: "bear" vs the single-token variant "boar" is 1 edit apart with the same token count. It scores 5 pts — the same as unlisted (rank 74 is in the 31+ band) — only the shown rank number differs. Pass 2 was left alone: tightening it would also block genuine first-letter typos ("xebra" → "zebra"). Flagged here rather than silently fixed. Same class, also pre-existing: "bulldog" → rank 10 English Bulldog is an exact stored variant, not an autocorrect.
+
+### Verification
+
+- `npm run verify`: **301 passed, 0 failed** (two consecutive green runs). MATCH_CASES grew 93 → 125 (+32 autocorrect cases: positives, misspelled partials, multi-token partials, truncations, and guards). New HTTP checks: rank-2+ autocorrect returns textMatched at the rank's points with no #1 leak; rank-1 autocorrect returns rank 1 with NO textMatched field and no #1 leak (33/35 text questions have a rank-2+ first-word partial, 6/35 a rank-1 one; plays without a candidate are abandoned before any submit). The leak check looks for the QUOTED #1 label: a few rank-2+ labels contain the #1 as a substring ("Blue Nile" contains "Nile"), so an unquoted substring check would false-fail.
+- Guards that must keep passing (all in MATCH_CASES): "france", "dove", "tired", "sugar", "jin dynasty", "george william", "frederick v", "elephant", "shark", "right whale", "ford", "king".
+
 ## 2026-11-17 fix-everything pass (before shipment)
 
 Trigger: the owner said "Make sure the answers make sense... fix everything before the final shipment." This decided the open top-10 question: FIX FIRST, then ship. The owner also reported typing "fly" for the superpower question (Q110) and it not registering — the parent verified "fly" already matches Q110 rank 2 ("Flying") in the current code; the miss happened on the LIVE site, which still runs the old thin lists + old matcher. Three agents ran in parallel: reorderings (A), sense sweep (B), verb-form matching (C). Evidence: `audit/reorder-report.md`, `audit/sense-sweep-spec.json`, `audit/flagged-fixes-spec.json`; spec applier at `scripts/apply-bank-spec.mjs`.

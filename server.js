@@ -217,6 +217,12 @@ app.post("/api/play/:id/submit", ah(async (req, res) => {
     result = {
       kind: "text", questionId: q.id, textGuess: submitted, textRank: m.rank,
       points: s.points, tier: s.tier,
+      // Autocorrect read-back: tell the player what their partial was read
+      // as — but NEVER for rank 1. The #1 label never leaves the server in
+      // a text-round result (standing rule: the reveal never shows the #1
+      // answer). A rank-1 autocorrect ("whale" -> Blue whale) shows the
+      // typed text + #1 only.
+      ...(m.autocorrected && m.rank !== null && m.rank !== 1 ? { textMatched: m.matched } : {}),
     };
   } else {
     const err = validateGuess(guess);

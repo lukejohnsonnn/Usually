@@ -245,7 +245,7 @@ function showReveal(r) {
       </div>
       ${nudge}
       ${isText ? `
-        <p class="answer-line">You said: <b>${escapeHtml(r.textGuess || "—")}</b>${r.textRank ? ` · #${r.textRank}` : " · not on the list"}</p>`
+        <p class="answer-line">You said: <b>${escapeHtml(r.textGuess || "—")}</b>${r.textRank ? ` · #${r.textRank}` : " · not on the list"}${r.textMatched ? ` · read as <b>${escapeHtml(r.textMatched)}</b>` : ""}</p>`
       : `
         <p class="answer-line">You guessed <b>${isSplit ? `${r.guess} / ${100 - r.guess}` : sub1 ? r.guess.toFixed(2) + "%" : r.guess + "%"}</b> · the real number is <b>${sub1 ? r.answer.toFixed(2) + "%" : r.answer + "%"}</b></p>
         ${r.note ? `<p class="note">${escapeHtml(r.note)}</p>` : ""}

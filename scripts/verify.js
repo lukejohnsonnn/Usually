@@ -125,6 +125,21 @@ const MATCH_CASES = [
   [202, "rhinoceros", null], [202, "right whale", null], [203, "deer", null],
   [224, "pornhub", null], [224, "xhamster", null], [235, "punjabi", null],
   [236, "lion king", 14], [204, "dead sea", null],
+  // 2026-11-18 autocorrect (pass 3, distinctive-part): a typed part of
+  // exactly one listed answer corrects to it at that rank's points. Luke:
+  // "whale" should become "Blue whale". "whale" alone is ambiguous (15
+  // ranks) and only works via the curated bank alias on Q202 rank 1.
+  [202, "whale", 1], [202, "whales", 1], [202, "whal", 1],
+  [202, "humpback", 8], [202, "humpbak", 8], [202, "minke", 13], [202, "mink", 13],
+  [202, "sperm", 7], [202, "fin", 4], [202, "beluga", 71], [202, "blue", 1],
+  [202, "north pacific", 2], [202, "pacific right", 2], [202, "blue wh", 1],
+  [202, "north pacific right", 2], [202, "atlantic right", 6], [202, "southern right", 3],
+  [202, "gray", 10], [202, "grey", 10], [202, "grey whale", 10],
+  [202, "bush elephant", 14], [202, "african bush", 14],
+  [202, "shark", null], [202, "north", null], [202, "sea", null],
+  [202, "black bear", null], [202, "right", null],
+  [204, "caspian", 1], [189, "napoleon", 72], [236, "king", null],
+  [247, "sugar", null], [109, "ford", null],
 ];
 {
   const bad = [];
@@ -1290,6 +1305,77 @@ let nearMissOk = false;
   nearMissOk = sawText && allBullseye;
 }
 check('near-miss text answers ("my " + #1) score Bullseye end-to-end', nearMissOk);
+
+// Autocorrect read-back end-to-end (2026-11-18): a distinctive partial
+// submitted through the real server returns the matched rank's points and,
+// for ranks 2+, a `textMatched` read-back of the matched label — but for
+// rank 1 there is NO textMatched field and the #1 label appears nowhere in
+// the response (standing rule: the text reveal never shows the #1 answer).
+// Candidate partials are found with the matcher itself (first word of a
+// rank's label); the server agreement + the field/leak assertions are the
+// non-circular part. 33/35 text questions have a rank-2+ first-word partial
+// and 6/35 have a rank-1 one, so the rank-1 loop gets the bigger budget.
+// Plays with no usable candidate are abandoned before any submit (free).
+// The leak check looks for the QUOTED #1 label: a few rank-2+ labels contain
+// the #1 as a substring ("Blue Nile" contains "Nile"), so an unquoted
+// substring check would false-fail.
+const firstWordOf = (s) => s.split(" ")[0];
+function autocorrectCandidates(full) {
+  let rank2plus = null, rank1 = null;
+  const top1w = firstWordOf(full.top1);
+  const m1 = matchTextAnswer(full, top1w);
+  if (m1.autocorrected && m1.rank === 1) rank1 = { partial: top1w, matched: m1.matched };
+  for (const slot of full.textAnswers || []) {
+    if (slot.rank === 1 || rank2plus) continue;
+    const w = firstWordOf(slot.texts[0]);
+    const m = matchTextAnswer(full, w);
+    if (m.autocorrected && m.rank !== null && m.rank !== 1) {
+      rank2plus = { partial: w, rank: m.rank, matched: m.matched };
+    }
+  }
+  return { rank2plus, rank1 };
+}
+let readbackOk = false, readbackMismatch = false;
+let rank1SuppressedOk = false, rank1Mismatch = false;
+for (let attempt = 0; attempt < 20 && !(readbackOk && rank1SuppressedOk); attempt++) {
+  const pid = `verify-autocorrect-${attempt}`;
+  const ep = await api("/api/play", { method: "POST", body: JSON.stringify({ playerId: pid, mode: "endless" }) });
+  const plan = ep.body.questions.map((q, i) => {
+    if (q.kind !== "text") return null;
+    const full = byId.get(q.id);
+    return { i, full, ...autocorrectCandidates(full) };
+  }).filter(Boolean);
+  if (!plan.some((p) => (!readbackOk && p.rank2plus) || (!rank1SuppressedOk && p.rank1))) continue;
+  for (let i = 0; i < 7 && !(readbackOk && rank1SuppressedOk); i++) {
+    const q = ep.body.questions[i];
+    const full = byId.get(q.id);
+    const p = plan.find((x) => x.i === i);
+    let testKind = null, body;
+    if (p && !readbackOk && p.rank2plus) { testKind = "rank2plus"; body = { answer: p.rank2plus.partial }; }
+    else if (p && !rank1SuppressedOk && p.rank1) { testKind = "rank1"; body = { answer: p.rank1.partial }; }
+    else body = q.kind === "text" ? { answer: full.top1 }
+      : { guess: full.answer >= 1 ? Math.round(full.answer) : full.answer };
+    const s = await api(`/api/play/${ep.body.playId}/submit`, {
+      method: "POST", body: JSON.stringify({ playerId: pid, roundIndex: i, ...body }),
+    });
+    const leaked = JSON.stringify(s.body).includes(JSON.stringify(full.top1));
+    if (testKind === "rank2plus") {
+      const good = s.body.result?.textRank === p.rank2plus.rank
+        && s.body.result?.textMatched === p.rank2plus.matched
+        && s.body.result?.points === scoreText(p.rank2plus.rank).points
+        && !leaked;
+      if (good) readbackOk = true; else { readbackMismatch = true; break; }
+    }
+    if (testKind === "rank1") {
+      const good = s.body.result?.textRank === 1
+        && !("textMatched" in (s.body.result || {}))
+        && s.body.result?.points === 175 && !leaked;
+      if (good) rank1SuppressedOk = true; else { rank1Mismatch = true; break; }
+    }
+  }
+}
+check("autocorrect read-back end-to-end (rank 2+ returns textMatched at the rank's points, #1 never leaks)", readbackOk && !readbackMismatch);
+check("autocorrect rank-1 end-to-end (rank 1, no textMatched field, #1 never leaks)", rank1SuppressedOk && !rank1Mismatch);
 
 // Yesterday peek
 const y = await api("/api/yesterday");
