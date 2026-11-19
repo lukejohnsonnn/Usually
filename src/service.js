@@ -5,7 +5,7 @@ import fs from "node:fs";
 import {
   ROUNDS, MAX_SCORE, composeSet, isValidSet, publicQuestion, poolOf,
   validateGuess, cleanGuess, scoreNumeric, scoreRank,
-  matchTextAnswer, normalizeText, easternDate, addDays, bullseyeStreak, shareText,
+  matchTextAnswer, normalizeText, easternDate, addDays, shareText,
 } from "./game/index.js";
 
 export class GameError extends Error {
@@ -157,7 +157,6 @@ export function createService({ store, bank, now = () => new Date() }) {
       const q = play.snapshot[next];
       const result = { round: next, questionId: q.id, ...scoreRound(q, value) };
       play.results.push(result);
-      result.streak = bullseyeStreak(play.results);
       play.score = play.results.reduce((a, r) => a + r.points, 0);
       if (play.results.length === ROUNDS) play.completedAt = now().toISOString();
       await store.savePlay(play);

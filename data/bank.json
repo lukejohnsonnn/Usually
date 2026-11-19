@@ -6,50 +6,6 @@
  },
  "questions": [
   {
-   "id": 11,
-   "kind": "guess",
-   "category": "Big questions",
-   "text": "What % of people believe they've seen a ghost?",
-   "answer": 16,
-   "note": null,
-   "finale": false,
-   "source": "YouGov, Oct 2025: 16% of US adult citizens reported having seen a spirit or ghost",
-   "sourceUrl": "https://yougov.com/en-us/articles/53258-most-americans-say-they-have-experienced-at-least-one-paranormal-event"
-  },
-  {
-   "id": 20,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they're a better driver than average?",
-   "answer": 22,
-   "note": null,
-   "finale": false,
-   "source": "YouGov Daily Question, 6 Sep 2018 (UK adults)",
-   "sourceUrl": "https://yougov.com/en-gb/daily-results/20180906-ff8a1-3"
-  },
-  {
-   "id": 24,
-   "kind": "guess",
-   "category": "Phone life",
-   "text": "What % of Facebook users would give up Facebook for a month for $500?",
-   "answer": 80,
-   "note": null,
-   "finale": false,
-   "source": "Allcott, Braghieri, Eichmeyer & Gentzkow, American Economic Review 2020 (NBER WP 25514, 2,743 US Facebook users): almost 20% had willingness-to-accept over $500 to deactivate for four weeks, median $100.",
-   "sourceUrl": "https://www.nber.org/system/files/working_papers/w25514/revisions/w25514.rev1.pdf?mod=djemRTE_h"
-  },
-  {
-   "id": 32,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of Brits think they could qualify for the 2028 Olympics if they started training today?",
-   "answer": 27,
-   "note": null,
-   "finale": false,
-   "source": "YouGov, August 2024 (n=2,070 GB adults)",
-   "sourceUrl": "https://yougov.co.uk/sport/articles/50301-a-quarter-of-britons-think-they-could-qualify-for-the-2028-olympics"
-  },
-  {
    "id": 37,
    "kind": "guess",
    "category": "World · Finale",
@@ -74,24 +30,13 @@
   {
    "id": 41,
    "kind": "guess",
-   "category": "Money moves · Finale",
+   "category": "Money · Finale",
    "text": "What % of US households own a boat?",
    "answer": 12,
    "note": null,
    "finale": true,
    "source": "National Marine Manufacturers Association / US Coast Guard: 11.9% of US households own a recreational boat",
    "sourceUrl": "https://quicknav.com/boating-statistics/"
-  },
-  {
-   "id": 42,
-   "kind": "guess",
-   "category": "Genetics · Finale",
-   "text": "What % of people are both left-handed AND red-haired?",
-   "answer": 0.2,
-   "note": "Left-handed is about 10% and red hair about 2% — both at once barely registers.",
-   "finale": true,
-   "source": "Computed: ~10% left-handed (de Kovel et al. 2019) x ~2% red-haired = 0.2%",
-   "sourceUrl": "https://shunsalon.com/article/what-percentage-of-people-ar-left-handed-and-red-haired"
   },
   {
    "id": 43,
@@ -107,7 +52,7 @@
   {
    "id": 45,
    "kind": "guess",
-   "category": "Pets",
+   "category": "Society",
    "text": "Of all the pet dogs and cats in the US, what % are dogs?",
    "answer": 53,
    "note": null,
@@ -129,7 +74,7 @@
   {
    "id": 48,
    "kind": "guess",
-   "category": "Big questions",
+   "category": "Society",
    "text": "What % of Americans live in urban areas?",
    "answer": 80,
    "note": null,
@@ -140,7 +85,7 @@
   {
    "id": 49,
    "kind": "guess",
-   "category": "Campus",
+   "category": "Society",
    "text": "What % of US college students are women?",
    "answer": 58,
    "note": "Women have been the majority on US campuses for decades.",
@@ -151,7 +96,7 @@
   {
    "id": 50,
    "kind": "guess",
-   "category": "Jobs",
+   "category": "Business",
    "text": "What % of US nurses are women?",
    "answer": 88,
    "note": "One of the most lopsided job splits there is.",
@@ -162,7 +107,7 @@
   {
    "id": 55,
    "kind": "guess",
-   "category": "Jobs",
+   "category": "Business",
    "text": "What % of US paid workdays are worked from home?",
    "answer": 27,
    "note": null,
@@ -173,7 +118,7 @@
   {
    "id": 56,
    "kind": "guess",
-   "category": "Body count",
+   "category": "Body",
    "text": "What % of women over 50 will break a bone because of osteoporosis?",
    "answer": 50,
    "note": null,
@@ -182,37 +127,15 @@
    "sourceUrl": "https://www.ucb.com/innovation/magazine/detail/article/closing-the-gap-in-osteoporosis-it-s-make-or-break-for-post-fracture-care"
   },
   {
-   "id": 59,
-   "kind": "guess",
-   "category": "Body count",
-   "text": "What % of people have a third nipple?",
-   "answer": 0.2,
-   "note": "Published estimates are all over the place — medical reviews report anywhere from 0.2% to 5.6% of the general population. This question uses the low end: 0.2%, about 1 in 500 people. Source: Polythelia: A Case Report, Annals of Obstetrics and Gynecology (2024).",
-   "finale": false,
-   "source": "Polythelia case report, Annals of Obstetrics and Gynecology (2024): supernumerary-nipple prevalence 0.2%-5.6%",
-   "sourceUrl": "https://www.sciencedirect.com/topics/medicine-and-dentistry/supernumerary-nipple"
-  },
-  {
    "id": 63,
    "kind": "guess",
-   "category": "After dark",
+   "category": "Body",
    "text": "What % of people have sleepwalked at least once?",
    "answer": 7,
    "note": null,
    "finale": false,
    "source": "Stallman & Kohler (2016), PLOS ONE: lifetime prevalence of sleepwalking 6.9%",
    "sourceUrl": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0164769"
-  },
-  {
-   "id": 72,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could survive a week alone in the wilderness?",
-   "answer": 33,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
   },
   {
    "id": 78,
@@ -239,7 +162,7 @@
   {
    "id": 80,
    "kind": "guess",
-   "category": "Brain check · Finale",
+   "category": "Body · Finale",
    "text": "What % of people have perfect pitch?",
    "answer": 0.01,
    "note": "About 1 person in 10,000 can name a note with no reference.",
@@ -248,20 +171,9 @@
    "sourceUrl": "https://www.frontiersin.org/articles/10.3389/fnins.2016.00447/full"
   },
   {
-   "id": 81,
-   "kind": "guess",
-   "category": "Money moves · Finale",
-   "text": "What % of US households own a business jet?",
-   "answer": 0.02,
-   "note": null,
-   "finale": true,
-   "source": "Computed: 26,670 business jets/turboprops on FAA register (Oct 2026) / 132.7M US households (Census ACS 2024) = 0.02%",
-   "sourceUrl": "https://www.flycraft.com/research/business-jet-ownership"
-  },
-  {
    "id": 88,
    "kind": "guess",
-   "category": "At home",
+   "category": "Money",
    "text": "What % of US households own their home?",
    "answer": 65,
    "note": "About two in three US households own their home.",
@@ -272,7 +184,7 @@
   {
    "id": 108,
    "kind": "text",
-   "category": "Big questions",
+   "category": "Society",
    "text": "What's the most common fear people have?",
    "answer": null,
    "note": null,
@@ -1086,1669 +998,6 @@
    "sourceUrl": "https://yougov.com/en-us/articles/8983-argh-snakes"
   },
   {
-   "id": 109,
-   "kind": "text",
-   "category": "Culture",
-   "text": "Name the car most people dream of owning",
-   "answer": null,
-   "note": null,
-   "finale": false,
-   "top1": "Ford Mustang",
-   "textAnswers": [
-    {
-     "rank": 1,
-     "texts": [
-      "Ford Mustang",
-      "Mustang",
-      "A Mustang",
-      "Mustang GT",
-      "Mustang 5.0",
-      "Shelby GT500",
-      "Shelby Mustang",
-      "A Ford Mustang"
-     ]
-    },
-    {
-     "rank": 2,
-     "texts": [
-      "Porsche 911",
-      "A 911",
-      "Porsche",
-      "911 Carrera",
-      "911 GT3",
-      "Porsche 911 Turbo",
-      "911 Turbo S"
-     ]
-    },
-    {
-     "rank": 3,
-     "texts": [
-      "Dodge Charger",
-      "Charger",
-      "Charger Hellcat",
-      "Hellcat Charger",
-      "Dodge Charger SRT"
-     ]
-    },
-    {
-     "rank": 4,
-     "texts": [
-      "Tesla Model 3",
-      "Tesla",
-      "A Tesla",
-      "Model 3",
-      "A Model 3",
-      "Tesla 3"
-     ]
-    },
-    {
-     "rank": 5,
-     "texts": [
-      "Ford Bronco",
-      "Bronco",
-      "A Bronco"
-     ]
-    },
-    {
-     "rank": 6,
-     "texts": [
-      "Tesla Model Y",
-      "Model Y",
-      "A Model Y",
-      "Tesla Y"
-     ]
-    },
-    {
-     "rank": 7,
-     "texts": [
-      "BMW M3",
-      "BMW",
-      "A BMW",
-      "M3",
-      "A BMW M3",
-      "M3 Competition"
-     ]
-    },
-    {
-     "rank": 8,
-     "texts": [
-      "Porsche Cayenne",
-      "Cayenne",
-      "A Cayenne"
-     ]
-    },
-    {
-     "rank": 9,
-     "texts": [
-      "Toyota Supra",
-      "Toyota",
-      "A Supra",
-      "GR Supra",
-      "Supra MK4",
-      "A Toyota Supra"
-     ]
-    },
-    {
-     "rank": 10,
-     "texts": [
-      "Audi R8",
-      "Audi",
-      "R8",
-      "An Audi R8",
-      "Audi R8 V10"
-     ]
-    },
-    {
-     "rank": 11,
-     "texts": [
-      "Lamborghini",
-      "A Lamborghini",
-      "Lambo",
-      "Lamborghini Gallardo",
-      "Lamborghini Diablo"
-     ]
-    },
-    {
-     "rank": 12,
-     "texts": [
-      "Ferrari",
-      "A Ferrari",
-      "Ferrari F40",
-      "Ferrari 458",
-      "Ferrari California"
-     ]
-    },
-    {
-     "rank": 13,
-     "texts": [
-      "Chevrolet Corvette",
-      "Corvette",
-      "A Corvette",
-      "Corvette Stingray",
-      "Corvette Z06",
-      "C8 Corvette",
-      "Vette"
-     ]
-    },
-    {
-     "rank": 14,
-     "texts": [
-      "Mercedes-Benz",
-      "Mercedes",
-      "A Mercedes",
-      "A Mercedes-Benz",
-      "Benz",
-      "Mercedes Benz"
-     ]
-    },
-    {
-     "rank": 15,
-     "texts": [
-      "Range Rover",
-      "Land Rover",
-      "A Range Rover",
-      "Range Rover Sport"
-     ]
-    },
-    {
-     "rank": 16,
-     "texts": [
-      "Ford F-150",
-      "A pickup truck",
-      "A truck",
-      "F-150",
-      "Ford truck",
-      "F150"
-     ]
-    },
-    {
-     "rank": 17,
-     "texts": [
-      "Jeep Wrangler",
-      "Jeep",
-      "Wrangler",
-      "A Jeep Wrangler",
-      "Jeep Gladiator"
-     ]
-    },
-    {
-     "rank": 18,
-     "texts": [
-      "Nissan GT-R",
-      "GT-R",
-      "GTR",
-      "Nissan",
-      "R35 GT-R",
-      "Nissan GTR"
-     ]
-    },
-    {
-     "rank": 19,
-     "texts": [
-      "McLaren",
-      "A McLaren",
-      "720S",
-      "McLaren 720S",
-      "McLaren P1",
-      "McLaren Artura",
-      "McLaren Senna"
-     ]
-    },
-    {
-     "rank": 20,
-     "texts": [
-      "Bugatti",
-      "A Bugatti",
-      "Bugatti Chiron",
-      "Bugatti Veyron",
-      "Bugatti Bolide"
-     ]
-    },
-    {
-     "rank": 21,
-     "texts": [
-      "Rolls-Royce",
-      "A Rolls-Royce",
-      "Rolls Royce",
-      "Rolls-Royce Phantom",
-      "Rolls-Royce Ghost",
-      "Rolls-Royce Cullinan"
-     ]
-    },
-    {
-     "rank": 22,
-     "texts": [
-      "Bentley",
-      "A Bentley",
-      "Bentley Continental GT",
-      "Bentley Bentayga",
-      "Continental GT"
-     ]
-    },
-    {
-     "rank": 23,
-     "texts": [
-      "Aston Martin",
-      "An Aston Martin",
-      "Aston Martin Vantage",
-      "Aston Martin DB11",
-      "Aston Martin DBS"
-     ]
-    },
-    {
-     "rank": 24,
-     "texts": [
-      "Maserati",
-      "A Maserati",
-      "Maserati GranTurismo",
-      "Maserati Quattroporte",
-      "Maserati Ghibli"
-     ]
-    },
-    {
-     "rank": 25,
-     "texts": [
-      "Cadillac Escalade",
-      "Cadillac",
-      "Escalade",
-      "Cadillac Escalade ESV",
-      "Caddy Escalade"
-     ]
-    },
-    {
-     "rank": 26,
-     "texts": [
-      "Tesla Model S",
-      "Model S",
-      "A Model S",
-      "Model S Plaid"
-     ]
-    },
-    {
-     "rank": 27,
-     "texts": [
-      "Lamborghini Urus",
-      "Urus",
-      "Lamborghini SUV"
-     ]
-    },
-    {
-     "rank": 28,
-     "texts": [
-      "Chevrolet Camaro",
-      "Camaro",
-      "Camaro SS",
-      "Camaro ZL1",
-      "Chevy Camaro"
-     ]
-    },
-    {
-     "rank": 29,
-     "texts": [
-      "Dodge Challenger",
-      "Challenger",
-      "Challenger Hellcat",
-      "Challenger SRT",
-      "Dodge Challenger R/T"
-     ]
-    },
-    {
-     "rank": 30,
-     "texts": [
-      "Ford GT",
-      "Ford GT supercar"
-     ]
-    },
-    {
-     "rank": 31,
-     "texts": [
-      "Koenigsegg",
-      "A Koenigsegg",
-      "Koenigsegg Jesko",
-      "Koenigsegg Regera",
-      "Jesko"
-     ]
-    },
-    {
-     "rank": 32,
-     "texts": [
-      "Pagani",
-      "A Pagani",
-      "Pagani Huayra",
-      "Pagani Zonda",
-      "Huayra"
-     ]
-    },
-    {
-     "rank": 33,
-     "texts": [
-      "Lexus",
-      "A Lexus",
-      "Lexus LC500",
-      "Lexus LFA",
-      "Lexus RC F"
-     ]
-    },
-    {
-     "rank": 34,
-     "texts": [
-      "Jaguar",
-      "A Jaguar",
-      "Jaguar F-Type",
-      "Jaguar XJ220"
-     ]
-    },
-    {
-     "rank": 35,
-     "texts": [
-      "Mercedes G-Wagon",
-      "G-Wagon",
-      "G Wagon",
-      "Mercedes G-Class",
-      "G-Class",
-      "A G-Wagon"
-     ]
-    },
-    {
-     "rank": 36,
-     "texts": [
-      "Land Rover Defender",
-      "Defender",
-      "A Defender"
-     ]
-    },
-    {
-     "rank": 37,
-     "texts": [
-      "Tesla Model X",
-      "Model X"
-     ]
-    },
-    {
-     "rank": 38,
-     "texts": [
-      "Tesla Cybertruck",
-      "Cybertruck",
-      "A Cybertruck"
-     ]
-    },
-    {
-     "rank": 39,
-     "texts": [
-      "Porsche Taycan",
-      "Taycan",
-      "A Taycan"
-     ]
-    },
-    {
-     "rank": 40,
-     "texts": [
-      "Porsche Macan",
-      "Macan",
-      "A Macan"
-     ]
-    },
-    {
-     "rank": 41,
-     "texts": [
-      "Nissan Skyline",
-      "Skyline",
-      "A Skyline",
-      "R34 Skyline"
-     ]
-    },
-    {
-     "rank": 42,
-     "texts": [
-      "Mitsubishi Lancer Evolution",
-      "Lancer Evo",
-      "Lancer Evolution",
-      "Evo",
-      "Mitsubishi Lancer"
-     ]
-    },
-    {
-     "rank": 43,
-     "texts": [
-      "Audi Quattro",
-      "Quattro",
-      "Audi Sport Quattro"
-     ]
-    },
-    {
-     "rank": 44,
-     "texts": [
-      "Land Rover Discovery",
-      "Discovery",
-      "A Discovery"
-     ]
-    },
-    {
-     "rank": 45,
-     "texts": [
-      "BMW M4",
-      "M4",
-      "A BMW M4"
-     ]
-    },
-    {
-     "rank": 46,
-     "texts": [
-      "Mercedes-AMG GT",
-      "AMG GT",
-      "Mercedes AMG",
-      "AMG"
-     ]
-    },
-    {
-     "rank": 47,
-     "texts": [
-      "BMW M5",
-      "M5",
-      "A BMW M5"
-     ]
-    },
-    {
-     "rank": 48,
-     "texts": [
-      "Porsche Panamera",
-      "Panamera",
-      "A Panamera"
-     ]
-    },
-    {
-     "rank": 49,
-     "texts": [
-      "Audi RS6",
-      "RS6",
-      "Audi RS6 Avant"
-     ]
-    },
-    {
-     "rank": 50,
-     "texts": [
-      "Lamborghini Huracán",
-      "Huracan",
-      "A Huracan",
-      "Huracán"
-     ]
-    },
-    {
-     "rank": 51,
-     "texts": [
-      "Lamborghini Aventador",
-      "Aventador",
-      "An Aventador"
-     ]
-    },
-    {
-     "rank": 52,
-     "texts": [
-      "Ferrari 488",
-      "488",
-      "Ferrari 488 GTB",
-      "F8 Tributo",
-      "Ferrari F8"
-     ]
-    },
-    {
-     "rank": 53,
-     "texts": [
-      "LaFerrari",
-      "Ferrari LaFerrari"
-     ]
-    },
-    {
-     "rank": 54,
-     "texts": [
-      "Dodge Viper",
-      "Viper",
-      "A Viper"
-     ]
-    },
-    {
-     "rank": 55,
-     "texts": [
-      "Subaru WRX STI",
-      "WRX",
-      "STI",
-      "Subaru WRX",
-      "A WRX"
-     ]
-    },
-    {
-     "rank": 56,
-     "texts": [
-      "Honda Civic Type R",
-      "Civic Type R",
-      "Type R"
-     ]
-    },
-    {
-     "rank": 57,
-     "texts": [
-      "Honda NSX",
-      "NSX",
-      "Acura NSX",
-      "An NSX"
-     ]
-    },
-    {
-     "rank": 58,
-     "texts": [
-      "Mazda RX-7",
-      "RX-7",
-      "RX7",
-      "Mazda RX7"
-     ]
-    },
-    {
-     "rank": 59,
-     "texts": [
-      "McLaren F1",
-      "McLaren F1 car"
-     ]
-    },
-    {
-     "rank": 60,
-     "texts": [
-      "Lamborghini Countach",
-      "Countach",
-      "A Countach"
-     ]
-    },
-    {
-     "rank": 61,
-     "texts": [
-      "Mazda MX-5 Miata",
-      "Miata",
-      "MX-5",
-      "A Miata"
-     ]
-    },
-    {
-     "rank": 62,
-     "texts": [
-      "Volkswagen Golf GTI",
-      "Golf GTI",
-      "GTI",
-      "VW GTI"
-     ]
-    },
-    {
-     "rank": 63,
-     "texts": [
-      "Ram 1500",
-      "Dodge Ram",
-      "Ram truck",
-      "A Ram"
-     ]
-    },
-    {
-     "rank": 64,
-     "texts": [
-      "Toyota Tacoma",
-      "Tacoma",
-      "A Tacoma"
-     ]
-    },
-    {
-     "rank": 65,
-     "texts": [
-      "Toyota Land Cruiser",
-      "Land Cruiser",
-      "A Land Cruiser"
-     ]
-    },
-    {
-     "rank": 66,
-     "texts": [
-      "Tesla Roadster",
-      "Roadster",
-      "Tesla Roadster 2"
-     ]
-    },
-    {
-     "rank": 67,
-     "texts": [
-      "Lotus Elise",
-      "Elise",
-      "A Lotus"
-     ]
-    },
-    {
-     "rank": 68,
-     "texts": [
-      "Ferrari Testarossa",
-      "Testarossa",
-      "A Testarossa"
-     ]
-    },
-    {
-     "rank": 69,
-     "texts": [
-      "Mercedes 300SL Gullwing",
-      "300SL",
-      "Gullwing",
-      "Mercedes Gullwing"
-     ]
-    },
-    {
-     "rank": 70,
-     "texts": [
-      "Aston Martin DB5",
-      "DB5",
-      "James Bond Aston Martin"
-     ]
-    },
-    {
-     "rank": 71,
-     "texts": [
-      "Jaguar E-Type",
-      "E-Type",
-      "Jaguar E Type"
-     ]
-    },
-    {
-     "rank": 72,
-     "texts": [
-      "Porsche 918 Spyder",
-      "918 Spyder",
-      "918",
-      "Porsche 918"
-     ]
-    },
-    {
-     "rank": 73,
-     "texts": [
-      "Ferrari Enzo",
-      "Enzo",
-      "A Ferrari Enzo"
-     ]
-    },
-    {
-     "rank": 74,
-     "texts": [
-      "Chevrolet Silverado",
-      "Silverado",
-      "A Silverado"
-     ]
-    },
-    {
-     "rank": 75,
-     "texts": [
-      "Toyota 4Runner",
-      "4Runner",
-      "A 4Runner"
-     ]
-    },
-    {
-     "rank": 76,
-     "texts": [
-      "Lincoln Navigator",
-      "Navigator",
-      "A Navigator"
-     ]
-    },
-    {
-     "rank": 77,
-     "texts": [
-      "BMW X5",
-      "X5",
-      "A BMW X5"
-     ]
-    },
-    {
-     "rank": 78,
-     "texts": [
-      "Rivian R1T",
-      "Rivian",
-      "R1T",
-      "A Rivian"
-     ]
-    },
-    {
-     "rank": 79,
-     "texts": [
-      "Lucid Air",
-      "Lucid",
-      "A Lucid"
-     ]
-    },
-    {
-     "rank": 80,
-     "texts": [
-      "Alfa Romeo Giulia",
-      "Alfa Romeo",
-      "Giulia",
-      "An Alfa Romeo"
-     ]
-    },
-    {
-     "rank": 81,
-     "texts": [
-      "Shelby Cobra",
-      "Cobra",
-      "AC Cobra",
-      "Shelby"
-     ]
-    },
-    {
-     "rank": 82,
-     "texts": [
-      "Rimac Nevera",
-      "Nevera",
-      "Rimac",
-      "A Rimac"
-     ]
-    },
-    {
-     "rank": 83,
-     "texts": [
-      "Volkswagen Beetle",
-      "Beetle",
-      "VW Beetle",
-      "Classic Beetle"
-     ]
-    },
-    {
-     "rank": 84,
-     "texts": [
-      "Mini Cooper",
-      "Mini",
-      "A Mini Cooper"
-     ]
-    },
-    {
-     "rank": 85,
-     "texts": [
-      "Toyota AE86",
-      "AE86",
-      "Toyota Corolla AE86",
-      "Hachi Roku"
-     ]
-    },
-    {
-     "rank": 86,
-     "texts": [
-      "Ford F-150 Raptor",
-      "Raptor",
-      "F-150 Raptor"
-     ]
-    },
-    {
-     "rank": 87,
-     "texts": [
-      "Nissan 370Z",
-      "370Z",
-      "Nissan Z"
-     ]
-    },
-    {
-     "rank": 88,
-     "texts": [
-      "Jeep Grand Cherokee",
-      "Grand Cherokee",
-      "A Grand Cherokee"
-     ]
-    }
-   ],
-   "unlisted": [
-    "a DeLorean",
-    "a Batmobile"
-   ],
-   "source": "MoneySuperMarket global dream-car study (Dec 2025 data, 5-year Google search volume + 4,000-driver survey): 1. Ford Mustang 116,686,707 searches, 2. Porsche 911 91,616,454, 3. Dodge Charger 87,045,992, 4. Tesla Model 3 82,352,518, 5. Ford Bronco 66,679,533, 6. Tesla Model Y 64,254,969, 7. BMW M3 64,253,540, 8. Porsche Cayenne 54,514,477, 9. Toyota Supra 48,073,643, 10. Audi R8 40,949,539. Note: Model Y vs M3 is effectively tied (separated by 1,429 searches in 64.25m). Ranks 11+ keep their previous relative order in this pass (not re-sorted to the MSM top 20, which also has Ford GT #11, Cadillac Escalade #12, Porsche Macan #13, Land Rover Defender #14, Lamborghini Urus #15, Mitsubishi Lancer #16, Audi Quattro #17, Tesla Model S #18, Nissan Skyline #19, Land Rover Discovery #20).",
-   "sourceUrl": "https://www.moneysupermarket.com/car-insurance/news/world-dream-cars/"
-  },
-  {
-   "id": 110,
-   "kind": "text",
-   "category": "Culture",
-   "text": "Name the superpower most people say they'd want",
-   "answer": null,
-   "note": null,
-   "finale": false,
-   "top1": "Healing others",
-   "textAnswers": [
-    {
-     "rank": 1,
-     "texts": [
-      "Healing others",
-      "Healing",
-      "Healing powers",
-      "Healing other people",
-      "Healing people",
-      "The power to heal",
-      "Healing ability"
-     ]
-    },
-    {
-     "rank": 2,
-     "texts": [
-      "Teleportation",
-      "Teleporting",
-      "Teleport",
-      "Teleporting anywhere",
-      "Instant teleportation"
-     ]
-    },
-    {
-     "rank": 3,
-     "texts": [
-      "Flying",
-      "Flight",
-      "Being able to fly",
-      "Fly",
-      "I can fly",
-      "Super flight"
-     ]
-    },
-    {
-     "rank": 4,
-     "texts": [
-      "Time travel",
-      "Traveling in time",
-      "Going back in time",
-      "Time travelling",
-      "Time machine",
-      "Travelling through time"
-     ]
-    },
-    {
-     "rank": 5,
-     "texts": [
-      "Invisibility",
-      "Being invisible",
-      "Turning invisible",
-      "Invisible",
-      "Being able to turn invisible",
-      "Invisibility power"
-     ]
-    },
-    {
-     "rank": 6,
-     "texts": [
-      "Animal communication",
-      "Talking to animals",
-      "Understanding animals",
-      "Talking with animals"
-     ]
-    },
-    {
-     "rank": 7,
-     "texts": [
-      "Magic",
-      "Magical powers",
-      "Being able to do magic",
-      "Wielding magic",
-      "Casting spells",
-      "Doing magic"
-     ]
-    },
-    {
-     "rank": 8,
-     "texts": [
-      "Immortality",
-      "Living forever",
-      "Never dying",
-      "Not aging",
-      "Never aging",
-      "Eternal life"
-     ]
-    },
-    {
-     "rank": 9,
-     "texts": [
-      "Time manipulation",
-      "Manipulating time",
-      "Controlling time",
-      "Time control",
-      "Manipulate time"
-     ]
-    },
-    {
-     "rank": 10,
-     "texts": [
-      "Super intelligence",
-      "Being super smart",
-      "Superhuman intelligence",
-      "Genius intelligence",
-      "Being a genius",
-      "Super smart"
-     ]
-    },
-    {
-     "rank": 11,
-     "texts": [
-      "Mind reading",
-      "Reading minds",
-      "Telepathy",
-      "Reading people's minds",
-      "Telepathic powers",
-      "Mind-reading"
-     ]
-    },
-    {
-     "rank": 12,
-     "texts": [
-      "Super strength",
-      "Being super strong",
-      "Strength",
-      "Superhuman strength",
-      "Super strong"
-     ]
-    },
-    {
-     "rank": 13,
-     "texts": [
-      "Seeing the future",
-      "Predicting the future",
-      "Seeing what's coming",
-      "Precognition",
-      "Future sight",
-      "Seeing into the future",
-      "Knowing the future"
-     ]
-    },
-    {
-     "rank": 14,
-     "texts": [
-      "Super speed",
-      "Running super fast",
-      "Being super fast",
-      "Superhuman speed",
-      "Speed"
-     ]
-    },
-    {
-     "rank": 15,
-     "texts": [
-      "Telekinesis",
-      "Moving things with my mind",
-      "Moving objects with your mind",
-      "Psychokinesis"
-     ]
-    },
-    {
-     "rank": 16,
-     "texts": [
-      "Shapeshifting",
-      "Changing shape",
-      "Turning into animals",
-      "Shapeshifting into anything",
-      "Shape shifting",
-      "Shapeshifter",
-      "Turning into anything"
-     ]
-    },
-    {
-     "rank": 17,
-     "texts": [
-      "X-ray vision",
-      "Seeing through walls",
-      "X-ray eyes",
-      "Xray vision",
-      "Seeing through things"
-     ]
-    },
-    {
-     "rank": 18,
-     "texts": [
-      "Mind control",
-      "Controlling minds",
-      "Controlling people",
-      "Mind-control",
-      "Controlling other people's minds"
-     ]
-    },
-    {
-     "rank": 19,
-     "texts": [
-      "Freezing time",
-      "Stopping time",
-      "Pausing time",
-      "Time freeze"
-     ]
-    },
-    {
-     "rank": 20,
-     "texts": [
-      "Invincibility",
-      "Being invincible",
-      "Never getting hurt",
-      "Invulnerability",
-      "Being indestructible",
-      "Never being hurt"
-     ]
-    },
-    {
-     "rank": 21,
-     "texts": [
-      "Speaking any language",
-      "Speaking every language",
-      "Understanding all languages",
-      "Speaking all languages",
-      "Omnilingual"
-     ]
-    },
-    {
-     "rank": 22,
-     "texts": [
-      "Super hearing",
-      "Hearing everything",
-      "Superhuman hearing",
-      "Super-hearing"
-     ]
-    },
-    {
-     "rank": 23,
-     "texts": [
-      "Laser eyes",
-      "Shooting lasers from my eyes",
-      "Heat vision",
-      "Laser vision",
-      "Eye lasers"
-     ]
-    },
-    {
-     "rank": 24,
-     "texts": [
-      "Superhuman senses",
-      "Enhanced senses",
-      "Super senses",
-      "Enhanced sense"
-     ]
-    },
-    {
-     "rank": 25,
-     "texts": [
-      "Elasticity",
-      "Stretching like rubber",
-      "Being stretchy",
-      "Being elastic",
-      "Stretching",
-      "Rubber body"
-     ]
-    },
-    {
-     "rank": 26,
-     "texts": [
-      "Underwater breathing",
-      "Breathing underwater",
-      "Breathing under water",
-      "Gills"
-     ]
-    },
-    {
-     "rank": 27,
-     "texts": [
-      "Walking through walls",
-      "Phasing through walls",
-      "Going through walls",
-      "Phasing",
-      "Walking through solid objects"
-     ]
-    },
-    {
-     "rank": 28,
-     "texts": [
-      "Controlling the weather",
-      "Weather control",
-      "Controlling storms",
-      "Weather manipulation",
-      "Weather powers"
-     ]
-    },
-    {
-     "rank": 29,
-     "texts": [
-      "Controlling fire",
-      "Fire powers",
-      "Pyrokinesis",
-      "Fire manipulation",
-      "Firebending",
-      "Controlling flames"
-     ]
-    },
-    {
-     "rank": 30,
-     "texts": [
-      "Controlling water",
-      "Water powers",
-      "Water manipulation",
-      "Waterbending",
-      "Hydrokinesis"
-     ]
-    },
-    {
-     "rank": 31,
-     "texts": [
-      "Controlling electricity",
-      "Lightning powers",
-      "Shooting lightning",
-      "Electrokinesis",
-      "Electricity powers",
-      "Controlling lightning"
-     ]
-    },
-    {
-     "rank": 32,
-     "texts": [
-      "Regeneration",
-      "Healing instantly",
-      "Regrowing limbs",
-      "Rapid healing",
-      "Self-healing",
-      "Instant healing"
-     ]
-    },
-    {
-     "rank": 33,
-     "texts": [
-      "Cloning yourself",
-      "Making copies of myself",
-      "Duplicating",
-      "Cloning",
-      "Self-cloning",
-      "Making copies of yourself"
-     ]
-    },
-    {
-     "rank": 34,
-     "texts": [
-      "World peace",
-      "Ending all wars",
-      "Peace on earth",
-      "End war",
-      "No more wars"
-     ]
-    },
-    {
-     "rank": 35,
-     "texts": [
-      "Superhuman agility",
-      "Agility",
-      "Super agility",
-      "Being super agile",
-      "Acrobatics"
-     ]
-    },
-    {
-     "rank": 36,
-     "texts": [
-      "Night vision",
-      "Seeing in the dark",
-      "Seeing at night"
-     ]
-    },
-    {
-     "rank": 37,
-     "texts": [
-      "Controlling ice",
-      "Ice powers",
-      "Freezing things",
-      "Cryokinesis",
-      "Ice power"
-     ]
-    },
-    {
-     "rank": 38,
-     "texts": [
-      "Controlling earth",
-      "Earth powers",
-      "Earthbending",
-      "Geokinesis",
-      "Controlling rocks"
-     ]
-    },
-    {
-     "rank": 39,
-     "texts": [
-      "Controlling air",
-      "Air powers",
-      "Wind powers",
-      "Aerokinesis",
-      "Controlling wind"
-     ]
-    },
-    {
-     "rank": 40,
-     "texts": [
-      "Controlling metal",
-      "Metal powers",
-      "Magnetism",
-      "Magnetokinesis",
-      "Controlling magnets"
-     ]
-    },
-    {
-     "rank": 41,
-     "texts": [
-      "Controlling plants",
-      "Plant powers",
-      "Nature powers",
-      "Chlorokinesis",
-      "Controlling nature"
-     ]
-    },
-    {
-     "rank": 42,
-     "texts": [
-      "Superhuman reflexes",
-      "Super fast reflexes",
-      "Enhanced reflexes",
-      "Lightning reflexes"
-     ]
-    },
-    {
-     "rank": 43,
-     "texts": [
-      "Photographic memory",
-      "Perfect memory",
-      "Never forgetting anything",
-      "Eidetic memory"
-     ]
-    },
-    {
-     "rank": 44,
-     "texts": [
-      "Lie detection",
-      "Knowing when someone is lying",
-      "Detecting lies",
-      "Telling if someone is lying"
-     ]
-    },
-    {
-     "rank": 45,
-     "texts": [
-      "Dream control",
-      "Controlling dreams",
-      "Lucid dreaming",
-      "Entering dreams"
-     ]
-    },
-    {
-     "rank": 46,
-     "texts": [
-      "Astral projection",
-      "Leaving your body",
-      "Out of body experience",
-      "Astral travel"
-     ]
-    },
-    {
-     "rank": 47,
-     "texts": [
-      "Superhuman stamina",
-      "Never getting tired",
-      "Endless energy",
-      "Super endurance"
-     ]
-    },
-    {
-     "rank": 48,
-     "texts": [
-      "Controlling gravity",
-      "Gravity powers",
-      "Gravity control",
-      "Making things float"
-     ]
-    },
-    {
-     "rank": 49,
-     "texts": [
-      "Growing and shrinking",
-      "Growing huge",
-      "Shrinking",
-      "Size changing",
-      "Changing size"
-     ]
-    },
-    {
-     "rank": 50,
-     "texts": [
-      "Resurrection",
-      "Bringing the dead back to life",
-      "Bringing people back to life",
-      "Raising the dead"
-     ]
-    },
-    {
-     "rank": 51,
-     "texts": [
-      "Talking to ghosts",
-      "Talking to the dead",
-      "Seeing ghosts",
-      "Communicating with spirits"
-     ]
-    },
-    {
-     "rank": 52,
-     "texts": [
-      "Shadow powers",
-      "Controlling shadows",
-      "Shadow manipulation",
-      "Darkness powers"
-     ]
-    },
-    {
-     "rank": 53,
-     "texts": [
-      "Light powers",
-      "Controlling light",
-      "Light manipulation",
-      "Photokinesis",
-      "Glowing"
-     ]
-    },
-    {
-     "rank": 54,
-     "texts": [
-      "Never getting sick",
-      "Poison immunity",
-      "Immunity to disease",
-      "Never getting ill"
-     ]
-    },
-    {
-     "rank": 55,
-     "texts": [
-      "Super persuasion",
-      "Superhuman persuasion",
-      "Convincing anyone of anything",
-      "Super charisma",
-      "Charm"
-     ]
-    },
-    {
-     "rank": 56,
-     "texts": [
-      "Slowing down time",
-      "Slowing time",
-      "Bullet time"
-     ]
-    },
-    {
-     "rank": 57,
-     "texts": [
-      "Technopathy",
-      "Controlling technology",
-      "Controlling machines",
-      "Talking to computers",
-      "Hacking with your mind"
-     ]
-    },
-    {
-     "rank": 58,
-     "texts": [
-      "Superhuman luck",
-      "Being super lucky",
-      "Good luck",
-      "Luck powers"
-     ]
-    },
-    {
-     "rank": 59,
-     "texts": [
-      "Controlling animals",
-      "Commanding animals",
-      "Animal control"
-     ]
-    },
-    {
-     "rank": 60,
-     "texts": [
-      "Being bulletproof",
-      "Bulletproof skin",
-      "Super durability",
-      "Unbreakable skin"
-     ]
-    },
-    {
-     "rank": 61,
-     "texts": [
-      "Super jumping",
-      "Jumping really high",
-      "Superhuman jumping",
-      "Leaping tall buildings"
-     ]
-    },
-    {
-     "rank": 62,
-     "texts": [
-      "Sonic scream",
-      "Super scream",
-      "Screaming really loud",
-      "Canary cry"
-     ]
-    },
-    {
-     "rank": 63,
-     "texts": [
-      "Shooting webs",
-      "Web-slinging",
-      "Spider webs",
-      "Web shooting",
-      "Shooting spider webs"
-     ]
-    },
-    {
-     "rank": 64,
-     "texts": [
-      "Force fields",
-      "Creating force fields",
-      "Energy shields",
-      "Forcefield"
-     ]
-    },
-    {
-     "rank": 65,
-     "texts": [
-      "Energy blasts",
-      "Shooting energy beams",
-      "Energy beams",
-      "Plasma blasts"
-     ]
-    },
-    {
-     "rank": 66,
-     "texts": [
-      "Superhuman smell",
-      "Super smell",
-      "Enhanced sense of smell"
-     ]
-    },
-    {
-     "rank": 67,
-     "texts": [
-      "Telescopic vision",
-      "Super vision",
-      "Seeing really far",
-      "Zoom vision"
-     ]
-    },
-    {
-     "rank": 68,
-     "texts": [
-      "Microscopic vision",
-      "Seeing tiny things",
-      "Microscopic sight"
-     ]
-    },
-    {
-     "rank": 69,
-     "texts": [
-      "Controlling emotions",
-      "Controlling other people's emotions",
-      "Making people happy",
-      "Emotion control"
-     ]
-    },
-    {
-     "rank": 70,
-     "texts": [
-      "Creating anything",
-      "Making anything appear",
-      "Conjuring things",
-      "Creating objects from nothing",
-      "Manifestation"
-     ]
-    },
-    {
-     "rank": 71,
-     "texts": [
-      "Walking on water",
-      "Water walking"
-     ]
-    },
-    {
-     "rank": 72,
-     "texts": [
-      "Controlling sound",
-      "Sound powers",
-      "Sound manipulation",
-      "Controlling sound waves"
-     ]
-    },
-    {
-     "rank": 73,
-     "texts": [
-      "Breathing in space",
-      "Surviving in space",
-      "Breathing in outer space"
-     ]
-    },
-    {
-     "rank": 74,
-     "texts": [
-      "Being fireproof",
-      "Fireproof",
-      "Heat resistance",
-      "Not burning"
-     ]
-    },
-    {
-     "rank": 75,
-     "texts": [
-      "Erasing memories",
-      "Wiping memories",
-      "Making people forget",
-      "Mind wiping"
-     ]
-    },
-    {
-     "rank": 76,
-     "texts": [
-      "Controlling insects",
-      "Controlling bugs",
-      "Insect control"
-     ]
-    },
-    {
-     "rank": 77,
-     "texts": [
-      "Seeing the past",
-      "Seeing into the past",
-      "Viewing the past",
-      "Retrocognition"
-     ]
-    },
-    {
-     "rank": 78,
-     "texts": [
-      "Wall-crawling",
-      "Climbing walls",
-      "Sticking to walls",
-      "Superhuman climbing"
-     ]
-    },
-    {
-     "rank": 79,
-     "texts": [
-      "Elemental control",
-      "Controlling all elements",
-      "Elemental powers",
-      "Controlling the elements"
-     ]
-    },
-    {
-     "rank": 80,
-     "texts": [
-      "Instant learning",
-      "Learning anything instantly",
-      "Learning super fast"
-     ]
-    },
-    {
-     "rank": 81,
-     "texts": [
-      "Never needing sleep",
-      "Not needing sleep",
-      "Never sleeping"
-     ]
-    },
-    {
-     "rank": 82,
-     "texts": [
-      "Sixth sense",
-      "Superhuman sixth sense",
-      "Sensing danger",
-      "Spider-sense",
-      "Danger sense"
-     ]
-    },
-    {
-     "rank": 83,
-     "texts": [
-      "Super intuition",
-      "Superhuman intuition",
-      "Knowing things instinctively",
-      "Gut feeling"
-     ]
-    },
-    {
-     "rank": 84,
-     "texts": [
-      "Superhuman swimming",
-      "Swimming super fast",
-      "Super swimming"
-     ]
-    },
-    {
-     "rank": 85,
-     "texts": [
-      "Perfect sense of direction",
-      "Never getting lost",
-      "Sense of direction"
-     ]
-    },
-    {
-     "rank": 86,
-     "texts": [
-      "Changing my age",
-      "Changing age",
-      "Looking any age",
-      "Age control"
-     ]
-    },
-    {
-     "rank": 87,
-     "texts": [
-      "Dimension travel",
-      "Travelling to other dimensions",
-      "Visiting parallel universes",
-      "Dimension hopping"
-     ]
-    }
-   ],
-   "unlisted": [
-    "being rich",
-    "not wanting a power"
-   ],
-   "source": "PixlParade nationwide survey, Jul-Aug 2026 (n=2,405 US adults, chose from 42 superpowers): 1. Healing Others 10.81% (260 votes), 2. Teleportation 9.60%, 3. Flight 9.06%, 4. Time Travel 8.02%, 5. Invisibility 6.94%, 6. Animal Communication 6.15%, 7. Magic 4.99%, 8. Immortality 4.95%, 9. Time Manipulation 3.74%, 10. Super Intelligence 3.04%. Corroborated by Morning Consult (reported on Freakonomics): heal others #1, heal yourself #2. Replaces the YouGov UK open-ended poll, 12-13 Mar 2025 (n=2,223 GB adults), which had Invisibility 19% #1 — a UK result; this game is US-facing and two recent US polls agree healing is #1.",
-   "sourceUrl": "https://pixlparade.com/poll-what-is-the-best-superpower/"
-  },
-  {
    "id": 111,
    "kind": "text",
    "category": "Money",
@@ -3518,905 +1767,6 @@
    "sourceUrl": "https://www.moneypenny.com/us/resources/blog/first-job-experiences-what-motivates-americans"
   },
   {
-   "id": 124,
-   "kind": "text",
-   "category": "Everyday life",
-   "text": "Name the school subject most people say was their worst",
-   "answer": null,
-   "note": null,
-   "finale": false,
-   "top1": "Math",
-   "textAnswers": [
-    {
-     "rank": 1,
-     "texts": [
-      "Math",
-      "Maths",
-      "Mathematics",
-      "Math class",
-      "School math"
-     ]
-    },
-    {
-     "rank": 2,
-     "texts": [
-      "Science",
-      "Sciences",
-      "Science class"
-     ]
-    },
-    {
-     "rank": 3,
-     "texts": [
-      "English",
-      "English class",
-      "English language",
-      "ELA"
-     ]
-    },
-    {
-     "rank": 4,
-     "texts": [
-      "History",
-      "Social studies",
-      "History class"
-     ]
-    },
-    {
-     "rank": 5,
-     "texts": [
-      "Foreign language",
-      "A foreign language",
-      "Foreign languages",
-      "Learning a language"
-     ]
-    },
-    {
-     "rank": 6,
-     "texts": [
-      "Algebra",
-      "Algebra class",
-      "Algebra 1",
-      "Algebra 2"
-     ]
-    },
-    {
-     "rank": 7,
-     "texts": [
-      "Chemistry",
-      "Chem",
-      "Chemistry class"
-     ]
-    },
-    {
-     "rank": 8,
-     "texts": [
-      "Physics",
-      "Physical science",
-      "Physics class"
-     ]
-    },
-    {
-     "rank": 9,
-     "texts": [
-      "Biology",
-      "Bio",
-      "Biology class"
-     ]
-    },
-    {
-     "rank": 10,
-     "texts": [
-      "Geography",
-      "Geo",
-      "Geography class"
-     ]
-    },
-    {
-     "rank": 11,
-     "texts": [
-      "Geometry",
-      "Geometry class"
-     ]
-    },
-    {
-     "rank": 12,
-     "texts": [
-      "Calculus",
-      "Calc",
-      "Calculus class",
-      "AP calculus"
-     ]
-    },
-    {
-     "rank": 13,
-     "texts": [
-      "Gym",
-      "PE",
-      "Physical education",
-      "Gym class",
-      "Phys ed",
-      "P.E."
-     ]
-    },
-    {
-     "rank": 14,
-     "texts": [
-      "Art",
-      "Art class",
-      "Drawing"
-     ]
-    },
-    {
-     "rank": 15,
-     "texts": [
-      "Music",
-      "Band",
-      "Choir",
-      "Music class",
-      "Chorus"
-     ]
-    },
-    {
-     "rank": 16,
-     "texts": [
-      "Health",
-      "Health class",
-      "Health education"
-     ]
-    },
-    {
-     "rank": 17,
-     "texts": [
-      "Economics",
-      "Econ",
-      "Economics class",
-      "Econ class"
-     ]
-    },
-    {
-     "rank": 18,
-     "texts": [
-      "Trigonometry",
-      "Trig",
-      "Trig class"
-     ]
-    },
-    {
-     "rank": 19,
-     "texts": [
-      "Statistics",
-      "Stats",
-      "Stats class",
-      "Statistics class"
-     ]
-    },
-    {
-     "rank": 20,
-     "texts": [
-      "Literature",
-      "Lit",
-      "Literature class",
-      "English literature"
-     ]
-    },
-    {
-     "rank": 21,
-     "texts": [
-      "Spelling",
-      "Spelling class"
-     ]
-    },
-    {
-     "rank": 22,
-     "texts": [
-      "Reading",
-      "Reading class",
-      "Reading comprehension"
-     ]
-    },
-    {
-     "rank": 23,
-     "texts": [
-      "Writing",
-      "Composition",
-      "Writing class",
-      "English writing"
-     ]
-    },
-    {
-     "rank": 24,
-     "texts": [
-      "Government",
-      "Civics",
-      "Government class",
-      "American government"
-     ]
-    },
-    {
-     "rank": 25,
-     "texts": [
-      "Computer science",
-      "Coding",
-      "Computers",
-      "Computer class",
-      "Programming"
-     ]
-    },
-    {
-     "rank": 26,
-     "texts": [
-      "Latin",
-      "Latin class",
-      "Latin language"
-     ]
-    },
-    {
-     "rank": 27,
-     "texts": [
-      "Spanish",
-      "Spanish class",
-      "Spanish language"
-     ]
-    },
-    {
-     "rank": 28,
-     "texts": [
-      "French",
-      "French class",
-      "French language"
-     ]
-    },
-    {
-     "rank": 29,
-     "texts": [
-      "Drama",
-      "Theater",
-      "Drama class",
-      "Theatre",
-      "Theater class",
-      "Acting"
-     ]
-    },
-    {
-     "rank": 30,
-     "texts": [
-      "Shop class",
-      "Woodshop",
-      "Shop",
-      "Wood shop"
-     ]
-    },
-    {
-     "rank": 31,
-     "texts": [
-      "Home economics",
-      "Home ec",
-      "Home economics class"
-     ]
-    },
-    {
-     "rank": 32,
-     "texts": [
-      "Driver's ed",
-      "Drivers ed",
-      "Driving lessons",
-      "Drivers education"
-     ]
-    },
-    {
-     "rank": 33,
-     "texts": [
-      "Pre-algebra",
-      "Pre algebra",
-      "Pre-algebra class"
-     ]
-    },
-    {
-     "rank": 34,
-     "texts": [
-      "Pre-calculus",
-      "Pre calculus",
-      "Pre-calc",
-      "Precalc"
-     ]
-    },
-    {
-     "rank": 35,
-     "texts": [
-      "Anatomy",
-      "Anatomy class",
-      "Human anatomy"
-     ]
-    },
-    {
-     "rank": 36,
-     "texts": [
-      "Astronomy",
-      "Astronomy class",
-      "Space science"
-     ]
-    },
-    {
-     "rank": 37,
-     "texts": [
-      "Earth science",
-      "Earth sciences",
-      "Geology",
-      "Geology class"
-     ]
-    },
-    {
-     "rank": 38,
-     "texts": [
-      "Environmental science",
-      "Environmental studies",
-      "Ecology"
-     ]
-    },
-    {
-     "rank": 39,
-     "texts": [
-      "Psychology",
-      "Psych",
-      "Psychology class",
-      "Psych class"
-     ]
-    },
-    {
-     "rank": 40,
-     "texts": [
-      "Sociology",
-      "Sociology class"
-     ]
-    },
-    {
-     "rank": 41,
-     "texts": [
-      "Philosophy",
-      "Philosophy class"
-     ]
-    },
-    {
-     "rank": 42,
-     "texts": [
-      "Religious studies",
-      "Religion",
-      "Religion class",
-      "R.E.",
-      "Religious education"
-     ]
-    },
-    {
-     "rank": 43,
-     "texts": [
-      "German",
-      "German class",
-      "German language"
-     ]
-    },
-    {
-     "rank": 44,
-     "texts": [
-      "Italian",
-      "Italian class",
-      "Italian language"
-     ]
-    },
-    {
-     "rank": 45,
-     "texts": [
-      "Mandarin",
-      "Chinese",
-      "Chinese class",
-      "Mandarin Chinese"
-     ]
-    },
-    {
-     "rank": 46,
-     "texts": [
-      "Japanese",
-      "Japanese class",
-      "Japanese language"
-     ]
-    },
-    {
-     "rank": 47,
-     "texts": [
-      "Russian",
-      "Russian class",
-      "Russian language"
-     ]
-    },
-    {
-     "rank": 48,
-     "texts": [
-      "Arabic",
-      "Arabic class",
-      "Arabic language"
-     ]
-    },
-    {
-     "rank": 49,
-     "texts": [
-      "Korean",
-      "Korean class",
-      "Korean language"
-     ]
-    },
-    {
-     "rank": 50,
-     "texts": [
-      "American Sign Language",
-      "ASL",
-      "Sign language",
-      "Signing"
-     ]
-    },
-    {
-     "rank": 51,
-     "texts": [
-      "Grammar",
-      "Grammar class",
-      "English grammar"
-     ]
-    },
-    {
-     "rank": 52,
-     "texts": [
-      "Handwriting",
-      "Penmanship",
-      "Handwriting class",
-      "Cursive"
-     ]
-    },
-    {
-     "rank": 53,
-     "texts": [
-      "Speech",
-      "Speech class",
-      "Public speaking",
-      "Speaking"
-     ]
-    },
-    {
-     "rank": 54,
-     "texts": [
-      "Debate",
-      "Debate class",
-      "Debating"
-     ]
-    },
-    {
-     "rank": 55,
-     "texts": [
-      "Journalism",
-      "Journalism class",
-      "Newspaper class"
-     ]
-    },
-    {
-     "rank": 56,
-     "texts": [
-      "Creative writing",
-      "Creative writing class"
-     ]
-    },
-    {
-     "rank": 57,
-     "texts": [
-      "Poetry",
-      "Poetry class"
-     ]
-    },
-    {
-     "rank": 58,
-     "texts": [
-      "Art history",
-      "Art history class",
-      "History of art"
-     ]
-    },
-    {
-     "rank": 59,
-     "texts": [
-      "Music theory",
-      "Music theory class"
-     ]
-    },
-    {
-     "rank": 60,
-     "texts": [
-      "Orchestra",
-      "Orchestra class",
-      "Playing in orchestra"
-     ]
-    },
-    {
-     "rank": 61,
-     "texts": [
-      "Dance",
-      "Dance class",
-      "Dancing"
-     ]
-    },
-    {
-     "rank": 62,
-     "texts": [
-      "Photography",
-      "Photography class",
-      "Photo class"
-     ]
-    },
-    {
-     "rank": 63,
-     "texts": [
-      "Film studies",
-      "Film class",
-      "Media studies",
-      "Film study"
-     ]
-    },
-    {
-     "rank": 64,
-     "texts": [
-      "Metalwork",
-      "Metal shop",
-      "Metalworking",
-      "Metal work"
-     ]
-    },
-    {
-     "rank": 65,
-     "texts": [
-      "Sewing",
-      "Sewing class",
-      "Textiles",
-      "Needlework"
-     ]
-    },
-    {
-     "rank": 66,
-     "texts": [
-      "Accounting",
-      "Accounting class",
-      "Bookkeeping"
-     ]
-    },
-    {
-     "rank": 67,
-     "texts": [
-      "Business studies",
-      "Business",
-      "Business class",
-      "Business studies class"
-     ]
-    },
-    {
-     "rank": 68,
-     "texts": [
-      "Marketing",
-      "Marketing class"
-     ]
-    },
-    {
-     "rank": 69,
-     "texts": [
-      "Law",
-      "Law class",
-      "Legal studies",
-      "Law studies"
-     ]
-    },
-    {
-     "rank": 70,
-     "texts": [
-      "World history",
-      "World history class"
-     ]
-    },
-    {
-     "rank": 71,
-     "texts": [
-      "American history",
-      "US history",
-      "American history class",
-      "U.S. history"
-     ]
-    },
-    {
-     "rank": 72,
-     "texts": [
-      "Political science",
-      "Politics",
-      "Political science class",
-      "Poli sci"
-     ]
-    },
-    {
-     "rank": 73,
-     "texts": [
-      "Anthropology",
-      "Anthropology class"
-     ]
-    },
-    {
-     "rank": 74,
-     "texts": [
-      "Marine biology",
-      "Marine biology class",
-      "Ocean biology"
-     ]
-    },
-    {
-     "rank": 75,
-     "texts": [
-      "Botany",
-      "Botany class",
-      "Plant science"
-     ]
-    },
-    {
-     "rank": 76,
-     "texts": [
-      "Zoology",
-      "Zoology class",
-      "Animal science"
-     ]
-    },
-    {
-     "rank": 77,
-     "texts": [
-      "Organic chemistry",
-      "Organic chemistry class",
-      "Orgo"
-     ]
-    },
-    {
-     "rank": 78,
-     "texts": [
-      "Logic",
-      "Logic class"
-     ]
-    },
-    {
-     "rank": 79,
-     "texts": [
-      "Ethics",
-      "Ethics class",
-      "Moral philosophy"
-     ]
-    },
-    {
-     "rank": 80,
-     "texts": [
-      "Greek",
-      "Greek class",
-      "Ancient Greek"
-     ]
-    },
-    {
-     "rank": 81,
-     "texts": [
-      "Portuguese",
-      "Portuguese class",
-      "Portuguese language"
-     ]
-    },
-    {
-     "rank": 82,
-     "texts": [
-      "Typing",
-      "Typing class",
-      "Keyboarding",
-      "Touch typing"
-     ]
-    },
-    {
-     "rank": 83,
-     "texts": [
-      "Sex education",
-      "Sex ed",
-      "Health and sex ed",
-      "Sex-ed class"
-     ]
-    },
-    {
-     "rank": 84,
-     "texts": [
-      "ROTC",
-      "JROTC",
-      "ROTC class"
-     ]
-    },
-    {
-     "rank": 85,
-     "texts": [
-      "Agriculture",
-      "Ag class",
-      "Agriculture class",
-      "Farming class"
-     ]
-    },
-    {
-     "rank": 86,
-     "texts": [
-      "Auto shop",
-      "Auto mechanics",
-      "Auto class",
-      "Car mechanics",
-      "Mechanics class"
-     ]
-    },
-    {
-     "rank": 87,
-     "texts": [
-      "Robotics",
-      "Robotics class",
-      "Robotics club"
-     ]
-    },
-    {
-     "rank": 88,
-     "texts": [
-      "Engineering",
-      "Engineering class"
-     ]
-    },
-    {
-     "rank": 89,
-     "texts": [
-      "Nutrition",
-      "Nutrition class",
-      "Food science"
-     ]
-    },
-    {
-     "rank": 90,
-     "texts": [
-      "Graphic design",
-      "Graphic design class",
-      "Design class"
-     ]
-    }
-   ],
-   "unlisted": [],
-   "source": "Gallup Youth Survey (2005, n=1,028 US teens 13-17): math is the most difficult subject for 37% (29% math generally + 6% algebra + 2% geometry), science 20%, English 18%, foreign languages/history/social studies each under 10%. EdWeek/Edutopia summaries agree: math ~37% dislike, science ~35%, foreign language ~25%, history ~20%.",
-   "sourceUrl": "https://news.gallup.com/poll/16360/math-problematic-us-teens.aspx"
-  },
-  {
-   "id": 133,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could fly a helicopter in an emergency?",
-   "answer": 6,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 134,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could escape from a sinking car underwater?",
-   "answer": 29,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 135,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could hotwire a car in under a minute?",
-   "answer": 6,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 136,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could beat a house cat in a fight, unarmed?",
-   "answer": 69,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Rumble in the jungle' poll, April 12-13, 2021 (n=1,224 US adults)",
-   "sourceUrl": "https://9c0f85f0-6691-40fa-8176-eae1d0e3c5ac.p.creative-connect.gannettdigital.com/story/news/nation/2022/05/27/study-animal-beat-combat-fight-grizzly-bear/9958293002/"
-  },
-  {
-   "id": 137,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could beat a medium-sized dog in a fight, unarmed?",
-   "answer": 49,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Rumble in the jungle' poll, April 12-13, 2021 (n=1,224 US adults)",
-   "sourceUrl": "https://9c0f85f0-6691-40fa-8176-eae1d0e3c5ac.p.creative-connect.gannettdigital.com/story/news/nation/2022/05/27/study-animal-beat-combat-fight-grizzly-bear/9958293002/"
-  },
-  {
-   "id": 138,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could beat a crocodile in a fight, unarmed?",
-   "answer": 9,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Rumble in the jungle' poll, April 12-13, 2021 (n=1,224 US adults)",
-   "sourceUrl": "https://9c0f85f0-6691-40fa-8176-eae1d0e3c5ac.p.creative-connect.gannettdigital.com/story/news/nation/2022/05/27/study-animal-beat-combat-fight-grizzly-bear/9958293002/"
-  },
-  {
-   "id": 140,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could score a penalty kick against a pro goalkeeper?",
-   "answer": 28,
-   "note": null,
-   "finale": false,
-   "source": "Talker Research, July 2026 (n=2,000 US adults)",
-   "sourceUrl": "http://orlandomom.com/1-in-4-americans-thinks-they-could-score-a-world-cup-penalty-this-sports-mom-has-thoughts/"
-  },
-  {
-   "id": 141,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could win a point off Serena Williams in a best-of-three-set match?",
-   "answer": 8,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 142,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of NBA fans think they could sink a half-court shot?",
-   "answer": 41,
-   "note": null,
-   "finale": false,
-   "source": "The Action Network survey of US NBA fans, October 2026 (n=4,398)",
-   "sourceUrl": "https://www.yardbarker.com/nba/articles/survey_1_in_3_nba_fans_think_their_three_point_shot_rivals_the_pros/s1_17354_44422942"
-  },
-  {
-   "id": 143,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could beat a chess grandmaster at chess?",
-   "answer": 4,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 145,
-   "kind": "guess",
-   "category": "Center stage",
-   "text": "What % of Americans say they are afraid of public speaking?",
-   "answer": 29,
-   "note": null,
-   "finale": false,
-   "source": "Chapman University Survey of American Fears, Wave 10, 2024 (n=1,008 US adults)",
-   "sourceUrl": "https://www.chapman.edu/wilkinson/research-centers/babbie-center/_files/2024-csaf-fears-alphabetical.pdf"
-  },
-  {
-   "id": 155,
-   "kind": "guess",
-   "category": "Big questions",
-   "text": "What % of Americans believe some UFOs have been alien spacecraft?",
-   "answer": 41,
-   "note": null,
-   "finale": false,
-   "source": "Gallup, July 2021 poll",
-   "sourceUrl": "https://news.gallup.com/poll/353420/larger-minority-says-ufos-alien-spacecraft.aspx?utm_source=join1440&utm_medium=email&utm_placement=newsletter"
-  },
-  {
    "id": 156,
    "kind": "guess",
    "category": "World · Finale",
@@ -4430,7 +1780,7 @@
   {
    "id": 157,
    "kind": "guess",
-   "category": "Out there",
+   "category": "Society",
    "text": "What % of Americans have never been on a plane?",
    "answer": 13,
    "note": "Same OnePoll/Victorinox 2,000-adult survey as Q69; 13% said they had never flown in a plane.",
@@ -4441,7 +1791,7 @@
   {
    "id": 158,
    "kind": "guess",
-   "category": "Out there",
+   "category": "Society",
    "text": "What % of Americans have never left the United States?",
    "answer": 23,
    "note": null,
@@ -4452,7 +1802,7 @@
   {
    "id": 159,
    "kind": "guess",
-   "category": "Out there",
+   "category": "Society",
    "text": "What % of Americans have visited all 50 states?",
    "answer": 2,
    "note": null,
@@ -4461,108 +1811,9 @@
    "sourceUrl": "https://quartzmountain.org/article/what-percentage-of-americans-have-traveled-all-50-states"
   },
   {
-   "id": 160,
-   "kind": "guess",
-   "category": "Body count",
-   "text": "What % of people are left-handed?",
-   "answer": 10,
-   "note": null,
-   "finale": false,
-   "source": "de Kovel, Carrion-Castillo & Francks (2019); University of Nottingham / UCL twin-study reporting, ~10% left-handed across populations",
-   "sourceUrl": "https://www.sciencedaily.com/releases/2013/10/131001123943.htm"
-  },
-  {
-   "id": 161,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could safely land a passenger airplane in an emergency, with only air traffic control to help?",
-   "answer": 18,
-   "note": "YouGov June 2026 poll; the oft-quoted 2023 YouGov figure for the same question was ~32%, this is the newer poll.",
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 162,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could perform CPR on an adult whose heart has stopped?",
-   "answer": 53,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 163,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could deliver a baby in an emergency?",
-   "answer": 31,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 164,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could survive being lost at sea on a life raft for a week?",
-   "answer": 15,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 165,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could correctly identify whether a wild mushroom is safe to eat?",
-   "answer": 9,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 166,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of people think they could do a random stranger's job for a day?",
-   "answer": 38,
-   "note": null,
-   "finale": false,
-   "source": "YouGov 'Confidence in Capabilities' poll, June 18-22, 2026 (n=1,109 US adult citizens)",
-   "sourceUrl": "https://d3nkl3psvxxpe9.cloudfront.net/documents/Confidence_in_Capabilities_poll_results.pdf"
-  },
-  {
-   "id": 167,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of NBA fans think their three-point shot is better than or the same as an average pro's?",
-   "answer": 17,
-   "note": "6% said better than a pro, 11% said the same as a pro; 31% total including 'almost as good'. Population is US NBA fans, not all people.",
-   "finale": false,
-   "source": "The Action Network survey of US NBA fans, October 2026 (n=4,398)",
-   "sourceUrl": "https://www.yardbarker.com/nba/articles/survey_1_in_3_nba_fans_think_their_three_point_shot_rivals_the_pros/s1_17354_44422942"
-  },
-  {
-   "id": 168,
-   "kind": "guess",
-   "category": "Confidence check",
-   "text": "What % of NBA fans think they could score 3 or more buckets in a pick-up game against an average pro?",
-   "answer": 34,
-   "note": "Population is US NBA fans, not all people; 0% said they would score no buckets at all.",
-   "finale": false,
-   "source": "The Action Network survey of US NBA fans, October 2026 (n=4,398)",
-   "sourceUrl": "https://www.yardbarker.com/nba/articles/survey_1_in_3_nba_fans_think_their_three_point_shot_rivals_the_pros/s1_17354_44422942"
-  },
-  {
    "id": 169,
    "kind": "guess",
-   "category": "Jobs",
+   "category": "Business",
    "text": "What % of US public school teachers are women?",
    "answer": 77,
    "note": "NCES National Teacher and Principal Survey 2020-21: about three-quarters of public K-12 teachers were female (77%).",
@@ -4584,7 +1835,7 @@
   {
    "id": 171,
    "kind": "guess",
-   "category": "Everyday life",
+   "category": "Society",
    "text": "What % of the world's people are left-handed?",
    "answer": 11,
    "note": "Papadatou-Pastou et al. 2020 meta-analysis in Psychological Bulletin, pooling 2.3M+ people: 10.6% left-handed, 89.4% right-handed.",
@@ -4606,7 +1857,7 @@
   {
    "id": 173,
    "kind": "guess",
-   "category": "On the road",
+   "category": "Society",
    "text": "What % of US workers drive to work alone?",
    "answer": 69,
    "note": "Census ACS 2024 Table B08301: 69.2% of US workers drove alone to work; the rest carpooled (9.2%), worked from home (13.3%), took transit (3.7%), walked or biked.",
@@ -4628,7 +1879,7 @@
   {
    "id": 177,
    "kind": "text",
-   "category": "Everyday life",
+   "category": "Society",
    "text": "Name the most common pet people have",
    "answer": null,
    "note": null,
@@ -5284,7 +2535,7 @@
   {
    "id": 179,
    "kind": "text",
-   "category": "Everyday life",
+   "category": "Society",
    "text": "Name the most popular dog breed in America",
    "answer": null,
    "note": null,
@@ -6106,7 +3357,7 @@
   {
    "id": 180,
    "kind": "text",
-   "category": "Everyday life",
+   "category": "Society",
    "text": "What's most people's favorite color?",
    "answer": null,
    "note": null,
@@ -17293,7 +14544,7 @@
   {
    "id": 217,
    "kind": "guess",
-   "category": "Space",
+   "category": "Tech",
    "text": "What % of the world's population uses the internet?",
    "answer": 68,
    "note": null,
@@ -17315,7 +14566,7 @@
   {
    "id": 219,
    "kind": "guess",
-   "category": "Space",
+   "category": "Tech",
    "text": "What % of the world's population uses their own smartphone to get online?",
    "answer": 54,
    "note": null,
@@ -17326,7 +14577,7 @@
   {
    "id": 220,
    "kind": "guess",
-   "category": "Space",
+   "category": "Science",
    "text": "What % of the world's electricity comes from solar power?",
    "answer": 7,
    "note": null,
@@ -17337,7 +14588,7 @@
   {
    "id": 221,
    "kind": "guess",
-   "category": "Space",
+   "category": "Tech",
    "text": "What % of US adults have ever used ChatGPT?",
    "answer": 34,
    "note": null,
@@ -17348,7 +14599,7 @@
   {
    "id": 222,
    "kind": "guess",
-   "category": "Space",
+   "category": "Tech",
    "text": "What % of the world's population is covered by a 5G network?",
    "answer": 51,
    "note": null,
@@ -17370,7 +14621,7 @@
   {
    "id": 224,
    "kind": "text",
-   "category": "Space",
+   "category": "Tech",
    "text": "Name the #1 most visited website in the world",
    "answer": null,
    "note": null,
@@ -18232,7 +15483,7 @@
   {
    "id": 225,
    "kind": "text",
-   "category": "Space",
+   "category": "Tech",
    "text": "Name the #1 most downloaded app in the world in 2025",
    "answer": null,
    "note": null,
@@ -18986,7 +16237,7 @@
   {
    "id": 226,
    "kind": "text",
-   "category": "Space",
+   "category": "Business",
    "text": "Name the #1 most valuable company in the world by market value",
    "answer": null,
    "note": null,
@@ -19888,17 +17139,6 @@
    "finale": false,
    "source": "Gallup, December 2025",
    "sourceUrl": "http://news.gallup.com/file/poll/701675/(PDF)%20Americans%20Views%20on%20Air%20Travel%20Reading%20Movies.pdf"
-  },
-  {
-   "id": 231,
-   "kind": "guess",
-   "category": "Culture",
-   "text": "What % of people in the world play video games?",
-   "answer": 40,
-   "note": null,
-   "finale": false,
-   "source": "Newzoo Global Games Market Report, 2024",
-   "sourceUrl": "https://www.demandsage.com/gamers-statistics/"
   },
   {
    "id": 232,
@@ -23548,7 +20788,7 @@
   {
    "id": 245,
    "kind": "text",
-   "category": "Money",
+   "category": "Business",
    "text": "Name the #1 most common job in the US",
    "answer": null,
    "note": null,
@@ -25987,7 +23227,7 @@
   {
    "id": 249,
    "kind": "text",
-   "category": "Money",
+   "category": "Society",
    "text": "Name the #1 most common college major in the U.S. (by bachelor's degrees awarded)",
    "answer": null,
    "note": null,
@@ -30025,6 +27265,479 @@
     "Prostate enlargement",
     "Thyroid nodule"
    ]
+  },
+  {
+   "id": 260,
+   "kind": "guess",
+   "category": "History",
+   "text": "What % of the world's population was infected during the 1918 flu pandemic?",
+   "answer": 33,
+   "note": "About 500 million people — roughly one in three people alive — caught the 1918 flu.",
+   "finale": false,
+   "source": "CDC, 1918 Pandemic (H1N1 virus): an estimated 500 million people, or one-third of the world's population, became infected",
+   "sourceUrl": "https://archive.cdc.gov/www_cdc_gov/flu/pandemic-resources/1918-pandemic-h1n1.html"
+  },
+  {
+   "id": 261,
+   "kind": "guess",
+   "category": "History",
+   "text": "What % of Poland's pre-war population died in World War II?",
+   "answer": 17,
+   "note": "About 6 million of Poland's 35 million people died — the highest share of any country in the war.",
+   "finale": false,
+   "source": "Wikipedia, World War II casualties (by country table): Poland ~5.9-6.0 million deaths of 34.8 million, ~17%",
+   "sourceUrl": "https://en.wikipedia.org/wiki/World_War_II_casualties"
+  },
+  {
+   "id": 262,
+   "kind": "guess",
+   "category": "History",
+   "text": "What % of Ireland's population died in the Great Famine of 1845-1852?",
+   "answer": 12,
+   "note": "About 1 million of roughly 8.5 million people died; another million emigrated.",
+   "finale": false,
+   "source": "Wikipedia, Great Famine (Ireland): approximately 1 million deaths from a pre-famine population of about 8.5 million",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Great_Famine_(Ireland)"
+  },
+  {
+   "id": 263,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1900, what % of the US workforce worked in agriculture?",
+   "answer": 41,
+   "note": "By 2000 it was under 2%.",
+   "finale": false,
+   "source": "USDA Economic Research Service, The 20th Century Transformation of U.S. Agriculture and Farm Policy (2005): 41% of the workforce in 1900, 1.9% in 2000",
+   "sourceUrl": "https://www.ers.usda.gov/publications/pub-details?pubid=44198"
+  },
+  {
+   "id": 264,
+   "kind": "guess",
+   "category": "History",
+   "text": "What % of the US population was born in another country in 1910?",
+   "answer": 15,
+   "note": "14.7% in 1910 — a record that stood for over a century.",
+   "finale": false,
+   "source": "US Census Bureau, Historical Census Statistics on the Foreign-Born Population: 14.7% foreign-born in 1910",
+   "sourceUrl": "https://www.census.gov/library/working-papers/2006/demo/POP-twps0081.html"
+  },
+  {
+   "id": 265,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1800, what % of children worldwide died before their 5th birthday?",
+   "answer": 43,
+   "note": null,
+   "finale": false,
+   "source": "Our World in Data (Gapminder & UN IGME), Child mortality: 43.3% of children died before age five in 1800",
+   "sourceUrl": "https://ourworldindata.org/child-mortality"
+  },
+  {
+   "id": 266,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1820, what % of the world's adults could read and write?",
+   "answer": 12,
+   "note": "Today it's about 87%.",
+   "finale": false,
+   "source": "Our World in Data, Literacy: an estimated 12% of the world population aged 15+ was literate in 1820",
+   "sourceUrl": "https://ourworldindata.org/literacy"
+  },
+  {
+   "id": 267,
+   "kind": "guess",
+   "category": "History",
+   "text": "Of all the Allied troops who landed in Normandy on D-Day, what % were American?",
+   "answer": 47,
+   "note": "About 73,000 of the roughly 156,000 troops who landed on June 6, 1944.",
+   "finale": false,
+   "source": "The National WWII Museum, D-Day: 156,000 Allied troops landed, about 73,000 of them American",
+   "sourceUrl": "https://www.nationalww2museum.org/students-teachers/student-resources/research-starters/d-day-june-6-1944"
+  },
+  {
+   "id": 268,
+   "kind": "guess",
+   "category": "History",
+   "text": "What % of all the gold ever mined has been mined since 1950?",
+   "answer": 67,
+   "note": null,
+   "finale": false,
+   "source": "World Gold Council, Above-ground stocks: around two-thirds of all gold ever mined has been mined since 1950",
+   "sourceUrl": "https://www.gold.org/goldhub/data/how-much-gold"
+  },
+  {
+   "id": 269,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of Earth's freshwater is locked up in ice caps and glaciers?",
+   "answer": 69,
+   "note": null,
+   "finale": false,
+   "source": "USGS Water Science School, Where is Earth's Water?: 68.7% of freshwater is in ice caps, glaciers and permanent snow",
+   "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/where-earth-water"
+  },
+  {
+   "id": 270,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of all species that have ever lived on Earth are now extinct?",
+   "answer": 99,
+   "note": "The usual estimate is more than 99%.",
+   "finale": false,
+   "source": "Encyclopaedia Britannica, Extinction: more than 99% of all species that ever lived are extinct",
+   "sourceUrl": "https://www.britannica.com/science/extinction-biology"
+  },
+  {
+   "id": 271,
+   "kind": "guess",
+   "category": "Science",
+   "text": "Your brain is about 2% of your body weight. What % of your body's energy does it use?",
+   "answer": 20,
+   "note": null,
+   "finale": false,
+   "source": "Raichle & Gusnard, PNAS 2002, Appraising the brain's energy budget: the brain is ~2% of body mass but uses ~20% of the body's energy",
+   "sourceUrl": "https://www.pnas.org/doi/10.1073/pnas.172399499"
+  },
+  {
+   "id": 272,
+   "kind": "guess",
+   "category": "Science",
+   "text": "By weight, what % of Earth's crust is oxygen?",
+   "answer": 46,
+   "note": "Silicon is a distant second at about 28%.",
+   "finale": false,
+   "source": "Encyclopaedia Britannica / USGS, abundance of elements in Earth's crust: oxygen ~46% by weight",
+   "sourceUrl": "https://www.britannica.com/science/oxygen"
+  },
+  {
+   "id": 273,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of human DNA is identical to chimpanzee DNA?",
+   "answer": 99,
+   "note": "98.8%, rounded for play.",
+   "finale": false,
+   "source": "Smithsonian National Museum of Natural History, Genetics: humans and chimpanzees share 98.8% of their DNA",
+   "sourceUrl": "https://humanorigins.si.edu/evidence/genetics"
+  },
+  {
+   "id": 274,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of the world's electricity was generated from coal in 2024?",
+   "answer": 34,
+   "note": "Still the single largest source, though its share keeps falling.",
+   "finale": false,
+   "source": "Ember, Global Electricity Review 2025 (2024 data): coal 34.4% of global electricity",
+   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/"
+  },
+  {
+   "id": 275,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of the world's electricity comes from nuclear power?",
+   "answer": 9,
+   "note": null,
+   "finale": false,
+   "source": "Ember, Global Electricity Review 2025 (2024 data): nuclear 9.0% of global electricity",
+   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/"
+  },
+  {
+   "id": 276,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of global fossil CO2 emissions come from China?",
+   "answer": 31,
+   "note": null,
+   "finale": false,
+   "source": "Global Carbon Project, Global Carbon Budget 2023: China 31% of global fossil CO2 emissions (2022)",
+   "sourceUrl": "https://globalcarbonbudget.org/"
+  },
+  {
+   "id": 277,
+   "kind": "guess",
+   "category": "Space",
+   "text": "What % of the universe is ordinary matter — everything made of atoms?",
+   "answer": 5,
+   "note": "The rest is dark matter (~27%) and dark energy (~68%).",
+   "finale": false,
+   "source": "NASA Science, Dark Energy and Dark Matter: normal matter adds up to less than 5% of the universe",
+   "sourceUrl": "https://science.nasa.gov/universe/the-universe/dark-energy/"
+  },
+  {
+   "id": 278,
+   "kind": "guess",
+   "category": "Space",
+   "text": "By mass, what % of the Sun is hydrogen?",
+   "answer": 73,
+   "note": "Most of the rest is helium (~25%).",
+   "finale": false,
+   "source": "NASA, Sun Fact Sheet / Solar composition: about 73% hydrogen and 25% helium by mass",
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
+  },
+  {
+   "id": 279,
+   "kind": "guess",
+   "category": "Space",
+   "text": "Over time, what % of the Moon's surface can be seen from Earth?",
+   "answer": 59,
+   "note": "A slight wobble (libration) lets us peek around the edges.",
+   "finale": false,
+   "source": "NASA Science, Moon: thanks to libration, 59% of the lunar surface is visible from Earth over time",
+   "sourceUrl": "https://science.nasa.gov/moon/facts/"
+  },
+  {
+   "id": 280,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of Apple's revenue came from the iPhone in fiscal 2024?",
+   "answer": 51,
+   "note": "$201 billion of $391 billion.",
+   "finale": false,
+   "source": "Apple Inc. Form 10-K, fiscal 2024: iPhone net sales $201.2B of total $391.0B",
+   "sourceUrl": "https://investor.apple.com/sec-filings/default.aspx"
+  },
+  {
+   "id": 281,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of Amazon's operating income came from Amazon Web Services in 2024?",
+   "answer": 58,
+   "note": "AWS is about a sixth of Amazon's sales but most of its profit.",
+   "finale": false,
+   "source": "Amazon.com Form 10-K 2024: AWS operating income $39.8B of total $68.6B",
+   "sourceUrl": "https://ir.aboutamazon.com/annual-reports-proxies-and-shareholder-letters/default.aspx"
+  },
+  {
+   "id": 282,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of Fortune 500 companies are run by a woman CEO?",
+   "answer": 11,
+   "note": "A record 55 in 2025.",
+   "finale": false,
+   "source": "Fortune, Fortune 500 2025: 55 women CEOs (11%)",
+   "sourceUrl": "https://fortune.com/ranking/fortune500/"
+  },
+  {
+   "id": 283,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of new US businesses close within their first year?",
+   "answer": 22,
+   "note": "22.1% for businesses opened in the year to March 2024.",
+   "finale": false,
+   "source": "US Bureau of Labor Statistics, Business Employment Dynamics: 77.9% of establishments opened in the year ended March 2024 were still operating a year later",
+   "sourceUrl": "https://www.bls.gov/opub/ted/2024/1-year-survival-rates-for-new-business-establishments-by-year-and-location.htm"
+  },
+  {
+   "id": 284,
+   "kind": "guess",
+   "category": "Business",
+   "text": "By volume, what % of world trade travels by sea?",
+   "answer": 80,
+   "note": null,
+   "finale": false,
+   "source": "UNCTAD, Review of Maritime Transport: over 80% of the volume of international trade in goods is carried by sea",
+   "sourceUrl": "https://unctad.org/topic/transport-and-trade-logistics/review-of-maritime-transport"
+  },
+  {
+   "id": 285,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of Netflix's paid subscribers live outside the US and Canada?",
+   "answer": 70,
+   "note": "About 212 million of 302 million at the end of 2024.",
+   "finale": false,
+   "source": "Netflix Q4 2024 shareholder letter: 301.6M paid memberships, 89.6M in US & Canada",
+   "sourceUrl": "https://ir.netflix.net/financials/quarterly-earnings/default.aspx"
+  },
+  {
+   "id": 286,
+   "kind": "guess",
+   "category": "Pop culture",
+   "text": "What % of Spotify's monthly users pay for Premium?",
+   "answer": 39,
+   "note": "263 million of 675 million at the end of 2024.",
+   "finale": false,
+   "source": "Spotify Q4 2024 results: 675M monthly active users, 263M Premium subscribers",
+   "sourceUrl": "https://investors.spotify.com/financials/default.aspx"
+  },
+  {
+   "id": 287,
+   "kind": "guess",
+   "category": "Pop culture",
+   "text": "What % of all video game revenue worldwide comes from mobile games?",
+   "answer": 49,
+   "note": "About $93 billion of $188 billion in 2024.",
+   "finale": false,
+   "source": "Newzoo, Global Games Market Report 2024: mobile $92.6B of $187.7B",
+   "sourceUrl": "https://newzoo.com/resources/blog/global-games-market-revenue-estimates-and-forecasts-in-2024"
+  },
+  {
+   "id": 288,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of US GDP is consumer spending?",
+   "answer": 68,
+   "note": null,
+   "finale": false,
+   "source": "US Bureau of Economic Analysis, NIPA Table 1.1.10: personal consumption expenditures ~68% of GDP",
+   "sourceUrl": "https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey"
+  },
+  {
+   "id": 289,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of the world's wealth is owned by the richest 1% of adults?",
+   "answer": 48,
+   "note": "47.5% in the latest UBS estimate, rounded for play.",
+   "finale": false,
+   "source": "UBS / Credit Suisse Global Wealth Report (2023 data, via inequality.org): the top 1% of adults hold 47.5% of global household wealth",
+   "sourceUrl": "https://inequality.org/facts/global-inequality/"
+  },
+  {
+   "id": 290,
+   "kind": "guess",
+   "category": "Money",
+   "text": "By value, what % of all US cash in circulation is in $100 bills?",
+   "answer": 80,
+   "note": null,
+   "finale": false,
+   "source": "Federal Reserve (FRED series CURRVAL100): $100 notes ~$1.9 trillion of ~$2.3 trillion total currency in circulation, 2024",
+   "sourceUrl": "https://fred.stlouisfed.org/series/CURRVAL100"
+  },
+  {
+   "id": 291,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of the world's central bank currency reserves are held in US dollars?",
+   "answer": 58,
+   "note": "57.8% at the end of 2024; the euro is second at about 20%.",
+   "finale": false,
+   "source": "IMF, Currency Composition of Official Foreign Exchange Reserves (COFER), Q4 2024",
+   "sourceUrl": "https://data.imf.org/regular.aspx?key=41175"
+  },
+  {
+   "id": 292,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the world's population lives in India and China combined?",
+   "answer": 35,
+   "note": "About 2.9 billion of 8.2 billion people.",
+   "finale": false,
+   "source": "United Nations, World Population Prospects 2024",
+   "sourceUrl": "https://population.un.org/wpp/"
+  },
+  {
+   "id": 293,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Africa's population is under 25?",
+   "answer": 60,
+   "note": null,
+   "finale": false,
+   "source": "United Nations DESA, World Population Prospects 2024: about 60% of Africa's population is under age 25",
+   "sourceUrl": "https://population.un.org/wpp/"
+  },
+  {
+   "id": 294,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Australians live in the eight state and territory capital cities?",
+   "answer": 67,
+   "note": null,
+   "finale": false,
+   "source": "Australian Bureau of Statistics, Regional Population 2022-23: 67% of Australians live in capital cities",
+   "sourceUrl": "https://www.abs.gov.au/statistics/people/population/regional-population/latest-release"
+  },
+  {
+   "id": 295,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the world's land area is Russia?",
+   "answer": 11,
+   "note": "17.1 million of about 149 million square kilometres.",
+   "finale": false,
+   "source": "CIA World Factbook: Russia 17.1M km²; world land area 148.9M km²",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/russia/"
+  },
+  {
+   "id": 296,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the Amazon rainforest lies in Brazil?",
+   "answer": 60,
+   "note": null,
+   "finale": false,
+   "source": "WWF, Amazon facts: about 60% of the Amazon rainforest is in Brazil",
+   "sourceUrl": "https://www.worldwildlife.org/places/amazon"
+  },
+  {
+   "id": 297,
+   "kind": "guess",
+   "category": "Science · Finale",
+   "text": "What % of Earth's atmosphere is argon?",
+   "answer": 0.93,
+   "note": "More than carbon dioxide by a factor of about twenty.",
+   "finale": true,
+   "source": "NASA Earth Fact Sheet: argon 9,340 ppm (0.93%) of the atmosphere",
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html"
+  },
+  {
+   "id": 298,
+   "kind": "guess",
+   "category": "Science · Finale",
+   "text": "What % of Earth's atmosphere is carbon dioxide?",
+   "answer": 0.04,
+   "note": "About 423 ppm in 2024 — small, but up by half since the 1700s.",
+   "finale": true,
+   "source": "NOAA Global Monitoring Laboratory, Trends in atmospheric CO2: 2024 global annual mean ~423 ppm (0.04%)",
+   "sourceUrl": "https://gml.noaa.gov/ccgg/trends/global.html"
+  },
+  {
+   "id": 299,
+   "kind": "guess",
+   "category": "Science · Finale",
+   "text": "What % of Earth's mass is its oceans?",
+   "answer": 0.02,
+   "note": "About 1.4 × 10²¹ kg of seawater on a 6 × 10²⁴ kg planet.",
+   "finale": true,
+   "source": "USGS ocean volume (~1.33 billion km³ of seawater ≈ 1.4×10²¹ kg) divided by Earth's mass (5.97×10²⁴ kg, NASA Earth Fact Sheet)",
+   "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/how-much-water-there-earth"
+  },
+  {
+   "id": 300,
+   "kind": "guess",
+   "category": "Science · Finale",
+   "text": "What % of the human genome is made of genes that code for proteins?",
+   "answer": 1,
+   "note": "About 1%; much of the rest regulates those genes.",
+   "finale": true,
+   "source": "National Human Genome Research Institute: only about 1 percent of DNA is made up of protein-coding genes",
+   "sourceUrl": "https://www.genome.gov/about-genomics/fact-sheets/Introduction-to-Genomics"
+  },
+  {
+   "id": 301,
+   "kind": "guess",
+   "category": "History · Finale",
+   "text": "Of everyone who has ever been born, what % is alive today?",
+   "answer": 7,
+   "note": "About 8 billion of roughly 117 billion humans ever born.",
+   "finale": true,
+   "source": "Population Reference Bureau, How Many People Have Ever Lived on Earth? (2022): ~117 billion ever born",
+   "sourceUrl": "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/"
+  },
+  {
+   "id": 302,
+   "kind": "guess",
+   "category": "Pop culture · Finale",
+   "text": "What % of Best Picture Oscar winners were directed by a woman?",
+   "answer": 3,
+   "note": "Three of 97: The Hurt Locker, Nomadland and CODA.",
+   "finale": true,
+   "source": "Academy of Motion Picture Arts and Sciences, Oscars database: Best Picture winners through the 97th Academy Awards (2025)",
+   "sourceUrl": "https://www.oscars.org/oscars/ceremonies"
   }
  ]
 }

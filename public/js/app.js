@@ -75,7 +75,7 @@ const PIP = {
   warm: pipSvg("#f3d27a", "#b8952f"),
   cold: pipSvg("#5a5a5a", "#3e3e3e"),
 };
-const pipFor = (r) => (r.points >= 90 ? PIP.hot : r.points >= 55 ? PIP.warm : PIP.cold);
+const pipFor = (r) => (r.points >= 135 ? PIP.hot : r.points >= 95 ? PIP.warm : PIP.cold);
 const swatch = (color, ring) => h("img", { class: "sw", alt: "", src: pipSvg(color, ring || color) });
 
 // ---------------------------------------------------------------- chrome
@@ -281,19 +281,21 @@ function buildTextRound(screen, q) {
 
 // ---------------------------------------------------------------- reveal
 function heroFor(result, { center = false, line = null } = {}) {
-  const bee = beeForRound(result.points, result.streak);
+  // the round that finishes the run may hand over to the ruby bee
+  const bee = beeForRound(result.points, { finalScore: state.play.completed ? state.play.score : null });
   const hero = h("div", { class: `hero ${center ? "center" : ""} ${ENTRANCE[bee]}` });
   const img = h("img", { class: "bee", src: BEE_SRC(bee), alt: `${bee} bee`, width: 112, height: 112 });
   const beeBox = h("div", { style: "position:relative" }, img);
-  if (bee === "diamond" || bee === "golden") {
-    [[-4, 8], [96, 18], [88, 92]].slice(0, bee === "diamond" ? 3 : 2).forEach(([x, y], i) =>
+  if (bee === "diamond" || bee === "golden" || bee === "ruby") {
+    [[-4, 8], [96, 18], [88, 92]].slice(0, bee === "golden" ? 2 : 3).forEach(([x, y], i) =>
       beeBox.append(h("img", { class: "sparkle", src: SPARKLE, alt: "", style: `left:${x}px;top:${y}px;animation-delay:${i * 0.35}s` })));
   }
   const words = h("div", {},
     h("p", { class: "tier" }, result.tier),
     h("p", { class: "pts" }, `+${result.points}`, h("small", {}, "points")),
     line,
-    result.tier === "One Off" && h("span", { class: "chip" }, "One away — so close to a Bullseye."));
+    bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "Over 1,000 — a ruby run!")
+      : result.tier === "One Off" && h("span", { class: "chip" }, "One away — so close to a Bullseye."));
   hero.append(beeBox, words);
   return hero;
 }

@@ -7,7 +7,7 @@ const { chromium } = require("playwright");
 const OUT = process.argv[2] || "screenshots";
 fs.mkdirSync(OUT, { recursive: true });
 const s = await startServer();
-await s.store.putDailySet("2026-11-19", [161, 59, 249, 170, 173, 189, 78], { replace: true });
+await s.store.putDailySet("2026-11-19", [186, 170, 249, 173, 260, 189, 78], { replace: true });
 const b = await chromium.launch();
 const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
 const p = await ctx.newPage();

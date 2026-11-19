@@ -36,7 +36,7 @@ const pageHeight = (page) => page.evaluate(() => {
   return Math.ceil(Math.max(...els.map((e) => e.getBoundingClientRect().bottom + window.scrollY)));
 });
 // The longest prompts and notes in the bank, in a valid Daily order — the layout worst case.
-const WORST_CASE_SET = [161, 59, 249, 170, 173, 189, 78];
+const WORST_CASE_SET = [186, 170, 249, 173, 260, 189, 78];
 
 test("a full Daily on a phone: one screen per round, nothing leaks before submit", { skip }, async () => {
   await s.store.putDailySet("2026-11-19", WORST_CASE_SET, { replace: true });
@@ -75,14 +75,16 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
     }
     const bee = await page.$eval(".hero img.bee", (img) => ({ src: img.getAttribute("src"), rendering: getComputedStyle(img).imageRendering }));
     assert.equal(bee.rendering, "pixelated");
-    if (r === 1) assert.match(bee.src, /diamond/, "second consecutive Bullseye is diamond");
+    if (r < 6 && r !== 5) assert.match(bee.src, /diamond/, `round ${r + 1}: a Bullseye is the diamond bee`);
+    if (r === 5) assert.match(bee.src, /thirsty/, "an unlisted text answer is the thirsty bee");
+    if (r === 6) assert.match(bee.src, /ruby/, "the answer that takes the run over 1000 is the ruby bee");
     await page.getByRole("button", { name: r === 6 ? "See my score" : "Next round" }).click();
   }
 
   await page.waitForSelector(".total");
   const total = Number(await page.textContent(".total"));
-  assert.ok(total >= 900);
-  assert.ok(await page.isVisible(".ruby-label"), "900+ shows the ruby bee");
+  assert.ok(total > 1000);
+  assert.ok(await page.isVisible(".ruby-label"), "over 1000 shows the ruby bee on results");
   assert.equal(await page.locator(".row").count(), 7);
   void secrets;
 
