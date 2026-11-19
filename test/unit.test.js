@@ -12,7 +12,7 @@ const byId = new Map(bank.map((q) => [q.id, q]));
 
 test("difference tiers match the shipped curve exactly", () => {
   const cases = [[0, 175, "Bullseye"], [1, 150, "One Off"], [2, 135, "Razor Close"], [3, 135, "Razor Close"],
-    [4, 115, "Close"], [6, 115, "Close"], [7, 95, "Warm"], [10, 95, "Warm"], [11, 70, "Lukewarm"], [15, 70, "Lukewarm"], [23, 70, "Lukewarm"], [25, 70, "Lukewarm"],
+    [4, 115, "Close"], [6, 115, "Close"], [7, 95, "Warm"], [10, 95, "Warm"], [12, 95, "Warm"], [13, 70, "Lukewarm"], [15, 70, "Lukewarm"], [23, 70, "Lukewarm"], [25, 70, "Lukewarm"],
     [26, 40, "Cold"], [40, 40, "Cold"], [41, 10, "Way Off"], [50, 10, "Way Off"]];
   for (const [diff, pts, name] of cases) {
     const up = G.scoreNumeric(50, 50 + diff), down = G.scoreNumeric(50, 50 - diff);
