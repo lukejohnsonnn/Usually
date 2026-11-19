@@ -151,6 +151,7 @@ test("bank meets the standard", () => {
   for (const q of bank) {
     assert.ok(q.source && q.source.length > 10, `q${q.id} has a source`);
     assert.ok(!("votable" in q), `q${q.id} has no voting field`);
+    assert.doesNotMatch(`${q.text} ${q.category} ${q.note || ""}`, /crowd/i, `q${q.id} has no "crowd" theming`);
     if (q.kind === "text") {
       assert.ok(q.textAnswers.length >= 76 && q.textAnswers.length <= 100, `q${q.id} has 76–100 ranks`);
       const ranks = q.textAnswers.map((s) => s.rank);
