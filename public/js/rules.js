@@ -20,8 +20,8 @@ export const TIERS = [
   { maxDiff: 3, points: 135, name: "Razor Close", emoji: "🔥", bee: "honey" },
   { maxDiff: 6, points: 115, name: "Close", emoji: "🙂", bee: "drop" },
   { maxDiff: 10, points: 95, name: "Warm", emoji: "😐", bee: "normal" },
-  { maxDiff: 15, points: 70, name: "Lukewarm", emoji: "😬", bee: "thirsty" },
-  { maxDiff: 25, points: 40, name: "Cold", emoji: "🥶", bee: "thirsty" },
+  { maxDiff: 25, points: 70, name: "Lukewarm", emoji: "😬", bee: "thirsty" },
+  { maxDiff: 40, points: 40, name: "Cold", emoji: "🥶", bee: "thirsty" },
   { maxDiff: Infinity, points: 10, name: "Way Off", emoji: "❌", bee: "thirsty" },
 ];
 export const BLANK = { points: 0, name: "Blank", emoji: "⬜" };

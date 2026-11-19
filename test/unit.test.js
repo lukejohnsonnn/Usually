@@ -12,8 +12,8 @@ const byId = new Map(bank.map((q) => [q.id, q]));
 
 test("difference tiers match the shipped curve exactly", () => {
   const cases = [[0, 175, "Bullseye"], [1, 150, "One Off"], [2, 135, "Razor Close"], [3, 135, "Razor Close"],
-    [4, 115, "Close"], [6, 115, "Close"], [7, 95, "Warm"], [10, 95, "Warm"], [11, 70, "Lukewarm"], [15, 70, "Lukewarm"],
-    [16, 40, "Cold"], [25, 40, "Cold"], [26, 10, "Way Off"], [50, 10, "Way Off"]];
+    [4, 115, "Close"], [6, 115, "Close"], [7, 95, "Warm"], [10, 95, "Warm"], [11, 70, "Lukewarm"], [15, 70, "Lukewarm"], [23, 70, "Lukewarm"], [25, 70, "Lukewarm"],
+    [26, 40, "Cold"], [40, 40, "Cold"], [41, 10, "Way Off"], [50, 10, "Way Off"]];
   for (const [diff, pts, name] of cases) {
     const up = G.scoreNumeric(50, 50 + diff), down = G.scoreNumeric(50, 50 - diff);
     assert.deepEqual([up.points, up.tier, up.diff], [pts, name, diff], `diff +${diff}`);
@@ -202,4 +202,8 @@ test("composition never picks a retired question", () => {
     for (const id of G.composeSet(bank, `daily:${G.addDays("2027-01-01", d)}`)) assert.ok(!retired.has(id), `day ${d} picked retired q${id}`);
   }
   assert.ok(G.isValidSet([183, 271, 190, 280, 279, 236, 301], bank), "a set that already uses a retired question stays valid");
+});
+
+test("a guess of 50 when the answer is 27 is Lukewarm, not Cold", () => {
+  assert.equal(G.scoreNumeric(27, 50).tier, "Lukewarm");
 });
