@@ -872,3 +872,35 @@ Luke asked for MORE options after round 2 — creative shapes that are NOT exact
 **Files changed:** `scripts/creative-shapes.mjs` (new), `VERIFICATION.md` (this section). **Untouched: `client/js/grid.js`, `client/css/grid.css`, and everything else — no grid change ships until Luke picks.**
 
 **Needs Luke's eyes:** pick one of DISC / DROP / SKEP / POT (or DROP11 if he wants the drop inside the budget) — or B / C9 from round 2. Screenshots: `~/workspace/honeycomb-candidates/honeycomb-{disc,drop,skep,pot}.png`.
+
+---
+
+## Organic seamless grid options (2026-11-18, design + render only — nothing ships)
+
+Luke: "you could go organic like make a seamless all together shape instead of making it look like it was coded in html. Is that possible?" Yes — the dots don't have to be HTML rows at all. Three candidates, all 100 circle cells placed by code (absolute positions, seeded deterministic), no rows anywhere, plus an SVG goo filter that fuses the lit region into one continuous honey mass.
+
+**How they're built.** Jittered hex lattice (pitch 13px, vertical 11.26px) with a per-row random x-phase shift (±3px) and per-dot jitter (±1.2px x, ±0.5px y — vertical jitter kept small on purpose: two dots in adjacent rows can sit nearly on top of each other horizontally, so their distance is ~V − 2·Jy; Jy=0.5 keeps it ≥ 10.26px). Points kept inside an organic radial outline r(θ) = 1 + Σ a·sin(kθ+φ) on an ellipse, scale binary-searched until exactly 100 points fall inside. Fill order = sort by y, then x (top-to-bottom sweep, like the live grid). Generator + metrics: `scripts/organic-shapes.mjs` (emits `/tmp/honeycomb-organic/points.js`). Compare harness: `/tmp/honeycomb-organic/` (`compare.html`, `compare-drive.mjs`, `shots-390/`, `shots-320/`). Rendered in real headless Chromium 157 at 320/375/390px — geometry identical at all three widths (absolute positions in a fixed 188px box, so viewport-independent).
+
+**Goo filter.** SVG filter on the lit layer only: `feGaussianBlur` + `feColorMatrix` alpha curve + `SourceGraphic atop`. The unlit dots stay discrete and readable below; the lit region fuses into one liquid mass. The guess-only ring dots and unlit dots live outside the goo layer, so the four reveal states stay distinguishable. Tuned settings tested: σ=2 / 3.5 / 5 with the standard 19/-9 alpha curve, then softer curves σ=3.5 @ 13/-6 and σ=3 @ 12/-5. **Recommended: σ=3 @ 12/-5** — the soft curve keeps more blurred alpha, so narrow bridges between dots survive and the black holes inside the fused mass (visible with the standard 19/-9 curve) mostly close. σ=5 does NOT help — the stronger blur pinches the necks between dots and the holes get worse.
+
+| Shape | Outline | Box (px) | Height vs 120px budget | Min center distance | Fill order |
+|---|---|---|---|---|---|
+| **BLOB** — wobbly wide blob (honey puddle) | r: 3/5/2-term wobble on 92×56 ellipse | 178×101 | fits | 10.77px | top-down ✓ |
+| **SPLASH** — splash with a bottom drip lobe | 3/6-term wobble + drip bump at bottom | 170×112 | fits | 10.55px | top-down ✓ (drip fills last) |
+| **HIVE** — lumpy organic hive cluster | 4/7/3-term wobble on 84×53 ellipse | 183×112 | fits | 10.63px | top-down ✓ |
+
+**What the renders show, by eye (screenshots in `~/workspace/honeycomb-candidates/`):**
+
+- **BLOB** (`honeycomb-organic-blob.png`, FILL44, recommended goo): one continuous dripping honey mass across the top half, unlit dots discrete below. Cleanest and safest of the three.
+- **SPLASH** (`honeycomb-organic-splash.png`, FILL44, recommended goo): same continuous mass with a splash character; the drip lobe is visible at FILL80 (`shots-390/grid-SPLASH-FILL80.png`) as a gold drip hanging off the bottom center. Most character of the three.
+- **HIVE** (`honeycomb-organic-hive.png`, FILL44, recommended goo): lumpy cluster, drips hanging down off the fused mass. Most "living hive" feel.
+- **MIXED reveal** (`honeycomb-organic-blob-mixed.png`, real 70 / guess 44, recommended goo): gold (overlap) on top and white (real-only) below fuse into ONE mass with a clear wavy gold/white boundary — the two colors stay instantly distinguishable inside the fused shape.
+- **GOO OFF control** (`honeycomb-organic-goooff.png`): the organic placement alone already kills the "coded in HTML" look — no rows are visible even with discrete dots. The goo is the upgrade on top, not the whole trick.
+
+**Honest read.** The idea works: the lit region genuinely reads as one seamless liquid honey mass, not a table of dots, and the unlit region stays readable so a player can still tell how much is filled. Two things that don't fully work: (1) a couple of isolated edge dots at the top corners sit apart from the main mass at FILL44 (they're farthest from their neighbors) — they read as drips/splashes, which fits the theme, but at low fills (10–20) the lit region will be a few separate blobs rather than one mass; (2) the standard 19/-9 goo curve leaves black holes inside the mass — use the soft σ=3 @ 12/-5 curve, which closes them. SPLASH has the most character, BLOB is the cleanest, HIVE is the lumpiest. If Luke picks one, the fine-tune grid scales the same placement by 224/188 (≈120–133px tall vs 151–180px for the row-based shapes — shorter, because the organic shapes are wider than tall).
+
+**Verification.** `npm run verify` 299/299 green (unchanged — no shipped code touched). Generator metrics agree with the browser measurements (boxes 178×101 / 170×112 / 183×112, min distances ≥10.55px, no overlap anywhere, fill order top-down verified in the generator).
+
+**Files changed:** `scripts/organic-shapes.mjs` (new), `VERIFICATION.md` (this section). **Untouched: `client/js/grid.js`, `client/css/grid.css`, and everything else — no grid change ships until Luke picks.**
+
+**Needs Luke's eyes:** pick one of BLOB / SPLASH / HIVE (organic + goo) — or DISC / DROP / SKEP / POT from the creative round, or B / C9 from round 2. Screenshots: `~/workspace/honeycomb-candidates/honeycomb-organic-{blob,splash,hive,blob-mixed,goooff}.png`.
