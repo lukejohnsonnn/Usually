@@ -150,7 +150,7 @@ function renderHome() {
     h("div", { class: "parade-scale" }, h("span", {}, "Way off"), h("span", { class: "line" }), h("span", {}, "Bullseye")));
   const mystery = h("div", { class: "mystery", "aria-label": "The ruby bee — a hidden prize only pros find.", role: "img" },
     h("div", { class: "bee-fly mystery-fly" },
-      h("img", { class: "mystery-bee", src: "/img/bee-ruby-96.png", srcset: "/img/bee-ruby-96.png 2x, /img/bee-ruby-144.png 3x", alt: "", width: 48, height: 48, draggable: "false" })),
+      h("img", { class: "mystery-bee", src: "/img/bee-ruby-shadow-96.png", srcset: "/img/bee-ruby-shadow-96.png 2x, /img/bee-ruby-shadow-144.png 3x", alt: "", width: 48, height: 48, draggable: "false" })),
     h("img", { class: "mystery-q", src: QMARK, alt: "" }));
   const crewRow = h("div", { class: "crew-row" }, parade, mystery);
 
@@ -714,7 +714,7 @@ function renderResults(play) {
   if (play.mode === "daily") actions.append(h("button", { class: "btn primary", onclick: () => share(play.date) }, "Share my score"));
   else actions.append(h("button", { class: "btn primary", onclick: renderArchive }, "More past games"));
   actions.append(h("button", { class: "btn ghost", onclick: goHome }, "Home"));
-  mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, rows, actions, standing, footer()));
+  mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, standing, rows, actions, footer()));
   const jar = new HoneyJar(hero.querySelector(".jar-big"), { scale: 4 });
   jar.fill(0, { animate: false });
   requestAnimationFrame(() => jar.fill(play.score / JAR_FULL, { label: `${play.score} points of honey` }));
