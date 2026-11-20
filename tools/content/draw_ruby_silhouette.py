@@ -1,9 +1,9 @@
 """Draws the home-screen ruby silhouette: the ruby bee's body shape (sparkles
-removed) in dark plum with a thin red rim, baked into PNGs so it looks the
+removed) as an all-grey shadow bee with a slightly lighter rim, baked into PNGs so it looks the
 same in every browser (no CSS filters). Run from the repo root."""
 from PIL import Image, ImageFilter
 
-FILL, EDGE = (52, 16, 30, 255), (196, 34, 82, 255)
+FILL, EDGE = (46, 44, 47, 255), (88, 84, 90, 255)
 src = Image.open("public/img/bee-ruby.png").convert("RGBA")
 W, H = src.size
 a = src.getchannel("A").point(lambda v: 255 if v > 100 else 0)
