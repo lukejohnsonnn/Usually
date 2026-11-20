@@ -462,3 +462,7 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .curve-axis { position: absolute; left: 0; right: 0; top: 116px; height: 14px; border-top: 1px solid #333; }
 .curve-axis span { position: absolute; transform: translateX(-50%); top: 4px; font-size: 10px; color: var(--muted); }
 .curve-you { position: absolute; top: 136px; transform: translateX(-50%); font-family: var(--f-pixel); font-size: 9px; color: var(--yellow); white-space: nowrap; }
+
+/* text rounds: the full ranked list */
+.text-reveal .all-btn { align-self: center; }
+.full-list { margin: 0 0 14px; }

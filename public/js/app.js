@@ -686,9 +686,20 @@ function showTextReveal(screen, result) {
         result.readBack && result.readBack.toLowerCase() !== said.toLowerCase() ? h("span", {}, " · read as ", h("b", {}, result.readBack)) : null),
       top3 && h("p", { class: "kicker", style: "text-align:center" }, "The top 3"),
       top3,
+      (result.list || []).length > 3 && h("button", { class: "btn ghost small all-btn", type: "button", onclick: () => openFullList(result) }, `See all ${result.list.length} answers`),
       nextButton()].filter(Boolean));
   screen.append(reveal);
-  reveal.querySelector(".btn").focus({ preventScroll: true });
+  reveal.querySelector(".btn.primary").focus({ preventScroll: true });
+}
+
+/** The whole ranked list for a text round, your answer highlighted. */
+function openFullList(result) {
+  const list = h("ol", { class: "top3 full-list", "aria-label": "Every answer on the list" },
+    result.list.map((label, i) => h("li", { class: result.rank === i + 1 ? "you" : "" },
+      h("span", { class: "rk" }, `#${i + 1}`), h("span", { class: "lb" }, label), result.rank === i + 1 ? h("span", { class: "tag" }, "you") : null)));
+  openOverlay(`All ${result.list.length} answers`, h("div", {}, list,
+    h("button", { class: "btn primary", onclick: closeOverlay }, "Close")), { label: "Every answer on the list" });
+  list.querySelector("li.you")?.scrollIntoView({ block: "center" });
 }
 
 // ---------------------------------------------------------------- results

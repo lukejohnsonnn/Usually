@@ -1,7 +1,7 @@
 {
  "meta": {
   "app": "Honeydle",
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "note": "Question bank. Every answer traces to a real published statistic recorded in source/sourceUrl. kind: guess | text. finale: true marks the round-7 pool. Text rounds: textAnswers ranked list with accepted variants per rank, top1 is the #1 label (published only via Yesterday), unlisted are plausible strings that score as not on the list. retired: true keeps a question in the bank (so a day that already used it keeps working) but new sets never pick it. exposed: true marks questions players have already seen (Endless practice, earlier Dailies); fresh Dailies prefer unexposed questions and never reuse one."
  },
  "questions": [
@@ -32175,6 +32175,237 @@
    "finale": true,
    "source": "NASA Moon Fact Sheet: mass 0.07346×10²⁴ kg; Earth 5.9722×10²⁴ kg (ratio 0.0123)",
    "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+  },
+  {
+   "id": 403,
+   "kind": "guess",
+   "category": "Science",
+   "text": "In 2024, what % of the world's electricity came from wind power?",
+   "answer": 8,
+   "note": "A record 8.1% — wind and solar together passed 15% for the first time.",
+   "finale": false,
+   "source": "Ember, Global Electricity Review 2025: wind 8.1% of global electricity in 2024",
+   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/global-electricity-source-trends"
+  },
+  {
+   "id": 404,
+   "kind": "guess",
+   "category": "Society · Finale",
+   "text": "Of all the humans ever born, what % are alive today?",
+   "answer": 7,
+   "note": "About 8 billion of roughly 117 billion people ever born — 6.8%.",
+   "finale": true,
+   "source": "Population Reference Bureau, How Many People Have Ever Lived on Earth? (2022): 6.8% of those ever born were living",
+   "sourceUrl": "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/"
+  },
+  {
+   "id": 405,
+   "kind": "guess",
+   "category": "Nature",
+   "text": "What % of the world's food crop types depend at least partly on pollinators like bees?",
+   "answer": 75,
+   "note": "Over three in four crop types — though staples like wheat, rice and maize don't need them.",
+   "finale": false,
+   "source": "FAO: more than 75% of the world's food crops depend, to some extent, on pollination",
+   "sourceUrl": "https://www.fao.org/newsroom/story/bee-ing-grateful-to-our-pollinators/en"
+  },
+  {
+   "id": 406,
+   "kind": "guess",
+   "category": "Food",
+   "text": "What % of honey is water?",
+   "answer": 17,
+   "note": "Only about 17% — the rest is mostly fructose and glucose, which is why honey keeps for years.",
+   "finale": false,
+   "source": "USDA analysis of US floral honeys (White et al.): average water content 17.2%",
+   "sourceUrl": "https://www.fao.org/3/w0076e/w0076e04.htm"
+  },
+  {
+   "id": 407,
+   "kind": "guess",
+   "category": "Society",
+   "text": "What % of the world's population is aged 65 or older?",
+   "answer": 10,
+   "note": "10.3% in 2024 — projected to double to about 21% by 2074.",
+   "finale": false,
+   "source": "UNFPA / UN World Population Prospects 2024: 10.3% of the world's population aged 65+ in 2024",
+   "sourceUrl": "https://www.un.org/global-issues/ageing"
+  },
+  {
+   "id": 408,
+   "kind": "guess",
+   "category": "Money · Finale",
+   "text": "Of all the gold ever mined, what % is now in jewellery?",
+   "answer": 44,
+   "note": "About 97,600 tonnes of the 219,900 ever mined. Next biggest: bars and coins.",
+   "finale": true,
+   "source": "World Gold Council, above-ground stocks (end-2025): jewellery 97,645 t of 219,891 t = 44%",
+   "sourceUrl": "https://www.gold.org/goldhub/data/above-ground-stocks"
+  },
+  {
+   "id": 409,
+   "kind": "guess",
+   "category": "Society",
+   "text": "In 2024, what % of Japan's population was aged 65 or older?",
+   "answer": 29,
+   "note": "29.3% — the highest share of any country, and still rising.",
+   "finale": false,
+   "source": "Japan Ministry of Internal Affairs and Communications (Sept 2024): 36.25 million aged 65+, 29.3% of the population",
+   "sourceUrl": "https://aljazeera.com/economy/2024/9/16/japans-elderly-population-rises-to-record-36-25-million"
+  },
+  {
+   "id": 410,
+   "kind": "guess",
+   "category": "Science · Finale",
+   "text": "What % of Iceland's electricity comes from geothermal power?",
+   "answer": 30,
+   "note": "About 30% — nearly all the rest is hydropower, so Iceland's grid is almost entirely renewable.",
+   "finale": true,
+   "source": "Orkustofnun data via TheGlobalEconomy: geothermal 29.87% of Iceland's electricity generation in 2023",
+   "sourceUrl": "https://www.theglobaleconomy.com/Iceland/hydroelectricity_capacity_percent/"
+  },
+  {
+   "id": 411,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of the world's cocoa comes from Côte d'Ivoire?",
+   "answer": 38,
+   "note": "38% in 2023/24 — the world's biggest producer by far, ahead of Ghana.",
+   "finale": false,
+   "source": "ICCO revised estimates 2023/24: Côte d'Ivoire 1.674 Mt, 38.3% of world output",
+   "sourceUrl": "https://icco.org/faq/"
+  },
+  {
+   "id": 412,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Egyptians live along the Nile Valley and Delta?",
+   "answer": 95,
+   "note": "About 95% of Egyptians live on roughly 5% of the country's land.",
+   "finale": false,
+   "source": "CIA World Factbook (Egypt): about 95% of the population lives along the Nile, on about 5% of the land",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/about/archives/2022/countries/egypt"
+  },
+  {
+   "id": 413,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of adults worldwide have a bank or mobile-money account?",
+   "answer": 76,
+   "note": "Up from 51% in 2011 — mobile money drove much of the rise.",
+   "finale": false,
+   "source": "World Bank Global Findex 2021: 76% of adults worldwide have an account",
+   "sourceUrl": "https://www.worldbank.org/en/publication/globalfindex/brief/the-global-findex-database-2021-chapter-1-ownership-of-accounts"
+  },
+  {
+   "id": 414,
+   "kind": "guess",
+   "category": "Geography · Finale",
+   "text": "What % of all the ice on Earth is in Antarctica?",
+   "answer": 90,
+   "note": "Almost 90% — Greenland holds most of the other 10%.",
+   "finale": true,
+   "source": "USGS Water Science School: almost 90% of Earth's ice mass is in Antarctica, Greenland about 10%",
+   "sourceUrl": "https://www.usgs.gov/water-science-school/science/glaciers-and-icecaps"
+  },
+  {
+   "id": 415,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of the air we breathe is oxygen?",
+   "answer": 21,
+   "note": "About 20.9% of dry air. Nitrogen makes up 78%.",
+   "finale": false,
+   "source": "NOAA JetStream, Introduction to the Atmosphere: oxygen 20.947% of dry air",
+   "sourceUrl": "https://www.noaa.gov/jetstream/atmosphere"
+  },
+  {
+   "id": 416,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of the world's palm oil comes from Indonesia?",
+   "answer": 58,
+   "note": "About 46 million tonnes a year — with Malaysia, the two make up over 80%.",
+   "finale": false,
+   "source": "USDA FAS 2024/25 via Databoks: Indonesia 46 Mt, 58% of global palm oil production",
+   "sourceUrl": "https://databoks.katadata.co.id/en/agroindustry/statistics/690dac1b48ef2/usda-indonesia-worlds-largest-palm-oil-producer-20242025"
+  },
+  {
+   "id": 417,
+   "kind": "guess",
+   "category": "Society · Finale",
+   "text": "What % of the world's refugees are hosted by low- and middle-income countries?",
+   "answer": 73,
+   "note": "Most refugees stay close to home — two in three live in a country next to their own.",
+   "finale": true,
+   "source": "UNHCR Global Trends 2024: low- and middle-income countries hosted 73% of the world's refugees",
+   "sourceUrl": "https://www.unhcr.org/publications/global-trends-2024"
+  },
+  {
+   "id": 418,
+   "kind": "guess",
+   "category": "Society",
+   "text": "What % of the world's people have safely managed drinking water at home?",
+   "answer": 74,
+   "note": "74% in 2024 — about 1 in 4 people still don't.",
+   "finale": false,
+   "source": "WHO/UNICEF JMP 2025 report: 74% used safely managed drinking water in 2024",
+   "sourceUrl": "https://www.who.int/news/item/26-08-2025-1-in-4-people-globally-still-lack-access-to-safe-drinking-water---who--unicef"
+  },
+  {
+   "id": 419,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the world's rice is grown in Asia?",
+   "answer": 90,
+   "note": "About 90% — and about 90% of it is eaten there too.",
+   "finale": false,
+   "source": "FAO: over 90% of the world's rice is produced and consumed in Asia",
+   "sourceUrl": "https://www.fao.org/4/x5796e/x5796e05.htm"
+  },
+  {
+   "id": 420,
+   "kind": "guess",
+   "category": "Science",
+   "text": "In 2024, what % of France's electricity came from nuclear power?",
+   "answer": 67,
+   "note": "67% — the highest nuclear share of any major country.",
+   "finale": false,
+   "source": "RTE Bilan électrique 2024 (via Banque des Territoires): nuclear 67.41% of 536.5 TWh",
+   "sourceUrl": "https://www.banquedesterritoires.fr/la-france-produit-toujours-plus-delectricite-decarbonee"
+  },
+  {
+   "id": 421,
+   "kind": "guess",
+   "category": "Travel",
+   "text": "In 2025, what % of the world's international tourist trips were to Europe?",
+   "answer": 52,
+   "note": "793 million of 1.52 billion arrivals — more than every other region combined.",
+   "finale": false,
+   "source": "UN Tourism, World Tourism Barometer (Jan 2026): Europe 793 million of 1.52 billion international arrivals in 2025",
+   "sourceUrl": "https://www.untourism.int/news/international-tourist-arrivals-up-4-in-2025-reflecting-strong-travel-demand-around-the-world"
+  },
+  {
+   "id": 422,
+   "kind": "guess",
+   "category": "Society · Finale",
+   "text": "What % of the world's roughly 7,000 languages are endangered?",
+   "answer": 44,
+   "note": "About 3,200 languages — many have only a few elderly speakers left.",
+   "finale": true,
+   "source": "Ethnologue (27th ed., via Al Jazeera 2026): 3,193 of 7,159 languages (44%) are endangered",
+   "sourceUrl": "https://www.aljazeera.com/news/2026/2/21/where-are-the-most-endangered-languages-in-the-world"
+  },
+  {
+   "id": 423,
+   "kind": "guess",
+   "category": "Science",
+   "text": "In 2024, what % of Germany's public electricity came from renewables?",
+   "answer": 63,
+   "note": "A record 62.7% — wind alone supplied a third.",
+   "finale": false,
+   "source": "Fraunhofer ISE (Energy-Charts), Public electricity generation 2024: renewables 62.7% of net public generation",
+   "sourceUrl": "https://www.ise.fraunhofer.de/en/press-media/press-releases/2025/public-electricity-generation-2024-renewable-energies-cover-more-than-60-percent-of-german-electricity-consumption-for-the-first-time.html"
   }
  ]
 }

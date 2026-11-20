@@ -146,14 +146,14 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 242, "retired questions stay in the file");
+  assert.equal(bank.length, 263, "retired questions stay in the file");
   const active = bank.filter((q) => !q.retired);
-  assert.equal(active.length, 233);
+  assert.equal(active.length, 254);
   const count = (k) => active.filter((q) => G.poolOf(q) === k).length;
-  assert.equal(count("guess"), 156);
-  assert.equal(count("finale"), 25);
+  assert.equal(count("guess"), 171);
+  assert.equal(count("finale"), 31);
   const fresh = active.filter((q) => !q.exposed);
-  assert.equal(fresh.length, 98, "98 brand-new questions nobody has seen");
+  assert.equal(fresh.length, 119, "119 brand-new questions nobody has seen");
   for (const id of [190, 192, 203, 257, 299, 80, 255, 338, 370]) assert.equal(bank.find((q) => q.id === id).retired, true, `q${id} retired`);
   assert.ok(!bank.some((q) => q.kind === "split" || "leftLabel" in q || "rightLabel" in q), "no Split questions remain");
   assert.equal(count("text"), 52);

@@ -38,7 +38,7 @@ describe("server", () => {
   test("health reports status, store, bank size and Eastern date", async () => {
     const r = await s.call("/health");
     assert.equal(r.status, 200);
-    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 233, date: "2026-11-19" });
+    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 254, date: "2026-11-19" });
   });
 
   test("today: frozen 7-round set in public shape, deterministic from the date", async () => {
@@ -112,7 +112,12 @@ describe("server", () => {
     assert.equal(out.json.result.points, 175);
     assert.equal(out.json.result.readBack, undefined);
     assert.deepEqual(out.json.result.top3, [1, 2, 3].map((r) => q.textAnswers.find((x) => x.rank === r).texts[0]));
-    assert.deepEqual(findKeys(out.json, ["top1", "textAnswers", "unlisted", "matched"]), [], "never the full list");
+    assert.deepEqual(findKeys(out.json, ["top1", "textAnswers", "unlisted", "matched"]), [], "never the raw answer data");
+    // once answered, every answer's display label comes back once, in rank order
+    assert.deepEqual(out.json.result.list, q.textAnswers.map((x) => x.texts[0]));
+    assert.equal(out.json.play.results[2].list, undefined, "the full list isn't stored with the play");
+    const resumed = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
+    assert.ok(!JSON.stringify(resumed).includes('"list"'), "resuming never resends it");
   });
 
   test("text rounds: near misses come back as a suggestion to confirm; unlisted answers are refused", async () => {
@@ -601,7 +606,7 @@ describe("the real process", () => {
       for (let i = 0; i < 50 && !out.includes("Honeydle on"); i++) await new Promise((r) => setTimeout(r, 100));
       const h = await (await fetch(`http://127.0.0.1:${port}/health`)).json();
       assert.equal(h.ok, true);
-      assert.equal(h.bankQuestions, 233);
+      assert.equal(h.bankQuestions, 254);
       assert.match(h.date, /^\d{4}-\d{2}-\d{2}$/);
     } finally { child.kill("SIGTERM"); }
   });
