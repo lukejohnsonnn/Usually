@@ -38,8 +38,8 @@ Below 1%, the reveal zooms in so each cell is 0.01%.
 npm install
 npm start            # Node dev server on http://localhost:3000 (JSON file store)
 npm run dev          # the real Worker locally via wrangler (local D1)
-npm test             # 44 checks: game logic, HTTP end to end, D1 store
-npm run test:ui      # 12 browser checks with Playwright (one-screen rule, full Daily…)
+npm test             # 49 checks: game logic, HTTP end to end, D1 store
+npm run test:ui      # 13 browser checks with Playwright (one-screen rule, full Daily…)
 npm run test:worker  # 6 checks against the real Worker under wrangler dev
 npm run verify       # all of the above
 ```
@@ -84,6 +84,7 @@ test/                  unit, server, D1, browser and Worker tests
 | `GET /api/today` | today's frozen set (public shape) |
 | `POST /api/play` `{mode: "daily"\|"archive", date?}` | start or resume today's Daily, or a past one |
 | `GET /api/archive` | Past games: every earlier Daily with the player's result |
+| `GET /api/hunt`, `POST /api/hunt/start\|guess\|finish` | Hive Hunt, the daily bonus list game |
 | `POST /api/play/:id/submit` `{round, value}` | score the next round |
 | `GET /api/results[?date=]` | the player's Daily play |
 | `GET /api/stats` | streak, games, best, average |

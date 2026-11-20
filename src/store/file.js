@@ -59,7 +59,7 @@ export function createFileStore(filePath) {
     },
     /** Creates the play; one per player per day and mode — returns the existing one if there is one. */
     async createPlay(play) {
-      if (play.mode === "daily" || play.mode === "archive") {
+      if (play.mode === "daily" || play.mode === "archive" || play.mode === "hunt") {
         const existing = await this.findDailyPlay(play.playerId, play.date, play.mode);
         if (existing) return existing;
       }

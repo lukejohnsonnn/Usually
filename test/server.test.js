@@ -337,6 +337,85 @@ describe("server", () => {
   });
 });
 
+describe("hive hunt", () => {
+  test("one list a day for everyone; hits, typos, repeats, misses and \"which one?\"", async () => {
+    const t = await startServer({ at: "2026-11-21T15:00:00Z" });
+    try {
+      const P = "u-hunter000000000", Q = "u-hunter000000001";
+      const a = (await t.call("/api/hunt", { player: P })).json;
+      const b = (await t.call("/api/hunt", { player: Q })).json;
+      assert.equal(a.prompt, b.prompt, "same list for everyone");
+      assert.deepEqual([a.number, a.status, a.seconds], [2, "new", 60]);
+      assert.deepEqual(findKeys(a, ["entries", "missed", "unlisted"]), [], "the list never goes out before the end");
+      assert.equal((await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "texas" } })).status, 409, "start first");
+      await t.call("/api/hunt/start", { method: "POST", player: P, body: {} });
+      const g = async (value) => (await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value } })).json;
+      const first = await g("texas");
+      assert.deepEqual([first.result, first.label, first.hunt.score], ["found", "Texas", 1]);
+      const again = await g("Texas");
+      assert.deepEqual([again.result, again.label], ["already", "Texas"]);
+      assert.equal((await g("Californa")).label, "California", "typos are fine");
+      assert.equal((await g("Ontario")).result, "miss");
+      assert.equal((await g("carolina")).result, "ambiguous");
+      const mid = (await t.call("/api/hunt", { player: P })).json;
+      assert.equal(mid.status, "playing");
+      assert.equal(mid.missed, undefined, "missed ones stay hidden while playing");
+      assert.deepEqual(mid.found, ["Texas", "California"]);
+    } finally { await t.close(); }
+  });
+
+  test("the clock is the server's: guesses after 60 seconds don't count, and the hunt ends", async () => {
+    const t = await startServer({ at: "2026-11-21T15:00:00Z" });
+    try {
+      const P = "u-latehunter00000";
+      await t.call("/api/hunt/start", { method: "POST", player: P, body: {} });
+      await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "ohio" } });
+      t.clock.set("2026-11-21T15:01:05Z");
+      const late = (await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "texas" } })).json;
+      assert.equal(late.result, "over");
+      assert.equal(late.hunt.score, 1);
+      assert.equal(late.hunt.missed.length, 49, "the rest is revealed once it's over");
+      assert.deepEqual(late.hunt.missed, [...late.hunt.missed].sort((x, y) => x.localeCompare(y)), "alphabetical, never ranked");
+      // restarting the same day gives back the finished hunt
+      assert.equal((await t.call("/api/hunt/start", { method: "POST", player: P, body: {} })).json.status, "done");
+      // a new day, a new list
+      t.clock.addDays(1);
+      const next = (await t.call("/api/hunt", { player: P })).json;
+      assert.deepEqual([next.number, next.status], [3, "new"]);
+      // and hunts never touch the Daily stats
+      assert.deepEqual((await t.call("/api/stats", { player: P })).json, { streak: 0, games: 0, best: null, avg: null });
+    } finally { await t.close(); }
+  });
+
+  test("finding every entry ends the hunt early; giving up ends it too", async () => {
+    const t = await startServer({ at: "2026-11-29T15:00:00Z" }); // #10: Central America (7)
+    try {
+      const P = "u-completist0000";
+      const s0 = (await t.call("/api/hunt/start", { method: "POST", player: P, body: {} })).json;
+      assert.equal(s0.total, 7);
+      let last;
+      for (const v of ["Belize", "Costa Rica", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panama"]) {
+        last = (await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: v } })).json;
+      }
+      assert.deepEqual([last.hunt.status, last.hunt.score, last.hunt.missed], ["done", 7, []]);
+      const Q = "u-quitter0000000";
+      await t.call("/api/hunt/start", { method: "POST", player: Q, body: {} });
+      const done = (await t.call("/api/hunt/finish", { method: "POST", player: Q, body: {} })).json;
+      assert.deepEqual([done.status, done.score, done.missed.length], ["done", 0, 7]);
+    } finally { await t.close(); }
+  });
+
+  test("every list's spellings match their own entry, and nothing on its not-on-the-list list matches", async () => {
+    const hunts = JSON.parse(fs.readFileSync(path.join(root, "data", "hunts.json"), "utf8"));
+    assert.ok(hunts.lists.length >= 14);
+    for (const l of hunts.lists) {
+      const q = { textAnswers: l.entries.map((texts, i) => ({ rank: i + 1, texts })), unlisted: l.unlisted };
+      for (const [i, texts] of l.entries.entries()) for (const v of texts) assert.equal(matchTextAnswer(q, v).rank, i + 1, `list ${l.id}: "${v}"`);
+      for (const u of l.unlisted) assert.equal(matchTextAnswer(q, u).rank, null, `list ${l.id}: "${u}" must not match`);
+    }
+  });
+});
+
 describe("self-heal", () => {
   test("a short frozen set is recomposed and in-progress plays from it are discarded; completed plays are history", async () => {
     const t = await startServer();

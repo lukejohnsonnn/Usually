@@ -349,3 +349,36 @@ test("past games: the home button opens the list and a past Daily plays like the
     await ctx.close();
   } finally { await t.close(); }
 });
+
+test("hive hunt: a bonus card on home, a timed hunt, and results with what you missed", { skip }, async () => {
+  const t = await startServer({ at: "2026-11-29T15:00:00Z" }); // Central America
+  try {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await ctx.newPage();
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.goto(t.base);
+    await page.waitForSelector(".hunt-card");
+    assert.match(await page.textContent(".hunt-card"), /Hive Hunt #10/);
+    await page.locator(".hunt-card button").click();
+    await page.getByRole("button", { name: "Start the hunt" }).click();
+    await page.waitForSelector("input.field.text");
+    assert.equal(await page.locator(".hc-cell").count(), 7, "one cell per entry");
+    for (const v of ["Panama", "Belise", "Mexico", "Panama"]) {
+      await page.fill("input.field.text", v);
+      await page.press("input.field.text", "Enter");
+      await page.waitForTimeout(150);
+    }
+    assert.equal(await page.locator(".hc-cell.found").count(), 2, "Panama and Belize (typo)");
+    assert.match(await page.textContent(".hunt-feedback"), /Already got Panama/);
+    await page.getByRole("button", { name: /end the hunt/ }).click();
+    await page.waitForSelector(".hunt-hero");
+    assert.match(await page.textContent(".hunt-hero"), /2\s*\/\s*7/);
+    assert.equal(await page.locator(".hunt-found.missed .chip").count(), 5);
+    await page.getByRole("button", { name: "Home", exact: true }).last().click();
+    await page.waitForSelector(".hunt-card");
+    assert.match(await page.textContent(".hunt-card"), /You found 2 of 7/);
+    assert.deepEqual(errors, []);
+    await ctx.close();
+  } finally { await t.close(); }
+});

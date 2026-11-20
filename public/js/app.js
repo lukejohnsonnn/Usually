@@ -127,8 +127,8 @@ async function goHome() {
   closeOverlay();
   loading();
   try {
-    const [stats, res, today] = await Promise.all([api("/stats"), api("/results"), api("/today")]);
-    state.stats = stats; state.daily = res.play; state.date = today.date;
+    const [stats, res, today, hunt] = await Promise.all([api("/stats"), api("/results"), api("/today"), api("/hunt").catch(() => null)]);
+    state.stats = stats; state.daily = res.play; state.date = today.date; state.hunt = hunt;
   } catch (err) {
     return mount(h("main", { class: "screen home" }, masthead(), h("div", { class: "card daily-card" },
       h("p", {}, err.message || "Couldn't reach the hive."), h("button", { class: "btn primary", onclick: goHome }, "Try again"))));
@@ -174,8 +174,186 @@ function renderHome() {
       h("p", { class: "kicker" }, "Today's Daily · 7 rounds"),
       h("h2", {}, "Seven prompts, the same for everyone. One run a day."),
       action),
+    state.hunt && huntCard(state.hunt),
     h("button", { class: "btn ghost", onclick: renderArchive }, "Past games"),
     footer()));
+}
+
+// ---------------------------------------------------------------- hive hunt
+const HEX = { empty: pipSvg("#151515", "#2e2e2e"), found: pipSvg("#ffd60a", "#d9a300"), missed: pipSvg("#3a3020", "#5a4a20") };
+
+/** The bonus card on the home screen. */
+function huntCard(hunt) {
+  const done = hunt.status === "done";
+  return h("section", { class: "card hunt-card" },
+    h("p", { class: "kicker" }, h("b", {}, "Bonus"), ` · Hive Hunt #${hunt.number}`),
+    h("p", { class: "hunt-prompt" }, hunt.prompt),
+    done
+      ? h("p", { class: "done" }, "You found ", h("b", {}, `${hunt.score} of ${hunt.total}`), ".")
+      : h("p", { class: "hint", style: "text-align:left" }, `${hunt.seconds} seconds — name as many as you can.`),
+    h("button", { class: `btn ${done ? "ghost" : "primary"} small`, onclick: () => openHunt() }, done ? "See the hunt" : hunt.status === "playing" ? "Back to the hunt" : "Start the hunt"));
+}
+
+/** A honeycomb with one cell per list entry, rows of up to 10, nested like the main comb. */
+function huntComb(total, found, missed = 0) {
+  const cols = Math.min(10, total);
+  const rows = [];
+  for (let i = 0; i < total; i += cols) {
+    const row = h("div", { class: "hc-row" });
+    for (let j = i; j < Math.min(total, i + cols); j++) {
+      const look = j < found ? "found" : j < found + missed ? "missed" : "empty";
+      row.append(h("img", { class: `hc-cell ${look}`, src: HEX[look], alt: "" }));
+    }
+    rows.push(row);
+  }
+  return h("div", { class: "hunt-comb", role: "img", "aria-label": `${found} of ${total} found` }, rows);
+}
+
+async function openHunt() {
+  closeOverlay();
+  loading();
+  try {
+    state.hunt = await api("/hunt");
+  } catch (err) {
+    toast(err.message);
+    return goHome();
+  }
+  if (state.hunt.status === "done") return renderHuntResults(state.hunt);
+  renderHunt();
+}
+
+function renderHunt() {
+  const hunt = state.hunt;
+  const screen = h("main", { class: "screen hunt" });
+  const top = masthead({ compact: true });
+  top.querySelector(".jar-slot")?.remove();
+  const count = h("div", { class: "bignum hunt-count" });
+  const combHost = h("div", { class: "hunt-comb-host" });
+  const chips = h("div", { class: "hunt-found" });
+  const paint = () => {
+    count.replaceChildren(String(hunt.found.length), h("small", {}, ` / ${hunt.total}`));
+    combHost.replaceChildren(huntComb(hunt.total, hunt.found.length));
+    chips.replaceChildren(...[...hunt.found].reverse().map((l) => h("span", { class: "chip" }, l)));
+  };
+  screen.append(top,
+    h("div", { class: "round-head" },
+      h("p", { class: "kicker" }, h("b", {}, "Hive Hunt"), ` #${hunt.number}`),
+      h("h2", { class: "question" }, hunt.prompt)),
+    count, combHost);
+  paint();
+
+  if (hunt.status === "new") {
+    screen.append(h("section", { class: "controls" },
+      h("p", { class: "hint" }, `You get ${hunt.seconds} seconds. Type an answer and press Enter — then the next. Typos are fine.`),
+      h("button", { class: "btn primary", onclick: async (e) => {
+        e.currentTarget.disabled = true;
+        try { state.hunt = await api("/hunt/start", { method: "POST", body: {} }); } catch (err) { toast(err.message); return; }
+        renderHunt();
+      } }, "Start the hunt")));
+    mount(screen);
+    return;
+  }
+
+  // playing: the clock (server-backed), the input and live feedback
+  const bar = h("span", { class: "timer-fill" });
+  const num = h("span", { class: "timer-num" });
+  const timer = h("div", { class: "timer", role: "timer" }, h("span", { class: "timer-track" }, bar), num);
+  const input = h("input", { class: "field text", type: "text", placeholder: "Type and press Enter", "aria-label": "Your answer", autocomplete: "off", autocapitalize: "words", spellcheck: "false", maxlength: 60, enterkeyhint: "send" });
+  const feedback = h("p", { class: "hint hunt-feedback", "aria-live": "polite" }, " ");
+  const form = h("form", { class: "controls text-controls" }, input, feedback);
+  screen.append(timer, form, chips, h("button", { class: "linkbtn hunt-giveup", onclick: () => end() }, "I'm done — end the hunt"));
+  mount(screen);
+  setTimeout(() => input.focus({ preventScroll: true }), 50);
+
+  const endsAt = Date.now() + hunt.secondsLeft * 1000;
+  let over = false;
+  const tick = setInterval(() => {
+    const left = Math.max(0, endsAt - Date.now());
+    const secs = Math.ceil(left / 1000);
+    num.textContent = `0:${String(secs).padStart(2, "0")}`;
+    bar.style.width = `${(left / (hunt.seconds * 1000)) * 100}%`;
+    timer.classList.toggle("low", secs <= 10);
+    timer.classList.toggle("critical", secs <= 5);
+    if (left <= 0) end();
+  }, 100);
+
+  async function end() {
+    if (over) return;
+    over = true;
+    clearInterval(tick);
+    input.disabled = true;
+    try { state.hunt = await api("/hunt/finish", { method: "POST", body: {} }); } catch (err) { toast(err.message); }
+    renderHuntResults(state.hunt);
+  }
+
+  const say = (text, kind) => { feedback.textContent = text; feedback.className = `hint hunt-feedback ${kind}`; };
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const value = input.value.trim();
+    if (!value || over) return;
+    input.value = "";
+    let out;
+    try { out = await api("/hunt/guess", { method: "POST", body: { value } }); } catch (err) { toast(err.message); return; }
+    if (out.result === "found") {
+      state.hunt = out.hunt;
+      hunt.found = out.hunt.found;
+      paint();
+      const cells = combHost.querySelectorAll(".hc-cell.found");
+      cells[cells.length - 1]?.classList.add("pop");
+      say(`✓ ${out.label}`, "good");
+      if (out.hunt.status === "done") end();
+    } else if (out.result === "already") {
+      say(`Already got ${out.label}.`, "");
+    } else if (out.result === "ambiguous") {
+      say(`Which one? “${value}” fits more than one.`, "which");
+    } else if (out.result === "over") {
+      state.hunt = out.hunt; end();
+    } else {
+      input.classList.remove("refused"); void input.offsetWidth; input.classList.add("refused");
+      say(`“${value}” isn't on this list.`, "refuse");
+    }
+  });
+}
+
+function huntBee(score, total) {
+  const f = total ? score / total : 0;
+  return f >= 0.9 ? "diamond" : f >= 0.7 ? "golden" : f >= 0.5 ? "honey" : f >= 0.35 ? "drop" : f >= 0.2 ? "normal" : "thirsty";
+}
+
+function renderHuntResults(hunt) {
+  const bee = huntBee(hunt.score, hunt.total);
+  const top = masthead({ compact: true });
+  top.querySelector(".jar-slot")?.remove();
+  const missed = hunt.missed || [];
+  mount(h("main", { class: "screen hunt" }, top,
+    h("section", { class: "results-hero hunt-hero" },
+      h("p", { class: "kicker" }, h("b", {}, "Hive Hunt"), ` #${hunt.number}`),
+      h("img", { class: `hunt-bee ${ENTRANCE[bee]}`, src: BEE_SRC(bee), alt: `${bee} bee`, width: 112, height: 112 }),
+      h("p", { class: "total" }, String(hunt.score), h("small", { class: "of" }, ` / ${hunt.total}`)),
+      h("p", { class: "outof" }, "found"),
+      h("p", { class: "hunt-prompt" }, hunt.prompt)),
+    huntComb(hunt.total, hunt.score, missed.length),
+    h("section", { class: "card hunt-lists" },
+      h("p", { class: "kicker" }, `You found ${hunt.score}`),
+      h("div", { class: "hunt-found" }, hunt.found.map((l) => h("span", { class: "chip" }, l))),
+      missed.length ? h("p", { class: "kicker", style: "margin-top:12px" }, `You missed ${missed.length}`) : h("p", { class: "done" }, "You got every one!"),
+      h("div", { class: "hunt-found missed" }, missed.map((l) => h("span", { class: "chip" }, l))),
+      hunt.source && h("p", { class: "src" }, hunt.source)),
+    h("div", { class: "actions" },
+      h("button", { class: "btn primary", onclick: () => shareHunt(hunt) }, "Share my hunt"),
+      h("button", { class: "btn ghost", onclick: goHome }, "Home")),
+    countdown()));
+}
+
+async function shareHunt(hunt) {
+  const text = `Honeydle Hive Hunt #${hunt.number}\n🐝 ${hunt.score}/${hunt.total} — ${hunt.prompt}\n${location.origin}`;
+  try {
+    if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+      try { await navigator.share({ text }); return; } catch (e) { if (e?.name === "AbortError") return; }
+    }
+    await navigator.clipboard.writeText(text);
+    toast("Hunt copied.");
+  } catch { toast("Couldn't copy the hunt."); }
 }
 
 // ---------------------------------------------------------------- past games

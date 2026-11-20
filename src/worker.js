@@ -3,6 +3,8 @@
 import rawBank from "../data/bank.json";
 import rawOverrides from "../data/daily-overrides.json";
 import rawSchedule from "../data/schedule.json";
+import rawHunts from "../data/hunts.json";
+import { createHunt, prepareHunts } from "./hunt.js";
 import { createService, prepareBank, prepareOverrides } from "./service.js";
 import { createHandler } from "./http.js";
 import { createD1Store } from "./store/d1.js";
@@ -17,9 +19,11 @@ function getApp(env) {
   const scheduled = (rawSchedule.days || []).map((d) => ({ date: d.date, ids: d.ids, resetPlays: false }));
   const overrides = prepareOverrides([...scheduled, ...rawOverrides], bank); // later entries win
   const service = createService({ store, bank, overrides });
+  const hunt = createHunt({ store, hunts: prepareHunts(rawHunts), today: service.today });
   const handle = createHandler({
     service,
     store,
+    hunt,
     rateLimit: Number(env.RATE_LIMIT) || 200,
     assets: (req) => env.ASSETS.fetch(req),
   });
