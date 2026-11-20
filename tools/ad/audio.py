@@ -82,15 +82,9 @@ BEAT = 60 / BPM
 S16 = BEAT / 4
 # I–V–vi–IV in C: C G Am F, one bar each
 CHORDS = [(60, 64, 67), (55, 59, 62), (57, 60, 64), (53, 57, 60)]
-LEAD = [  # a hooky 16-step melody per bar (MIDI, None = rest), over the four chords
-    [72, None, 76, None, 79, None, 76, 72, None, 74, 76, None, 72, None, None, None],
-    [71, None, 74, None, 79, None, 74, 71, None, 72, 74, None, 67, None, None, None],
-    [72, None, 76, None, 81, None, 79, 76, None, 74, 72, None, 76, None, None, None],
-    [77, None, 76, None, 74, None, 72, 74, None, 76, 77, None, 79, None, 81, None],
-]
 
 BREAK = (7.45, 8.7)       # tension: groove drops out before the reveal
-END_HIT = 21.0            # final chord, then ring out
+END_HIT = 21.0            # final hit, then ring out
 
 
 def kick():
@@ -128,8 +122,8 @@ for s in range(step_count):
             put(music, at, kick(), 0.9)
         if pos in (4, 12) and not intro:
             put(music, at, snare(), 0.45)
-    if pos % 2 == 0 and not intro:
-        put(music, at, hat(pos % 4 == 2), 0.18 if not in_break else 0.12)
+    if not intro and (pos % 2 == 0 or (at >= 8.7 and pos in (7, 11, 15))):
+        put(music, at, hat(pos % 4 == 2), (0.18 if pos % 2 == 0 else 0.1) if not in_break else 0.12)
     if in_break:
         continue
     # bass: root on 8ths, octave bounce
@@ -137,19 +131,14 @@ for s in range(step_count):
         root = chord[0] - 24 + (12 if pos % 4 == 2 else 0)
         d = S16 * 1.8
         put(music, at, square(hz(root), d, 0.5) * env(int(SR * d), 0.002, r=0.02), 0.10)
-    # arp
-    if not intro:
-        note = chord[pos % 3] + 12
-        d = S16 * 0.9
-        put(music, at, square(hz(note), d, 0.25) * env(int(SR * d), 0.002, d=0.06), 0.05)
-    # lead melody comes in at the drop
+    # after the drop: a sub layer under the bass, and a clap on the snare
     if at >= 8.7:
-        n = LEAD[bar][pos]
-        if n is not None:
-            d = S16 * 1.9
-            t = t_axis(d)
-            vib = hz(n) * (1 + 0.006 * np.sin(2 * np.pi * 6 * t))
-            put(music, at, square(vib, d, 0.5) * env(len(t), 0.004, r=0.03), 0.075)
+        if pos % 4 == 0:
+            d = S16 * 3.5
+            put(music, at, np.sin(2 * np.pi * hz(chord[0] - 36) * t_axis(d)) * env(int(SR * d), 0.003, r=0.05), 0.22)
+        if pos in (4, 12):
+            for off in (0, 0.011, 0.022):
+                put(music, at + off, hat(True), 0.22)
 
 # riser through the break
 d = BREAK[1] - BREAK[0]
@@ -159,10 +148,10 @@ rise = rise - lowpass(rise, 0.05)
 put(music, BREAK[0], rise, 0.35)
 put(music, BREAK[0], square(hz(48) * 2 ** (2 * t / d), d, 0.5) * (t / d) * 0.4, 0.12)
 
-# final chord
+# final hit: kick + low bass note ringing out
 d = 1.0
-for n in (60, 64, 67, 72):
-    put(music, END_HIT, square(hz(n), d, 0.25) * env(int(SR * d), 0.002, d=0.35), 0.08)
+put(music, END_HIT, square(hz(36), d, 0.5) * env(int(SR * d), 0.002, d=0.3), 0.12)
+put(music, END_HIT, np.sin(2 * np.pi * hz(24) * t_axis(d)) * env(int(SR * d), 0.003, d=0.35), 0.3)
 put(music, END_HIT, kick(), 1.0)
 
 
