@@ -56,7 +56,7 @@ async function api(path, { method = "GET", body } = {}) {
 }
 
 const BEE_SRC = (name) => `/img/bee-${name}.png`;
-const ENTRANCE = { golden: "enter-burst", diamond: "enter-diamond", honey: "enter-splash", lukewarm: "enter-gentle", cold: "enter-gentle", wayoff: "enter-gentle", normal: "enter-pulse", thirsty: "enter-gentle", ruby: "enter-diamond" };
+const ENTRANCE = { golden: "enter-burst", diamond: "enter-diamond", honey: "enter-splash", lukewarm: "enter-gentle", bitter: "enter-gentle", yucky: "enter-gentle", normal: "enter-pulse", thirsty: "enter-gentle", ruby: "enter-diamond" };
 
 function fullDate(dateStr) {
   const [y, m, d] = dateStr.split("-").map(Number);
@@ -142,12 +142,11 @@ function renderHome() {
   const statCard = (v, l) => h("div", { class: "stat" }, h("span", { class: "v" }, fmt(v)), h("span", { class: "l" }, l));
   // the crew, worst to best — the score ladder made visible
   // the crew, worst to best — and, apart from them, the hidden ruby bee
-  const crew = ["wayoff", "cold", "lukewarm", "honey", "golden", "diamond"];
+  const crew = ["yucky", "bitter", "lukewarm", "honey", "golden", "diamond"];
   const parade = h("div", { class: "parade-wrap", "aria-hidden": "true" }, h("div", { class: "parade" },
     crew.map((b, i) => h("div", { class: `bee-slot ${b}`, style: `--i:${i}` },
       h("div", { class: "bee-fly" }, h("img", { src: `/img/bee-${b}-96.png`, srcset: `/img/bee-${b}-96.png 2x, /img/bee-${b}-144.png 3x`, alt: "", width: 44, height: 44, draggable: "false" })),
-      h("span", { class: "bee-shadow" })))),
-    h("div", { class: "parade-scale" }, h("span", {}, "Way off"), h("span", { class: "line" }), h("span", {}, "Bullseye")));
+      h("span", { class: "bee-shadow" })))));
   const mystery = h("div", { class: "mystery", "aria-label": "The ruby bee — a hidden prize only pros find.", role: "img" },
     h("div", { class: "bee-fly mystery-fly" },
       h("img", { class: "mystery-bee", src: "/img/bee-ruby-shadow-96.png", srcset: "/img/bee-ruby-shadow-96.png 2x, /img/bee-ruby-shadow-144.png 3x", alt: "", width: 48, height: 48, draggable: "false" })),
@@ -320,7 +319,7 @@ function renderHunt() {
 
 function huntBee(score, total) {
   const f = total ? score / total : 0;
-  return f >= 0.9 ? "diamond" : f >= 0.7 ? "golden" : f >= 0.5 ? "honey" : f >= 0.3 ? "lukewarm" : f >= 0.15 ? "cold" : "wayoff";
+  return f >= 0.9 ? "diamond" : f >= 0.7 ? "golden" : f >= 0.5 ? "honey" : f >= 0.3 ? "lukewarm" : f >= 0.15 ? "bitter" : "yucky";
 }
 
 function renderHuntResults(hunt) {
@@ -639,7 +638,7 @@ function heroFor(result, { center = false, line = null } = {}) {
   }
   const chip = bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "Only runs that finish 800+ ever see me.")
     : result.timedOut ? h("span", { class: "chip" }, "⏱ Time's up — locked in for you.")
-      : (result.diff === 1 || result.rank === 2) ? h("span", { class: "chip" }, "One away — so close to a Bullseye.") : null;
+      : (result.diff === 1 || result.rank === 2) ? h("span", { class: "chip" }, "One away — so close to Divine.") : null;
   const words = h("div", {},
     h("p", { class: "tier" }, result.tier),
     h("p", { class: "pts" }, `+${result.points}`, h("small", {}, "points")),
@@ -686,9 +685,20 @@ function showTextReveal(screen, result) {
         result.readBack && result.readBack.toLowerCase() !== said.toLowerCase() ? h("span", {}, " · read as ", h("b", {}, result.readBack)) : null),
       top3 && h("p", { class: "kicker", style: "text-align:center" }, "The top 3"),
       top3,
+      (result.list || []).length > 3 && h("button", { class: "btn ghost small all-btn", type: "button", onclick: () => openFullList(result) }, `See all ${result.list.length} answers`),
       nextButton()].filter(Boolean));
   screen.append(reveal);
-  reveal.querySelector(".btn").focus({ preventScroll: true });
+  reveal.querySelector(".btn.primary").focus({ preventScroll: true });
+}
+
+/** The whole ranked list for a text round, your answer highlighted. */
+function openFullList(result) {
+  const list = h("ol", { class: "top3 full-list", "aria-label": "Every answer on the list" },
+    result.list.map((label, i) => h("li", { class: result.rank === i + 1 ? "you" : "" },
+      h("span", { class: "rk" }, `#${i + 1}`), h("span", { class: "lb" }, label), result.rank === i + 1 ? h("span", { class: "tag" }, "you") : null)));
+  openOverlay(`All ${result.list.length} answers`, h("div", {}, list,
+    h("button", { class: "btn primary", onclick: closeOverlay }, "Close")), { label: "Every answer on the list" });
+  list.querySelector("li.you")?.scrollIntoView({ block: "center" });
 }
 
 // ---------------------------------------------------------------- results
@@ -702,10 +712,10 @@ function renderResults(play) {
     play.mode === "daily" && countdown());
   const rows = h("section", { class: "card rows", "aria-label": "Your rounds" },
     play.results.map((r, i) => {
-      const bee = tierByName(r.tier)?.bee || "wayoff"; // by tier name, so older plays map too
+      const tier = tierByName(r.tier); const bee = tier?.bee || "yucky"; // by tier name, so older plays map too
       return h("div", { class: "row" },
         h("span", { class: "n" }, i + 1),
-        h("div", {}, h("span", { class: "q" }, play.questions[i].text), h("span", { class: "t" }, r.tier)),
+        h("div", {}, h("span", { class: "q" }, play.questions[i].text), h("span", { class: "t" }, tier?.name || r.tier)),
         h("img", { class: "row-bee", src: `/img/bee-${bee}-96.png`, alt: `${bee} bee`, width: 36, height: 36 }),
         h("span", { class: "p" }, r.points));
     }));
@@ -846,7 +856,7 @@ function showHowTo() {
     h("p", {}, h("b", {}, "Name the #1. "), "Type an answer on the ranked list — the higher it ranks, the more points. Close spellings get corrected for you; press Enter again to lock it in."),
     h("p", {}, h("b", {}, `${GUESS_SECONDS} seconds to guess, ${TEXT_SECONDS} to type. `), "When time runs out, whatever you have is locked in."),
     h("p", {}, h("b", {}, "Fill the jar. "), "Every point is honey. Pros say there's a bee nobody's seen…"),
-    h("p", {}, "The closer your guess, the more points. A perfect guess is a Bullseye."),
+    h("p", {}, "The closer your guess, the sweeter the honey: from Yucky up to Divine for a perfect guess."),
     h("button", { class: "btn primary", onclick: closeOverlay }, "Got it")));
 }
 
