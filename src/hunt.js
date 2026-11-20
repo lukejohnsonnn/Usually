@@ -49,8 +49,9 @@ export function createHunt({ store, hunts, now = () => new Date(), today }) {
 
   /** What the client may see. Missed entries only once the hunt is over. */
   function view(list, number, date, play) {
+    // The list is a surprise: before the clock starts, neither the prompt nor its size goes out.
+    if (!play) return { date, number, prompt: null, total: null, seconds: HUNT_SECONDS, status: "new", found: [], score: 0 };
     const out = { date, number, prompt: list.prompt, total: list.entries.length, seconds: HUNT_SECONDS, status: "new", found: [], score: 0 };
-    if (!play) return out;
     out.found = play.results.map((i) => label(list, i));
     out.score = play.results.length;
     if (play.completedAt) {

@@ -344,8 +344,10 @@ describe("hive hunt", () => {
       const P = "u-hunter000000000", Q = "u-hunter000000001";
       const a = (await t.call("/api/hunt", { player: P })).json;
       const b = (await t.call("/api/hunt", { player: Q })).json;
-      assert.equal(a.prompt, b.prompt, "same list for everyone");
       assert.deepEqual([a.number, a.status, a.seconds], [2, "new", 60]);
+      assert.deepEqual([a.prompt, a.total, b.prompt], [null, null, null], "the list is a surprise until the clock starts");
+      const startedA = (await t.call("/api/hunt/start", { method: "POST", player: Q, body: {} })).json;
+      assert.equal(startedA.prompt, "Name the 50 US states.", "revealed once started");
       assert.deepEqual(findKeys(a, ["entries", "missed", "unlisted"]), [], "the list never goes out before the end");
       assert.equal((await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "texas" } })).status, 409, "start first");
       await t.call("/api/hunt/start", { method: "POST", player: P, body: {} });

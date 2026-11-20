@@ -187,10 +187,10 @@ function huntCard(hunt) {
   const done = hunt.status === "done";
   return h("section", { class: "card hunt-card" },
     h("p", { class: "kicker" }, h("b", {}, "Bonus"), ` · Hive Hunt #${hunt.number}`),
-    h("p", { class: "hunt-prompt" }, hunt.prompt),
+    h("p", { class: "hunt-prompt" }, hunt.prompt || "Today's list is a surprise."),
     done
       ? h("p", { class: "done" }, "You found ", h("b", {}, `${hunt.score} of ${hunt.total}`), ".")
-      : h("p", { class: "hint", style: "text-align:left" }, `${hunt.seconds} seconds — name as many as you can.`),
+      : h("p", { class: "hint", style: "text-align:left" }, `It's revealed when the clock starts. ${hunt.seconds} seconds — name as many as you can.`),
     h("button", { class: `btn ${done ? "ghost" : "primary"} small`, onclick: () => openHunt() }, done ? "See the hunt" : hunt.status === "playing" ? "Back to the hunt" : "Start the hunt"));
 }
 
@@ -238,13 +238,14 @@ function renderHunt() {
   screen.append(top,
     h("div", { class: "round-head" },
       h("p", { class: "kicker" }, h("b", {}, "Hive Hunt"), ` #${hunt.number}`),
-      h("h2", { class: "question" }, hunt.prompt)),
+      h("h2", { class: "question" }, hunt.prompt || "Today's list is a surprise.")),
     count, combHost);
-  paint();
+  if (hunt.total) paint();
+  else combHost.replaceChildren(h("img", { class: "hunt-mystery", src: QMARK, alt: "" }));
 
   if (hunt.status === "new") {
     screen.append(h("section", { class: "controls" },
-      h("p", { class: "hint" }, `You get ${hunt.seconds} seconds. Type an answer and press Enter — then the next. Typos are fine.`),
+      h("p", { class: "hint" }, `The list appears when you press Start. You get ${hunt.seconds} seconds: type an answer and press Enter — then the next. Typos are fine.`),
       h("button", { class: "btn primary", onclick: async (e) => {
         e.currentTarget.disabled = true;
         try { state.hunt = await api("/hunt/start", { method: "POST", body: {} }); } catch (err) { toast(err.message); return; }

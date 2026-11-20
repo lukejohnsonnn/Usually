@@ -360,9 +360,12 @@ test("hive hunt: a bonus card on home, a timed hunt, and results with what you m
     await page.goto(t.base);
     await page.waitForSelector(".hunt-card");
     assert.match(await page.textContent(".hunt-card"), /Hive Hunt #10/);
+    assert.doesNotMatch(await page.textContent("main"), /Central America/, "the list is hidden before the start");
     await page.locator(".hunt-card button").click();
+    assert.doesNotMatch(await page.textContent("main"), /Central America/, "still hidden on the start screen");
     await page.getByRole("button", { name: "Start the hunt" }).click();
     await page.waitForSelector("input.field.text");
+    assert.match(await page.textContent(".question"), /Central America/, "revealed when the clock starts");
     assert.equal(await page.locator(".hc-cell").count(), 7, "one cell per entry");
     for (const v of ["Panama", "Belise", "Mexico", "Panama"]) {
       await page.fill("input.field.text", v);

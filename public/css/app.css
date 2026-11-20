@@ -425,3 +425,4 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .hunt-hero .total .of { font-size: .45em; color: var(--muted); text-shadow: none; }
 .hunt-hero .hunt-prompt { margin-top: 6px; text-align: center; color: #dcdcdc; font-size: 16px; }
 .hunt-lists .src { margin: 12px 0 0; font-size: 11.5px; color: var(--muted); }
+.hunt-mystery { width: 42px; height: 66px; image-rendering: pixelated; margin: 18px auto; animation: mystery-q 2.4s steps(2) infinite; }
