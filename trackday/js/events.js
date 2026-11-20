@@ -994,10 +994,8 @@ class Hammer extends Ev {
     if ((this.ph === 'spin') && aw > 2) {
       const zc = this.zoneCenter(), inZ = Math.abs(wrapA(this.ang - zc)) < 0.55;
       const rr = this.R * PPT;
-      for (let a = -0.55; a <= 0.55; a += 0.04) {
-        const x = c.x + Math.cos(zc + a) * rr, y = c.y + Math.sin(zc + a) * rr;
-        disc(x, y, inZ ? 2.6 : 1.8, P.ink); disc(x, y, inZ ? 1.8 : 1.1, inZ ? P.lime : P.green);
-      }
+      for (let a = -0.55; a <= 0.55; a += 0.03) disc(c.x + Math.cos(zc + a) * rr, c.y + Math.sin(zc + a) * rr, inZ ? 3.4 : 2.6, P.ink);
+      for (let a = -0.55; a <= 0.55; a += 0.03) { const x = c.x + Math.cos(zc + a) * rr, y = c.y + Math.sin(zc + a) * rr; R(x - 1, y - 1, inZ ? 4 : 3, inZ ? 4 : 3, inZ ? P.lime : P.green); }
       if (inZ && aw > 6) text('NOW!', c.x + Math.cos(zc) * (rr + 22), c.y + Math.sin(zc) * (rr + 22) - 3, { sc: 1, al: 'c', c: P.lime });
     }
     // trail
