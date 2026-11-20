@@ -7,6 +7,8 @@ export const GUESS_SECONDS = 15;
 export const TEXT_SECONDS = 25;
 export const secondsFor = (kind) => (kind === "text" ? TEXT_SECONDS : GUESS_SECONDS);
 export const ROUND_MAX = 175;
+// The first Daily. Past games run from here to yesterday; #1 is this day.
+export const FIRST_DAILY = "2026-11-19";
 export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225 — never shown to players
 export const JAR_FULL = 1000; // the honey jar reads full at this score
 export const RUBY_THRESHOLD = 800; // a finished run scoring this or more unlocks the hidden ruby bee
@@ -103,6 +105,12 @@ export function easternDate(d = new Date()) {
 export function addDays(dateStr, n) {
   const [y, m, d] = dateStr.split("-").map(Number);
   return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
+}
+
+/** Honeydle day number: #1 is FIRST_DAILY. */
+export function dayNumber(date) {
+  const [a, b] = [date, FIRST_DAILY].map((d) => { const [y, m, dd] = d.split("-").map(Number); return Date.UTC(y, m - 1, dd); });
+  return Math.round((a - b) / 86_400_000) + 1;
 }
 
 export function isDateStr(s) {

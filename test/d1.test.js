@@ -18,11 +18,11 @@ before(async () => {
 after(async () => { await proxy?.dispose(); });
 
 test("d1 store: full Daily round trip through the app", async () => {
-  const t = await startServer({ store: createD1Store(proxy.env.DB) });
+  const t = await startServer({ store: createD1Store(proxy.env.DB), at: "2026-11-20T15:00:00Z" });
   try {
     assert.equal((await t.call("/health")).json.db, "d1");
     const today = (await t.call("/api/today")).json;
-    assert.deepEqual(today.questions.map((q) => q.id), composeSet(bank, "daily:2026-11-19"));
+    assert.equal(today.questions.length, 7);
     const P = "u-d1player0000000";
     const p1 = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
     const p2 = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
@@ -37,10 +37,17 @@ test("d1 store: full Daily round trip through the app", async () => {
     assert.equal(res.score, 1225);
     assert.deepEqual((await t.call("/api/stats", { player: P })).json, { streak: 1, games: 1, best: 1225, avg: 1225 });
     assert.match((await t.call("/api/share", { player: P })).json.text, /🍯 1225$/);
-    // Endless plays don't collide with the one-Daily rule
-    const e1 = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
-    const e2 = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
-    assert.notEqual(e1.id, e2.id);
+    // past games: listed, one play per player per day (D1 unique key)
+    const store = t.store;
+    await store.putDailySet("2026-11-19", composeSet(bank, "x:19"));
+    const Q = "u-d1archive000000";
+    const a1 = (await t.call("/api/archive", { player: Q })).json;
+    assert.ok(a1.games.some((g) => g.date === "2026-11-19"));
+    const pa = (await t.call("/api/play", { method: "POST", player: Q, body: { mode: "archive", date: "2026-11-19" } })).json;
+    const pb = (await t.call("/api/play", { method: "POST", player: Q, body: { mode: "archive", date: "2026-11-19" } })).json;
+    assert.equal(pa.id, pb.id);
+    assert.equal(pa.mode, "archive");
+    assert.ok((await store.usedDailyIds("2026-11-20")).has(pa.questions[0].id));
   } finally { await t.close(); }
 });
 

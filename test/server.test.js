@@ -38,7 +38,7 @@ describe("server", () => {
   test("health reports status, store, bank size and Eastern date", async () => {
     const r = await s.call("/health");
     assert.equal(r.status, 200);
-    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 135, date: "2026-11-19" });
+    assert.deepEqual(r.json, { ok: true, db: "file", bankQuestions: 233, date: "2026-11-19" });
   });
 
   test("today: frozen 7-round set in public shape, deterministic from the date", async () => {
@@ -46,7 +46,8 @@ describe("server", () => {
     assert.equal(r.status, 200);
     assert.equal(r.json.questions.length, 7);
     assert.deepEqual(r.json.questions.map((q) => q.kind), ["guess", "guess", "text", "guess", "guess", "text", "finale"]);
-    assert.deepEqual(r.json.questions.map((q) => q.id), composeSet(bank, "daily:2026-11-19"));
+    assert.deepEqual(r.json.questions.map((q) => q.id), (await s.store.getDailySet("2026-11-19")).ids, "frozen");
+    assert.ok(r.json.questions.every((q) => !byId.get(q.id).exposed), "a fresh Daily uses unseen questions");
     assert.deepEqual(findKeys(r.json, FORBIDDEN_KEYS), []);
     for (const secret of secretsFor(r.json.questions.map((q) => q.id))) assert.ok(!r.text.includes(secret), `leaks "${secret}"`);
   });
@@ -101,7 +102,7 @@ describe("server", () => {
 
   test("text rounds: an exact answer scores by rank and reveals the top 3", async () => {
     const P = "u-texter000000000";
-    const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
+    const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
     for (let r = 0; r < 2; r++) {
       await s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round: r, value: 50 } });
     }
@@ -117,7 +118,7 @@ describe("server", () => {
   test("text rounds: near misses come back as a suggestion to confirm; unlisted answers are refused", async () => {
     const whale = byId.get(202);
     const P = "u-whale0000000000";
-    const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
+    const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
     const stored = await s.store.getPlay(play.id);
     stored.snapshot[2] = whale; stored.questionIds[2] = 202;
     await s.store.savePlay(stored);
@@ -143,7 +144,7 @@ describe("server", () => {
 
   test("text rounds: when time runs out, whatever was typed is scored", async () => {
     const P = "u-timeout00000000";
-    const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
+    const play = (await s.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
     const submit = (round, value, timedOut = true) => s.call(`/api/play/${play.id}/submit`, { method: "POST", player: P, body: { round, value, timedOut } });
     const g = (await submit(0, 50)).json.result;
     assert.equal(g.timedOut, true);
@@ -157,10 +158,12 @@ describe("server", () => {
     assert.ok(unl.top3.includes(q6.top1));
   });
 
-  test("stats: streak, games, best, average; Endless never touches the streak", async () => {
+  test("stats: streak, games, best, average; Past games never touch the streak", async () => {
     const P = "u-streaker0000000";
-    const t = await startServer({ at: "2026-11-10T15:00:00Z" });
+    const t = await startServer({ at: "2026-11-24T15:00:00Z" });
     try {
+      await t.call("/api/today"); // someone opens the 24th, so it becomes a past game later
+      t.clock.addDays(1);
       const day = async (offsets) => {
         const p = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
         return (await playThrough(t.call, p, P, offsets)).play.score;
@@ -170,12 +173,12 @@ describe("server", () => {
       const s2 = await day([30, 30, 1, 30, 30, 1, 30]);
       let st = (await t.call("/api/stats", { player: P })).json;
       assert.deepEqual(st, { streak: 2, games: 2, best: s1, avg: Math.round((s1 + s2) / 2) });
-      // Endless counts as a game but not toward Daily stats
-      const e = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).json;
-      await playThrough(t.call, e, P);
+      // a past game counts as a game played, but not toward the streak, best or average
+      const a = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date: "2026-11-24" } })).json;
+      assert.equal(a.mode, "archive");
+      await playThrough(t.call, a, P);
       st = (await t.call("/api/stats", { player: P })).json;
-      assert.equal(st.games, 3);
-      assert.equal(st.streak, 2);
+      assert.deepEqual(st, { streak: 2, games: 3, best: s1, avg: Math.round((s1 + s2) / 2) });
       // next day, not yet played: streak still counts back from yesterday
       t.clock.addDays(1);
       assert.equal((await t.call("/api/stats", { player: P })).json.streak, 2);
@@ -187,6 +190,55 @@ describe("server", () => {
     } finally { await t.close(); }
   });
 
+  test("past games: every earlier Daily, one play each, never today's or later", async () => {
+    const t = await startServer({ at: "2026-11-19T15:00:00Z" });
+    try {
+      const P = "u-archivist000000";
+      assert.deepEqual((await t.call("/api/archive", { player: P })).json.games, [], "nothing before the first Daily");
+      await t.call("/api/today"); t.clock.addDays(1);
+      const d20 = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json; // played on the day
+      await playThrough(t.call, d20, P);
+      t.clock.addDays(1);
+      await t.call("/api/today"); // the 21st exists too, but it's today
+      const list = (await t.call("/api/archive", { player: P })).json;
+      assert.deepEqual(list.games.map((g) => [g.date, g.number, g.status, g.playedAs]),
+        [["2026-11-20", 2, "done", "daily"], ["2026-11-19", 1, "new", null]], "newest first, today excluded");
+      // play the 19th as a past game: same questions as that day's Daily
+      const set19 = (await t.store.getDailySet("2026-11-19")).ids;
+      const a = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date: "2026-11-19" } })).json;
+      assert.deepEqual(a.questions.map((q) => q.id), set19);
+      assert.equal(a.number, 1);
+      assert.deepEqual(findKeys(a, FORBIDDEN_KEYS), [], "no answers before submit");
+      const again = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date: "2026-11-19" } })).json;
+      assert.equal(again.id, a.id, "one past-game play per day, resumable");
+      await t.call(`/api/play/${a.id}/submit`, { method: "POST", player: P, body: { round: 0, value: 40 } });
+      assert.equal((await t.call("/api/archive", { player: P })).json.games[1].status, "playing");
+      // a day they played as its Daily comes back as that play
+      assert.equal((await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date: "2026-11-20" } })).json.id, d20.id);
+      // today, the future, nonsense and Endless are refused
+      for (const date of ["2026-11-21", "2026-11-22", "2026-11-18", "nope", undefined]) {
+        assert.equal((await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date } })).status, 400, String(date));
+      }
+      assert.equal((await t.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).status, 400);
+    } finally { await t.close(); }
+  });
+
+  test("a new Daily never reuses a question from an earlier Daily, and prefers unseen ones", async () => {
+    const t = await startServer({ at: "2026-12-20T15:00:00Z" });
+    try {
+      const seen = new Set();
+      const fresh = bank.filter((q) => !q.retired && !q.exposed);
+      for (let d = 0; d < 24; d++) {
+        const ids = (await t.call("/api/today")).json.questions.map((q) => q.id);
+        for (const id of ids) { assert.ok(!seen.has(id), `day ${d}: q${id} was already in an earlier Daily`); seen.add(id); }
+        if (d < Math.floor(fresh.filter((q) => q.kind === "text").length / 2)) {
+          assert.ok(ids.every((id) => !byId.get(id).exposed), `day ${d}: only unseen questions while they last`);
+        }
+        t.clock.addDays(1);
+      }
+    } finally { await t.close(); }
+  });
+
   test("the Daily turns over at Eastern midnight", async () => {
     const t = await startServer({ at: "2026-11-20T04:30:00Z" }); // 23:30 Eastern on the 19th
     try {
@@ -194,7 +246,8 @@ describe("server", () => {
       t.clock.set("2026-11-20T05:01:00Z");
       const today = (await t.call("/api/today")).json;
       assert.equal(today.date, "2026-11-20");
-      assert.deepEqual(today.questions.map((q) => q.id), composeSet(bank, "daily:2026-11-20"));
+      assert.deepEqual(today.questions.map((q) => q.id), (await t.store.getDailySet("2026-11-20")).ids);
+      assert.notDeepEqual(today.questions.map((q) => q.id), (await t.store.getDailySet("2026-11-19")).ids);
     } finally { await t.close(); }
   });
 
@@ -202,8 +255,7 @@ describe("server", () => {
     const y = (await s.call("/api/yesterday")).json;
     assert.equal(y.date, "2026-11-18");
     assert.equal(y.rounds.length, 7);
-    const ids = composeSet(bank, "daily:2026-11-18");
-    assert.deepEqual(y.rounds.map((r) => r.id), ids);
+    assert.deepEqual(y.rounds.map((r) => r.id), (await s.store.getDailySet("2026-11-18")).ids);
     for (const r of y.rounds) {
       const q = byId.get(r.id);
       if (q.kind === "text") { assert.equal(r.top1, q.top1); assert.equal(r.textAnswers, undefined); }
@@ -267,7 +319,7 @@ describe("self-heal", () => {
     const t = await startServer();
     try {
       const date = "2026-11-19";
-      const good = composeSet(bank, `daily:${date}`);
+      const good = composeSet(bank, `heal:${date}`);
       // Simulate the real incident: a set that decayed to 3 rounds.
       await t.store.putDailySet(date, good.slice(0, 3), { replace: true });
       const broken = { id: "p-broken", playerId: "u-victim000000000", mode: "daily", date, questionIds: good.slice(0, 3), snapshot: good.slice(0, 3).map((id) => byId.get(id)), results: [], score: 0, completedAt: null };
@@ -277,7 +329,8 @@ describe("self-heal", () => {
 
       const today = (await t.call("/api/today")).json;
       assert.equal(today.questions.length, 7);
-      assert.deepEqual(today.questions.map((q) => q.id), good);
+      const healed = today.questions.map((q) => q.id);
+      assert.deepEqual((await t.store.getDailySet(date)).ids, healed, "a full, valid set is frozen");
       assert.equal(await t.store.getPlay("p-broken"), null, "malformed in-progress play discarded");
       assert.ok(await t.store.getPlay("p-history"), "completed play kept");
       const victim = (await t.call("/api/play", { method: "POST", player: "u-victim000000000", body: { mode: "daily" } })).json;
@@ -286,7 +339,9 @@ describe("self-heal", () => {
       // duplicated and stale-id sets heal too
       for (const bad of [[...good.slice(0, 6), good[0]], [...good.slice(0, 6), 987654]]) {
         await t.store.putDailySet(date, bad, { replace: true });
-        assert.deepEqual((await t.call("/api/today")).json.questions.map((q) => q.id), good);
+        const fixed = (await t.call("/api/today")).json.questions.map((q) => q.id);
+        assert.equal(new Set(fixed).size, 7);
+        assert.ok(!fixed.includes(987654));
       }
       // a healthy set is never rewritten
       const before = await t.store.getDailySet(date);
@@ -369,7 +424,7 @@ describe("the real process", () => {
       for (let i = 0; i < 50 && !out.includes("Honeydle on"); i++) await new Promise((r) => setTimeout(r, 100));
       const h = await (await fetch(`http://127.0.0.1:${port}/health`)).json();
       assert.equal(h.ok, true);
-      assert.equal(h.bankQuestions, 135);
+      assert.equal(h.bankQuestions, 233);
       assert.match(h.date, /^\d{4}-\d{2}-\d{2}$/);
     } finally { child.kill("SIGTERM"); }
   });

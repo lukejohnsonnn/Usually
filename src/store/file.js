@@ -52,14 +52,15 @@ export function createFileStore(filePath) {
     },
 
     async getPlay(id) { return clone(state.plays[id]) || null; },
-    async findDailyPlay(playerId, date) {
-      const p = Object.values(state.plays).find((x) => x.mode === "daily" && x.playerId === playerId && x.date === date);
+    /** A player's play of a day, as its Daily (mode "daily") or as a Past game (mode "archive"). */
+    async findDailyPlay(playerId, date, mode = "daily") {
+      const p = Object.values(state.plays).find((x) => x.mode === mode && x.playerId === playerId && x.date === date);
       return clone(p) || null;
     },
-    /** Creates the play; for a Daily, returns the existing one if the player already has it. */
+    /** Creates the play; one per player per day and mode — returns the existing one if there is one. */
     async createPlay(play) {
-      if (play.mode === "daily") {
-        const existing = await this.findDailyPlay(play.playerId, play.date);
+      if (play.mode === "daily" || play.mode === "archive") {
+        const existing = await this.findDailyPlay(play.playerId, play.date, play.mode);
         if (existing) return existing;
       }
       state.plays[play.id] = clone(play);
@@ -82,6 +83,20 @@ export function createFileStore(filePath) {
     /** Ids of every Daily play (finished or not) for a date. */
     async dailyPlayIds(date) {
       return Object.values(state.plays).filter((p) => p.mode === "daily" && p.date === date).map((p) => p.id);
+    },
+    /** Dates that have a frozen Daily set. */
+    async dailySetDates() { return Object.keys(state.dailySets); },
+    /** Every question id used by a Daily other than the given date. */
+    async usedDailyIds(exceptDate) {
+      const used = new Set();
+      for (const [date, set] of Object.entries(state.dailySets)) if (date !== exceptDate) for (const id of set.ids) used.add(id);
+      return used;
+    },
+    /** All of one player's plays, lightweight rows for the Past games list. */
+    async playerPlays(playerId) {
+      return Object.values(state.plays)
+        .filter((p) => p.playerId === playerId)
+        .map((p) => ({ mode: p.mode, date: p.date, score: p.score, completed: Boolean(p.completedAt) }));
     },
     /** Completed plays for one player, lightweight rows for stats. */
     async completedPlays(playerId) {

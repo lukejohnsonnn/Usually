@@ -46,6 +46,23 @@ Once honeydle.com serves the Worker: Render dashboard → **usually** service �
 Render data isn't moved over. It was test plays only, and the free database
 was due to expire anyway.
 
+## Questions, the schedule, and running out
+
+- **Every Daily uses questions nobody has seen.** `data/schedule.json` pins
+  the upcoming days (currently **Nov 21 – Dec 4, 2026**) to brand-new
+  questions, each used once.
+- **A question is never reused** once it has been in a Daily, because Past
+  games make every earlier Daily playable.
+- **After the schedule ends,** each new Daily is put together automatically
+  from questions that have never been in a Daily. It prefers ones nobody has
+  ever seen, and falls back to older Endless-era questions (marked
+  `"exposed": true`) when the fresh ones run out. Add a new batch before then.
+- **To add a batch:** write the questions in `tools/content/` (copy the
+  2026-11 files) and run the builder against `data/bank.json` and
+  `data/schedule.json`. Every answer must trace to a real published
+  statistic, and text rounds should be complete lists, so a sensible answer
+  is never refused.
+
 ## Changing the question bank safely
 
 Never delete a question that has been used. Mark it `"retired": true` in

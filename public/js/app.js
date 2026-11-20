@@ -174,15 +174,53 @@ function renderHome() {
       h("p", { class: "kicker" }, "Today's Daily · 7 rounds"),
       h("h2", {}, "Seven prompts, the same for everyone. One run a day."),
       action),
-    h("button", { class: "btn ghost", onclick: () => startPlay("endless") }, "Endless practice"),
+    h("button", { class: "btn ghost", onclick: renderArchive }, "Past games"),
     footer()));
 }
 
+// ---------------------------------------------------------------- past games
+async function renderArchive() {
+  closeOverlay();
+  loading();
+  let data;
+  try {
+    data = await api("/archive");
+  } catch (err) {
+    toast(err.message);
+    return goHome();
+  }
+  const shortDate = (d) => {
+    const [y, m, dd] = d.split("-").map(Number);
+    return new Date(Date.UTC(y, m - 1, dd, 12)).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" });
+  };
+  const rows = data.games.map((g) => {
+    const status = g.status === "done"
+      ? h("span", { class: "pg-score" }, String(g.score), h("small", {}, " honey"))
+      : h("span", { class: "chip" }, g.status === "playing" ? "Resume" : "Play");
+    return h("button", { class: `pg-row ${g.status}`, onclick: () => startPlay("archive", g.date), "aria-label": `Honeydle #${g.number}, ${shortDate(g.date)}` },
+      h("span", { class: "pg-num" }, `#${g.number}`),
+      h("span", { class: "pg-date" }, shortDate(g.date), g.playedAs === "daily" ? h("small", {}, "played on the day") : null),
+      status);
+  });
+  mount(h("main", { class: "screen archive" },
+    masthead({ compact: true }),
+    h("div", {},
+      h("p", { class: "kicker" }, "Past games"),
+      h("h2", { class: "pg-title" }, "Play any Daily you missed."),
+      h("p", { class: "hint", style: "text-align:left" }, "Same seven questions everyone got that day. Past games don't count toward your streak.")),
+    rows.length
+      ? h("section", { class: "card pg-list" }, rows)
+      : h("section", { class: "card daily-card" }, h("p", {}, "No past games yet — today's Daily is the first. Check back tomorrow!")),
+    h("button", { class: "btn ghost", onclick: goHome }, "Home")));
+  const jarSlot = $app.querySelector(".jar-slot");
+  if (jarSlot) jarSlot.remove();
+}
+
 // ---------------------------------------------------------------- play
-async function startPlay(mode) {
+async function startPlay(mode, date) {
   loading();
   try {
-    state.play = await api("/play", { method: "POST", body: { mode } });
+    state.play = await api("/play", { method: "POST", body: { mode, date } });
   } catch (err) {
     toast(err.message);
     return goHome();
@@ -200,7 +238,7 @@ function renderRound() {
     play.questions.map((_, i) => h("img", { class: "pip", alt: "", src: i < play.results.length ? pipFor(play.results[i]) : i === r ? PIP.now : PIP.future })));
   const timer = new RoundTimer(play.id, r, secondsFor(q.kind));
   const head = h("div", { class: "round-head" },
-    h("div", { class: "progress" }, h("span", { class: "label" }, `Round ${r + 1} of ${ROUNDS} · ${play.mode === "daily" ? "Daily" : "Endless"}`), pips),
+    h("div", { class: "progress" }, h("span", { class: "label" }, `Round ${r + 1} of ${ROUNDS} · ${play.mode === "daily" ? "Daily" : `Past game #${play.number}`}`), pips),
     timer.el,
     h("p", { class: "kicker" }, q.category),
     h("h2", { class: "question" }, q.text));
@@ -482,7 +520,7 @@ function renderResults(play) {
     }));
   const actions = h("div", { class: "actions" });
   if (play.mode === "daily") actions.append(h("button", { class: "btn primary", onclick: () => share(play.date) }, "Share my score"));
-  else actions.append(h("button", { class: "btn primary", onclick: () => startPlay("endless") }, "Play again"));
+  else actions.append(h("button", { class: "btn primary", onclick: renderArchive }, "More past games"));
   actions.append(h("button", { class: "btn ghost", onclick: goHome }, "Home"));
   mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, rows, actions, footer()));
   const jar = new HoneyJar(hero.querySelector(".jar-big"), { scale: 4 });

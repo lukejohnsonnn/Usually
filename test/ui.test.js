@@ -5,6 +5,7 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { startServer, bank, secretsFor } from "./harness.js";
+import { composeSet } from "../src/game/index.js";
 
 const require = createRequire(import.meta.url);
 let playwright = null;
@@ -126,7 +127,7 @@ test("resume: reloading mid-run returns to the next unanswered round", { skip },
 test("fine-tune: hundredths below 1%", { skip }, async () => {
   const { ctx, page, errors } = await newPhone();
   await page.goto(s.base);
-  await page.getByRole("button", { name: "Endless practice" }).click();
+  await page.getByRole("button", { name: "Play today's Daily" }).click();
   await page.waitForSelector("input[type=range]");
   assert.equal(await page.isVisible(".fine-btn"), false, "hidden above 1%");
   await page.$eval("input[type=range]", (el) => { el.value = "1"; el.dispatchEvent(new Event("input")); });
@@ -169,7 +170,7 @@ test("narrow phones: no horizontal scroll at 320px; text round shows exactly one
   await page.waitForSelector(".parade");
   const over = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   assert.ok(over <= 0, `home overflows by ${over}px`);
-  await page.getByRole("button", { name: "Endless practice" }).click();
+  await page.getByRole("button", { name: "Play today's Daily" }).click();
   for (let r = 0; r < 3; r++) {
     await page.waitForSelector(".question");
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), `round ${r + 1} fits width`);
@@ -225,9 +226,9 @@ test("home parade: the bee crew runs worst to best", { skip }, async () => {
   await ctx.close();
 });
 
-/** Starts Endless and plays the two Guess rounds, leaving the page on the first text round. */
+/** Starts the Daily (a fresh player each test) and plays the two Guess rounds, leaving the page on the first text round. */
 async function toTextRound(page) {
-  await page.getByRole("button", { name: "Endless practice" }).click();
+  await page.getByRole("button", { name: "Play today's Daily" }).click();
   for (let r = 0; r < 2; r++) {
     await page.waitForSelector(".question");
     await page.getByRole("button", { name: "Lock it in" }).click();
@@ -252,7 +253,8 @@ test("text rounds: unlisted answers are refused, near misses are corrected in th
   const play = await s.store.getPlay(playId);
   const q = play.snapshot[2];
   const label = q.textAnswers[0].texts[0];
-  const typo = label.length > 5 ? label.slice(0, -2) + label.at(-1) + label.at(-2) : label; // swap the last two letters
+  const typo = label.slice(0, 2) + label.slice(3); // drop the third letter: a typo, never the answer itself
+  assert.notEqual(typo.toLowerCase(), label.toLowerCase());
   await page.fill("input.field.text", typo);
   await page.press("input.field.text", "Enter");
   await page.waitForSelector(".hint.suggest");
@@ -271,7 +273,7 @@ test("timer: 15 seconds to guess, then whatever you have is locked in", { skip }
   const { ctx, page, errors } = await newPhone();
   await page.clock.install();
   await page.goto(s.base);
-  await page.getByRole("button", { name: "Endless practice" }).click();
+  await page.getByRole("button", { name: "Play today's Daily" }).click();
   await page.waitForSelector(".timer-num");
   assert.equal(await page.textContent(".timer-num"), "0:15");
   await page.$eval("input[type=range]", (el) => { el.value = "37"; el.dispatchEvent(new Event("input")); });
@@ -288,7 +290,7 @@ test("timer: 15 seconds to guess, then whatever you have is locked in", { skip }
 test("honey jar: fills with the score during the run and on the results", { skip }, async () => {
   const { ctx, page, errors } = await newPhone();
   await page.goto(s.base);
-  await page.getByRole("button", { name: "Endless practice" }).click();
+  await page.getByRole("button", { name: "Play today's Daily" }).click();
   await page.waitForSelector(".jar-slot canvas.jar");
   assert.match(await page.getAttribute(".jar-slot canvas", "aria-label"), /^0 points of honey/);
   await page.getByRole("button", { name: "Lock it in" }).click();
@@ -323,4 +325,27 @@ test("text rounds: a group name gets a \"Which one?\" hint and keeps the text", 
   await page.waitForSelector(".reveal .tier");
   assert.deepEqual(errors, []);
   await ctx.close();
+});
+
+test("past games: the home button opens the list and a past Daily plays like the real one", { skip }, async () => {
+  const t = await startServer({ at: "2026-11-21T15:00:00Z" });
+  try {
+    await t.store.putDailySet("2026-11-19", [183, 271, 191, 280, 279, 236, 301]);
+    await t.store.putDailySet("2026-11-20", composeSet(bank, "ui:20"));
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await ctx.newPage();
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.goto(t.base);
+    assert.equal(await page.getByRole("button", { name: "Endless practice" }).count(), 0, "Endless is gone");
+    await page.getByRole("button", { name: "Past games" }).click();
+    await page.waitForSelector(".pg-row");
+    assert.deepEqual(await page.$$eval(".pg-num", (els) => els.map((e) => e.textContent)), ["#2", "#1"]);
+    await page.locator(".pg-row").nth(1).click();
+    await page.waitForSelector(".question");
+    assert.match(await page.textContent(".progress .label"), /Past game #1/);
+    assert.match(await page.textContent(".question"), /Black Death/);
+    assert.deepEqual(errors, []);
+    await ctx.close();
+  } finally { await t.close(); }
 });
