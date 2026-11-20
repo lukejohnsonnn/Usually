@@ -1,6 +1,7 @@
 // Pure game logic: scoring, validation, matching, composition, bee rules, bank quality.
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as G from "../src/game/index.js";
@@ -137,7 +138,7 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 240, "retired questions stay in the file");
+  assert.equal(bank.length, 241, "retired questions stay in the file");
   const active = bank.filter((q) => !q.retired);
   assert.equal(active.length, 233);
   const count = (k) => active.filter((q) => G.poolOf(q) === k).length;
@@ -145,7 +146,7 @@ test("bank meets the standard", () => {
   assert.equal(count("finale"), 25);
   const fresh = active.filter((q) => !q.exposed);
   assert.equal(fresh.length, 98, "98 brand-new questions nobody has seen");
-  for (const id of [190, 192, 203, 257, 299, 80, 255]) assert.equal(bank.find((q) => q.id === id).retired, true, `q${id} retired`);
+  for (const id of [190, 192, 203, 257, 299, 80, 255, 338]) assert.equal(bank.find((q) => q.id === id).retired, true, `q${id} retired`);
   assert.ok(!bank.some((q) => q.kind === "split" || "leftLabel" in q || "rightLabel" in q), "no Split questions remain");
   assert.equal(count("text"), 52);
   for (const q of bank) {
@@ -230,4 +231,58 @@ test("schedule: the next two weeks are brand-new questions, each used once, in D
   // none of these were ever in Endless practice or an earlier Daily
   const seenBefore = new Set(bank.filter((q) => q.exposed).map((q) => q.id));
   assert.ok(all.every((id) => !seenBefore.has(id)));
+});
+
+test("matcher: joined, split and hyphenated words are understood", () => {
+  const movie = byId.get(236);
+  for (const typed of ["spider man", "spiderman", "Spider-Man", "SPIDERMAN", "starwars", "toystory", "harrypotter"]) {
+    assert.equal(G.matchTextAnswer(movie, typed).ambiguous, true, `"${typed}" asks which one`);
+  }
+  assert.ok(G.groupSize(movie, "spiderman") >= 3, "the hint can say how many fit");
+  assert.equal(G.matchTextAnswer(movie, "spiderman no way home").rank, G.matchTextAnswer(movie, "Spider-Man: No Way Home").rank);
+  assert.equal(G.matchTextAnswer(movie, "lionking").rank, G.matchTextAnswer(movie, "The Lion King").rank);
+  const caps = bank.find((q) => /US state capital/.test(q.text));
+  for (const [typed, want] of [["saltlakecity", "Salt Lake City"], ["oklahomacity", "Oklahoma City"], ["st paul", "Saint Paul"], ["jeffersoncity", "Jefferson City"]]) {
+    assert.equal(G.matchTextAnswer(caps, typed).rank, G.matchTextAnswer(caps, want).rank, typed);
+  }
+  const parks = bank.find((q) => /national park/.test(q.text));
+  assert.equal(G.matchTextAnswer(parks, "mt rainier").rank, G.matchTextAnswer(parks, "Mount Rainier").rank);
+  assert.equal(G.matchTextAnswer(parks, "grandcanyon").rank, 3);
+  // a joined/split fix is a correction: the player confirms it like any autocorrect
+  assert.notEqual(G.matchTextAnswer(caps, "saltlakecity").exact, true);
+});
+
+test("matcher: accents are ignored, never turned into spaces", () => {
+  assert.equal(G.normalizeText("Hövsgöl"), "hovsgol");
+  assert.equal(G.normalizeText("São Tomé"), "sao tome");
+  assert.equal(G.normalizeText("Québec"), "quebec");
+  const lakes = byId.get(204);
+  assert.equal(G.matchTextAnswer(lakes, "hovsgol").rank, G.matchTextAnswer(lakes, "Lake Hövsgöl").rank);
+});
+
+test("every multi-word answer still matches when typed with words joined or split", () => {
+  // Realistic forms only: any two neighbouring words glued, or a 2–3 word name typed as one word.
+  // Skips website addresses (dots) and glues across little words like "of"/"the".
+  const LITTLE = new Set(["of", "the", "and", "a", "an", "to", "in", "on", "de", "da", "u", "s"]);
+  const hunts = JSON.parse(fs.readFileSync(path.join(root, "data", "hunts.json"), "utf8")).lists
+    .map((l) => ({ id: `hunt ${l.id}`, textAnswers: l.entries.map((texts, i) => ({ rank: i + 1, texts })), unlisted: l.unlisted }));
+  const fails = [];
+  for (const q of [...bank.filter((x) => x.kind === "text" && !x.retired), ...hunts]) {
+    for (const slot of q.textAnswers) for (const t of slot.texts) {
+      if (t.includes(".")) continue;
+      const toks = G.normalizeText(t).split(" ").filter(Boolean);
+      if (toks.length < 2) continue;
+      const forms = new Set();
+      if (toks.length <= 3 && !toks.some((w) => LITTLE.has(w))) forms.add(toks.join(""));
+      for (let i = 0; i + 1 < toks.length; i++) {
+        if (LITTLE.has(toks[i]) || LITTLE.has(toks[i + 1])) continue;
+        forms.add([...toks.slice(0, i), toks[i] + toks[i + 1], ...toks.slice(i + 2)].join(" "));
+      }
+      for (const f of forms) {
+        const m = G.matchTextAnswer(q, f);
+        if (m.rank !== slot.rank && !m.ambiguous) fails.push(`${q.id}: "${t}" typed "${f}" -> ${m.rank}`);
+      }
+    }
+  }
+  assert.deepEqual(fails, []);
 });

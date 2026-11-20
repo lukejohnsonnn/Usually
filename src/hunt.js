@@ -2,7 +2,7 @@
 // many entries as you can in HUNT_SECONDS. The list and the clock live on the
 // server; entries are only revealed once a hunt is finished.
 import { GameError } from "./service.js";
-import { matchTextAnswer, normalizeText, addDays, isDateStr } from "./game/index.js";
+import { matchTextAnswer, normalizeText, groupSize, addDays, isDateStr } from "./game/index.js";
 
 export const HUNT_SECONDS = 60;
 const GRACE_MS = 3000; // network slack after the clock runs out
@@ -107,7 +107,7 @@ export function createHunt({ store, hunts, now = () => new Date(), today }) {
     const typed = typeof value === "string" ? value.slice(0, 80) : "";
     if (!normalizeText(typed)) return { result: "blank" };
     const m = matchTextAnswer(questions.get(list.id), typed);
-    if (m.rank == null) return { result: m.ambiguous ? "ambiguous" : "miss" };
+    if (m.rank == null) return m.ambiguous ? { result: "ambiguous", count: groupSize(questions.get(list.id), typed) } : { result: "miss" };
     const i = m.rank - 1;
     if (play.results.includes(i)) return { result: "already", label: label(list, i) };
     play.results.push(i);

@@ -476,6 +476,43 @@ describe("self-heal", () => {
     } finally { await t.close(); }
   });
 
+  test("swapping one question into a live day: nobody loses progress", async () => {
+    const date = "2026-11-20";
+    const before = [342, 350, 400, 308, 338, 377, 362];
+    const after = [342, 350, 400, 308, 401, 377, 362];
+    const t = await startServer({ at: "2026-11-20T15:00:00Z", overrides: [{ date, ids: before, resetPlays: false }] });
+    const play = async (P, rounds) => {
+      const p = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "daily" } })).json;
+      for (let r = 0; r < rounds; r++) {
+        const q = byId.get(p.questions[r].id);
+        await t.call(`/api/play/${p.id}/submit`, { method: "POST", player: P, body: { round: r, value: q.kind === "text" ? q.top1 : q.answer } });
+      }
+      return p.id;
+    };
+    try {
+      const early = await play("u-swapearly000000", 2);   // hasn't reached round 5
+      const late = await play("u-swaplate0000000", 6);    // already answered round 5
+      const done = await play("u-swapdone0000000", 7);    // finished
+      await t.close();
+      // a deploy swaps round 5
+      const t2 = await startServer({ at: "2026-11-20T16:00:00Z", store: t.store, overrides: [{ date, ids: after, resetPlays: false }] });
+      try {
+        assert.deepEqual((await t2.call("/api/today")).json.questions.map((q) => q.id), after);
+        const e = await t2.store.getPlay(early);
+        assert.deepEqual([e.results.length, e.questionIds[4], e.snapshot[4].id], [2, 401, 401], "unreached round gets the new question");
+        const l = await t2.store.getPlay(late);
+        assert.deepEqual([l.results.length, l.questionIds[4]], [6, 338], "an answered round keeps its question and score");
+        const d = await t2.store.getPlay(done);
+        assert.ok(d.completedAt, "finished games are history");
+        assert.equal(d.questionIds[4], 338);
+        // the early player carries on and meets the new question in round 5
+        const resumed = (await t2.call("/api/play", { method: "POST", player: "u-swapearly000000", body: { mode: "daily" } })).json;
+        assert.equal(resumed.questions[4].id, 401);
+        assert.equal(resumed.round, 2);
+      } finally { await t2.close(); }
+    } catch (err) { await t.close().catch(() => {}); throw err; }
+  });
+
   test("overrides: the shipped file is valid; bad entries are skipped", () => {
     const shipped = loadOverrides(path.join(root, "data", "daily-overrides.json"), bank);
     assert.ok(shipped.length >= 1);

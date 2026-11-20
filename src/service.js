@@ -3,7 +3,7 @@
 import {
   ROUNDS, MAX_SCORE, composeSet, isValidSet, publicQuestion, poolOf,
   validateGuess, cleanGuess, scoreNumeric, scoreRank,
-  matchTextAnswer, normalizeText, easternDate, addDays, shareText, isDateStr, FIRST_DAILY, dayNumber,
+  matchTextAnswer, normalizeText, groupSize, easternDate, addDays, shareText, isDateStr, FIRST_DAILY, dayNumber,
 } from "./game/index.js";
 
 // Runtime-neutral: runs unchanged on Node (local dev, tests) and Cloudflare
@@ -146,11 +146,33 @@ export function createService({ store, bank, now = () => new Date(), overrides =
   /** Swap in a hand-picked set (runs once: afterwards the stored set matches the pin). */
   async function applyPin(date, pin, previous) {
     const stored = await store.putDailySet(date, pin.ids, { replace: Boolean(previous) });
-    const plays = pin.resetPlays
-      ? await store.dailyPlayIds(date)
-      : (await store.dailyPlaysInProgress(date)).filter((p) => !sameIds(p.questionIds, pin.ids)).map((p) => p.id);
-    if (plays.length) await store.deletePlays(plays);
-    console.warn(`[override] daily ${date} pinned to ${pin.ids.join(",")}; cleared ${plays.length} play(s)`);
+    if (pin.resetPlays) {
+      const all = await store.dailyPlayIds(date);
+      if (all.length) await store.deletePlays(all);
+      console.warn(`[override] daily ${date} pinned to ${pin.ids.join(",")}; cleared ${all.length} play(s)`);
+      return stored.ids;
+    }
+    // A question swapped into a live day: nobody loses progress. Rounds a player
+    // hasn't reached yet get the new question; rounds already answered keep theirs.
+    // Only a play built from a broken set (not 7 rounds) is discarded.
+    let patched = 0;
+    const broken = [];
+    for (const { id, questionIds } of await store.dailyPlaysInProgress(date)) {
+      if (sameIds(questionIds, pin.ids)) continue;
+      const play = await store.getPlay(id);
+      if (!play || play.questionIds.length !== ROUNDS) { broken.push(id); continue; }
+      let changed = false;
+      for (let i = play.results.length; i < ROUNDS; i++) {
+        if (play.questionIds[i] !== pin.ids[i]) {
+          play.questionIds[i] = pin.ids[i];
+          play.snapshot[i] = byId.get(pin.ids[i]);
+          changed = true;
+        }
+      }
+      if (changed) { await store.savePlay(play); patched++; }
+    }
+    if (broken.length) await store.deletePlays(broken);
+    console.warn(`[override] daily ${date} pinned to ${pin.ids.join(",")}; updated ${patched} play(s) in progress, cleared ${broken.length} broken`);
     return stored.ids;
   }
 
@@ -226,7 +248,9 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       if (!timedOut) {
         if (blank) throw new GameError(400, "Type an answer first.", "blank");
         if (m.rank == null && m.ambiguous) {
-          return { refused: "ambiguous", message: `Which one? More than one answer fits “${typed.trim()}” — be more specific.` };
+          const n = groupSize(q, typed);
+          const fits = n >= 2 ? `${n} answers fit` : "More than one answer fits";
+          return { refused: "ambiguous", message: `Which one? ${fits} “${typed.trim()}” — be more specific.` };
         }
         if (m.rank == null) return { refused: "unlisted", message: "That's not on the list — try another answer." };
         if (!m.exact) return { suggestion: labelOf(q, m.rank) };
