@@ -1,4 +1,9 @@
 [
+  { "date": "2026-11-14", "ids": [260, 284, 212, 278, 290, 237, 79], "resetPlays": false, "note": "Launch Past game #1: a best-of from the original bank." },
+  { "date": "2026-11-15", "ids": [267, 196, 202, 281, 292, 226, 302], "resetPlays": false, "note": "Launch Past game #2: a best-of from the original bank." },
+  { "date": "2026-11-16", "ids": [181, 270, 213, 285, 269, 258, 298], "resetPlays": false, "note": "Launch Past game #3: a best-of from the original bank." },
+  { "date": "2026-11-17", "ids": [261, 277, 189, 288, 194, 224, 78], "resetPlays": false, "note": "Launch Past game #4: a best-of from the original bank." },
+  { "date": "2026-11-18", "ids": [185, 272, 204, 268, 186, 246, 297], "resetPlays": false, "note": "Launch Past game #5: a best-of from the original bank." },
   {
     "date": "2026-11-19",
     "ids": [183, 271, 191, 280, 279, 236, 301],

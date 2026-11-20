@@ -121,6 +121,7 @@ export function createService({ store, bank, now = () => new Date(), overrides =
    */
   async function composeFresh(date) {
     const used = await store.usedDailyIds(date);
+    for (const [d, pin] of pinned) if (d !== date) for (const id of pin.ids) used.add(id); // hand-picked days count as used
     const active = bank.filter((q) => !q.retired);
     const tiers = [
       active.filter((q) => !used.has(q.id) && !q.exposed),
@@ -189,8 +190,8 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       }
       date = requestedDate;
       const set = await store.getDailySet(date);
-      if (!set || !isValidSet(set.ids, bank)) throw new GameError(404, "That day's game isn't available.");
-      ids = set.ids;
+      if (!pinned.has(date) && (!set || !isValidSet(set.ids, bank))) throw new GameError(404, "That day's game isn't available.");
+      ids = await ensureDailySet(date); // a hand-picked day is frozen the first time anyone opens it
       const asDaily = await store.findDailyPlay(playerId, date);
       if (asDaily) return playView(asDaily);
       const existing = await store.findDailyPlay(playerId, date, "archive");
@@ -275,7 +276,8 @@ export function createService({ store, bank, now = () => new Date(), overrides =
   /** Past games: every earlier Daily, newest first, with this player's result. */
   async function archive(playerId) {
     const t = today();
-    const dates = (await store.dailySetDates()).filter((d) => d >= FIRST_DAILY && d < t).sort().reverse();
+    const dates = [...new Set([...(await store.dailySetDates()), ...pinned.keys()])]
+      .filter((d) => d >= FIRST_DAILY && d < t).sort().reverse();
     const mine = new Map();
     for (const p of await store.playerPlays(playerId)) {
       if (p.mode !== "daily" && p.mode !== "archive") continue;
