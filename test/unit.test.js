@@ -12,8 +12,8 @@ const bank = loadBank(path.join(root, "data", "bank.json"));
 const byId = new Map(bank.map((q) => [q.id, q]));
 
 test("difference tiers match the shipped curve exactly", () => {
-  const cases = [[0, 175, "Bullseye"], [1, 150, "Hot"], [2, 150, "Hot"], [3, 150, "Hot"],
-    [4, 115, "Warm"], [6, 115, "Warm"], [7, 115, "Warm"], [10, 115, "Warm"], [12, 115, "Warm"], [13, 70, "Lukewarm"], [15, 70, "Lukewarm"], [23, 70, "Lukewarm"], [25, 70, "Lukewarm"],
+  const cases = [[0, 175, "Bullseye"], [1, 150, "Hot"], [2, 135, "Hot"], [3, 135, "Hot"],
+    [4, 115, "Warm"], [6, 115, "Warm"], [7, 95, "Warm"], [10, 95, "Warm"], [12, 95, "Warm"], [13, 70, "Lukewarm"], [15, 70, "Lukewarm"], [23, 70, "Lukewarm"], [25, 70, "Lukewarm"],
     [26, 40, "Cold"], [40, 40, "Cold"], [41, 10, "Way Off"], [50, 10, "Way Off"]];
   for (const [diff, pts, name] of cases) {
     const up = G.scoreNumeric(50, 50 + diff), down = G.scoreNumeric(50, 50 - diff);
@@ -40,8 +40,9 @@ test("sub-1% answers are scored in hundredths on the same curve", () => {
 });
 
 test("text rank bands", () => {
-  const cases = [[1, 175], [2, 150], [3, 150], [4, 115], [6, 115], [10, 115], [11, 70], [15, 70], [20, 70], [21, 40], [30, 40], [31, 10], [99, 10]];
+  const cases = [[1, 175], [2, 150], [3, 150], [4, 135], [6, 135], [7, 115], [10, 115], [11, 95], [15, 95], [16, 70], [20, 70], [21, 40], [30, 40], [31, 10], [99, 10]];
   for (const [rank, pts] of cases) assert.equal(G.scoreRank(rank).points, pts, `rank ${rank}`);
+  assert.deepEqual([2, 6, 7, 15, 16, 21, 31].map((r) => G.scoreRank(r).tier), ["Hot", "Hot", "Warm", "Warm", "Lukewarm", "Cold", "Way Off"]);
   assert.deepEqual(G.scoreRank(null), { points: 10, tier: "Way Off", rank: null });
   assert.deepEqual(G.scoreRank(null, true), { points: 0, tier: "Blank", rank: null });
 });
@@ -92,7 +93,9 @@ test("Eastern dates", () => {
 test("bee rules: one bee per tier, Bullseye is diamond, ruby over 1000", () => {
   assert.equal(G.beeForRound(175), "diamond");
   assert.equal(G.beeForRound(150), "golden");
+  assert.equal(G.beeForRound(135), "golden");
   assert.equal(G.beeForRound(115), "honey");
+  assert.equal(G.beeForRound(95), "honey");
   assert.equal(G.beeForRound(70), "lukewarm");
   assert.equal(G.beeForRound(40), "cold");
   for (const p of [10, 0]) assert.equal(G.beeForRound(p), "wayoff");
