@@ -426,3 +426,6 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .hunt-hero .hunt-prompt { margin-top: 6px; text-align: center; color: #dcdcdc; font-size: 16px; }
 .hunt-lists .src { margin: 12px 0 0; font-size: 11.5px; color: var(--muted); }
 .hunt-mystery { width: 42px; height: 66px; image-rendering: pixelated; margin: 18px auto; animation: mystery-q 2.4s steps(2) infinite; }
+.hunt-entry { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: stretch; }
+.hunt-entry .field.text { min-width: 0; }
+.btn.hunt-enter { width: auto; min-height: 54px; padding: 2px 14px 4px; font-size: 12px; }
