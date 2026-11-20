@@ -119,6 +119,9 @@ test("worker: search-engine files and link-preview tags", async () => {
   assert.equal(ld["@graph"][0].name, "Honeydle");
   assert.match(home, /a free daily guessing game built on real numbers/i, "readable without JavaScript");
   assert.match((await call("/img/og-card.png")).type, /image\/png/);
+  const ico = await fetch(`${base}/favicon.ico`);
+  assert.match(ico.headers.get("content-type") || "", /icon/, "a real favicon.ico, not the app shell");
+  assert.match(home, /<link rel="icon" href="\/favicon\.ico" sizes="48x48">/);
 });
 
 test("worker: www and workers.dev redirect permanently to honeydle.com", async () => {
