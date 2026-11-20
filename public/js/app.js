@@ -173,9 +173,9 @@ function renderHome() {
     h("section", { class: "card daily-card" },
       h("p", { class: "kicker" }, "Today's Daily · 7 rounds"),
       h("h2", {}, "Seven prompts, the same for everyone. One run a day."),
-      action),
+      action,
+      h("button", { class: "btn ghost past-btn", onclick: renderArchive }, "Past games")),
     state.hunt && huntCard(state.hunt),
-    h("button", { class: "btn ghost", onclick: renderArchive }, "Past games"),
     footer()));
 }
 
@@ -492,7 +492,15 @@ function buildNumberRound({ screen, q, timer, jar }) {
   const combWrap = h("div", { class: "comb-wrap" }, combHost);
   const slider = h("input", { type: "range", min: 0, max: 100, step: 1, value: 50, "aria-label": "Your guess, percent" });
   const typed = h("input", { class: "field", type: "text", inputmode: "decimal", value: "50", "aria-label": "Type your guess", autocomplete: "off", maxlength: 6 });
-  const fineBtn = h("button", { class: "btn ghost small fine-btn", type: "button", hidden: true, onclick: () => openFineTune(value, (v) => setValue(v)) }, "Fine-tune hundredths");
+  // "<1" switches the slider to hundredths (0.00–1.00); tap again for whole percents
+  let sub1 = false;
+  const subBtn = h("button", { class: "sub1-btn", type: "button", "aria-pressed": "false", "aria-label": "Under 1%: hundredths", title: "Under 1%", onclick: () => setSub(!sub1) }, "<1");
+  function setSub(on) {
+    sub1 = on;
+    subBtn.setAttribute("aria-pressed", String(on));
+    slider.setAttribute("aria-label", on ? "Your guess, hundredths of a percent" : "Your guess, percent");
+    setValue(on ? (value < 1 ? value : 0.5) : Math.max(1, Math.round(value)));
+  }
   const form = h("form", { class: "controls pinnable" });
 
   screen.append(big, combWrap, form);
@@ -500,17 +508,19 @@ function buildNumberRound({ screen, q, timer, jar }) {
 
   function paint() {
     big.replaceChildren(formatPct(value), h("small", {}, "%"));
-    comb.set({ mode: "guess", guess: value > 0 && value < 1 ? 1 : value }, `Your guess: ${formatPct(value)} percent`);
-    fineBtn.hidden = !(value <= 1);
-    slider.style.setProperty("--v", `${Math.round(value)}%`);
+    if (sub1) comb.set({ mode: "fine", value: Math.round(value * 100) }, `Your guess: ${formatPct(value)} percent`);
+    else comb.set({ mode: "guess", guess: value > 0 && value < 1 ? 1 : value }, `Your guess: ${formatPct(value)} percent`);
+    const pos = sub1 ? Math.round(value * 100) : Math.round(value);
+    slider.style.setProperty("--v", `${pos}%`);
   }
   function setValue(v, from) {
     value = v;
-    if (from !== "slider") slider.value = String(Math.round(v));
+    if (from === "typed" && sub1 !== (v < 1)) { sub1 = v < 1; subBtn.setAttribute("aria-pressed", String(sub1)); }
+    if (from !== "slider") slider.value = String(sub1 ? Math.round(v * 100) : Math.round(v));
     if (from !== "typed") typed.value = formatPct(v).replace(/\.00$/, "");
     paint();
   }
-  slider.addEventListener("input", () => setValue(Number(slider.value), "slider"));
+  slider.addEventListener("input", () => setValue(sub1 ? Number(slider.value) / 100 : Number(slider.value), "slider"));
   typed.addEventListener("input", () => {
     const raw = typed.value.trim().replace(",", ".");
     if (raw === "" || !/^\d*\.?\d*$/.test(raw)) return;
@@ -522,8 +532,8 @@ function buildNumberRound({ screen, q, timer, jar }) {
   });
   typed.addEventListener("focus", () => typed.select());
 
-  form.append(h("div", { class: "slider-row" }, slider, typed), fineBtn,
-    h("p", { class: "hint" }, "Decimals only below 1% — slide to 1 or under, then fine-tune."), lockButton());
+  form.append(h("div", { class: "slider-row" }, slider, subBtn, typed),
+    h("p", { class: "hint" }, "Under 1%? Tap <1 to slide in hundredths."), lockButton());
 
   async function send({ timedOut = false } = {}) {
     if (sent) return;
@@ -767,34 +777,12 @@ function closeOverlay() { overlayCleanup?.(); overlayCleanup = null; }
 function showHowTo() {
   openOverlay("How to play", h("div", {},
     h("p", {}, h("b", {}, "Daily. "), "One set of seven prompts, the same for everyone, one run a day. Every answer is a real published statistic."),
-    h("p", {}, h("b", {}, "Guess the %. "), "Slide or type your guess. Under 1%, Fine-tune works in hundredths."),
+    h("p", {}, h("b", {}, "Guess the %. "), "Slide or type your guess. Under 1%, tap <1 next to the slider to guess in hundredths."),
     h("p", {}, h("b", {}, "Name the #1. "), "Type an answer on the ranked list — the higher it ranks, the more points. Close spellings get corrected for you; press Enter again to lock it in."),
     h("p", {}, h("b", {}, `${GUESS_SECONDS} seconds to guess, ${TEXT_SECONDS} to type. `), "When time runs out, whatever you have is locked in."),
     h("p", {}, h("b", {}, "Fill the jar. "), "Every point is honey. Pros say there's a bee nobody's seen…"),
     h("p", {}, "The closer your guess, the more points. A perfect guess is a Bullseye."),
     h("button", { class: "btn primary", onclick: closeOverlay }, "Got it")));
-}
-
-function openFineTune(start, onOk) {
-  let v = Math.min(100, Math.max(1, Math.round((start <= 1 ? start : 1) * 100)));
-  const val = h("div", { class: "fine-value", "aria-live": "polite" });
-  const host = h("div", { class: "comb" });
-  const slider = h("input", { type: "range", min: 1, max: 100, step: 1, value: v, "aria-label": "Hundredths of a percent" });
-  const sheet = openOverlay("Fine-tune", h("div", {},
-    h("p", { style: "text-align:center" }, "Hundredths — each cell is 0.01%."),
-    val, host, slider,
-    h("div", { class: "btn-row" },
-      h("button", { class: "btn ghost", onclick: closeOverlay }, "Cancel"),
-      h("button", { class: "btn primary", onclick: () => { closeOverlay(); onOk(v / 100); } }, "OK"))));
-  const comb = new Honeycomb(host);
-  const paint = () => {
-    val.textContent = `${(v / 100).toFixed(2)}%`;
-    slider.style.setProperty("--v", `${v}%`);
-    comb.set({ mode: "fine", value: v }, `${(v / 100).toFixed(2)} percent`);
-  };
-  slider.addEventListener("input", () => { v = Number(slider.value); paint(); });
-  paint();
-  void sheet;
 }
 
 async function showYesterday() {
