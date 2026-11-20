@@ -138,7 +138,7 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 241, "retired questions stay in the file");
+  assert.equal(bank.length, 242, "retired questions stay in the file");
   const active = bank.filter((q) => !q.retired);
   assert.equal(active.length, 233);
   const count = (k) => active.filter((q) => G.poolOf(q) === k).length;
@@ -146,7 +146,7 @@ test("bank meets the standard", () => {
   assert.equal(count("finale"), 25);
   const fresh = active.filter((q) => !q.exposed);
   assert.equal(fresh.length, 98, "98 brand-new questions nobody has seen");
-  for (const id of [190, 192, 203, 257, 299, 80, 255, 338]) assert.equal(bank.find((q) => q.id === id).retired, true, `q${id} retired`);
+  for (const id of [190, 192, 203, 257, 299, 80, 255, 338, 370]) assert.equal(bank.find((q) => q.id === id).retired, true, `q${id} retired`);
   assert.ok(!bank.some((q) => q.kind === "split" || "leftLabel" in q || "rightLabel" in q), "no Split questions remain");
   assert.equal(count("text"), 52);
   for (const q of bank) {
@@ -184,6 +184,7 @@ test("a sharp run reaches the ruby bee; a mediocre one does not", () => {
 test("bank: no self-assessment, belief-poll or duplicate prompts", () => {
   for (const q of bank) {
     assert.doesNotMatch(q.text, /think they could|believe|would give up|could do a random/i, `q${q.id} "${q.text}"`);
+    if (!q.retired) assert.doesNotMatch(q.text, /\b(black|white|hispanic|latino|asian|race|racial|ethnic|indian or alaska native)\b(?! death| sea| hole| friday)/i, `q${q.id} is a race-based question: "${q.text}"`);
   }
   const texts = bank.map((q) => q.text.toLowerCase());
   assert.equal(new Set(texts).size, texts.length, "no duplicate prompts");

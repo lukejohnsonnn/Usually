@@ -25651,7 +25651,9 @@
    "note": "1.1% in the 2020 Census; 2.9% including people of more than one race.",
    "finale": true,
    "source": "US Census Bureau, 2020 Census: American Indian and Alaska Native alone 1.1%",
-   "sourceUrl": "https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html"
+   "sourceUrl": "https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html",
+   "retired": true,
+   "retiredReason": "pulled from the Nov 27 Daily: race-based statistic"
   },
   {
    "id": 371,
@@ -32162,6 +32164,17 @@
    "finale": false,
    "source": "Major League Baseball / Baseball-Reference, World Series history: New York Yankees 27 championships; 121 World Series played 1903–2025 (none in 1904 or 1994)",
    "sourceUrl": "https://www.baseball-reference.com/postseason/world-series.shtml"
+  },
+  {
+   "id": 402,
+   "kind": "guess",
+   "category": "Space · Finale",
+   "text": "The Moon's mass is what % of Earth's mass?",
+   "answer": 1,
+   "note": "1.23% — it would take about 81 Moons to match Earth.",
+   "finale": true,
+   "source": "NASA Moon Fact Sheet: mass 0.07346×10²⁴ kg; Earth 5.9722×10²⁴ kg (ratio 0.0123)",
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
   }
  ]
 }
