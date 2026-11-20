@@ -1,4 +1,4 @@
-# Draws the two bottom-tier bees, Yucky (spoiled honey) and Bitter (burnt honey), from the 1600px normal-bee master.
+# Draws the two bottom-tier bees, Yucky (spoiled honey) and Bitter (a milder Yucky, halfway to Bland), from the 1600px normal-bee master.
 # Usage: python3 draw_yucky_bitter.py <folder holding keep/assets/bee-normal.png> [out folder]; then resize to 320/144/96 for public/img.
 import sys, colorsys
 from PIL import Image, ImageDraw
@@ -43,13 +43,15 @@ for (x, y) in ((420, 250), (1130, 230)):
     rows(d, x, y, [".s", "s.", ".s", "s."], {"s": (150, 200, 80)})
 yuk.save(f"{OUT}/bee-yucky.png")
 
-# ---- BITTER (40): burnt honey: dark amber-brown, scrunched eyes under cross brows, grimace
-bit = recolor(base, body=lambda h, s, v: rgb(0.075, min(1, s * 0.9), v * 0.66), wings=lambda h, s, v: rgb(0.08, 0.18, v * 0.85))
-d, F = face_wipe(bit)
-rows(d, 602, 512, ["xx...", "..xx.", "....x", ".....", "xxxxx"], N)      # brow slants in, eye squeezed to a line
-rows(d, 863, 512, ["...xx", ".xx..", "x....", ".....", "xxxxx"], N)
-rows(d, 733, 705, ["x.x.x", ".x.x."], N)                         # zig-zag grimace
-DROP = (120, 60, 15)
-rows(d, 1060, 420, [".d.", "ddd", "ddd", ".d."], {"d": DROP})   # a bead of burnt honey
+# ---- BITTER (40): a milder Yucky, halfway to Bland: yellow-green, a queasy squint, one small drip
+bit = recolor(base, body=lambda h, s, v: rgb(0.175, s * 0.58, v * 0.9), wings=lambda h, s, v: rgb(0.3, s * 0.4 + 0.03, v * 0.95))
+d = ImageDraw.Draw(bit); F = bit.getpixel((800, 640))[:3]
+for x0 in (596, 857): d.rectangle([x0, 496, x0 + 146, 545], fill=F + (255,))       # lids lowered a little: a queasy squint
+for x0 in (602, 863): d.rectangle([x0 + 8, 546, x0 + 126, 546 + U - 1], fill=NAVY + (255,))
+d.rectangle([728, 682, 872, 772], fill=F + (255,))
+rows(d, 733, 700, [".x.x.", "x.x.x"], N)                                          # wobbly, queasy mouth
+GOO, GOO2 = (170, 200, 60), (120, 150, 35)
+rows(d, 720, 362, ["gggggg", "g..g..", "h..g..", "...h.."], {"g": GOO, "h": GOO2})  # one small drip
+rows(d, 1130, 240, [".s", "s.", ".s"], {"s": (170, 205, 100)})                    # a single faint stink line
 bit.save(f"{OUT}/bee-bitter.png")
 print("ok")
