@@ -71,7 +71,7 @@ it = iter(rest)
 slots = [q if q else next(it) for q in slots]
 new_f = slots
 import datetime
-start = datetime.date(2026, 11, 21)
+start = datetime.date(2026, 11, 20)
 sched = []
 used_t = set()
 for d in range(14):

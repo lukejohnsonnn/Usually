@@ -49,7 +49,7 @@ was due to expire anyway.
 ## Questions, the schedule, and running out
 
 - **Every Daily uses questions nobody has seen.** `data/schedule.json` pins
-  the upcoming days (currently **Nov 21 – Dec 4, 2026**) to brand-new
+  the upcoming days (currently **Nov 20 – Dec 3, 2026**) to brand-new
   questions, each used once.
 - **A question is never reused** once it has been in a Daily, because Past
   games make every earlier Daily playable.

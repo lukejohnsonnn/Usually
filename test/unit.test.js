@@ -215,8 +215,8 @@ test("a guess of 50 when the answer is 27 is Lukewarm, not Cold", () => {
 test("schedule: the next two weeks are brand-new questions, each used once, in Daily order", () => {
   const days = loadSchedule(path.join(root, "data", "schedule.json"), bank);
   assert.equal(days.length, 14);
-  assert.equal(days[0].date, "2026-11-21");
-  assert.equal(days.at(-1).date, "2026-12-04");
+  assert.equal(days[0].date, "2026-11-20");
+  assert.equal(days.at(-1).date, "2026-12-03");
   const all = days.flatMap((d) => d.ids);
   assert.equal(new Set(all).size, 98, "no question twice");
   for (const d of days) {
