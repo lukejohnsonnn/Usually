@@ -1,6 +1,6 @@
 // Renders tools/ad/ad.html to a 1080x1920 (9:16) MP4, frame by frame, so the
 // timing is exact regardless of machine speed.
-// Usage: node tools/ad/render.mjs [out.mp4] [fps]   (needs ffmpeg on PATH)
+// Usage: node tools/ad/render.mjs [out.mp4] [fps]   (needs ffmpeg, and python3 with numpy for the soundtrack)
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
@@ -53,6 +53,15 @@ for (let i = 0; i < frames; i++) {
 }
 ff.stdin.end();
 await new Promise((r) => ff.on("close", r));
+
+// soundtrack: synthesize it, then mux it in at -14 LUFS (the usual target for Reels/TikTok)
+const run = (cmd, args) => new Promise((res, rej) => spawn(cmd, args, { stdio: "inherit" }).on("close", (c) => (c ? rej(new Error(`${cmd} exited ${c}`)) : res())));
+const wav = `${OUT}.wav`, silent = `${OUT}.silent.mp4`;
+fs.renameSync(OUT, silent);
+await run("python3", [path.join(ROOT, "tools/ad/audio.py"), wav]);
+await run("ffmpeg", ["-y", "-loglevel", "error", "-i", silent, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy",
+  "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", OUT]);
+fs.rmSync(wav); fs.rmSync(silent);
 await browser.close();
 server.close();
 console.log(`\nwrote ${OUT} (${frames} frames, ${duration}s @ ${FPS}fps)`);
