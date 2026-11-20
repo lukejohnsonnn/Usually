@@ -714,7 +714,7 @@ function renderResults(play) {
   if (play.mode === "daily") actions.append(h("button", { class: "btn primary", onclick: () => share(play.date) }, "Share my score"));
   else actions.append(h("button", { class: "btn primary", onclick: renderArchive }, "More past games"));
   actions.append(h("button", { class: "btn ghost", onclick: goHome }, "Home"));
-  mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, standing, rows, actions, footer()));
+  mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, rows, actions, standing, footer()));
   const jar = new HoneyJar(hero.querySelector(".jar-big"), { scale: 4 });
   jar.fill(0, { animate: false });
   requestAnimationFrame(() => jar.fill(play.score / JAR_FULL, { label: `${play.score} points of honey` }));
