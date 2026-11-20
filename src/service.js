@@ -300,7 +300,7 @@ export function createService({ store, bank, now = () => new Date(), overrides =
   }
 
   async function stats(playerId) {
-    const plays = await store.completedPlays(playerId);
+    const plays = (await store.completedPlays(playerId)).filter((p) => p.mode === "daily" || p.mode === "archive");
     const daily = plays.filter((p) => p.mode === "daily");
     const days = new Set(daily.map((p) => p.date));
     const t = today();

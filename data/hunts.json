@@ -1,0 +1,1152 @@
+{
+ "note": "Hive Hunt lists, one a day in rotation from start. Membership only; answers never leave the server until a hunt is finished.",
+ "start": "2026-11-20",
+ "lists": [
+  {
+   "id": 1,
+   "prompt": "Name the countries of South America.",
+   "entries": [
+    [
+     "Argentina"
+    ],
+    [
+     "Bolivia"
+    ],
+    [
+     "Brazil"
+    ],
+    [
+     "Chile"
+    ],
+    [
+     "Colombia"
+    ],
+    [
+     "Ecuador"
+    ],
+    [
+     "Guyana"
+    ],
+    [
+     "Paraguay"
+    ],
+    [
+     "Peru"
+    ],
+    [
+     "Suriname"
+    ],
+    [
+     "Uruguay"
+    ],
+    [
+     "Venezuela"
+    ]
+   ],
+   "unlisted": [
+    "French Guiana",
+    "Falkland Islands",
+    "Panama",
+    "Mexico"
+   ],
+   "source": "UN geoscheme: the 12 sovereign states of South America"
+  },
+  {
+   "id": 2,
+   "prompt": "Name the 50 US states.",
+   "entries": [
+    [
+     "Alabama",
+     "AL"
+    ],
+    [
+     "Alaska",
+     "AK"
+    ],
+    [
+     "Arizona",
+     "AZ"
+    ],
+    [
+     "Arkansas",
+     "AR"
+    ],
+    [
+     "California",
+     "CA",
+     "Cali"
+    ],
+    [
+     "Colorado",
+     "CO"
+    ],
+    [
+     "Connecticut",
+     "CT"
+    ],
+    [
+     "Delaware",
+     "DE"
+    ],
+    [
+     "Florida",
+     "FL"
+    ],
+    [
+     "Georgia",
+     "GA"
+    ],
+    [
+     "Hawaii",
+     "HI"
+    ],
+    [
+     "Idaho",
+     "ID"
+    ],
+    [
+     "Illinois",
+     "IL"
+    ],
+    [
+     "Indiana"
+    ],
+    [
+     "Iowa",
+     "IA"
+    ],
+    [
+     "Kansas",
+     "KS"
+    ],
+    [
+     "Kentucky",
+     "KY"
+    ],
+    [
+     "Louisiana",
+     "LA"
+    ],
+    [
+     "Maine",
+     "ME"
+    ],
+    [
+     "Maryland",
+     "MD"
+    ],
+    [
+     "Massachusetts",
+     "MA",
+     "Mass"
+    ],
+    [
+     "Michigan",
+     "MI"
+    ],
+    [
+     "Minnesota",
+     "MN"
+    ],
+    [
+     "Mississippi",
+     "MS"
+    ],
+    [
+     "Missouri",
+     "MO"
+    ],
+    [
+     "Montana",
+     "MT"
+    ],
+    [
+     "Nebraska",
+     "NE"
+    ],
+    [
+     "Nevada",
+     "NV"
+    ],
+    [
+     "New Hampshire",
+     "NH"
+    ],
+    [
+     "New Jersey",
+     "NJ"
+    ],
+    [
+     "New Mexico",
+     "NM"
+    ],
+    [
+     "New York",
+     "NY",
+     "New York State"
+    ],
+    [
+     "North Carolina",
+     "NC"
+    ],
+    [
+     "North Dakota",
+     "ND"
+    ],
+    [
+     "Ohio",
+     "OH"
+    ],
+    [
+     "Oklahoma",
+     "OK"
+    ],
+    [
+     "Oregon"
+    ],
+    [
+     "Pennsylvania",
+     "PA"
+    ],
+    [
+     "Rhode Island",
+     "RI"
+    ],
+    [
+     "South Carolina",
+     "SC"
+    ],
+    [
+     "South Dakota",
+     "SD"
+    ],
+    [
+     "Tennessee",
+     "TN"
+    ],
+    [
+     "Texas",
+     "TX"
+    ],
+    [
+     "Utah",
+     "UT"
+    ],
+    [
+     "Vermont",
+     "VT"
+    ],
+    [
+     "Virginia",
+     "VA"
+    ],
+    [
+     "Washington",
+     "WA",
+     "Washington State"
+    ],
+    [
+     "West Virginia",
+     "WV"
+    ],
+    [
+     "Wisconsin",
+     "WI"
+    ],
+    [
+     "Wyoming",
+     "WY"
+    ]
+   ],
+   "unlisted": [
+    "Washington DC",
+    "District of Columbia",
+    "DC",
+    "Puerto Rico",
+    "Guam"
+   ],
+   "source": "US Census Bureau: the 50 states"
+  },
+  {
+   "id": 3,
+   "prompt": "Name the countries of the European Union.",
+   "entries": [
+    [
+     "Austria"
+    ],
+    [
+     "Belgium"
+    ],
+    [
+     "Bulgaria"
+    ],
+    [
+     "Croatia"
+    ],
+    [
+     "Cyprus"
+    ],
+    [
+     "Czechia",
+     "Czech Republic"
+    ],
+    [
+     "Denmark"
+    ],
+    [
+     "Estonia"
+    ],
+    [
+     "Finland"
+    ],
+    [
+     "France"
+    ],
+    [
+     "Germany"
+    ],
+    [
+     "Greece"
+    ],
+    [
+     "Hungary"
+    ],
+    [
+     "Ireland"
+    ],
+    [
+     "Italy"
+    ],
+    [
+     "Latvia"
+    ],
+    [
+     "Lithuania"
+    ],
+    [
+     "Luxembourg"
+    ],
+    [
+     "Malta"
+    ],
+    [
+     "Netherlands",
+     "Holland",
+     "the Netherlands"
+    ],
+    [
+     "Poland"
+    ],
+    [
+     "Portugal"
+    ],
+    [
+     "Romania"
+    ],
+    [
+     "Slovakia"
+    ],
+    [
+     "Slovenia"
+    ],
+    [
+     "Spain"
+    ],
+    [
+     "Sweden"
+    ]
+   ],
+   "unlisted": [
+    "United Kingdom|UK|U.K.|Britain|Great Britain|the United Kingdom",
+    "England",
+    "Norway",
+    "Switzerland",
+    "Iceland",
+    "Ukraine",
+    "Türkiye|Turkey|Turkiye",
+    "Serbia",
+    "Albania"
+   ],
+   "source": "European Union, EU countries (27 members)"
+  },
+  {
+   "id": 4,
+   "prompt": "Name the countries in Africa.",
+   "entries": [
+    [
+     "Algeria"
+    ],
+    [
+     "Angola"
+    ],
+    [
+     "Benin"
+    ],
+    [
+     "Botswana"
+    ],
+    [
+     "Burkina Faso"
+    ],
+    [
+     "Burundi"
+    ],
+    [
+     "Cape Verde",
+     "Cabo Verde"
+    ],
+    [
+     "Cameroon"
+    ],
+    [
+     "Central African Republic",
+     "CAR"
+    ],
+    [
+     "Chad"
+    ],
+    [
+     "Comoros"
+    ],
+    [
+     "DR Congo",
+     "Democratic Republic of the Congo",
+     "DRC",
+     "D.R. Congo",
+     "Congo-Kinshasa",
+     "Congo Kinshasa",
+     "Zaire"
+    ],
+    [
+     "Republic of the Congo",
+     "Congo-Brazzaville",
+     "Congo Brazzaville",
+     "Congo Republic"
+    ],
+    [
+     "Côte d'Ivoire",
+     "Ivory Coast",
+     "Cote d'Ivoire",
+     "Cote dIvoire"
+    ],
+    [
+     "Djibouti"
+    ],
+    [
+     "Egypt"
+    ],
+    [
+     "Equatorial Guinea"
+    ],
+    [
+     "Eritrea"
+    ],
+    [
+     "Eswatini",
+     "Swaziland"
+    ],
+    [
+     "Ethiopia"
+    ],
+    [
+     "Gabon"
+    ],
+    [
+     "Gambia",
+     "The Gambia"
+    ],
+    [
+     "Ghana"
+    ],
+    [
+     "Guinea"
+    ],
+    [
+     "Guinea-Bissau"
+    ],
+    [
+     "Kenya"
+    ],
+    [
+     "Lesotho"
+    ],
+    [
+     "Liberia"
+    ],
+    [
+     "Libya"
+    ],
+    [
+     "Madagascar"
+    ],
+    [
+     "Malawi"
+    ],
+    [
+     "Mali"
+    ],
+    [
+     "Mauritania"
+    ],
+    [
+     "Mauritius"
+    ],
+    [
+     "Morocco"
+    ],
+    [
+     "Mozambique"
+    ],
+    [
+     "Namibia"
+    ],
+    [
+     "Niger"
+    ],
+    [
+     "Nigeria"
+    ],
+    [
+     "Rwanda"
+    ],
+    [
+     "São Tomé and Príncipe",
+     "Sao Tome and Principe",
+     "Sao Tome",
+     "São Tomé"
+    ],
+    [
+     "Senegal"
+    ],
+    [
+     "Seychelles"
+    ],
+    [
+     "Sierra Leone"
+    ],
+    [
+     "Somalia"
+    ],
+    [
+     "South Africa"
+    ],
+    [
+     "South Sudan"
+    ],
+    [
+     "Sudan"
+    ],
+    [
+     "Tanzania"
+    ],
+    [
+     "Togo"
+    ],
+    [
+     "Tunisia"
+    ],
+    [
+     "Uganda"
+    ],
+    [
+     "Zambia"
+    ],
+    [
+     "Zimbabwe"
+    ]
+   ],
+   "unlisted": [
+    "Western Sahara",
+    "Somaliland",
+    "Madeira",
+    "Canary Islands"
+   ],
+   "source": "African Union / UN: the 54 sovereign states of Africa"
+  },
+  {
+   "id": 5,
+   "prompt": "Name Canada's provinces and territories.",
+   "entries": [
+    [
+     "Alberta",
+     "AB"
+    ],
+    [
+     "British Columbia",
+     "BC"
+    ],
+    [
+     "Manitoba",
+     "MB"
+    ],
+    [
+     "New Brunswick",
+     "NB"
+    ],
+    [
+     "Newfoundland and Labrador",
+     "Newfoundland",
+     "NL"
+    ],
+    [
+     "Nova Scotia",
+     "NS"
+    ],
+    [
+     "Ontario",
+     "ON"
+    ],
+    [
+     "Prince Edward Island",
+     "PEI"
+    ],
+    [
+     "Quebec",
+     "Québec",
+     "QC"
+    ],
+    [
+     "Saskatchewan",
+     "SK"
+    ],
+    [
+     "Northwest Territories",
+     "NWT"
+    ],
+    [
+     "Nunavut",
+     "NU"
+    ],
+    [
+     "Yukon",
+     "YT"
+    ]
+   ],
+   "unlisted": [
+    "Labrador",
+    "Toronto",
+    "Vancouver",
+    "Montreal"
+   ],
+   "source": "Government of Canada: 10 provinces and 3 territories"
+  },
+  {
+   "id": 6,
+   "prompt": "Name the original 13 American colonies.",
+   "entries": [
+    [
+     "Connecticut"
+    ],
+    [
+     "Delaware"
+    ],
+    [
+     "Georgia"
+    ],
+    [
+     "Maryland"
+    ],
+    [
+     "Massachusetts",
+     "Massachusetts Bay"
+    ],
+    [
+     "New Hampshire"
+    ],
+    [
+     "New Jersey"
+    ],
+    [
+     "New York"
+    ],
+    [
+     "North Carolina"
+    ],
+    [
+     "Pennsylvania"
+    ],
+    [
+     "Rhode Island"
+    ],
+    [
+     "South Carolina"
+    ],
+    [
+     "Virginia"
+    ]
+   ],
+   "unlisted": [
+    "Maine",
+    "Vermont",
+    "Florida",
+    "Plymouth"
+   ],
+   "source": "Library of Congress / National Archives: the Thirteen Colonies"
+  },
+  {
+   "id": 7,
+   "prompt": "Name the countries that border China.",
+   "entries": [
+    [
+     "Afghanistan"
+    ],
+    [
+     "Bhutan"
+    ],
+    [
+     "India"
+    ],
+    [
+     "Kazakhstan"
+    ],
+    [
+     "North Korea",
+     "DPRK"
+    ],
+    [
+     "Kyrgyzstan"
+    ],
+    [
+     "Laos"
+    ],
+    [
+     "Mongolia"
+    ],
+    [
+     "Myanmar",
+     "Burma"
+    ],
+    [
+     "Nepal"
+    ],
+    [
+     "Pakistan"
+    ],
+    [
+     "Russia"
+    ],
+    [
+     "Tajikistan"
+    ],
+    [
+     "Vietnam"
+    ]
+   ],
+   "unlisted": [
+    "Taiwan",
+    "Hong Kong",
+    "Macau",
+    "South Korea",
+    "Japan",
+    "Thailand",
+    "Bangladesh",
+    "Uzbekistan"
+   ],
+   "source": "CIA World Factbook, China land boundaries: 14 neighbouring countries"
+  },
+  {
+   "id": 8,
+   "prompt": "Name the chemical elements whose symbol is a single letter.",
+   "entries": [
+    [
+     "Hydrogen"
+    ],
+    [
+     "Boron"
+    ],
+    [
+     "Carbon"
+    ],
+    [
+     "Nitrogen"
+    ],
+    [
+     "Oxygen"
+    ],
+    [
+     "Fluorine"
+    ],
+    [
+     "Phosphorus"
+    ],
+    [
+     "Sulfur",
+     "Sulphur"
+    ],
+    [
+     "Potassium"
+    ],
+    [
+     "Vanadium"
+    ],
+    [
+     "Yttrium"
+    ],
+    [
+     "Iodine"
+    ],
+    [
+     "Tungsten",
+     "Wolfram"
+    ],
+    [
+     "Uranium"
+    ]
+   ],
+   "unlisted": [
+    "Helium",
+    "Iron",
+    "Gold",
+    "Silver",
+    "Sodium",
+    "Calcium",
+    "Lead",
+    "Neon",
+    "Zinc",
+    "Copper",
+    "Tin",
+    "Mercury"
+   ],
+   "source": "IUPAC Periodic Table: the 14 elements with one-letter symbols (H, B, C, N, O, F, P, S, K, V, Y, I, W, U)"
+  },
+  {
+   "id": 9,
+   "prompt": "Name the countries that use the euro.",
+   "entries": [
+    [
+     "Austria"
+    ],
+    [
+     "Belgium"
+    ],
+    [
+     "Bulgaria"
+    ],
+    [
+     "Croatia"
+    ],
+    [
+     "Cyprus"
+    ],
+    [
+     "Estonia"
+    ],
+    [
+     "Finland"
+    ],
+    [
+     "France"
+    ],
+    [
+     "Germany"
+    ],
+    [
+     "Greece"
+    ],
+    [
+     "Ireland"
+    ],
+    [
+     "Italy"
+    ],
+    [
+     "Latvia"
+    ],
+    [
+     "Lithuania"
+    ],
+    [
+     "Luxembourg"
+    ],
+    [
+     "Malta"
+    ],
+    [
+     "Netherlands",
+     "Holland",
+     "the Netherlands"
+    ],
+    [
+     "Portugal"
+    ],
+    [
+     "Slovakia"
+    ],
+    [
+     "Slovenia"
+    ],
+    [
+     "Spain"
+    ]
+   ],
+   "unlisted": [
+    "Denmark",
+    "Sweden",
+    "Poland",
+    "Czechia|Czech Republic",
+    "Hungary",
+    "Romania",
+    "United Kingdom|UK|U.K.|Britain|Great Britain|the United Kingdom",
+    "Switzerland",
+    "Norway",
+    "Monaco",
+    "San Marino",
+    "Vatican City",
+    "Andorra",
+    "Montenegro",
+    "Kosovo"
+   ],
+   "source": "European Central Bank: the 21 euro area countries (Bulgaria joined 1 January 2026); microstates and countries using it without being euro area members are not counted"
+  },
+  {
+   "id": 10,
+   "prompt": "Name the countries of Central America.",
+   "entries": [
+    [
+     "Belize"
+    ],
+    [
+     "Costa Rica"
+    ],
+    [
+     "El Salvador"
+    ],
+    [
+     "Guatemala"
+    ],
+    [
+     "Honduras"
+    ],
+    [
+     "Nicaragua"
+    ],
+    [
+     "Panama"
+    ]
+   ],
+   "unlisted": [
+    "Mexico",
+    "Cuba",
+    "Colombia",
+    "Jamaica",
+    "Haiti",
+    "Dominican Republic"
+   ],
+   "source": "Encyclopaedia Britannica, Central America: the seven countries from Guatemala to Panama"
+  },
+  {
+   "id": 11,
+   "prompt": "Name the Seven Wonders of the Ancient World.",
+   "entries": [
+    [
+     "Great Pyramid of Giza",
+     "Great Pyramid",
+     "Pyramids of Giza",
+     "Pyramid of Giza",
+     "Pyramids",
+     "Giza"
+    ],
+    [
+     "Hanging Gardens of Babylon",
+     "Hanging Gardens",
+     "Gardens of Babylon"
+    ],
+    [
+     "Statue of Zeus at Olympia",
+     "Statue of Zeus",
+     "Zeus"
+    ],
+    [
+     "Temple of Artemis at Ephesus",
+     "Temple of Artemis",
+     "Artemis"
+    ],
+    [
+     "Mausoleum at Halicarnassus",
+     "Mausoleum",
+     "Halicarnassus"
+    ],
+    [
+     "Colossus of Rhodes",
+     "Colossus",
+     "Rhodes"
+    ],
+    [
+     "Lighthouse of Alexandria",
+     "Lighthouse",
+     "Pharos of Alexandria",
+     "Pharos"
+    ]
+   ],
+   "unlisted": [
+    "Great Wall of China",
+    "Great Wall",
+    "Colosseum",
+    "Taj Mahal",
+    "Petra",
+    "Machu Picchu",
+    "Christ the Redeemer",
+    "Chichen Itza",
+    "Stonehenge",
+    "Sphinx"
+   ],
+   "source": "Encyclopaedia Britannica, Seven Wonders of the World (ancient)"
+  },
+  {
+   "id": 12,
+   "prompt": "Name the countries that border Germany.",
+   "entries": [
+    [
+     "Austria"
+    ],
+    [
+     "Belgium"
+    ],
+    [
+     "Czechia",
+     "Czech Republic"
+    ],
+    [
+     "Denmark"
+    ],
+    [
+     "France"
+    ],
+    [
+     "Luxembourg"
+    ],
+    [
+     "Netherlands",
+     "Holland",
+     "the Netherlands"
+    ],
+    [
+     "Poland"
+    ],
+    [
+     "Switzerland"
+    ]
+   ],
+   "unlisted": [
+    "Italy",
+    "Liechtenstein",
+    "Hungary",
+    "Slovakia",
+    "Sweden"
+   ],
+   "source": "CIA World Factbook, Germany land boundaries: 9 neighbouring countries"
+  },
+  {
+   "id": 13,
+   "prompt": "Name the US states that border Canada.",
+   "entries": [
+    [
+     "Alaska"
+    ],
+    [
+     "Idaho"
+    ],
+    [
+     "Maine"
+    ],
+    [
+     "Michigan"
+    ],
+    [
+     "Minnesota"
+    ],
+    [
+     "Montana"
+    ],
+    [
+     "New Hampshire"
+    ],
+    [
+     "New York"
+    ],
+    [
+     "North Dakota"
+    ],
+    [
+     "Ohio"
+    ],
+    [
+     "Pennsylvania"
+    ],
+    [
+     "Vermont"
+    ],
+    [
+     "Washington",
+     "Washington State"
+    ]
+   ],
+   "unlisted": [
+    "Wisconsin",
+    "Illinois",
+    "Indiana",
+    "Oregon",
+    "Wyoming",
+    "South Dakota",
+    "Massachusetts",
+    "Connecticut"
+   ],
+   "source": "US Department of State / International Boundary Commission: 13 states border Canada, including Ohio and Pennsylvania across Lake Erie"
+  },
+  {
+   "id": 14,
+   "prompt": "Name the planets and dwarf planets of the Solar System.",
+   "entries": [
+    [
+     "Mercury"
+    ],
+    [
+     "Venus"
+    ],
+    [
+     "Earth"
+    ],
+    [
+     "Mars"
+    ],
+    [
+     "Jupiter"
+    ],
+    [
+     "Saturn"
+    ],
+    [
+     "Uranus"
+    ],
+    [
+     "Neptune"
+    ],
+    [
+     "Pluto"
+    ],
+    [
+     "Ceres"
+    ],
+    [
+     "Eris"
+    ],
+    [
+     "Haumea"
+    ],
+    [
+     "Makemake"
+    ]
+   ],
+   "unlisted": [
+    "Sun",
+    "Moon",
+    "Titan",
+    "Europa",
+    "Sedna",
+    "Planet X",
+    "Nibiru"
+   ],
+   "source": "International Astronomical Union: 8 planets and 5 recognized dwarf planets"
+  }
+ ]
+}

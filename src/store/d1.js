@@ -80,11 +80,11 @@ export function createD1Store(db) {
     /** Creates the play; for a Daily, returns the existing one if the player already has it. */
     async createPlay(p) {
       // daily_key enforces one play per player per day and mode (NULL for old Endless plays).
-      const dailyKey = p.mode === "daily" ? `${p.playerId}|${p.date}` : p.mode === "archive" ? `archive|${p.playerId}|${p.date}` : null;
+      const dailyKey = p.mode === "daily" ? `${p.playerId}|${p.date}` : p.mode === "archive" || p.mode === "hunt" ? `${p.mode}|${p.playerId}|${p.date}` : null;
       await exec(`INSERT INTO hd_plays (id, player_id, mode, daily_key, date, question_ids, snapshot, results, score, completed_at)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING`,
       p.id, p.playerId, p.mode, dailyKey, p.date, j(p.questionIds), j(p.snapshot), j(p.results), p.score, p.completedAt ?? null);
-      return p.mode === "daily" || p.mode === "archive" ? this.findDailyPlay(p.playerId, p.date, p.mode) : this.getPlay(p.id);
+      return p.mode === "daily" || p.mode === "archive" || p.mode === "hunt" ? this.findDailyPlay(p.playerId, p.date, p.mode) : this.getPlay(p.id);
     },
     async savePlay(p) {
       await exec("UPDATE hd_plays SET results = ?, score = ?, completed_at = ? WHERE id = ?", j(p.results), p.score, p.completedAt ?? null, p.id);

@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 import { createService } from "./src/service.js";
 import { loadBank, loadOverrides, loadSchedule } from "./src/load.js";
 import { createHandler } from "./src/http.js";
+import { createHunt, prepareHunts } from "./src/hunt.js";
+import fs from "node:fs";
 import { createFileStore } from "./src/store/file.js";
 import { listen, serveStatic } from "./src/node-server.js";
 
@@ -29,7 +31,8 @@ try {
   console.error("[boot] could not freeze today's set:", err);
 }
 
-const handle = createHandler({ service, store, assets: serveStatic, rateLimit: Number(process.env.RATE_LIMIT) || 200 });
+const hunt = createHunt({ store, hunts: prepareHunts(JSON.parse(fs.readFileSync(path.join(root, "data", "hunts.json"), "utf8"))), today: service.today });
+const handle = createHandler({ service, store, hunt, assets: serveStatic, rateLimit: Number(process.env.RATE_LIMIT) || 200 });
 const port = Number(process.env.PORT) || 3000;
 const server = await listen(handle, port);
 console.log(`[boot] Honeydle on :${port} — ${store.kind} store, ${bank.length} questions`);

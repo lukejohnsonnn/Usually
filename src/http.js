@@ -34,7 +34,7 @@ function rateLimiter(limit, windowMs = 60_000) {
  * @param {(req: Request) => Promise<Response>} o.assets  serves static files and the app shell
  * @param {number} [o.rateLimit] API requests per minute per IP
  */
-export function createHandler({ service, store, assets, rateLimit = 200 }) {
+export function createHandler({ service, store, assets, hunt = null, rateLimit = 200 }) {
   const allow = rateLimiter(rateLimit);
 
   const player = (req) => {
@@ -55,10 +55,16 @@ export function createHandler({ service, store, assets, rateLimit = 200 }) {
     try { return JSON.parse(text); } catch { throw new GameError(400, "Bad request body."); }
   };
 
+  const needHunt = () => { if (!hunt) throw new GameError(404, "Not found."); return hunt; };
+
   const routes = [
     ["GET", /^\/api\/today$/, async () => service.todaySet()],
     ["POST", /^\/api\/play$/, async (req) => { const b = await body(req); return service.startPlay(player(req), b.mode, b.date); }],
     ["GET", /^\/api\/archive$/, async (req) => service.archive(player(req))],
+    ["GET", /^\/api\/hunt$/, async (req) => needHunt().state(player(req))],
+    ["POST", /^\/api\/hunt\/start$/, async (req) => needHunt().begin(player(req))],
+    ["POST", /^\/api\/hunt\/guess$/, async (req) => needHunt().guess(player(req), (await body(req)).value)],
+    ["POST", /^\/api\/hunt\/finish$/, async (req) => needHunt().finish(player(req))],
     ["POST", /^\/api\/play\/([^/]+)\/submit$/, async (req, _url, m) => {
       const b = await body(req);
       return service.submit(player(req), decodeURIComponent(m[1]), { round: Number(b.round), value: b.value, timedOut: b.timedOut === true });

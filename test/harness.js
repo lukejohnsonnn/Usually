@@ -6,6 +6,8 @@ import { createService } from "../src/service.js";
 import { loadBank } from "../src/load.js";
 import { createFileStore } from "../src/store/file.js";
 import { listen, serveStatic } from "../src/node-server.js";
+import { createHunt, prepareHunts } from "../src/hunt.js";
+import fs from "node:fs";
 
 export const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const bank = loadBank(path.join(root, "data", "bank.json"));
@@ -15,7 +17,8 @@ export async function startServer({ store = createFileStore(null), at = "2026-11
   const clock = { set: (iso) => { nowMs = Date.parse(iso); }, addDays: (n) => { nowMs += n * 86_400_000; } };
   await store.init();
   const service = createService({ store, bank, now: () => new Date(nowMs), overrides });
-  const handle = createHandler({ service, store, rateLimit, assets: serveStatic });
+  const hunt = createHunt({ store, hunts: prepareHunts(JSON.parse(fs.readFileSync(path.join(root, "data", "hunts.json"), "utf8"))), now: () => new Date(nowMs), today: service.today });
+  const handle = createHandler({ service, store, hunt, rateLimit, assets: serveStatic });
   const server = await listen(handle, 0);
   const base = `http://127.0.0.1:${server.address().port}`;
 
