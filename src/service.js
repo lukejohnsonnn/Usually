@@ -3,7 +3,7 @@
 import {
   ROUNDS, MAX_SCORE, composeSet, isValidSet, publicQuestion, poolOf,
   validateGuess, cleanGuess, scoreNumeric, scoreRank,
-  matchTextAnswer, normalizeText, easternDate, addDays, shareText, isDateStr, FIRST_DAILY, dayNumber,
+  matchTextAnswer, normalizeText, groupSize, easternDate, addDays, shareText, isDateStr, FIRST_DAILY, dayNumber,
 } from "./game/index.js";
 
 // Runtime-neutral: runs unchanged on Node (local dev, tests) and Cloudflare
@@ -226,7 +226,9 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       if (!timedOut) {
         if (blank) throw new GameError(400, "Type an answer first.", "blank");
         if (m.rank == null && m.ambiguous) {
-          return { refused: "ambiguous", message: `Which one? More than one answer fits “${typed.trim()}” — be more specific.` };
+          const n = groupSize(q, typed);
+          const fits = n >= 2 ? `${n} answers fit` : "More than one answer fits";
+          return { refused: "ambiguous", message: `Which one? ${fits} “${typed.trim()}” — be more specific.` };
         }
         if (m.rank == null) return { refused: "unlisted", message: "That's not on the list — try another answer." };
         if (!m.exact) return { suggestion: labelOf(q, m.rank) };

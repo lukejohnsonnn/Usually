@@ -16,7 +16,9 @@ export function normalizeText(s) {
   const base = String(s || "")
     .toLowerCase()
     .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "") // drop accents: "Québec" = "quebec", "Hövsgöl" = "hovsgol"
     .replace(/[’‘]/g, "'")
+    .replace(/&/g, " and ")
     .replace(/[^a-z0-9' ]/g, " ")
     .replace(/\b(a|an|the)\b/g, " ")
     .replace(/\s+/g, " ")
@@ -27,6 +29,9 @@ export function normalizeText(s) {
 // Numbers are written many ways: "World War II", "world war 2", "world war
 // two", "WW2", "WWII". Bring them all to digits so they compare equal, and
 // so "World War I" and "World War II" stay different answers.
+// Short forms that mean the same word ("Mt Rainier", "St Paul", "Ft Worth").
+const SHORT_FORMS = { mt: "mount", st: "saint", ste: "sainte", ft: "fort" };
+
 const NUMBER_WORDS = {
   one: "1", two: "2", three: "3", four: "4", five: "5", six: "6", seven: "7", eight: "8", nine: "9", ten: "10",
   eleven: "11", twelve: "12", thirteen: "13", fourteen: "14", fifteen: "15", sixteen: "16", seventeen: "17",
@@ -48,6 +53,7 @@ function normalizeNumbers(n) {
     return [w];
   });
   return words.map((w, i) => {
+    if (SHORT_FORMS[w]) return SHORT_FORMS[w];
     if (NUMBER_WORDS[w]) return NUMBER_WORDS[w];
     if (ROMAN[w] && w !== "v") return ROMAN[w];
     const last = i === words.length - 1 && words.length >= 2;
@@ -461,7 +467,80 @@ function tokenFuzzyScore(sub, varT) {
  * part of exactly one rank's label, or it stays unlisted. Pass-3 matches
  * carry autocorrected: true and matched is the rank's primary label.
  */
+// ---------- joined and split words ----------
+// People run words together or split them differently from the list:
+// "spiderman" for Spider-Man, "starwars", "newyork", "super man" for
+// Superman. Each question keeps a small vocabulary of its own answer words;
+// a typed word that is two answer words glued together is split, and two
+// typed words that glue into one answer word are joined. Only words that
+// actually occur in this question's answers are ever touched.
+const vocabCache = new WeakMap();
+function vocabularyOf(question) {
+  let v = vocabCache.get(question);
+  if (v) return v;
+  const words = new Set();
+  const glued = new Map(); // "spiderman" -> "spider man"
+  for (const slot of question.textAnswers || []) {
+    for (const t of slot.texts) {
+      const toks = normalizeText(t).split(" ").filter(Boolean);
+      toks.forEach((w) => words.add(w));
+      for (let i = 0; i + 1 < toks.length; i++) {
+        const g = toks[i] + toks[i + 1];
+        if (g.length >= 5 && !glued.has(g)) glued.set(g, `${toks[i]} ${toks[i + 1]}`);
+        if (i + 2 < toks.length) { // three words run together: "saltlakecity", "newyorkcity"
+          const g3 = g + toks[i + 2];
+          if (!glued.has(g3)) glued.set(g3, `${toks[i]} ${toks[i + 1]} ${toks[i + 2]}`);
+        }
+      }
+    }
+  }
+  v = { words, glued };
+  vocabCache.set(question, v);
+  return v;
+}
+
+/** Rewrite the typed text so its word breaks line up with the answers'. */
+export function alignWordBreaks(question, text) {
+  const { words, glued } = vocabularyOf(question);
+  let toks = normalizeText(text).split(" ").filter(Boolean);
+  // split glued words ("spiderman" -> "spider man") that aren't answer words themselves
+  toks = toks.flatMap((w) => (!words.has(w) && glued.has(w) ? glued.get(w).split(" ") : [w]));
+  // join split words ("super man" -> "superman") when the glued form is an answer word
+  const out = [];
+  for (let i = 0; i < toks.length; i++) {
+    const g = i + 1 < toks.length ? toks[i] + toks[i + 1] : null;
+    if (g && words.has(g) && !(words.has(toks[i]) && words.has(toks[i + 1]))) { out.push(g); i++; }
+    else out.push(toks[i]);
+  }
+  return out.join(" ");
+}
+
+/** How many different ranks a group name fits — for the "Which one?" hint. */
+export function groupSize(question, submitted) {
+  const subTokens = canonicalTokens(alignWordBreaks(question, submitted));
+  if (!subTokens.length) return 0;
+  const ranks = new Set();
+  for (const slot of question.textAnswers || []) {
+    for (const txt of slot.texts) {
+      const v = canonicalTokens(txt);
+      if (subTokens.every((t) => v.includes(t))) { ranks.add(slot.rank); break; }
+    }
+  }
+  return ranks.size;
+}
+
 export function matchTextAnswer(question, submitted) {
+  const first = matchAligned(question, submitted);
+  if (first.rank != null || first.blank) return first;
+  const aligned = alignWordBreaks(question, submitted);
+  if (aligned === normalizeText(submitted)) return first;
+  const second = matchAligned(question, aligned);
+  // a rewritten word break is a correction, never an exact hit: the player confirms it
+  if (second.rank != null) return { ...second, exact: false, autocorrected: true };
+  return second.ambiguous ? second : first;
+}
+
+function matchAligned(question, submitted) {
   const norm = normalizeText(submitted);
   if (!norm) return { rank: null, matched: null, blank: true };
   for (const u of question.unlisted || []) {

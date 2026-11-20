@@ -308,7 +308,7 @@ function renderHunt() {
     } else if (out.result === "already") {
       say(`Already got ${out.label}.`, "");
     } else if (out.result === "ambiguous") {
-      say(`Which one? “${value}” fits more than one.`, "which");
+      say(`Which one? ${out.count >= 2 ? `${out.count} answers fit` : "More than one answer fits"} “${value}”.`, "which");
     } else if (out.result === "over") {
       state.hunt = out.hunt; end();
     } else {
