@@ -532,7 +532,7 @@ function buildNumberRound({ screen, q, timer, jar }) {
   });
   typed.addEventListener("focus", () => typed.select());
 
-  form.append(h("div", { class: "slider-row" }, slider, subBtn, typed),
+  form.append(h("div", { class: "slider-row" }, subBtn, slider, typed),
     h("p", { class: "hint" }, "Under 1%? Tap <1 to slide in hundredths."), lockButton());
 
   async function send({ timedOut = false } = {}) {
