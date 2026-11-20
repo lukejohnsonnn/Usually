@@ -81,7 +81,7 @@ describe("server", () => {
     const q0 = byId.get(pa.questions[0].id);
     const r0 = await s.call(`/api/play/${pa.id}/submit`, { method: "POST", player: A, body: { round: 0, value: q0.answer } });
     assert.equal(r0.json.result.points, 175);
-    assert.equal(r0.json.result.tier, "Bullseye");
+    assert.equal(r0.json.result.tier, "Divine");
     assert.equal(r0.json.result.answer, q0.answer, "answer revealed only after submit");
     assert.equal((await s.call(`/api/play/${pa.id}/submit`, { method: "POST", player: A, body: { round: 0, value: 1 } })).status, 409, "submitted round is locked");
     const resumed = (await s.call("/api/play", { method: "POST", player: A, body: { mode: "daily" } })).json;
@@ -142,7 +142,7 @@ describe("server", () => {
     assert.equal((await submit("   ")).status, 400);
     // confirming the suggestion scores it
     const out = (await submit("Humpback whale")).json.result;
-    assert.deepEqual([out.rank, out.points, out.tier], [8, 115, "Warm"]);
+    assert.deepEqual([out.rank, out.points, out.tier], [8, 115, "Sweet!"]);
     assert.equal(out.readBack, undefined);
     assert.equal(out.top3.length, 3);
   });
@@ -158,7 +158,7 @@ describe("server", () => {
     assert.deepEqual([blank.points, blank.tier, blank.timedOut], [0, "Blank", true]);
     await submit(3, 50); await submit(4, 50);
     const unl = (await submit(5, "qwertyuiop")).json.result;
-    assert.deepEqual([unl.points, unl.tier, unl.rank], [10, "Way Off", null]);
+    assert.deepEqual([unl.points, unl.tier, unl.rank], [10, "Yucky", null]);
     const q6 = byId.get(play.questions[5].id);
     assert.ok(unl.top3.includes(q6.top1));
   });
@@ -468,7 +468,7 @@ describe("self-heal", () => {
       // Simulate the real incident: a set that decayed to 3 rounds.
       await t.store.putDailySet(date, good.slice(0, 3), { replace: true });
       const broken = { id: "p-broken", playerId: "u-victim000000000", mode: "daily", date, questionIds: good.slice(0, 3), snapshot: good.slice(0, 3).map((id) => byId.get(id)), results: [], score: 0, completedAt: null };
-      const finished = { id: "p-history", playerId: "u-veteran00000000", mode: "daily", date, questionIds: good.slice(0, 3), snapshot: [], results: [{ points: 5, tier: "Way Off" }], score: 5, completedAt: "2026-11-19T12:00:00Z" };
+      const finished = { id: "p-history", playerId: "u-veteran00000000", mode: "daily", date, questionIds: good.slice(0, 3), snapshot: [], results: [{ points: 5, tier: "Yucky" }], score: 5, completedAt: "2026-11-19T12:00:00Z" };
       await t.store.createPlay(broken);
       await t.store.createPlay(finished);
 

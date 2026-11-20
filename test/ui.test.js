@@ -69,7 +69,7 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
     const h = await pageHeight(page);
     assert.ok(h <= 844, `round ${r + 1} (${q.kind}) question + reveal fit one 390×844 screen (got ${h}px)`);
     const tier = await page.textContent(".reveal .tier");
-    if (r !== 5) assert.equal(tier, "Bullseye", `round ${r + 1}`);
+    if (r !== 5) assert.equal(tier, "Divine", `round ${r + 1}`);
     if (q.kind === "text") {
       const revealText = await page.textContent(".reveal");
       if (r === 5) assert.match(revealText, new RegExp(`#${q.textAnswers.at(-1).rank}`));
@@ -79,7 +79,7 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
     const bee = await page.$eval(".hero img.bee", (img) => ({ src: img.getAttribute("src"), rendering: getComputedStyle(img).imageRendering }));
     assert.equal(bee.rendering, "pixelated");
     if (r < 6 && r !== 5) assert.match(bee.src, /diamond/, `round ${r + 1}: a Bullseye is the diamond bee`);
-    if (r === 5) assert.match(bee.src, /wayoff/, "a low-ranked text answer is the Way Off bee");
+    if (r === 5) assert.match(bee.src, /yucky/, "a low-ranked text answer is the Way Off bee");
     if (r === 6) assert.match(bee.src, /ruby/, "the answer that takes the run to 800+ is the ruby bee");
     await page.getByRole("button", { name: r === 6 ? "See my score" : "Next round" }).click();
   }
@@ -149,7 +149,7 @@ test("overlays: how to play and yesterday's answers", { skip }, async () => {
   await page.goto(s.base);
   await page.getByRole("button", { name: "How to play" }).first().click();
   await page.waitForSelector(".sheet");
-  assert.match(await page.textContent(".sheet"), /A perfect guess is a Bullseye/);
+  assert.match(await page.textContent(".sheet"), /Divine for a perfect guess/);
   await page.getByRole("button", { name: "Got it" }).click();
   assert.equal(await page.$(".sheet"), null);
   await page.getByRole("button", { name: "Yesterday's answers" }).click();
@@ -213,7 +213,7 @@ test("home parade: the bee crew runs worst to best", { skip }, async () => {
   await page.goto(s.base);
   await page.waitForSelector(".parade .bee-slot");
   const crew = await page.$$eval(".parade .bee-slot", (els) => els.map((e) => e.className.replace("bee-slot ", "")));
-  assert.deepEqual(crew, ["wayoff", "cold", "lukewarm", "honey", "golden", "diamond"]);
+  assert.deepEqual(crew, ["yucky", "bitter", "lukewarm", "honey", "golden", "diamond"]);
   const row = await page.locator(".crew-row").boundingBox();
   assert.ok(row.x >= 0 && row.x + row.width <= 390, "the whole parade fits the phone");
   assert.ok(await page.isVisible(".mystery .mystery-bee"), "the ruby bee sits apart from the crew");
@@ -262,7 +262,7 @@ test("text rounds: unlisted answers are refused, near misses are corrected in th
   // Enter again locks it in
   await page.press("input.field.text", "Enter");
   await page.waitForSelector(".reveal .tier");
-  assert.equal(await page.textContent(".reveal .tier"), "Bullseye");
+  assert.equal(await page.textContent(".reveal .tier"), "Divine");
   assert.equal(await page.locator(".top3 li.you").count(), 1, "your answer is highlighted in the top 3");
   assert.deepEqual(errors, []);
   await ctx.close();

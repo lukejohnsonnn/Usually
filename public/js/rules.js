@@ -20,21 +20,24 @@ export const RUBY_THRESHOLD = 800; // a finished run scoring this or more unlock
 // Six tiers on one temperature scale, from dead on to way off. The points
 // curve underneath (STEPS) is unchanged: Hot and Warm each cover two steps.
 export const TIERS = [
-  { maxDiff: 0, points: 175, minPoints: 175, name: "Bullseye", emoji: "🎯", bee: "diamond" },
-  { maxDiff: 3, points: 150, minPoints: 135, name: "Hot", emoji: "🔥", bee: "golden" },
-  { maxDiff: 12, points: 115, minPoints: 95, name: "Warm", emoji: "☀️", bee: "honey" },
-  { maxDiff: 25, points: 70, minPoints: 70, name: "Lukewarm", emoji: "😐", bee: "lukewarm" },
-  { maxDiff: 40, points: 40, minPoints: 40, name: "Cold", emoji: "🥶", bee: "cold" },
-  { maxDiff: Infinity, points: 10, minPoints: 0, name: "Way Off", emoji: "❌", bee: "wayoff" },
+  { maxDiff: 0, points: 175, minPoints: 175, name: "Divine", emoji: "💎", bee: "diamond" },
+  { maxDiff: 3, points: 150, minPoints: 135, name: "Golden Nectar", emoji: "✨", bee: "golden" },
+  { maxDiff: 12, points: 115, minPoints: 95, name: "Sweet!", emoji: "😋", bee: "honey" },
+  { maxDiff: 25, points: 70, minPoints: 70, name: "Bland", emoji: "😐", bee: "lukewarm" },
+  { maxDiff: 40, points: 40, minPoints: 40, name: "Bitter", emoji: "😖", bee: "bitter" },
+  { maxDiff: Infinity, points: 10, minPoints: 0, name: "Yucky", emoji: "🤢", bee: "yucky" },
 ];
 // The scoring curve: [max difference, max rank, points]. Never changes.
 const STEPS = [
   [0, 1, 175], [1, 3, 150], [3, 6, 135], [6, 10, 115], [12, 15, 95], [25, 20, 70], [40, 30, 40], [Infinity, Infinity, 10],
 ];
-/** The tier a points value belongs to (135 is Hot, 95 is Warm). */
+/** The tier a points value belongs to (135 is Golden Nectar, 95 is Sweet!). */
 export const tierForPoints = (points) => TIERS.find((t) => points >= t.minPoints) || TIERS.at(-1);
 // Names used before the six-tier scale, so older saved results still show the right bee and emoji.
-const LEGACY_TIERS = { "One Off": "Hot", "Razor Close": "Hot", "Close": "Warm" };
+const LEGACY_TIERS = {
+  Bullseye: "Divine", "One Off": "Golden Nectar", "Razor Close": "Golden Nectar", Hot: "Golden Nectar",
+  Close: "Sweet!", Warm: "Sweet!", Lukewarm: "Bland", Cold: "Bitter", "Way Off": "Yucky",
+};
 export const BLANK = { points: 0, name: "Blank", emoji: "⬜" };
 
 export function tierForDiff(diff) {
@@ -181,13 +184,13 @@ export function isValidSet(ids, bank) {
 // ---------- the bee ----------
 
 /**
- * Which bee hosts a reveal: one bee per tier, Bullseye is diamond. On the
+ * Which bee hosts a reveal: one bee per tier, Divine is diamond. On the
  * last round, if that answer takes the finished run to 800 or more, the ruby bee
  * hosts instead. Pass finalScore only for the round that completes a play.
  */
 export function beeForRound(points, { finalScore = null } = {}) {
   if (finalScore != null && isRuby(finalScore, true)) return "ruby";
-  return points > 0 ? tierForPoints(points).bee : "wayoff";
+  return points > 0 ? tierForPoints(points).bee : "yucky";
 }
 
 export function isRuby(score, completed) {
