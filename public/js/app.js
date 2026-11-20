@@ -709,14 +709,38 @@ function renderResults(play) {
         h("img", { class: "row-bee", src: `/img/bee-${bee}-96.png`, alt: `${bee} bee`, width: 36, height: 36 }),
         h("span", { class: "p" }, r.points));
     }));
+  const standing = play.completed ? standingsCard(play) : null;
   const actions = h("div", { class: "actions" });
   if (play.mode === "daily") actions.append(h("button", { class: "btn primary", onclick: () => share(play.date) }, "Share my score"));
   else actions.append(h("button", { class: "btn primary", onclick: renderArchive }, "More past games"));
   actions.append(h("button", { class: "btn ghost", onclick: goHome }, "Home"));
-  mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, rows, actions, footer()));
+  mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, standing, rows, actions, footer()));
   const jar = new HoneyJar(hero.querySelector(".jar-big"), { scale: 4 });
   jar.fill(0, { animate: false });
   requestAnimationFrame(() => jar.fill(play.score / JAR_FULL, { label: `${play.score} points of honey` }));
+}
+
+/** "How you stack up": everyone's scores that day as a bar chart, with your bar lit. */
+function standingsCard(play) {
+  const card = h("section", { class: "card standings", "aria-label": "How you stack up" },
+    h("p", { class: "kicker" }, "How you stack up"), h("p", { class: "loading" }, "Loading"));
+  api(`/standings?date=${play.date}`).then(({ standings: s }) => {
+    if (!s) { card.remove(); return; }
+    const max = Math.max(1, ...s.bins.map((b) => b.count));
+    const headline = s.beat == null
+      ? h("p", { class: "beat" }, "You're the first today!")
+      : h("p", { class: "beat" }, "You beat ", h("b", {}, `${s.beat}%`), s.mode === "archive" ? " of that day's players" : " of players today");
+    const label = (b) => (b.from === 0 ? "<300" : b.from >= 1000 ? "1000+" : String(b.from));
+    const bars = h("div", { class: "bars", role: "img", "aria-label": `Score spread; your score ${s.score} is in the ${label(s.bins[s.yourBin])} group` },
+      s.bins.map((b, i) => h("div", { class: `bar-col${i === s.yourBin ? " you" : ""}` },
+        h("div", { class: "bar-area" },
+          i === s.yourBin && h("img", { class: "bar-bee", src: BEE_SRC(isRuby(s.score, true) ? "ruby" : "golden"), alt: "" }),
+          h("div", { class: "bar", style: `height:${Math.max(b.count ? 8 : 2, Math.round((b.count / max) * 100))}%` })),
+        h("span", { class: "bar-l" }, label(b)))));
+    card.replaceChildren(h("p", { class: "kicker" }, "How you stack up"), headline, bars,
+      h("p", { class: "hint" }, `${s.players} ${s.players === 1 ? "player" : "players"}${s.mode === "archive" ? " that day" : " so far today"}`));
+  }).catch(() => card.remove());
+  return card;
 }
 
 /** Seconds until the next Daily: midnight Eastern. */

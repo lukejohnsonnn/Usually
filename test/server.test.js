@@ -158,6 +158,37 @@ describe("server", () => {
     assert.ok(unl.top3.includes(q6.top1));
   });
 
+  test("standings: you vs. everyone's score that day, with five estimated scores until real players arrive", async () => {
+    const t = await startServer({ at: "2026-11-24T15:00:00Z" });
+    try {
+      const P = (n) => `u-standing${String(n).padStart(7, "0")}`;
+      assert.equal((await t.call("/api/standings", { player: P(0) })).json.standings, null, "nothing until your run is finished");
+      const p0 = (await t.call("/api/play", { method: "POST", player: P(0), body: { mode: "daily" } })).json;
+      const mine = (await playThrough(t.call, p0, P(0))).play.score; // a perfect run
+      const st = (await t.call("/api/standings", { player: P(0) })).json.standings;
+      assert.equal(st.score, mine);
+      assert.equal(st.players, 6, "you plus five estimated scores");
+      assert.equal(st.beat, 100);
+      assert.equal(st.bins.reduce((a, b) => a + b.count, 0), 6);
+      assert.equal(st.bins[st.yourBin].from, 1000);
+      // the estimated scores are steady for a day and differ between days
+      const G = await import("../src/service.js");
+      assert.deepEqual(G.seedScores("2026-11-24"), G.seedScores("2026-11-24"));
+      assert.notDeepEqual(G.seedScores("2026-11-24"), G.seedScores("2026-11-25"));
+      assert.ok(G.seedScores("2026-11-24").every((x) => x >= 440 && x <= 850));
+      // once enough real players finish, the estimates drop out
+      for (let n = 1; n < G.SEED_UNTIL; n++) {
+        const p = (await t.call("/api/play", { method: "POST", player: P(n), body: { mode: "daily" } })).json;
+        await playThrough(t.call, p, P(n), [40, 40, 40, 40, 40, 40, 40]);
+      }
+      const later = (await t.call("/api/standings", { player: P(0) })).json.standings;
+      assert.equal(later.players, G.SEED_UNTIL, "real players only");
+      assert.equal(later.beat, 100);
+      const low = (await t.call("/api/standings", { player: P(1) })).json.standings;
+      assert.equal(low.beat, 0, "ties and better scores are not beaten");
+    } finally { await t.close(); }
+  });
+
   test("stats: streak, games, best, average; Past games never touch the streak", async () => {
     const P = "u-streaker0000000";
     const t = await startServer({ at: "2026-11-24T15:00:00Z" });

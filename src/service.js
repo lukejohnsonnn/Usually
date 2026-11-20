@@ -68,6 +68,22 @@ export function prepareOverrides(list, bank) {
 
 const sameIds = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
+// ---------- standings ----------
+// Score bins for the results chart: under 300, then 100-point steps, then 1000+.
+const BINS = [[0, 299], [300, 399], [400, 499], [500, 599], [600, 699], [700, 799], [800, 899], [900, 999], [1000, 1225]];
+const binOf = (score) => BINS.findIndex(([from, to]) => score >= from && score <= to);
+/** Real players a day needs before the estimated scores drop out. */
+export const SEED_UNTIL = 20;
+/** Five estimated scores for a day: a typical spread, nudged by the date so days differ. */
+export function seedScores(date) {
+  let h = 2166136261;
+  for (const c of date) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+  return [470, 585, 650, 715, 820].map((base, i) => {
+    h = Math.imul(h ^ (i + 1), 2654435761) >>> 0;
+    return base + ((h % 61) - 30);
+  });
+}
+
 export function createService({ store, bank, now = () => new Date(), overrides = [] }) {
   const byId = new Map(bank.map((q) => [q.id, q]));
   const pinned = new Map(overrides.filter((o) => isValidSet(o.ids, bank)).map((o) => [o.date, o]));
@@ -297,6 +313,37 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     return play ? playView(play) : null;
   }
 
+  /**
+   * How a finished run stacks up against everyone's Daily score that day:
+   * a histogram and the share of other players beaten. While a day has only
+   * a handful of real players, five estimated scores fill the chart out so
+   * the first players aren't comparing against nobody; they drop out on
+   * their own once SEED_UNTIL real players have finished.
+   */
+  async function standings(playerId, date = today()) {
+    const tries = [await store.findDailyPlay(playerId, date, "daily"), await store.findDailyPlay(playerId, date, "archive")];
+    const play = tries.find((p) => p?.completedAt);
+    if (!play) return null;
+    const real = await store.dailyScores(date);
+    const seeded = real.length < SEED_UNTIL;
+    const all = seeded ? real.concat(seedScores(date)) : real;
+    // compare against everyone else: take this player's own Daily out once
+    const others = all.slice();
+    if (play.mode === "daily") { const i = others.indexOf(play.score); if (i >= 0) others.splice(i, 1); }
+    const below = others.filter((s) => s < play.score).length;
+    const bins = BINS.map(([from, to]) => ({ from, to, count: all.filter((s) => s >= from && s <= to).length }));
+    if (play.mode === "archive") bins[binOf(play.score)].count += 1; // show a replay in the chart too
+    return {
+      date,
+      score: play.score,
+      mode: play.mode,
+      players: others.length + 1,
+      beat: others.length ? Math.round((below / others.length) * 100) : null,
+      bins,
+      yourBin: binOf(play.score),
+    };
+  }
+
   /** Past games: every earlier Daily, newest first, with this player's result. */
   async function archive(playerId) {
     const t = today();
@@ -367,5 +414,5 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     return { date, rounds: ROUNDS, maxScore: MAX_SCORE, questions: ids.map((id) => publicQuestion(byId.get(id))) };
   }
 
-  return { ensureDailySet, startPlay, submit, dailyResults, stats, yesterday, share, todaySet, today, archive, bankSize: bank.filter((q) => !q.retired).length };
+  return { ensureDailySet, startPlay, submit, dailyResults, standings, stats, yesterday, share, todaySet, today, archive, bankSize: bank.filter((q) => !q.retired).length };
 }

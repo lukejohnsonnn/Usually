@@ -70,6 +70,7 @@ export function createHandler({ service, store, assets, hunt = null, rateLimit =
       return service.submit(player(req), decodeURIComponent(m[1]), { round: Number(b.round), value: b.value, timedOut: b.timedOut === true });
     }],
     ["GET", /^\/api\/results$/, async (req, url) => ({ play: await service.dailyResults(player(req), dateParam(url)) })],
+    ["GET", /^\/api\/standings$/, async (req, url) => ({ standings: await service.standings(player(req), dateParam(url)) })],
     ["GET", /^\/api\/stats$/, async (req) => service.stats(player(req))],
     ["GET", /^\/api\/yesterday$/, async () => service.yesterday()],
     ["GET", /^\/api\/share$/, async (req, url) => service.share(player(req), dateParam(url))],
