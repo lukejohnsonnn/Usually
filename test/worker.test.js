@@ -114,6 +114,7 @@ test("worker: search-engine files and link-preview tags", async () => {
   assert.match((await call("/sitemap.xml")).text, /<loc>https:\/\/honeydle\.com\/<\/loc>/);
   const home = (await call("/")).text;
   assert.match(home, /<link rel="canonical" href="https:\/\/honeydle\.com\/">/);
+  assert.match(home, /<title>Honeydle - Sweet Daily Trivia<\/title>/);
   assert.match(home, /property="og:image" content="https:\/\/honeydle\.com\/img\/og-card\.png"/);
   const ld = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   assert.equal(ld["@graph"][0].name, "Honeydle");
