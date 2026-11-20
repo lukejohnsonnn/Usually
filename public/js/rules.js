@@ -7,8 +7,9 @@ export const GUESS_SECONDS = 15;
 export const TEXT_SECONDS = 25;
 export const secondsFor = (kind) => (kind === "text" ? TEXT_SECONDS : GUESS_SECONDS);
 export const ROUND_MAX = 175;
-// The first Daily. Past games run from here to yesterday; #1 is this day.
-export const FIRST_DAILY = "2026-11-19";
+// The first day in Past games; #1 is this day. Nov 14–18 are hand-picked launch
+// games from the original bank, Nov 19 was the first live Daily.
+export const FIRST_DAILY = "2026-11-14";
 export const MAX_SCORE = ROUNDS * ROUND_MAX; // 1225 — never shown to players
 export const JAR_FULL = 1000; // the honey jar reads full at this score
 export const RUBY_THRESHOLD = 800; // a finished run scoring this or more unlocks the hidden ruby bee

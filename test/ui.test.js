@@ -340,10 +340,10 @@ test("past games: the home button opens the list and a past Daily plays like the
     assert.equal(await page.getByRole("button", { name: "Endless practice" }).count(), 0, "Endless is gone");
     await page.getByRole("button", { name: "Past games" }).click();
     await page.waitForSelector(".pg-row");
-    assert.deepEqual(await page.$$eval(".pg-num", (els) => els.map((e) => e.textContent)), ["#2", "#1"]);
+    assert.deepEqual(await page.$$eval(".pg-num", (els) => els.map((e) => e.textContent)), ["#7", "#6"]);
     await page.locator(".pg-row").nth(1).click();
     await page.waitForSelector(".question");
-    assert.match(await page.textContent(".progress .label"), /Past game #1/);
+    assert.match(await page.textContent(".progress .label"), /Past game #6/);
     assert.match(await page.textContent(".question"), /Black Death/);
     assert.deepEqual(errors, []);
     await ctx.close();

@@ -202,12 +202,12 @@ describe("server", () => {
       await t.call("/api/today"); // the 21st exists too, but it's today
       const list = (await t.call("/api/archive", { player: P })).json;
       assert.deepEqual(list.games.map((g) => [g.date, g.number, g.status, g.playedAs]),
-        [["2026-11-20", 2, "done", "daily"], ["2026-11-19", 1, "new", null]], "newest first, today excluded");
+        [["2026-11-20", 7, "done", "daily"], ["2026-11-19", 6, "new", null]], "newest first, today excluded");
       // play the 19th as a past game: same questions as that day's Daily
       const set19 = (await t.store.getDailySet("2026-11-19")).ids;
       const a = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date: "2026-11-19" } })).json;
       assert.deepEqual(a.questions.map((q) => q.id), set19);
-      assert.equal(a.number, 1);
+      assert.equal(a.number, 6);
       assert.deepEqual(findKeys(a, FORBIDDEN_KEYS), [], "no answers before submit");
       const again = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date: "2026-11-19" } })).json;
       assert.equal(again.id, a.id, "one past-game play per day, resumable");
@@ -216,10 +216,33 @@ describe("server", () => {
       // a day they played as its Daily comes back as that play
       assert.equal((await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date: "2026-11-20" } })).json.id, d20.id);
       // today, the future, nonsense and Endless are refused
-      for (const date of ["2026-11-21", "2026-11-22", "2026-11-18", "nope", undefined]) {
+      for (const date of ["2026-11-21", "2026-11-22", "2026-11-13", "nope", undefined]) {
         assert.equal((await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date } })).status, 400, String(date));
       }
       assert.equal((await t.call("/api/play", { method: "POST", player: P, body: { mode: "endless" } })).status, 400);
+    } finally { await t.close(); }
+  });
+
+  test("the five hand-picked launch games are in Past games from day one", async () => {
+    const overrides = loadOverrides(path.join(root, "data", "daily-overrides.json"), bank);
+    const t = await startServer({ at: "2026-11-19T15:00:00Z", overrides });
+    try {
+      const P = "u-launchfan000000";
+      const games = (await t.call("/api/archive", { player: P })).json.games;
+      assert.deepEqual(games.map((g) => [g.date, g.number, g.status]), [
+        ["2026-11-18", 5, "new"], ["2026-11-17", 4, "new"], ["2026-11-16", 3, "new"], ["2026-11-15", 2, "new"], ["2026-11-14", 1, "new"],
+      ]);
+      const pin = overrides.find((o) => o.date === "2026-11-14");
+      const p = (await t.call("/api/play", { method: "POST", player: P, body: { mode: "archive", date: "2026-11-14" } })).json;
+      assert.deepEqual(p.questions.map((q) => q.id), pin.ids, "the hand-picked set");
+      assert.deepEqual((await t.store.getDailySet("2026-11-14")).ids, pin.ids, "frozen on first open");
+      // their questions are never picked for a new Daily
+      const launchIds = new Set(overrides.filter((o) => o.date < "2026-11-19").flatMap((o) => o.ids));
+      t.clock.set("2026-12-20T15:00:00Z");
+      for (let d = 0; d < 10; d++) {
+        for (const q of (await t.call("/api/today")).json.questions) assert.ok(!launchIds.has(q.id), `q${q.id} reused`);
+        t.clock.addDays(1);
+      }
     } finally { await t.close(); }
   });
 
