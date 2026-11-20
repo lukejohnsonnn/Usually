@@ -69,9 +69,20 @@ export function prepareOverrides(list, bank) {
 const sameIds = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 // ---------- standings ----------
-// Score bins for the results chart: under 300, then 100-point steps, then 1000+.
-const BINS = [[0, 299], [300, 399], [400, 499], [500, 599], [600, 699], [700, 799], [800, 899], [900, 999], [1000, 1225]];
-const binOf = (score) => BINS.findIndex(([from, to]) => score >= from && score <= to);
+/**
+ * A smoothed curve of the day's scores (a kernel density): 48 steps across a
+ * range that frames everyone's scores, heights scaled so the peak is 1.
+ * Smoothing is wider while there are few players so the line stays soft.
+ */
+export function scoreCurve(scores, yours) {
+  const bw = scores.length < 30 ? 70 : scores.length < 200 ? 50 : 35;
+  const lo = Math.max(0, Math.floor((Math.min(yours, ...scores) - 2.5 * bw) / 50) * 50);
+  const hi = Math.min(MAX_SCORE, Math.ceil((Math.max(yours, ...scores) + 2.5 * bw) / 50) * 50);
+  const xs = Array.from({ length: 49 }, (_, i) => Math.round(lo + ((hi - lo) * i) / 48));
+  const ys = xs.map((x) => scores.reduce((a, s) => a + Math.exp(-0.5 * ((x - s) / bw) ** 2), 0));
+  const peak = Math.max(...ys) || 1;
+  return { from: lo, to: hi, points: xs.map((x, i) => [x, Math.round((ys[i] / peak) * 1000) / 1000]) };
+}
 /** Real players a day needs before the estimated scores drop out. */
 export const SEED_UNTIL = 20;
 /** Five estimated scores for a day: a typical spread, nudged by the date so days differ. */
@@ -331,16 +342,14 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     const others = all.slice();
     if (play.mode === "daily") { const i = others.indexOf(play.score); if (i >= 0) others.splice(i, 1); }
     const below = others.filter((s) => s < play.score).length;
-    const bins = BINS.map(([from, to]) => ({ from, to, count: all.filter((s) => s >= from && s <= to).length }));
-    if (play.mode === "archive") bins[binOf(play.score)].count += 1; // show a replay in the chart too
+    const shown = play.mode === "archive" ? all.concat(play.score) : all; // a replay shows in the curve too
     return {
       date,
       score: play.score,
       mode: play.mode,
       players: others.length + 1,
       beat: others.length ? Math.round((below / others.length) * 100) : null,
-      bins,
-      yourBin: binOf(play.score),
+      curve: scoreCurve(shown, play.score),
     };
   }
 

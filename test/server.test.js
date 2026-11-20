@@ -169,8 +169,10 @@ describe("server", () => {
       assert.equal(st.score, mine);
       assert.equal(st.players, 6, "you plus five estimated scores");
       assert.equal(st.beat, 100);
-      assert.equal(st.bins.reduce((a, b) => a + b.count, 0), 6);
-      assert.equal(st.bins[st.yourBin].from, 1000);
+      assert.equal(st.curve.points.length, 49);
+      assert.ok(st.curve.from <= 440 && st.curve.to >= mine && st.curve.to <= 1225, "the curve frames every score and yours");
+      assert.equal(Math.max(...st.curve.points.map((p) => p[1])), 1, "peak scaled to 1");
+      assert.ok(st.curve.points.every(([x, d], i, a) => d >= 0 && d <= 1 && (i === 0 || x > a[i - 1][0])));
       // the estimated scores are steady for a day and differ between days
       const G = await import("../src/service.js");
       assert.deepEqual(G.seedScores("2026-11-24"), G.seedScores("2026-11-24"));

@@ -720,27 +720,68 @@ function renderResults(play) {
   requestAnimationFrame(() => jar.fill(play.score / JAR_FULL, { label: `${play.score} points of honey` }));
 }
 
-/** "How you stack up": everyone's scores that day as a bar chart, with your bar lit. */
+/** "How you stack up": a smooth curve of everyone's scores that day, with your spot marked. */
 function standingsCard(play) {
   const card = h("section", { class: "card standings", "aria-label": "How you stack up" },
     h("p", { class: "kicker" }, "How you stack up"), h("p", { class: "loading" }, "Loading"));
   api(`/standings?date=${play.date}`).then(({ standings: s }) => {
     if (!s) { card.remove(); return; }
-    const max = Math.max(1, ...s.bins.map((b) => b.count));
     const headline = s.beat == null
       ? h("p", { class: "beat" }, "You're the first today!")
       : h("p", { class: "beat" }, "You beat ", h("b", {}, `${s.beat}%`), s.mode === "archive" ? " of that day's players" : " of players today");
-    const label = (b) => (b.from === 0 ? "<300" : b.from >= 1000 ? "1000+" : String(b.from));
-    const bars = h("div", { class: "bars", role: "img", "aria-label": `Score spread; your score ${s.score} is in the ${label(s.bins[s.yourBin])} group` },
-      s.bins.map((b, i) => h("div", { class: `bar-col${i === s.yourBin ? " you" : ""}` },
-        h("div", { class: "bar-area" },
-          i === s.yourBin && h("img", { class: "bar-bee", src: BEE_SRC(isRuby(s.score, true) ? "ruby" : "golden"), alt: "" }),
-          h("div", { class: "bar", style: `height:${Math.max(b.count ? 8 : 2, Math.round((b.count / max) * 100))}%` })),
-        h("span", { class: "bar-l" }, label(b)))));
-    card.replaceChildren(h("p", { class: "kicker" }, "How you stack up"), headline, bars,
+    card.replaceChildren(h("p", { class: "kicker" }, "How you stack up"), headline, scoreCurveChart(s),
       h("p", { class: "hint" }, `${s.players} ${s.players === 1 ? "player" : "players"}${s.mode === "archive" ? " that day" : " so far today"}`));
   }).catch(() => card.remove());
   return card;
+}
+
+/** The curve itself: an SVG area, lit up to your score, with a bee riding the line where you landed. */
+function scoreCurveChart(s) {
+  const W = 300, H = 110, TOP = 8;
+  const { from, to, points } = s.curve;
+  const X = (v) => ((v - from) / (to - from)) * W;
+  const Y = (d) => H - d * (H - TOP);
+  const pts = points.map(([x, d]) => [X(x), Y(d)]);
+  // Catmull-Rom through the points, as cubic Béziers: a smooth line
+  let line = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    line += `C${c1.map((n) => n.toFixed(1))} ${c2.map((n) => n.toFixed(1))} ${p2.map((n) => n.toFixed(1))}`;
+  }
+  const area = `${line}L${W},${H}L0,${H}Z`;
+  const you = Math.min(to, Math.max(from, s.score));
+  const yx = X(you);
+  // the curve's height at your score, read off the sampled points
+  const k = Math.min(points.length - 2, Math.max(0, Math.floor(((you - from) / (to - from)) * (points.length - 1))));
+  const [xa, da] = points[k], [xb, db] = points[k + 1];
+  const yd = da + (db - da) * ((you - xa) / (xb - xa || 1));
+  const yy = Y(yd);
+  const ns = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs) => { const n = document.createElementNS(ns, tag); for (const [k2, v] of Object.entries(attrs)) n.setAttribute(k2, v); return n; };
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: "none", class: "curve-svg", "aria-hidden": "true" });
+  const defs = el("defs", {});
+  const grad = el("linearGradient", { id: "curve-lit", x1: 0, y1: 0, x2: 0, y2: 1 });
+  grad.append(el("stop", { offset: "0", "stop-color": "#ffd60a", "stop-opacity": ".85" }), el("stop", { offset: "1", "stop-color": "#ffd60a", "stop-opacity": ".15" }));
+  const clip = el("clipPath", { id: "curve-below" });
+  clip.append(el("rect", { x: 0, y: 0, width: yx.toFixed(1), height: H }));
+  defs.append(grad, clip);
+  svg.append(defs,
+    el("path", { d: area, fill: "#2c2719" }),
+    el("path", { d: area, fill: "url(#curve-lit)", "clip-path": "url(#curve-below)" }),
+    el("path", { d: line, fill: "none", stroke: "#cf9a06", "stroke-width": 2, "vector-effect": "non-scaling-stroke" }),
+    el("line", { x1: yx, x2: yx, y1: yy, y2: H, stroke: "#fff", "stroke-width": 1.5, "stroke-dasharray": "3 3", "vector-effect": "non-scaling-stroke" }));
+  const left = `${(yx / W) * 100}%`, top = `${yy.toFixed(1)}px`; // the SVG is drawn 110px tall, 1:1 vertically
+  const bee = h("img", { class: "curve-bee", src: BEE_SRC(isRuby(s.score, true) ? "ruby" : "golden"), alt: "", style: `left:${left};top:${top}` });
+  const dot = h("span", { class: "curve-dot", style: `left:${left};top:${top}` });
+  // axis: round hundreds inside the range
+  const step = to - from > 700 ? 200 : 100;
+  const ticks = [];
+  for (let t = Math.ceil(from / step) * step; t <= to; t += step) ticks.push(t);
+  const axis = h("div", { class: "curve-axis" }, ticks.map((t) => h("span", { style: `left:${(X(t) / W) * 100}%` }, String(t))));
+  const tag = h("span", { class: "curve-you", style: `left:${Math.min(86, Math.max(14, (yx / W) * 100))}%` }, `You · ${s.score}`);
+  return h("div", { class: "curve", role: "img", "aria-label": `Everyone's scores today as a curve; you scored ${s.score}` }, svg, dot, bee, tag, axis);
 }
 
 /** Seconds until the next Daily: midnight Eastern. */

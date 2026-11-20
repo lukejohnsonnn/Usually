@@ -451,11 +451,10 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 .standings { display: flex; flex-direction: column; gap: 10px; }
 .standings .beat { margin: 0; font-size: 17px; font-weight: 700; }
 .standings .beat b { font-family: var(--f-pixel); font-weight: 400; color: var(--yellow); font-size: 16px; }
-.bars { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; align-items: end; height: 132px; padding-top: 26px; }
-.bar-col { height: 100%; display: flex; flex-direction: column; align-items: center; min-width: 0; }
-.bar-area { flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
-.bar { width: 100%; background: #3a3426; box-shadow: inset 0 2px 0 #4d4532; min-height: 2px; }
-.bar-col.you .bar { background: var(--yellow); box-shadow: inset 0 2px 0 #fff3a6, 0 0 10px rgba(255,214,10,.35); }
-.bar-l { margin-top: 5px; font-size: 9px; color: var(--muted); white-space: nowrap; letter-spacing: -0.02em; }
-.bar-col.you .bar-l { color: var(--yellow); font-weight: 700; }
-.bar-bee { flex: none; width: 26px; height: 26px; margin-bottom: 2px; image-rendering: pixelated; animation: hover 3.2s ease-in-out infinite; }
+.curve { position: relative; height: 150px; margin: 30px 0 0; }
+.curve-svg { position: absolute; left: 0; top: 0; width: 100%; height: 110px; overflow: visible; display: block; }
+.curve-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; background: #fff; box-shadow: 0 0 0 2px #000, 0 0 10px rgba(255,214,10,.7); }
+.curve-bee { position: absolute; width: 30px; height: 30px; margin: -40px 0 0 -15px; image-rendering: pixelated; animation: hover 3.2s ease-in-out infinite; }
+.curve-axis { position: absolute; left: 0; right: 0; top: 116px; height: 14px; border-top: 1px solid #333; }
+.curve-axis span { position: absolute; transform: translateX(-50%); top: 4px; font-size: 10px; color: var(--muted); }
+.curve-you { position: absolute; top: 136px; transform: translateX(-50%); font-family: var(--f-pixel); font-size: 9px; color: var(--yellow); white-space: nowrap; }
