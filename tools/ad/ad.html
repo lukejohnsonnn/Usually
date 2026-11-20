@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Honeydle ad</title>
+<style>
+@font-face { font-family: "Press Start 2P"; src: url("/public/fonts/press-start-2p.woff2") format("woff2"); }
+@font-face { font-family: "Libre Franklin"; src: url("/public/fonts/libre-franklin-latin-600-normal.woff2") format("woff2"); font-weight: 500 600; }
+@font-face { font-family: "Libre Franklin"; src: url("/public/fonts/libre-franklin-latin-800-normal.woff2") format("woff2"); font-weight: 700 900; }
+:root { --yellow: #ffd60a; --gold: #cf9a06; --soft: #f3d27a; --muted: #a8a8a8; --chip: #241d00; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; color: #fff; font-family: "Libre Franklin", sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: radial-gradient(circle at 50% 42%, rgba(255,190,0,0.13), transparent 60%), #000; }
+#stage::before { content: ""; position: absolute; inset: 0; opacity: .5;
+  background-image: radial-gradient(rgba(255,255,255,0.09) 2px, transparent 2px); background-size: 48px 48px; }
+.layer { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; opacity: 0; }
+.pixel { font-family: "Press Start 2P", monospace; }
+.logo { font-family: "Press Start 2P", monospace; color: var(--yellow); letter-spacing: 4px;
+  text-shadow: 8px 8px 0 #7a5a00, 0 0 40px rgba(255,214,10,.55); }
+
+/* scene 1: hook */
+#hook { justify-content: center; gap: 40px; padding: 0 90px; text-align: center; }
+#hook .kicker { font-size: 34px; color: var(--soft); letter-spacing: .18em; text-transform: uppercase; font-weight: 700; }
+#hook .big { font-size: 104px; font-weight: 900; line-height: 1.02; }
+#hook .big em { font-style: normal; color: var(--yellow); }
+
+/* game scenes */
+#game { padding-top: 210px; }
+.meta { display: flex; gap: 22px; align-items: center; }
+.chip { background: var(--chip); color: var(--yellow); border: 3px solid #4d4116; padding: 14px 24px; border-radius: 999px;
+  font-size: 28px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.round { font-size: 22px; color: var(--muted); }
+.q { margin-top: 44px; font-size: 76px; font-weight: 800; line-height: 1.08; text-align: center; padding: 0 70px; min-height: 180px; }
+.num { margin-top: 30px; font-size: 150px; color: var(--yellow); text-shadow: 0 0 40px rgba(255,214,10,.45); height: 170px; }
+#combHost { position: relative; margin-top: 30px; width: 940px; height: 600px; display: grid; place-items: center; }
+#combHost > canvas { grid-area: 1 / 1; image-rendering: pixelated; }
+#combHost > .comb-glow { image-rendering: auto; mix-blend-mode: screen; }
+.legend { margin-top: 30px; display: flex; gap: 46px; font-size: 30px; font-weight: 700; color: #ddd; height: 50px; }
+.legend span { display: flex; align-items: center; gap: 14px; }
+.sw { width: 30px; height: 30px; border-radius: 6px; }
+.btn { position: absolute; bottom: 170px; left: 90px; right: 90px; height: 150px; border-radius: 26px; background: var(--yellow);
+  color: #000; display: grid; place-items: center; font-size: 50px; font-weight: 900; box-shadow: 0 10px 0 var(--gold); }
+.result { position: absolute; bottom: 150px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 40px; }
+.result img { width: 240px; height: 240px; image-rendering: pixelated; }
+.result .tier { font-size: 90px; font-weight: 900; color: var(--yellow); }
+.result .pts { font-size: 46px; color: #fff; margin-top: 18px; }
+
+/* scene: tiers */
+#tiers { justify-content: center; gap: 70px; }
+#tiers h2 { font-size: 84px; font-weight: 900; text-align: center; line-height: 1.05; padding: 0 60px; }
+#tiers h2 em { font-style: normal; color: var(--yellow); }
+.grid { display: grid; grid-template-columns: repeat(3, 300px); gap: 40px 30px; }
+.cell { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.cell img { width: 240px; height: 240px; image-rendering: pixelated; }
+.cell b { font-size: 36px; font-weight: 800; }
+.cell small { font-size: 26px; color: var(--muted); font-weight: 600; }
+
+/* scene: daily */
+#daily { justify-content: center; gap: 46px; text-align: center; }
+.line { font-size: 92px; font-weight: 900; line-height: 1.05; }
+.line em { font-style: normal; color: var(--yellow); }
+.share { margin-top: 40px; background: #111; border: 3px solid #2e2e2e; border-radius: 30px; padding: 46px 60px; }
+.share .emojis { font-size: 84px; letter-spacing: 10px; font-family: "Noto Color Emoji", sans-serif; }
+.share .score { margin-top: 26px; font-size: 54px; color: var(--yellow); }
+.share .score span { color: var(--muted); }
+
+/* scene: end card */
+#end { justify-content: center; gap: 50px; text-align: center; }
+#end .logo { font-size: 108px; letter-spacing: 2px; }
+#end .tag { font-size: 70px; font-weight: 800; }
+#end .parade { display: flex; gap: 10px; margin: 30px 0; }
+#end .parade img { width: 180px; height: 180px; image-rendering: pixelated; }
+#end .cta { background: var(--yellow); color: #000; font-size: 54px; font-weight: 900; padding: 40px 80px; border-radius: 26px; box-shadow: 0 10px 0 var(--gold); }
+#end .url { font-size: 40px; color: var(--soft); letter-spacing: 2px; }
+#brand { position: absolute; top: 90px; left: 0; right: 0; text-align: center; font-size: 44px; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="brand" class="logo">HONEYDLE</div>
+
+  <section id="hook" class="layer">
+    <div class="kicker" id="hk1">Quick question</div>
+    <div class="big" id="hk2">Think you know<br>the <em>world?</em></div>
+  </section>
+
+  <section id="game" class="layer">
+    <div class="meta"><span class="chip">Society</span><span class="round pixel">ROUND 1/7</span></div>
+    <div class="q" id="q"></div>
+    <div class="num pixel" id="num">0%</div>
+    <div id="combHost"></div>
+    <div class="legend" id="legend">
+      <span><i class="sw" style="background:#ffd60a"></i>Got it</span>
+      <span><i class="sw" style="background:#fff"></i>Real answer</span>
+      <span><i class="sw" style="border:4px solid #ffd60a;background:#1a1a1a"></i>Your guess</span>
+    </div>
+    <div class="btn" id="btn">Lock it in</div>
+    <div class="result" id="result">
+      <img src="/public/img/bee-honey.png" alt="" id="rbee">
+      <div><div class="tier">☀️ Warm</div><div class="pts pixel">+95 PTS</div></div>
+    </div>
+  </section>
+
+  <section id="tiers" class="layer">
+    <h2>Six tiers.<br>One <em>bee</em> for each.</h2>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="daily" class="layer">
+    <div class="line" id="l1"><em>7</em> prompts.</div>
+    <div class="line" id="l2">Same for <em>everyone.</em></div>
+    <div class="line" id="l3">One shot a day.</div>
+    <div class="share" id="share">
+      <div class="emojis">🎯🔥☀️🔥😐☀️🎯</div>
+      <div class="score pixel" id="score">0 <span>/ 1225</span></div>
+    </div>
+  </section>
+
+  <section id="end" class="layer">
+    <div class="logo" id="elogo">HONEYDLE</div>
+    <div class="tag" id="etag">Sweet daily trivia</div>
+    <div class="parade" id="parade"></div>
+    <div class="cta" id="cta">Play free today</div>
+    <div class="url pixel" id="url">HONEYDLE.COM</div>
+  </section>
+</div>
+
+<script type="module">
+import { Honeycomb, looksFor } from "/public/js/honeycomb.js";
+
+const QUESTION = "What % of Americans live in urban areas?";
+const GUESS = 72, REAL = 80;
+const TIERS = [
+  ["diamond", "Bullseye", "🎯 dead on"], ["golden", "Hot", "🔥 within 3"], ["honey", "Warm", "☀️ within 12"],
+  ["lukewarm", "Lukewarm", "😐 within 25"], ["cold", "Cold", "🥶 within 40"], ["wayoff", "Way Off", "❌ way off"],
+];
+const PARADE = ["wayoff", "cold", "honey", "golden", "diamond"];
+export const DURATION = 19;
+
+const $ = (id) => document.getElementById(id);
+const grid = $("grid");
+for (const [bee, name, sub] of TIERS)
+  grid.insertAdjacentHTML("beforeend", `<div class="cell"><img src="/public/img/bee-${bee}.png" alt=""><b>${name}</b><small>${sub}</small></div>`);
+for (const bee of PARADE) $("parade").insertAdjacentHTML("beforeend", `<img src="/public/img/bee-${bee}.png" alt="">`);
+
+const comb = new Honeycomb($("combHost"));
+comb.ro.disconnect();
+comb.resize();
+
+// --- timing helpers ---------------------------------------------------------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+const easeInOut = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+const back = (p) => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+/** opacity for a layer visible between a and b with fades */
+const win = (t, a, b, f = 0.35) => Math.min(prog(t, a, a + f), 1 - prog(t, b - f, b));
+/** pop in: fade + rise + scale */
+function pop(el, t, at, dur = 0.45, rise = 60) {
+  const p = prog(t, at, at + dur);
+  el.style.opacity = easeOut(p);
+  el.style.transform = `translateY(${(1 - easeOut(p)) * rise}px) scale(${0.85 + 0.15 * back(p)})`;
+}
+
+const SCENES = { hook: [0, 2.6], game: [2.4, 9.9], tiers: [9.8, 12.9], daily: [12.8, 15.9], end: [15.8, DURATION + 1] };
+
+function render(t) {
+  for (const [id, [a, b]] of Object.entries(SCENES)) $(id).style.opacity = win(t, a, b);
+  $("brand").style.opacity = win(t, 2.4, 15.9);
+
+  // hook
+  pop($("hk1"), t, 0.1);
+  pop($("hk2"), t, 0.45, 0.6, 90);
+  $("hook").style.transform = `scale(${1 + 0.05 * prog(t, 0, 2.6)})`;
+
+  // question types on
+  const chars = Math.floor(QUESTION.length * prog(t, 2.6, 3.9));
+  $("q").textContent = QUESTION.slice(0, chars);
+
+  // guess counts up (like dragging the slider), then holds
+  const gp = easeInOut(prog(t, 4.1, 5.9));
+  const g = Math.round(GUESS * gp);
+  const revealAt = 6.6;
+  const num = $("num");
+  if (t < revealAt + 0.2) {
+    num.textContent = `${g}%`;
+    num.style.color = "";
+  } else {
+    // reveal: number flips to the real answer
+    const rp = prog(t, revealAt + 0.2, revealAt + 1.0);
+    num.textContent = `${Math.round(GUESS + (REAL - GUESS) * easeOut(rp))}%`;
+    num.style.color = "#fff";
+  }
+  num.style.opacity = prog(t, 3.9, 4.2);
+  $("combHost").style.opacity = easeOut(prog(t, 3.6, 4.1));
+  $("combHost").style.transform = `scale(${0.9 + 0.1 * easeOut(prog(t, 3.6, 4.1))})`;
+
+  // button appears, gets pressed
+  const btn = $("btn");
+  btn.style.opacity = prog(t, 5.6, 5.9) * (1 - prog(t, 6.7, 6.9));
+  const press = prog(t, 6.2, 6.35) * (1 - prog(t, 6.45, 6.6));
+  btn.style.transform = `translateY(${press * 10}px)`;
+  btn.style.boxShadow = `0 ${10 - press * 10}px 0 var(--gold)`;
+
+  // comb state
+  const target = looksFor({ mode: "reveal", guess: GUESS, real: REAL });
+  let pops = [];
+  if (t < revealAt) {
+    comb.looks = looksFor({ mode: "guess", guess: g });
+  } else {
+    const el = (t - revealAt) * 1000, step = 8, POP = 160;
+    const lit = target.map((l, i) => (l !== "empty" ? i : -1)).filter((i) => i >= 0);
+    comb.looks = new Array(100).fill("empty");
+    lit.forEach((idx, k) => {
+      const st = k * step;
+      if (el >= st) {
+        comb.looks[idx] = target[idx];
+        const p = (el - st) / POP;
+        if (p < 1) pops.push({ idx, k: 1 + 0.18 * Math.sin(Math.PI * p) });
+      }
+    });
+  }
+  comb.draw(pops);
+
+  $("legend").style.opacity = prog(t, 7.4, 7.8);
+  const res = $("result");
+  pop(res, t, 7.7, 0.5, 120);
+  $("rbee").style.transform = `translateY(${Math.sin(t * 5) * 10}px) rotate(${Math.sin(t * 3) * 4}deg)`;
+
+  // tiers
+  $("tiers").querySelector("h2").style.transform = `scale(${0.9 + 0.1 * back(prog(t, 9.8, 10.3))})`;
+  [...grid.children].forEach((c, i) => pop(c, t, 10.2 + i * 0.22, 0.4, 80));
+
+  // daily
+  pop($("l1"), t, 12.9); pop($("l2"), t, 13.35); pop($("l3"), t, 13.8);
+  pop($("share"), t, 14.3, 0.5, 100);
+  const sc = Math.round(905 * easeOut(prog(t, 14.5, 15.4)));
+  $("score").innerHTML = `${sc} <span>/ 1225</span>`;
+
+  // end card
+  const lp = prog(t, 15.9, 16.5);
+  const lg = $("elogo");
+  lg.style.opacity = lp;
+  lg.style.transform = `scale(${0.6 + 0.4 * back(lp)})`;
+  pop($("etag"), t, 16.4);
+  [...$("parade").children].forEach((b, i) => {
+    const p = prog(t, 16.6 + i * 0.12, 17.0 + i * 0.12);
+    b.style.opacity = p;
+    b.style.transform = `translateY(${(1 - back(p)) * 120 + Math.sin(t * 4 + i) * 10}px)`;
+  });
+  pop($("cta"), t, 17.3);
+  const pulse = 1 + 0.03 * Math.sin(Math.max(0, t - 17.8) * 6);
+  if (t > 17.8) $("cta").style.transform = `scale(${pulse})`;
+  pop($("url"), t, 17.5);
+}
+
+window.DURATION = DURATION;
+window.render = render;
+await document.fonts.ready;
+await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+render(0);
+window.ready = true;
+if (location.hash === "#play") {
+  const t0 = performance.now();
+  const loop = () => { render(((performance.now() - t0) / 1000) % DURATION); requestAnimationFrame(loop); };
+  loop();
+}
+</script>
+</body>
+</html>
