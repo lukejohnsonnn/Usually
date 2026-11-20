@@ -25297,7 +25297,9 @@
    "note": null,
    "finale": false,
    "source": "The Institute for Diversity and Ethics in Sport (TIDES), 2024 NBA Racial and Gender Report Card: 70.4% of players",
-   "sourceUrl": "https://www.tidesport.org/nba"
+   "sourceUrl": "https://www.tidesport.org/nba",
+   "retired": true,
+   "retiredReason": "pulled from the Nov 20 Daily: race-based statistic"
   },
   {
    "id": 339,
@@ -32149,6 +32151,17 @@
     "Despicable Me",
     "Minions"
    ]
+  },
+  {
+   "id": 401,
+   "kind": "guess",
+   "category": "Pop culture",
+   "text": "What % of all World Series have been won by the New York Yankees?",
+   "answer": 22,
+   "note": "27 titles in 121 World Series — the next-best team, the Cardinals, has 11.",
+   "finale": false,
+   "source": "Major League Baseball / Baseball-Reference, World Series history: New York Yankees 27 championships; 121 World Series played 1903–2025 (none in 1904 or 1994)",
+   "sourceUrl": "https://www.baseball-reference.com/postseason/world-series.shtml"
   }
  ]
 }

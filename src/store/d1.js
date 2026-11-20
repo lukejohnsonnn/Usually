@@ -87,7 +87,8 @@ export function createD1Store(db) {
       return p.mode === "daily" || p.mode === "archive" || p.mode === "hunt" ? this.findDailyPlay(p.playerId, p.date, p.mode) : this.getPlay(p.id);
     },
     async savePlay(p) {
-      await exec("UPDATE hd_plays SET results = ?, score = ?, completed_at = ? WHERE id = ?", j(p.results), p.score, p.completedAt ?? null, p.id);
+      await exec("UPDATE hd_plays SET results = ?, score = ?, completed_at = ?, question_ids = ?, snapshot = ? WHERE id = ?",
+        j(p.results), p.score, p.completedAt ?? null, j(p.questionIds), j(p.snapshot), p.id);
     },
     async deletePlays(ids) {
       if (!ids.length) return;
