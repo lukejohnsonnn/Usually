@@ -17,36 +17,33 @@ export const RUBY_THRESHOLD = 800; // a finished run scoring this or more unlock
 // Difference tiers for Guess and Finale rounds. Names are player copy.
 // The curve rewards a good estimate: within 6 points keeps well over half
 // the round, and a decent run of 7 lands around 650–800 out of 1225.
+// Six tiers on one temperature scale, from dead on to way off. The points
+// curve underneath (STEPS) is unchanged: Hot and Warm each cover two steps.
 export const TIERS = [
-  { maxDiff: 0, points: 175, name: "Bullseye", emoji: "🎯", bee: "diamond" },
-  { maxDiff: 1, points: 150, name: "One Off", emoji: "✅", bee: "golden" },
-  { maxDiff: 3, points: 135, name: "Razor Close", emoji: "🔥", bee: "honey" },
-  { maxDiff: 6, points: 115, name: "Close", emoji: "🙂", bee: "drop" },
-  { maxDiff: 12, points: 95, name: "Warm", emoji: "😐", bee: "normal" },
-  { maxDiff: 25, points: 70, name: "Lukewarm", emoji: "😬", bee: "thirsty" },
-  { maxDiff: 40, points: 40, name: "Cold", emoji: "🥶", bee: "thirsty" },
-  { maxDiff: Infinity, points: 10, name: "Way Off", emoji: "❌", bee: "thirsty" },
+  { maxDiff: 0, points: 175, minPoints: 175, name: "Bullseye", emoji: "🎯", bee: "diamond" },
+  { maxDiff: 3, points: 150, minPoints: 135, name: "Hot", emoji: "🔥", bee: "golden" },
+  { maxDiff: 12, points: 115, minPoints: 95, name: "Warm", emoji: "☀️", bee: "honey" },
+  { maxDiff: 25, points: 70, minPoints: 70, name: "Lukewarm", emoji: "😐", bee: "lukewarm" },
+  { maxDiff: 40, points: 40, minPoints: 40, name: "Cold", emoji: "🥶", bee: "cold" },
+  { maxDiff: Infinity, points: 10, minPoints: 0, name: "Way Off", emoji: "❌", bee: "wayoff" },
 ];
+// The scoring curve: [max difference, max rank, points]. Never changes.
+const STEPS = [
+  [0, 1, 175], [1, 3, 150], [3, 6, 135], [6, 10, 115], [12, 15, 95], [25, 20, 70], [40, 30, 40], [Infinity, Infinity, 10],
+];
+/** The tier a points value belongs to (135 is Hot, 95 is Warm). */
+export const tierForPoints = (points) => TIERS.find((t) => points >= t.minPoints) || TIERS.at(-1);
+// Names used before the six-tier scale, so older saved results still show the right bee and emoji.
+const LEGACY_TIERS = { "One Off": "Hot", "Razor Close": "Hot", "Close": "Warm" };
 export const BLANK = { points: 0, name: "Blank", emoji: "⬜" };
-
-// Text rounds: rank bands mapped onto the same named tiers.
-const RANK_BANDS = [
-  { maxRank: 1, tier: 0 },
-  { maxRank: 3, tier: 1 },
-  { maxRank: 6, tier: 2 },
-  { maxRank: 10, tier: 3 },
-  { maxRank: 15, tier: 4 },
-  { maxRank: 20, tier: 5 },
-  { maxRank: 30, tier: 6 },
-  { maxRank: Infinity, tier: 7 },
-];
 
 export function tierForDiff(diff) {
   return TIERS.find((t) => diff <= t.maxDiff);
 }
 
 export function tierByName(name) {
-  return TIERS.find((t) => t.name === name) || (name === BLANK.name ? BLANK : null);
+  const n = LEGACY_TIERS[name] || name;
+  return TIERS.find((t) => t.name === n) || (name === BLANK.name ? BLANK : null);
 }
 
 /** Whole-percent and hundredth-percent values compare exactly via integers. */
@@ -60,16 +57,16 @@ export function scoreNumeric(answer, guess) {
   const a = hundredths(answer);
   const g = hundredths(guess);
   const diff = a < 100 ? Math.abs(a - g) : Math.abs(Math.round(a / 100) - Math.round(g / 100));
-  const t = tierForDiff(diff);
-  return { points: t.points, tier: t.name, diff };
+  const points = STEPS.find((s) => diff <= s[0])[2];
+  return { points, tier: tierForPoints(points).name, diff };
 }
 
 /** Score a text round by rank. rank null = unlisted, blank = empty answer. */
 export function scoreRank(rank, blank = false) {
   if (blank) return { points: BLANK.points, tier: BLANK.name, rank: null };
   if (rank == null) return { points: TIERS.at(-1).points, tier: TIERS.at(-1).name, rank: null };
-  const t = TIERS[RANK_BANDS.find((b) => rank <= b.maxRank).tier];
-  return { points: t.points, tier: t.name, rank };
+  const points = STEPS.find((s) => rank <= s[1])[2];
+  return { points, tier: tierForPoints(points).name, rank };
 }
 
 /**
@@ -190,7 +187,7 @@ export function isValidSet(ids, bank) {
  */
 export function beeForRound(points, { finalScore = null } = {}) {
   if (finalScore != null && isRuby(finalScore, true)) return "ruby";
-  return TIERS.find((t) => t.points === points)?.bee || "thirsty";
+  return points > 0 ? tierForPoints(points).bee : "wayoff";
 }
 
 export function isRuby(score, completed) {

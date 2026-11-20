@@ -79,7 +79,7 @@ test("a full Daily on a phone: one screen per round, nothing leaks before submit
     const bee = await page.$eval(".hero img.bee", (img) => ({ src: img.getAttribute("src"), rendering: getComputedStyle(img).imageRendering }));
     assert.equal(bee.rendering, "pixelated");
     if (r < 6 && r !== 5) assert.match(bee.src, /diamond/, `round ${r + 1}: a Bullseye is the diamond bee`);
-    if (r === 5) assert.match(bee.src, /thirsty/, "a low-ranked text answer is the thirsty bee");
+    if (r === 5) assert.match(bee.src, /wayoff/, "a low-ranked text answer is the Way Off bee");
     if (r === 6) assert.match(bee.src, /ruby/, "the answer that takes the run to 800+ is the ruby bee");
     await page.getByRole("button", { name: r === 6 ? "See my score" : "Next round" }).click();
   }
@@ -216,7 +216,9 @@ test("home parade: the bee crew runs worst to best", { skip }, async () => {
   await page.goto(s.base);
   await page.waitForSelector(".parade .bee-slot");
   const crew = await page.$$eval(".parade .bee-slot", (els) => els.map((e) => e.className.replace("bee-slot ", "")));
-  assert.deepEqual(crew, ["thirsty", "normal", "drop", "honey", "golden", "diamond"]);
+  assert.deepEqual(crew, ["wayoff", "cold", "lukewarm", "honey", "golden", "diamond"]);
+  const row = await page.locator(".crew-row").boundingBox();
+  assert.ok(row.x >= 0 && row.x + row.width <= 390, "the whole parade fits the phone");
   assert.ok(await page.isVisible(".mystery .mystery-bee"), "the ruby bee sits apart from the crew");
   assert.equal(await page.$(".mystery-box"), null, "no box around it");
   const [beeBox, qBox] = await Promise.all([page.locator(".mystery-bee").boundingBox(), page.locator(".mystery-q").boundingBox()]);

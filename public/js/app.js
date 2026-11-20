@@ -56,7 +56,7 @@ async function api(path, { method = "GET", body } = {}) {
 }
 
 const BEE_SRC = (name) => `/img/bee-${name}.png`;
-const ENTRANCE = { golden: "enter-burst", diamond: "enter-diamond", honey: "enter-splash", drop: "enter-pop", normal: "enter-pulse", thirsty: "enter-gentle", ruby: "enter-diamond" };
+const ENTRANCE = { golden: "enter-burst", diamond: "enter-diamond", honey: "enter-splash", lukewarm: "enter-gentle", cold: "enter-gentle", wayoff: "enter-gentle", normal: "enter-pulse", thirsty: "enter-gentle", ruby: "enter-diamond" };
 
 function fullDate(dateStr) {
   const [y, m, d] = dateStr.split("-").map(Number);
@@ -142,7 +142,7 @@ function renderHome() {
   const statCard = (v, l) => h("div", { class: "stat" }, h("span", { class: "v" }, fmt(v)), h("span", { class: "l" }, l));
   // the crew, worst to best — the score ladder made visible
   // the crew, worst to best — and, apart from them, the hidden ruby bee
-  const crew = ["thirsty", "normal", "drop", "honey", "golden", "diamond"];
+  const crew = ["wayoff", "cold", "lukewarm", "honey", "golden", "diamond"];
   const parade = h("div", { class: "parade-wrap", "aria-hidden": "true" }, h("div", { class: "parade" },
     crew.map((b, i) => h("div", { class: `bee-slot ${b}`, style: `--i:${i}` },
       h("div", { class: "bee-fly" }, h("img", { src: `/img/bee-${b}-96.png`, srcset: `/img/bee-${b}-96.png 2x, /img/bee-${b}-144.png 3x`, alt: "", width: 44, height: 44, draggable: "false" })),
@@ -320,7 +320,7 @@ function renderHunt() {
 
 function huntBee(score, total) {
   const f = total ? score / total : 0;
-  return f >= 0.9 ? "diamond" : f >= 0.7 ? "golden" : f >= 0.5 ? "honey" : f >= 0.35 ? "drop" : f >= 0.2 ? "normal" : "thirsty";
+  return f >= 0.9 ? "diamond" : f >= 0.7 ? "golden" : f >= 0.5 ? "honey" : f >= 0.3 ? "lukewarm" : f >= 0.15 ? "cold" : "wayoff";
 }
 
 function renderHuntResults(hunt) {
@@ -627,9 +627,9 @@ function heroFor(result, { center = false, line = null } = {}) {
     [[-4, 8], [96, 18], [88, 92]].slice(0, bee === "golden" ? 2 : 3).forEach(([x, y], i) =>
       beeBox.append(h("img", { class: "sparkle", src: SPARKLE, alt: "", style: `left:${x}px;top:${y}px;animation-delay:${i * 0.35}s` })));
   }
-  const chip = bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "You found the hidden ruby bee!")
+  const chip = bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "Only runs that finish 800+ ever see me.")
     : result.timedOut ? h("span", { class: "chip" }, "⏱ Time's up — locked in for you.")
-      : result.tier === "One Off" ? h("span", { class: "chip" }, "One away — so close to a Bullseye.") : null;
+      : (result.diff === 1 || result.rank === 2) ? h("span", { class: "chip" }, "One away — so close to a Bullseye.") : null;
   const words = h("div", {},
     h("p", { class: "tier" }, result.tier),
     h("p", { class: "pts" }, `+${result.points}`, h("small", {}, "points")),
@@ -692,7 +692,7 @@ function renderResults(play) {
     play.mode === "daily" && countdown());
   const rows = h("section", { class: "card rows", "aria-label": "Your rounds" },
     play.results.map((r, i) => {
-      const bee = tierByName(r.tier)?.bee || "thirsty"; // by tier name, so older plays map too
+      const bee = tierByName(r.tier)?.bee || "wayoff"; // by tier name, so older plays map too
       return h("div", { class: "row" },
         h("span", { class: "n" }, i + 1),
         h("div", {}, h("span", { class: "q" }, play.questions[i].text), h("span", { class: "t" }, r.tier)),

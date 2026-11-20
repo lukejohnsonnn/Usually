@@ -137,7 +137,7 @@ describe("server", () => {
     assert.equal((await submit("   ")).status, 400);
     // confirming the suggestion scores it
     const out = (await submit("Humpback whale")).json.result;
-    assert.deepEqual([out.rank, out.points, out.tier], [8, 115, "Close"]);
+    assert.deepEqual([out.rank, out.points, out.tier], [8, 115, "Warm"]);
     assert.equal(out.readBack, undefined);
     assert.equal(out.top3.length, 3);
   });

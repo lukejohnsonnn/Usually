@@ -12,8 +12,8 @@ const bank = loadBank(path.join(root, "data", "bank.json"));
 const byId = new Map(bank.map((q) => [q.id, q]));
 
 test("difference tiers match the shipped curve exactly", () => {
-  const cases = [[0, 175, "Bullseye"], [1, 150, "One Off"], [2, 135, "Razor Close"], [3, 135, "Razor Close"],
-    [4, 115, "Close"], [6, 115, "Close"], [7, 95, "Warm"], [10, 95, "Warm"], [12, 95, "Warm"], [13, 70, "Lukewarm"], [15, 70, "Lukewarm"], [23, 70, "Lukewarm"], [25, 70, "Lukewarm"],
+  const cases = [[0, 175, "Bullseye"], [1, 150, "Hot"], [2, 135, "Hot"], [3, 135, "Hot"],
+    [4, 115, "Warm"], [6, 115, "Warm"], [7, 95, "Warm"], [10, 95, "Warm"], [12, 95, "Warm"], [13, 70, "Lukewarm"], [15, 70, "Lukewarm"], [23, 70, "Lukewarm"], [25, 70, "Lukewarm"],
     [26, 40, "Cold"], [40, 40, "Cold"], [41, 10, "Way Off"], [50, 10, "Way Off"]];
   for (const [diff, pts, name] of cases) {
     const up = G.scoreNumeric(50, 50 + diff), down = G.scoreNumeric(50, 50 - diff);
@@ -22,13 +22,18 @@ test("difference tiers match the shipped curve exactly", () => {
   }
   assert.equal(G.scoreNumeric(0, 100).tier, "Way Off");
   assert.equal(G.MAX_SCORE, 1225);
-  assert.ok(!G.TIERS.some((t) => t.name === "Dead On"), "the old tier name never returns");
+  assert.equal(G.TIERS.length, 6, "six tiers");
+  assert.ok(!G.TIERS.some((t) => ["Dead On", "One Off", "Razor Close", "Close"].includes(t.name)), "old tier names never return");
+  // results saved under the old eight-tier names still show a bee and an emoji
+  assert.equal(G.tierByName("One Off").name, "Hot");
+  assert.equal(G.tierByName("Razor Close").name, "Hot");
+  assert.equal(G.tierByName("Close").name, "Warm");
 });
 
 test("sub-1% answers are scored in hundredths on the same curve", () => {
   assert.equal(G.scoreNumeric(0.07, 0.07).tier, "Bullseye");
-  assert.equal(G.scoreNumeric(0.07, 0.08).tier, "One Off");
-  assert.equal(G.scoreNumeric(0.2, 0.24).tier, "Close");
+  assert.equal(G.scoreNumeric(0.07, 0.08).tier, "Hot");
+  assert.equal(G.scoreNumeric(0.2, 0.24).tier, "Warm");
   assert.equal(G.scoreNumeric(0.01, 0.02).diff, 1);
   assert.equal(G.scoreNumeric(0.2, 1).diff, 80);
   assert.equal(G.scoreNumeric(0.29, 0.3).points, 150, "float noise never changes a tier");
@@ -37,6 +42,7 @@ test("sub-1% answers are scored in hundredths on the same curve", () => {
 test("text rank bands", () => {
   const cases = [[1, 175], [2, 150], [3, 150], [4, 135], [6, 135], [7, 115], [10, 115], [11, 95], [15, 95], [16, 70], [20, 70], [21, 40], [30, 40], [31, 10], [99, 10]];
   for (const [rank, pts] of cases) assert.equal(G.scoreRank(rank).points, pts, `rank ${rank}`);
+  assert.deepEqual([2, 6, 7, 15, 16, 21, 31].map((r) => G.scoreRank(r).tier), ["Hot", "Hot", "Warm", "Warm", "Lukewarm", "Cold", "Way Off"]);
   assert.deepEqual(G.scoreRank(null), { points: 10, tier: "Way Off", rank: null });
   assert.deepEqual(G.scoreRank(null, true), { points: 0, tier: "Blank", rank: null });
 });
@@ -87,10 +93,12 @@ test("Eastern dates", () => {
 test("bee rules: one bee per tier, Bullseye is diamond, ruby over 1000", () => {
   assert.equal(G.beeForRound(175), "diamond");
   assert.equal(G.beeForRound(150), "golden");
-  assert.equal(G.beeForRound(135), "honey");
-  assert.equal(G.beeForRound(115), "drop");
-  assert.equal(G.beeForRound(95), "normal");
-  for (const p of [70, 40, 10, 0]) assert.equal(G.beeForRound(p), "thirsty");
+  assert.equal(G.beeForRound(135), "golden");
+  assert.equal(G.beeForRound(115), "honey");
+  assert.equal(G.beeForRound(95), "honey");
+  assert.equal(G.beeForRound(70), "lukewarm");
+  assert.equal(G.beeForRound(40), "cold");
+  for (const p of [10, 0]) assert.equal(G.beeForRound(p), "wayoff");
   // the last answer hands over to ruby only when the finished run goes over 1000
   assert.equal(G.beeForRound(40, { finalScore: 800 }), "ruby", "800 or more unlocks the hidden ruby bee");
   assert.equal(G.beeForRound(175, { finalScore: 799 }), "diamond");
@@ -101,8 +109,8 @@ test("bee rules: one bee per tier, Bullseye is diamond, ruby over 1000", () => {
 });
 
 test("share card: tiers only, never answers", () => {
-  const results = ["Bullseye", "One Off", "Razor Close", "Close", "Warm", "Lukewarm", "Cold"].map((tier) => ({ tier }));
-  assert.equal(G.shareText("2026-11-19", results, 545), "Honeydle 2026-11-19\n🎯✅🔥🙂😐😬🥶\n🍯 545");
+  const results = ["Bullseye", "Hot", "Warm", "Lukewarm", "Cold", "Way Off", "One Off"].map((tier) => ({ tier }));
+  assert.equal(G.shareText("2026-11-19", results, 545), "Honeydle 2026-11-19\n🎯🔥☀️😐🥶❌🔥\n🍯 545");
   assert.equal(G.shareText("d", [{ tier: "Way Off" }, { tier: "Blank" }], 5), "Honeydle d\n❌⬜\n🍯 5");
 });
 
