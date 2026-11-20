@@ -286,6 +286,7 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       const out = { kind, guess: typed.trim(), points: s.points, tier: s.tier, rank: s.rank };
       if (m.rank != null && !m.exact) out.readBack = labelOf(q, m.rank);
       out.top3 = [1, 2, 3].map((r) => labelOf(q, r)).filter(Boolean);
+      out.list = q.textAnswers.map((slot) => labelOf(q, slot.rank)); // every answer, shown once you've answered
       if (timedOut) out.timedOut = true;
       return out;
     }
@@ -310,12 +311,13 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       const scored = scoreRound(q, value, { timedOut: timedOut === true });
       if (scored.suggestion !== undefined) return { suggestion: scored.suggestion }; // not scored yet
       if (scored.refused) return { refused: scored.refused, message: scored.message }; // round not used up
-      const result = { round: next, questionId: q.id, ...scored };
+      const { list, ...kept } = scored; // the full list is sent once, not stored with the play
+      const result = { round: next, questionId: q.id, ...kept };
       play.results.push(result);
       play.score = play.results.reduce((a, r) => a + r.points, 0);
       if (play.results.length === ROUNDS) play.completedAt = now().toISOString();
       await store.savePlay(play);
-      return { result, play: playView(play) };
+      return { result: list ? { ...result, list } : result, play: playView(play) };
     });
   }
 
