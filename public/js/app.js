@@ -173,9 +173,9 @@ function renderHome() {
     h("section", { class: "card daily-card" },
       h("p", { class: "kicker" }, "Today's Daily · 7 rounds"),
       h("h2", {}, "Seven prompts, the same for everyone. One run a day."),
-      action),
+      action,
+      h("button", { class: "btn ghost past-btn", onclick: renderArchive }, "Past games")),
     state.hunt && huntCard(state.hunt),
-    h("button", { class: "btn ghost", onclick: renderArchive }, "Past games"),
     footer()));
 }
 
@@ -492,7 +492,15 @@ function buildNumberRound({ screen, q, timer, jar }) {
   const combWrap = h("div", { class: "comb-wrap" }, combHost);
   const slider = h("input", { type: "range", min: 0, max: 100, step: 1, value: 50, "aria-label": "Your guess, percent" });
   const typed = h("input", { class: "field", type: "text", inputmode: "decimal", value: "50", "aria-label": "Type your guess", autocomplete: "off", maxlength: 6 });
-  const fineBtn = h("button", { class: "btn ghost small fine-btn", type: "button", hidden: true, onclick: () => openFineTune(value, (v) => setValue(v)) }, "Fine-tune hundredths");
+  // "<1" switches the slider to hundredths (0.00–1.00); tap again for whole percents
+  let sub1 = false;
+  const subBtn = h("button", { class: "sub1-btn", type: "button", "aria-pressed": "false", "aria-label": "Under 1%: hundredths", title: "Under 1%", onclick: () => setSub(!sub1) }, "<1");
+  function setSub(on) {
+    sub1 = on;
+    subBtn.setAttribute("aria-pressed", String(on));
+    slider.setAttribute("aria-label", on ? "Your guess, hundredths of a percent" : "Your guess, percent");
+    setValue(on ? (value < 1 ? value : 0.5) : Math.max(1, Math.round(value)));
+  }
   const form = h("form", { class: "controls pinnable" });
 
   screen.append(big, combWrap, form);
@@ -500,17 +508,19 @@ function buildNumberRound({ screen, q, timer, jar }) {
 
   function paint() {
     big.replaceChildren(formatPct(value), h("small", {}, "%"));
-    comb.set({ mode: "guess", guess: value > 0 && value < 1 ? 1 : value }, `Your guess: ${formatPct(value)} percent`);
-    fineBtn.hidden = !(value <= 1);
-    slider.style.setProperty("--v", `${Math.round(value)}%`);
+    if (sub1) comb.set({ mode: "fine", value: Math.round(value * 100) }, `Your guess: ${formatPct(value)} percent`);
+    else comb.set({ mode: "guess", guess: value > 0 && value < 1 ? 1 : value }, `Your guess: ${formatPct(value)} percent`);
+    const pos = sub1 ? Math.round(value * 100) : Math.round(value);
+    slider.style.setProperty("--v", `${pos}%`);
   }
   function setValue(v, from) {
     value = v;
-    if (from !== "slider") slider.value = String(Math.round(v));
+    if (from === "typed" && sub1 !== (v < 1)) { sub1 = v < 1; subBtn.setAttribute("aria-pressed", String(sub1)); }
+    if (from !== "slider") slider.value = String(sub1 ? Math.round(v * 100) : Math.round(v));
     if (from !== "typed") typed.value = formatPct(v).replace(/\.00$/, "");
     paint();
   }
-  slider.addEventListener("input", () => setValue(Number(slider.value), "slider"));
+  slider.addEventListener("input", () => setValue(sub1 ? Number(slider.value) / 100 : Number(slider.value), "slider"));
   typed.addEventListener("input", () => {
     const raw = typed.value.trim().replace(",", ".");
     if (raw === "" || !/^\d*\.?\d*$/.test(raw)) return;
@@ -522,8 +532,8 @@ function buildNumberRound({ screen, q, timer, jar }) {
   });
   typed.addEventListener("focus", () => typed.select());
 
-  form.append(h("div", { class: "slider-row" }, slider, typed), fineBtn,
-    h("p", { class: "hint" }, "Decimals only below 1% — slide to 1 or under, then fine-tune."), lockButton());
+  form.append(h("div", { class: "slider-row" }, subBtn, slider, typed),
+    h("p", { class: "hint" }, "Under 1%? Tap <1 to slide in hundredths."), lockButton());
 
   async function send({ timedOut = false } = {}) {
     if (sent) return;
@@ -699,14 +709,79 @@ function renderResults(play) {
         h("img", { class: "row-bee", src: `/img/bee-${bee}-96.png`, alt: `${bee} bee`, width: 36, height: 36 }),
         h("span", { class: "p" }, r.points));
     }));
+  const standing = play.completed ? standingsCard(play) : null;
   const actions = h("div", { class: "actions" });
   if (play.mode === "daily") actions.append(h("button", { class: "btn primary", onclick: () => share(play.date) }, "Share my score"));
   else actions.append(h("button", { class: "btn primary", onclick: renderArchive }, "More past games"));
   actions.append(h("button", { class: "btn ghost", onclick: goHome }, "Home"));
-  mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, rows, actions, footer()));
+  mount(h("main", { class: "screen results" }, masthead({ date: state.date || play.date }), hero, rows, actions, standing, footer()));
   const jar = new HoneyJar(hero.querySelector(".jar-big"), { scale: 4 });
   jar.fill(0, { animate: false });
   requestAnimationFrame(() => jar.fill(play.score / JAR_FULL, { label: `${play.score} points of honey` }));
+}
+
+/** "How you stack up": a smooth curve of everyone's scores that day, with your spot marked. */
+function standingsCard(play) {
+  const card = h("section", { class: "card standings", "aria-label": "How you stack up" },
+    h("p", { class: "kicker" }, "How you stack up"), h("p", { class: "loading" }, "Loading"));
+  api(`/standings?date=${play.date}`).then(({ standings: s }) => {
+    if (!s) { card.remove(); return; }
+    const headline = s.beat == null
+      ? h("p", { class: "beat" }, "You're the first today!")
+      : h("p", { class: "beat" }, "You beat ", h("b", {}, `${s.beat}%`), s.mode === "archive" ? " of that day's players" : " of players today");
+    card.replaceChildren(h("p", { class: "kicker" }, "How you stack up"), headline, scoreCurveChart(s),
+      h("p", { class: "hint" }, `${s.players} ${s.players === 1 ? "player" : "players"}${s.mode === "archive" ? " that day" : " so far today"}`));
+  }).catch(() => card.remove());
+  return card;
+}
+
+/** The curve itself: an SVG area, lit up to your score, with a bee riding the line where you landed. */
+function scoreCurveChart(s) {
+  const W = 300, H = 110, TOP = 8;
+  const { from, to, points } = s.curve;
+  const X = (v) => ((v - from) / (to - from)) * W;
+  const Y = (d) => H - d * (H - TOP);
+  const pts = points.map(([x, d]) => [X(x), Y(d)]);
+  // Catmull-Rom through the points, as cubic Béziers: a smooth line
+  let line = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    line += `C${c1.map((n) => n.toFixed(1))} ${c2.map((n) => n.toFixed(1))} ${p2.map((n) => n.toFixed(1))}`;
+  }
+  const area = `${line}L${W},${H}L0,${H}Z`;
+  const you = Math.min(to, Math.max(from, s.score));
+  const yx = X(you);
+  // the curve's height at your score, read off the sampled points
+  const k = Math.min(points.length - 2, Math.max(0, Math.floor(((you - from) / (to - from)) * (points.length - 1))));
+  const [xa, da] = points[k], [xb, db] = points[k + 1];
+  const yd = da + (db - da) * ((you - xa) / (xb - xa || 1));
+  const yy = Y(yd);
+  const ns = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs) => { const n = document.createElementNS(ns, tag); for (const [k2, v] of Object.entries(attrs)) n.setAttribute(k2, v); return n; };
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: "none", class: "curve-svg", "aria-hidden": "true" });
+  const defs = el("defs", {});
+  const grad = el("linearGradient", { id: "curve-lit", x1: 0, y1: 0, x2: 0, y2: 1 });
+  grad.append(el("stop", { offset: "0", "stop-color": "#ffd60a", "stop-opacity": ".85" }), el("stop", { offset: "1", "stop-color": "#ffd60a", "stop-opacity": ".15" }));
+  const clip = el("clipPath", { id: "curve-below" });
+  clip.append(el("rect", { x: 0, y: 0, width: yx.toFixed(1), height: H }));
+  defs.append(grad, clip);
+  svg.append(defs,
+    el("path", { d: area, fill: "#2c2719" }),
+    el("path", { d: area, fill: "url(#curve-lit)", "clip-path": "url(#curve-below)" }),
+    el("path", { d: line, fill: "none", stroke: "#cf9a06", "stroke-width": 2, "vector-effect": "non-scaling-stroke" }),
+    el("line", { x1: yx, x2: yx, y1: yy, y2: H, stroke: "#fff", "stroke-width": 1.5, "stroke-dasharray": "3 3", "vector-effect": "non-scaling-stroke" }));
+  const left = `${(yx / W) * 100}%`, top = `${yy.toFixed(1)}px`; // the SVG is drawn 110px tall, 1:1 vertically
+  const bee = h("img", { class: "curve-bee", src: BEE_SRC(isRuby(s.score, true) ? "ruby" : "golden"), alt: "", style: `left:${left};top:${top}` });
+  const dot = h("span", { class: "curve-dot", style: `left:${left};top:${top}` });
+  // axis: round hundreds inside the range
+  const step = to - from > 700 ? 200 : 100;
+  const ticks = [];
+  for (let t = Math.ceil(from / step) * step; t <= to; t += step) ticks.push(t);
+  const axis = h("div", { class: "curve-axis" }, ticks.map((t) => h("span", { style: `left:${(X(t) / W) * 100}%` }, String(t))));
+  const tag = h("span", { class: "curve-you", style: `left:${Math.min(86, Math.max(14, (yx / W) * 100))}%` }, `You · ${s.score}`);
+  return h("div", { class: "curve", role: "img", "aria-label": `Everyone's scores today as a curve; you scored ${s.score}` }, svg, dot, bee, tag, axis);
 }
 
 /** Seconds until the next Daily: midnight Eastern. */
@@ -767,34 +842,12 @@ function closeOverlay() { overlayCleanup?.(); overlayCleanup = null; }
 function showHowTo() {
   openOverlay("How to play", h("div", {},
     h("p", {}, h("b", {}, "Daily. "), "One set of seven prompts, the same for everyone, one run a day. Every answer is a real published statistic."),
-    h("p", {}, h("b", {}, "Guess the %. "), "Slide or type your guess. Under 1%, Fine-tune works in hundredths."),
+    h("p", {}, h("b", {}, "Guess the %. "), "Slide or type your guess. Under 1%, tap <1 next to the slider to guess in hundredths."),
     h("p", {}, h("b", {}, "Name the #1. "), "Type an answer on the ranked list — the higher it ranks, the more points. Close spellings get corrected for you; press Enter again to lock it in."),
     h("p", {}, h("b", {}, `${GUESS_SECONDS} seconds to guess, ${TEXT_SECONDS} to type. `), "When time runs out, whatever you have is locked in."),
     h("p", {}, h("b", {}, "Fill the jar. "), "Every point is honey. Pros say there's a bee nobody's seen…"),
     h("p", {}, "The closer your guess, the more points. A perfect guess is a Bullseye."),
     h("button", { class: "btn primary", onclick: closeOverlay }, "Got it")));
-}
-
-function openFineTune(start, onOk) {
-  let v = Math.min(100, Math.max(1, Math.round((start <= 1 ? start : 1) * 100)));
-  const val = h("div", { class: "fine-value", "aria-live": "polite" });
-  const host = h("div", { class: "comb" });
-  const slider = h("input", { type: "range", min: 1, max: 100, step: 1, value: v, "aria-label": "Hundredths of a percent" });
-  const sheet = openOverlay("Fine-tune", h("div", {},
-    h("p", { style: "text-align:center" }, "Hundredths — each cell is 0.01%."),
-    val, host, slider,
-    h("div", { class: "btn-row" },
-      h("button", { class: "btn ghost", onclick: closeOverlay }, "Cancel"),
-      h("button", { class: "btn primary", onclick: () => { closeOverlay(); onOk(v / 100); } }, "OK"))));
-  const comb = new Honeycomb(host);
-  const paint = () => {
-    val.textContent = `${(v / 100).toFixed(2)}%`;
-    slider.style.setProperty("--v", `${v}%`);
-    comb.set({ mode: "fine", value: v }, `${(v / 100).toFixed(2)} percent`);
-  };
-  slider.addEventListener("input", () => { v = Number(slider.value); paint(); });
-  paint();
-  void sheet;
 }
 
 async function showYesterday() {

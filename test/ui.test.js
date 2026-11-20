@@ -124,18 +124,15 @@ test("resume: reloading mid-run returns to the next unanswered round", { skip },
   await ctx.close();
 });
 
-test("fine-tune: hundredths below 1%", { skip }, async () => {
+test("<1 toggle: the slider goes to hundredths below 1%", { skip }, async () => {
   const { ctx, page, errors } = await newPhone();
   await page.goto(s.base);
   await page.getByRole("button", { name: "Play today's Daily" }).click();
   await page.waitForSelector("input[type=range]");
-  assert.equal(await page.isVisible(".fine-btn"), false, "hidden above 1%");
-  await page.$eval("input[type=range]", (el) => { el.value = "1"; el.dispatchEvent(new Event("input")); });
-  await page.getByRole("button", { name: "Fine-tune hundredths" }).click();
-  await page.waitForSelector(".sheet .fine-value");
-  await page.$eval(".sheet input[type=range]", (el) => { el.value = "7"; el.dispatchEvent(new Event("input")); });
-  assert.equal(await page.textContent(".sheet .fine-value"), "0.07%");
-  await page.getByRole("button", { name: "OK" }).click();
+  await page.click(".sub1-btn");
+  assert.equal(await page.getAttribute(".sub1-btn", "aria-pressed"), "true");
+  assert.equal((await page.textContent(".bignum")).trim(), "0.50%");
+  await page.$eval("input[type=range]", (el) => { el.value = "7"; el.dispatchEvent(new Event("input")); });
   assert.equal((await page.textContent(".bignum")).trim(), "0.07%");
   assert.equal(await page.inputValue("input.field"), "0.07");
   // typed field mirrors too
