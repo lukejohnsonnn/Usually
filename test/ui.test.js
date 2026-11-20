@@ -361,17 +361,20 @@ test("hive hunt: a bonus card on home, a timed hunt, and results with what you m
     await page.waitForSelector(".hunt-card");
     assert.match(await page.textContent(".hunt-card"), /Hive Hunt #10/);
     assert.doesNotMatch(await page.textContent("main"), /Central America/, "the list is hidden before the start");
+    assert.match(await page.textContent(".hunt-card"), /Start the hunt to find out/);
     await page.locator(".hunt-card button").click();
     assert.doesNotMatch(await page.textContent("main"), /Central America/, "still hidden on the start screen");
     await page.getByRole("button", { name: "Start the hunt" }).click();
     await page.waitForSelector("input.field.text");
     assert.match(await page.textContent(".question"), /Central America/, "revealed when the clock starts");
     assert.equal(await page.locator(".hc-cell").count(), 7, "one cell per entry");
-    for (const v of ["Panama", "Belise", "Mexico", "Panama"]) {
+    for (const [i, v] of ["Panama", "Belise", "Mexico", "Panama"].entries()) {
       await page.fill("input.field.text", v);
-      await page.press("input.field.text", "Enter");
+      if (i % 2) await page.getByRole("button", { name: "Enter answer" }).click(); // the on-screen Enter button
+      else await page.press("input.field.text", "Enter"); // the keyboard's Enter key
       await page.waitForTimeout(150);
     }
+    assert.ok(await page.evaluate(() => document.activeElement?.matches("input.field.text")), "focus stays in the box after tapping Enter");
     assert.equal(await page.locator(".hc-cell.found").count(), 2, "Panama and Belize (typo)");
     assert.match(await page.textContent(".hunt-feedback"), /Already got Panama/);
     await page.getByRole("button", { name: /end the hunt/ }).click();
