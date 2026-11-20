@@ -77,13 +77,15 @@ def lowpass(x, k):
 
 
 # ---------------------------------------------------------------- music ----
-BPM = 128
+BPM = 120  # beat = 0.5s; bars start at 0.5s so the reveal drop (8.5s) is a downbeat
+GRID0 = 0.5
 BEAT = 60 / BPM
 S16 = BEAT / 4
 # I–V–vi–IV in C: C G Am F, one bar each
 CHORDS = [(60, 64, 67), (55, 59, 62), (57, 60, 64), (53, 57, 60)]
 
-BREAK = (7.45, 8.7)       # tension: groove drops out before the reveal
+BREAK = (7.5, 8.5)         # tension: groove drops out before the reveal
+DROP = 8.5               # = REVEAL + 0.85, the reveal hit
 END_HIT = 21.0            # final hit, then ring out
 
 
@@ -106,23 +108,23 @@ def hat(open_=False):
     return x * env(len(x), 0.001, d=0.04 if open_ else 0.012)
 
 
-step_count = int(DUR / S16)
-for s in range(step_count):
-    at = s * S16
+step_count = int((DUR - GRID0) / S16)
+for s in range(-int(GRID0 / S16), step_count):
+    at = GRID0 + s * S16
     if at >= END_HIT:
         break
     in_break = BREAK[0] <= at < BREAK[1]
     bar = int(s // 16) % 4
     pos = s % 16
-    intro = at < 2.6
+    intro = at < 2.5
     chord = CHORDS[bar]
     # drums
     if not in_break:
-        if pos in (0, 8) or (pos in (6, 14) and not intro and at > 8.7):
+        if pos in (0, 8) or (pos in (6, 14) and not intro and at >= DROP):
             put(music, at, kick(), 0.9)
         if pos in (4, 12) and not intro:
             put(music, at, snare(), 0.45)
-    if not intro and (pos % 2 == 0 or (at >= 8.7 and pos in (7, 11, 15))):
+    if not intro and (pos % 2 == 0 or (at >= DROP and pos in (7, 11, 15))):
         put(music, at, hat(pos % 4 == 2), (0.18 if pos % 2 == 0 else 0.1) if not in_break else 0.12)
     if in_break:
         continue
@@ -132,7 +134,7 @@ for s in range(step_count):
         d = S16 * 1.8
         put(music, at, square(hz(root), d, 0.5) * env(int(SR * d), 0.002, r=0.02), 0.10)
     # after the drop: a sub layer under the bass, and a clap on the snare
-    if at >= 8.7:
+    if at >= DROP:
         if pos % 4 == 0:
             d = S16 * 3.5
             put(music, at, np.sin(2 * np.pi * hz(chord[0] - 36) * t_axis(d)) * env(int(SR * d), 0.003, r=0.05), 0.22)
@@ -206,20 +208,20 @@ def cymbal(d=1.2):
 
 
 # hook: four word slams
-for i, at in enumerate([0.1, 0.5, 0.9, 1.35]):
+for i, at in enumerate([0.5, 1.0, 1.5, 2.0]):
     put(sfx, at - 0.12, whoosh(0.14), 0.25)
     put(sfx, at, thud(), 0.75 if i != 2 else 0.95)
     put(sfx, at, blip([60, 64, 67, 72][i], 0.12, "sq", 0.5), 0.12)
 
 # scene in + question words pop
-put(sfx, 2.45, whoosh(0.35), 0.4)
-put(sfx, 2.7, thud(0.6), 0.6)
+put(sfx, 2.2, whoosh(0.3), 0.4)
+put(sfx, 2.5, thud(0.6), 0.6)
 for i in range(9):
-    put(sfx, 2.85 + i * 0.09, blip(76 + (i % 3) * 2, 0.04, "tri"), 0.18)
-put(sfx, 4.0, arp([67, 72], 0.05, 0.1), 0.18)  # number appears
+    put(sfx, 2.75 + i * 0.125, blip(76 + (i % 3) * 2, 0.04, "tri"), 0.18)
+put(sfx, 4.0, arp([67, 72], 0.0625, 0.1), 0.18)  # number appears
 
 # slider ticks: one per 3% the guess moves (same path as ad.html)
-PATH = [(4.3, 0), (4.9, 42), (5.5, 81), (6.0, 64), (6.7, 96), (7.4, 96)]
+PATH = [(4.25, 0), (4.75, 42), (5.25, 81), (5.75, 64), (6.5, 96), (7.0, 96)]
 
 
 def ease_in_out(p):
@@ -236,15 +238,15 @@ def guess_at(tt):
 
 
 last = 0
-for k in range(int(4.3 * 200), int(7.0 * 200)):
-    tt = k / 200
+for k in range(int(4.25 / S16), int(6.75 / S16)):  # checked on the 16th-note grid so ticks stay in time
+    tt = k * S16
     g = guess_at(tt)
-    if abs(g - last) >= 3:
+    if abs(g - last) >= 1:
         last = g
         put(sfx, tt, blip(72 + int(g / 100 * 24), 0.025, "sq", 0.125), 0.10)
 
-LOCK, REVEAL = 7.55, 7.85
-put(sfx, 7.0, whoosh(0.2), 0.15)
+LOCK, REVEAL = 7.25, 7.65
+put(sfx, 6.75, whoosh(0.2), 0.15)
 put(sfx, LOCK, blip(84, 0.03, "sq", 0.5), 0.3)
 put(sfx, LOCK, thud(0.5), 0.5)
 # comb fill: rising pops, one every 4 cells (8 ms per cell)
@@ -254,15 +256,15 @@ for k in range(0, 99, 4):
 HIT = REVEAL + 0.85
 put(sfx, HIT, thud(1.2), 1.0)
 put(sfx, HIT, cymbal(1.4), 0.25)
-put(sfx, HIT + 0.05, arp([72, 76, 79, 84, 88], 0.06, 0.3), 0.2)
+put(sfx, HIT, arp([72, 76, 79, 84, 88], 0.0625, 0.3), 0.2)
 put(sfx, HIT + 0.1, sparkle(0.8), 0.18)
-put(sfx, REVEAL + 1.0, whoosh(0.15), 0.2)
-put(sfx, REVEAL + 1.05, thud(0.7), 0.5)
-for k in range(14):  # +135 counter
-    put(sfx, REVEAL + 1.2 + k * 0.05, blip(84 + (k % 2) * 3, 0.025, "sq", 0.125), 0.07)
+put(sfx, REVEAL + 0.95, whoosh(0.15), 0.2)
+put(sfx, REVEAL + 1.1, thud(0.7), 0.5)
+for k in range(8):  # +135 counter, on 16ths
+    put(sfx, REVEAL + 1.35 + k * S16, blip(84 + (k % 2) * 3, 0.025, "sq", 0.125), 0.07)
 
 # tier montage: each card has its own flavour sting
-T_START, T_EACH = 11.0, 0.62
+T_START, T_EACH = 10.5, 0.5
 STINGS = [
     [84, 88, 91, 96],   # Divine: bright, high
     [79, 83, 86, 91],   # Golden Nectar
@@ -275,7 +277,7 @@ put(sfx, T_START - 0.2, whoosh(0.25), 0.3)
 for i, notes in enumerate(STINGS):
     at = T_START + i * T_EACH
     put(sfx, at, thud(0.9), 0.65)
-    put(sfx, at + 0.03, arp(notes, 0.06, 0.16, 0.5 if i >= 3 else 0.25), 0.16)
+    put(sfx, at, arp(notes, 0.0625, 0.16, 0.5 if i >= 3 else 0.25), 0.16)
     if i == 0:
         put(sfx, at + 0.05, sparkle(0.5), 0.15)
     if i == 5:  # wobbly "bleh"
@@ -285,33 +287,34 @@ for i, notes in enumerate(STINGS):
         put(sfx, at + 0.2, square(f, d, 0.5) * env(len(t), 0.005, d=0.15), 0.12)
 
 # daily lines + share card
-for at in (14.8, 15.15, 15.5):
+for at in (13.5, 14.0, 14.5):
     put(sfx, at - 0.1, whoosh(0.12), 0.2)
     put(sfx, at, thud(0.8), 0.6)
 for i in range(7):  # emoji pops
-    put(sfx, 15.95 + i * 0.12, blip(72 + [0, 4, 7, 4, 9, 7, 12][i], 0.06, "sq", 0.25), 0.16)
-for k in range(21):  # score counter
-    put(sfx, 16.0 + k * 0.05, blip(79 + (k % 2) * 5, 0.025, "sq", 0.125), 0.06)
-put(sfx, 17.1, arp([72, 79, 84, 91], 0.05, 0.25), 0.2)
-put(sfx, 17.1, sparkle(0.6), 0.15)
-put(sfx, 17.25, thud(0.8), 0.6)
+    put(sfx, 15.25 + i * S16, blip(72 + [0, 4, 7, 4, 9, 7, 12][i], 0.06, "sq", 0.25), 0.16)
+for k in range(8):  # score counter, on 16ths
+    put(sfx, 15.5 + k * S16, blip(79 + (k % 2) * 5, 0.025, "sq", 0.125), 0.06)
+put(sfx, 16.5, thud(1.0), 0.8)
+put(sfx, 16.5, arp([72, 79, 84, 91], 0.0625, 0.25), 0.2)
+put(sfx, 16.5, sparkle(0.6), 0.15)
+put(sfx, 17.0, thud(0.8), 0.6)
 
 # end card
-put(sfx, 18.55, whoosh(0.3), 0.4)
-put(sfx, 18.75, thud(1.3), 1.0)
-put(sfx, 18.75, cymbal(1.6), 0.28)
-put(sfx, 18.85, sparkle(0.8), 0.18)
-put(sfx, 19.2, thud(0.6), 0.5)
+put(sfx, 18.2, whoosh(0.3), 0.4)
+put(sfx, 18.5, thud(1.3), 1.0)
+put(sfx, 18.5, cymbal(1.6), 0.28)
+put(sfx, 18.6, sparkle(0.8), 0.18)
+put(sfx, 19.0, thud(0.6), 0.5)
 for i in range(6):  # bees hop in
-    put(sfx, 19.35 + i * 0.07, blip(72 + i * 2, 0.05, "tri"), 0.2)
+    put(sfx, 19.25 + i * S16, blip(72 + i * 2, 0.05, "tri"), 0.2)
 put(sfx, 20.0, thud(0.8), 0.7)
-put(sfx, 20.0, arp([72, 76, 79], 0.04, 0.15), 0.15)
-put(sfx, 20.3, blip(84, 0.08, "sq", 0.5), 0.12)
+put(sfx, 20.0, arp([72, 76, 79], 0.0625, 0.15), 0.15)
+put(sfx, 20.5, blip(84, 0.08, "sq", 0.5), 0.12)
 
 # ---------------------------------------------------------------- mix ------
 # duck the music a little under big hits
 duck = np.ones(N)
-for at, depth in [(0.1, .5), (0.5, .5), (0.9, .5), (1.35, .5), (HIT, .45), (18.75, .45)]:
+for at, depth in [(0.5, .5), (1.0, .5), (1.5, .5), (2.0, .5), (HIT, .45), (16.5, .35), (18.5, .45)]:
     i = int(at * SR)
     n = int(0.35 * SR)
     seg = 1 - depth * np.exp(-np.arange(n) / SR / 0.12)

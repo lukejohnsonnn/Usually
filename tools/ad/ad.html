@@ -174,8 +174,9 @@ export const DURATION = 22;
 const QUESTION = "What % of human DNA is identical to chimpanzee DNA?";
 const GUESS = 96, REAL = 99, POINTS = 135;
 // guess path: the player drags around before settling (time, value)
-const PATH = [[4.3, 0], [4.9, 42], [5.5, 81], [6.0, 64], [6.7, 96], [7.4, 96]];
-const LOCK = 7.55, REVEAL = 7.85;
+const PATH = [[4.25, 0], [4.75, 42], [5.25, 81], [5.75, 64], [6.5, 96], [7.0, 96]];
+// Every hit sits on a 120 BPM grid (beat = 0.5s, bars start at 0.5) so it lands with the soundtrack.
+const LOCK = 7.25, REVEAL = 7.65; // the reveal hit (REVEAL + 0.85) is the drop, on the bar at 8.5
 const TIERS = [
   { bee: "diamond", name: "Divine", emo: "💎", rg: "Dead on", bg: ["#0e3a66", "#7cc6ff"] },
   { bee: "golden", name: "Golden Nectar", emo: "✨", rg: "Within 3", bg: ["#5a3b00", "#ffd60a"] },
@@ -184,14 +185,14 @@ const TIERS = [
   { bee: "bitter", name: "Bitter", emo: "😖", rg: "Within 40", bg: ["#26261c", "#8a8a62"] },
   { bee: "yucky", name: "Yucky", emo: "🤢", rg: "Way off", bg: ["#13300f", "#6fbf3a"] },
 ];
-const T_START = 11.0, T_EACH = 0.62;
-const SCENES = { hook: [0, 2.7], game: [2.5, 11.1], tiers: [10.95, T_START + T_EACH * 6 + 0.1], daily: [14.75, 18.85], end: [18.7, DURATION + 1] };
+const T_START = 10.5, T_EACH = 0.5;
+const SCENES = { hook: [0, 2.55], game: [2.4, 10.6], tiers: [10.45, T_START + T_EACH * 6 + 0.1], daily: [13.45, 18.6], end: [18.45, DURATION + 1] };
 const IMPACTS = [ // camera shake hits: [time, strength]
-  [0.15, 1], [0.55, .8], [0.95, 1.2], [1.4, .9], [2.75, .5], [LOCK + 0.05, .6], [REVEAL + 0.85, 1.4],
+  [0.55, 1], [1.05, .8], [1.55, 1.2], [2.05, .9], [2.55, .5], [LOCK + 0.05, .6], [REVEAL + 0.85, 1.4],
   ...TIERS.map((_, i) => [T_START + i * T_EACH + 0.05, 1]),
-  [14.85, .8], [15.2, .8], [15.55, .8], [17.1, 1.6], [18.85, 1.4], [19.9, .6],
+  [13.55, .8], [14.05, .8], [14.55, .8], [16.5, 1.6], [18.55, 1.4], [20.05, .6],
 ];
-const FLASHES = [[REVEAL + 0.85, .55], [17.1, .85], [18.8, .5], ...TIERS.map((_, i) => [T_START + i * T_EACH, .25])];
+const FLASHES = [[REVEAL + 0.85, .55], [16.5, .85], [18.5, .5], ...TIERS.map((_, i) => [T_START + i * T_EACH, .25])];
 
 const $ = (id) => document.getElementById(id);
 
@@ -234,8 +235,8 @@ const paradeEls = [...$("parade").children];
 const BURSTS = [
   [REVEAL + 0.85, 540, 1600, ["#ffd60a", "#fff3a3", "#ffffff"]],
   ...TIERS.map((t, i) => [T_START + i * T_EACH + 0.02, 540, 760, [t.bg[1], "#ffffff"]]),
-  [17.1, 540, 1150, ["#ffd60a", "#7cc6ff", "#ffffff"]],
-  [18.85, 540, 700, ["#ffd60a", "#ffffff", "#7cc6ff"]],
+  [16.5, 540, 1150, ["#ffd60a", "#7cc6ff", "#ffffff"]],
+  [18.55, 540, 700, ["#ffd60a", "#ffffff", "#7cc6ff"]],
 ];
 const bursts = BURSTS.map(([at, x, y, cols]) => {
   const el = document.createElement("div"); el.className = "spark"; el.style.left = `${x}px`; el.style.top = `${y}px`;
@@ -299,13 +300,13 @@ function guessAt(t) {
 
 function render(t) {
   for (const [id, [a, b]] of Object.entries(SCENES)) $(id).style.opacity = win(t, a, b, 0.15);
-  $("brand").style.opacity = win(t, 2.6, 11.0, 0.2);
+  $("brand").style.opacity = win(t, 2.45, 10.5, 0.2);
 
   // background: glow colour follows the scene; hexes drift up
   let glow = "rgba(255,190,0,0.20)";
   const ti = Math.floor((t - T_START) / T_EACH);
   if (t >= T_START && ti >= 0 && ti < 6) glow = TIERS[ti].bg[1] + "66";
-  if (t > 16.9 && t < 18.8) glow = `rgba(255,190,0,${0.2 + 0.2 * prog(t, 16.9, 17.2)})`;
+  if (t > 16.3 && t < 18.5) glow = `rgba(255,190,0,${0.2 + 0.2 * prog(t, 16.3, 16.6)})`;
   $("bgGlow").style.background = `radial-gradient(circle at 50% 45%, ${glow}, transparent 55%)`;
   if (t >= T_START && ti >= 0 && ti < 6) {
     const [dark] = TIERS[ti].bg;
@@ -321,8 +322,8 @@ function render(t) {
   // camera: shake + slow push + reveal punch-in
   const sh = shake(t);
   let zoom = 1 + 0.012 * Math.sin(t * 1.3);
-  if (t < 2.7) zoom += 0.06 * prog(t, 0, 2.7);
-  zoom += 0.035 * easeInOut(prog(t, REVEAL, REVEAL + 0.8)) * (1 - easeInOut(prog(t, 10.0, 10.9)));
+  if (t < 2.55) zoom += 0.06 * prog(t, 0, 2.55);
+  zoom += 0.035 * easeInOut(prog(t, REVEAL, REVEAL + 0.8)) * (1 - easeInOut(prog(t, 9.7, 10.45)));
   $("cam").style.transform = `translate(${sh.x}px, ${sh.y}px) rotate(${sh.r}deg) scale(${zoom})`;
 
   // flashes
@@ -331,15 +332,15 @@ function render(t) {
   $("flash").style.opacity = fl;
 
   // ---- hook ----
-  slam($("h1"), t, 0.1); slam($("h2"), t, 0.5, { rot: 7 }); slam($("h3"), t, 0.9, { from: 3.4 }); slam($("h4"), t, 1.35, { rot: 5 });
+  slam($("h1"), t, 0.5); slam($("h2"), t, 1.0, { rot: 7 }); slam($("h3"), t, 1.5, { from: 3.4 }); slam($("h4"), t, 2.0, { rot: 5 });
   $("h3").style.transform += ` scale(${1 + 0.05 * Math.sin(t * 9)})`;
   for (const d of DRIPS) d.d.style.height = `${d.len * easeOut(prog(t, d.at, d.at + 2.2))}px`;
   const fb = prog(t, 0.2, 2.6);
   $("flyBee").style.transform = `translate(${lerp(-260, 1100, fb)}px, ${1450 + Math.sin(t * 9) * 40 - fb * 220}px) rotate(${Math.sin(t * 12) * 10}deg)`;
 
   // ---- game ----
-  slam($("meta"), t, 2.7, { from: 1.8 });
-  words.forEach((w, i) => popUp(w, t, 2.85 + i * 0.09, 0.32, 50));
+  slam($("meta"), t, 2.5, { from: 1.8 });
+  words.forEach((w, i) => popUp(w, t, 2.75 + i * 0.125, 0.32, 50));
   const g = Math.round(guessAt(t));
   const num = $("num");
   if (t < REVEAL + 0.6) { num.textContent = `${g}%`; num.style.color = ""; }
@@ -348,7 +349,7 @@ function render(t) {
   if (t > REVEAL + 0.85) num.style.transform = `scale(${1 + 0.35 * Math.exp(-(t - REVEAL - 0.85) * 7)})`;
   // small kick on every value change while dragging
   if (t > 4.3 && t < 7.0) num.style.transform = `scale(${1 + 0.04 * Math.abs(Math.sin(t * 30))})`;
-  const cp = easeOut(prog(t, 3.7, 4.2));
+  const cp = easeOut(prog(t, 3.75, 4.25));
   $("combHost").style.opacity = cp; $("combHost").style.transform = `scale(${0.7 + 0.3 * back(cp)})`;
 
   // slider + finger
@@ -358,12 +359,12 @@ function render(t) {
   const W = 860, kx = (guessAt(t) / 100) * W;
   $("knob").style.left = `${kx}px`; $("sfill").style.width = `${kx}px`;
   const touch = $("touch");
-  let tx = 110 + kx, ty = 1535, ton = prog(t, 4.15, 4.3) * (1 - prog(t, 6.9, 7.05));
-  if (t > 7.0) { const mp = easeInOut(prog(t, 7.0, 7.45)); tx = lerp(110 + W * 0.96, 540, mp); ty = lerp(1535, 1715, mp); ton = prog(t, 7.0, 7.15) * (1 - prog(t, LOCK + 0.15, LOCK + 0.3)); }
+  let tx = 110 + kx, ty = 1535, ton = prog(t, 4.1, 4.25) * (1 - prog(t, 6.6, 6.75));
+  if (t > 6.7) { const mp = easeInOut(prog(t, 6.7, 7.15)); tx = lerp(110 + W * 0.96, 540, mp); ty = lerp(1535, 1715, mp); ton = prog(t, 6.7, 6.85) * (1 - prog(t, LOCK + 0.15, LOCK + 0.3)); }
   touch.style.left = `${tx}px`; touch.style.top = `${ty}px`; touch.style.opacity = ton;
   touch.style.transform = `scale(${t > LOCK - 0.05 && t < LOCK + 0.15 ? 0.8 : 1})`;
   const btn = $("btn");
-  btn.style.opacity = prog(t, 6.75, 7.0) * (1 - prog(t, REVEAL, REVEAL + 0.15));
+  btn.style.opacity = prog(t, 6.5, 6.75) * (1 - prog(t, REVEAL, REVEAL + 0.15));
   const press = prog(t, LOCK - 0.05, LOCK + 0.05) * (1 - prog(t, LOCK + 0.1, LOCK + 0.2));
   btn.style.transform = `translateY(${press * 12}px) scale(${1 - press * 0.03})`;
   btn.style.boxShadow = `0 ${12 - press * 12}px 0 var(--gold)`;
@@ -396,10 +397,10 @@ function render(t) {
   const sbee = $("sbee");
   sbee.style.opacity = t > REVEAL + 0.85 ? 1 : 0;
   sbee.style.transform = `translateY(${(1 - back(sp, 3)) * 400 + Math.sin(t * 6) * 12}px) rotate(${Math.sin(t * 4) * 6}deg) scale(${0.3 + 0.7 * back(sp, 3)})`;
-  slam($("stier"), t, REVEAL + 1.0, { from: 3, rot: -10 });
-  const pp = prog(t, REVEAL + 1.2, REVEAL + 1.9);
+  slam($("stier"), t, REVEAL + 1.1, { from: 3, rot: -10 });
+  const pp = prog(t, REVEAL + 1.35, REVEAL + 2.35);
   $("spts").textContent = `+${Math.round(POINTS * easeOut(pp))} PTS`;
-  $("spts").style.opacity = prog(t, REVEAL + 1.2, REVEAL + 1.3);
+  $("spts").style.opacity = prog(t, REVEAL + 1.35, REVEAL + 1.45);
   $("rays").style.opacity = 0.9 * prog(t, REVEAL + 0.85, REVEAL + 1.2);
   $("rays").style.transform = `rotate(${t * 25}deg) scale(${0.6 + 0.4 * easeOut(sp)})`;
 
@@ -421,22 +422,22 @@ function render(t) {
   slam($("tierHead"), t, T_START - 0.05, { from: 1.6, rot: 0 });
 
   // ---- daily + share ----
-  slam($("l1"), t, 14.8); slam($("l2"), t, 15.15, { rot: 5 }); slam($("l3"), t, 15.5);
-  popUp($("shareBox"), t, 15.75, 0.4, 120);
-  emoEls.forEach((e, i) => slam(e, t, 15.95 + i * 0.12, { from: 3, rot: i % 2 ? 12 : -12, dur: 0.3 }));
-  const sc = Math.round(815 * easeInOut(prog(t, 16.0, 17.05)));
+  slam($("l1"), t, 13.5); slam($("l2"), t, 14.0, { rot: 5 }); slam($("l3"), t, 14.5);
+  popUp($("shareBox"), t, 15.0, 0.4, 120);
+  emoEls.forEach((e, i) => slam(e, t, 15.25 + i * 0.125, { from: 3, rot: i % 2 ? 12 : -12, dur: 0.3 }));
+  const sc = Math.round(815 * easeInOut(prog(t, 15.5, 16.5)));
   const ss = $("shareScore");
   ss.innerHTML = `${sc} <span>/ 1225</span>`;
-  ss.style.transform = `scale(${t > 17.05 ? 1 + 0.3 * Math.exp(-(t - 17.05) * 7) : 1})`;
-  slam($("shareMsg"), t, 17.25, { from: 2.2, rot: -5 });
+  ss.style.transform = `scale(${t > 16.5 ? 1 + 0.3 * Math.exp(-(t - 16.5) * 7) : 1})`;
+  slam($("shareMsg"), t, 17.0, { from: 2.2, rot: -5 });
 
   // ---- end card ----
-  slam($("elogo"), t, 18.75, { from: 3.5, rot: -8, dur: 0.45 });
+  slam($("elogo"), t, 18.5, { from: 3.5, rot: -8, dur: 0.45 });
   $("elogo").style.textShadow = `8px 8px 0 #7a5a00, 0 0 ${50 + 30 * Math.sin(t * 5)}px rgba(255,214,10,.7)`;
-  slam($("etag"), t, 19.2, { from: 2, rot: 4 });
+  slam($("etag"), t, 19.0, { from: 2, rot: 4 });
   paradeEls.forEach((b, i) => {
     const row = 0, col = i;
-    const p = prog(t, 19.35 + i * 0.07, 19.75 + i * 0.07);
+    const p = prog(t, 19.25 + i * 0.125, 19.65 + i * 0.125);
     const x = 5 + col * 166;
     const hop = Math.abs(Math.sin(t * 5 + i * 0.8)) * 22;
     b.style.left = `${x}px`; b.style.top = "90px";
@@ -444,8 +445,8 @@ function render(t) {
     b.style.transform = `translateY(${(1 - back(p, 2.8)) * 500 - hop}px) rotate(${Math.sin(t * 4 + i) * 7}deg)`;
   });
   slam($("cta"), t, 20.0, { from: 2.4, rot: -4 });
-  if (t > 20.5) $("cta").style.transform = `scale(${1 + 0.045 * Math.sin((t - 20.5) * 7)})`;
-  slam($("url"), t, 20.3, { from: 1.8, rot: 0 });
+  if (t > 20.5) $("cta").style.transform = `scale(${1 + 0.07 * Math.exp(-(((t - 0.5) % 0.5) * 9))})`; // thumps on every beat
+  slam($("url"), t, 20.5, { from: 1.8, rot: 0 });
 
   // ---- fx bursts ----
   for (const B of bursts) {
