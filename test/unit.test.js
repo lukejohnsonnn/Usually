@@ -89,8 +89,10 @@ test("bee rules: one bee per tier, Bullseye is diamond, ruby over 1000", () => {
   assert.equal(G.beeForRound(150), "golden");
   assert.equal(G.beeForRound(135), "honey");
   assert.equal(G.beeForRound(115), "drop");
-  assert.equal(G.beeForRound(95), "normal");
-  for (const p of [70, 40, 10, 0]) assert.equal(G.beeForRound(p), "thirsty");
+  assert.equal(G.beeForRound(95), "warm");
+  assert.equal(G.beeForRound(70), "lukewarm");
+  assert.equal(G.beeForRound(40), "cold");
+  for (const p of [10, 0]) assert.equal(G.beeForRound(p), "wayoff");
   // the last answer hands over to ruby only when the finished run goes over 1000
   assert.equal(G.beeForRound(40, { finalScore: 800 }), "ruby", "800 or more unlocks the hidden ruby bee");
   assert.equal(G.beeForRound(175, { finalScore: 799 }), "diamond");
