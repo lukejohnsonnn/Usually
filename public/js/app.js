@@ -146,8 +146,7 @@ function renderHome() {
   const parade = h("div", { class: "parade-wrap", "aria-hidden": "true" }, h("div", { class: "parade" },
     crew.map((b, i) => h("div", { class: `bee-slot ${b}`, style: `--i:${i}` },
       h("div", { class: "bee-fly" }, h("img", { src: `/img/bee-${b}-96.png`, srcset: `/img/bee-${b}-96.png 2x, /img/bee-${b}-144.png 3x`, alt: "", width: 44, height: 44, draggable: "false" })),
-      h("span", { class: "bee-shadow" })))),
-    h("div", { class: "parade-scale" }, h("span", {}, "Yucky"), h("span", { class: "line" }), h("span", {}, "Divine")));
+      h("span", { class: "bee-shadow" })))));
   const mystery = h("div", { class: "mystery", "aria-label": "The ruby bee — a hidden prize only pros find.", role: "img" },
     h("div", { class: "bee-fly mystery-fly" },
       h("img", { class: "mystery-bee", src: "/img/bee-ruby-shadow-96.png", srcset: "/img/bee-ruby-shadow-96.png 2x, /img/bee-ruby-shadow-144.png 3x", alt: "", width: 48, height: 48, draggable: "false" })),
