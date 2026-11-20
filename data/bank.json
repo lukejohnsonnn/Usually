@@ -2,7 +2,7 @@
  "meta": {
   "app": "Honeydle",
   "updated": "2026-11-19",
-  "note": "Question bank. Every answer traces to a real published statistic recorded in source/sourceUrl. kind: guess | text. finale: true marks the round-7 pool. Text rounds: textAnswers ranked list with accepted variants per rank, top1 is the #1 label (published only via Yesterday), unlisted are plausible strings that score as not on the list. retired: true keeps a question in the bank (so a day that already used it keeps working) but new sets never pick it."
+  "note": "Question bank. Every answer traces to a real published statistic recorded in source/sourceUrl. kind: guess | text. finale: true marks the round-7 pool. Text rounds: textAnswers ranked list with accepted variants per rank, top1 is the #1 label (published only via Yesterday), unlisted are plausible strings that score as not on the list. retired: true keeps a question in the bank (so a day that already used it keeps working) but new sets never pick it. exposed: true marks questions players have already seen (Endless practice, earlier Dailies); fresh Dailies prefer unexposed questions and never reuse one."
  },
  "questions": [
   {
@@ -14,7 +14,8 @@
    "note": "About 216 million Brazilians out of roughly 8.1 billion people on Earth.",
    "finale": true,
    "source": "UN World Population Prospects 2024 (Worldometer): Brazil = 2.60% of world population in 2024 (exact published figure 2.6%; rounded to 3% for play — the game scores whole percentages)",
-   "sourceUrl": "http://srv1.worldometers.info/world-population/brazil-population/"
+   "sourceUrl": "http://srv1.worldometers.info/world-population/brazil-population/",
+   "exposed": true
   },
   {
    "id": 40,
@@ -25,7 +26,8 @@
    "note": "Doctorates are rare everywhere.",
    "finale": true,
    "source": "US Census Bureau, American Community Survey 2022: ~2% of US adults hold a doctoral degree",
-   "sourceUrl": "https://streamlinedai.app/blog/what-percent-of-people-have-a-phd"
+   "sourceUrl": "https://streamlinedai.app/blog/what-percent-of-people-have-a-phd",
+   "exposed": true
   },
   {
    "id": 43,
@@ -36,7 +38,8 @@
    "note": null,
    "finale": true,
    "source": "UN / World Bank data via GeoRank: 25.1% of Iceland's population was not native-born (2024)",
-   "sourceUrl": "https://georank.org/population/iceland/north-macedonia"
+   "sourceUrl": "https://georank.org/population/iceland/north-macedonia",
+   "exposed": true
   },
   {
    "id": 47,
@@ -47,7 +50,8 @@
    "note": "Apple holds a slim US majority; worldwide this split flips the other way.",
    "finale": false,
    "source": "StatCounter Global Stats, US mobile OS market share 2025: iOS 58.21%, Android 41.52%",
-   "sourceUrl": "https://xtendedview.com/iphone-vs-android-users-statistics/"
+   "sourceUrl": "https://xtendedview.com/iphone-vs-android-users-statistics/",
+   "exposed": true
   },
   {
    "id": 48,
@@ -58,7 +62,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Census Bureau, 2020 Census urban/rural classification (released Dec 29, 2022): 80.0% urban, 20.0% rural",
-   "sourceUrl": "https://hispanicad.com/news/nations-urban-and-rural-populations-shift-following-2020-census/"
+   "sourceUrl": "https://hispanicad.com/news/nations-urban-and-rural-populations-shift-following-2020-census/",
+   "exposed": true
   },
   {
    "id": 49,
@@ -69,7 +74,8 @@
    "note": "Women have been the majority on US campuses for decades.",
    "finale": false,
    "source": "NCES Digest of Education Statistics, Table 306.10, fall 2023 enrollment",
-   "sourceUrl": "https://nces.ed.gov/programs/digest/d24/tables/dt24_306.10.asp?current=yes"
+   "sourceUrl": "https://nces.ed.gov/programs/digest/d24/tables/dt24_306.10.asp?current=yes",
+   "exposed": true
   },
   {
    "id": 50,
@@ -80,7 +86,8 @@
    "note": "One of the most lopsided job splits there is.",
    "finale": false,
    "source": "Data USA, Registered nurses workforce profile 2024 (ACS): 87.8% women",
-   "sourceUrl": "https://datausa.io/profile/soc/registered-nurses"
+   "sourceUrl": "https://datausa.io/profile/soc/registered-nurses",
+   "exposed": true
   },
   {
    "id": 55,
@@ -91,7 +98,8 @@
    "note": null,
    "finale": false,
    "source": "Barrero, Bloom & Davis, Survey of Working Arrangements and Attitudes (WFH Research), June 2026: ~27% of paid workdays from home",
-   "sourceUrl": "https://wfhresearch.com/wp-content/uploads/2026/06/WFHResearch_updates_June2026.pdf"
+   "sourceUrl": "https://wfhresearch.com/wp-content/uploads/2026/06/WFHResearch_updates_June2026.pdf",
+   "exposed": true
   },
   {
    "id": 56,
@@ -102,7 +110,8 @@
    "note": null,
    "finale": false,
    "source": "International Osteoporosis Foundation survey via UCB (2024): almost one in two women after age 50 experienced a fracture",
-   "sourceUrl": "https://www.ucb.com/innovation/magazine/detail/article/closing-the-gap-in-osteoporosis-it-s-make-or-break-for-post-fracture-care"
+   "sourceUrl": "https://www.ucb.com/innovation/magazine/detail/article/closing-the-gap-in-osteoporosis-it-s-make-or-break-for-post-fracture-care",
+   "exposed": true
   },
   {
    "id": 78,
@@ -113,7 +122,8 @@
    "note": null,
    "finale": true,
    "source": "Space Daily, June 2026: ~120 private civilians of ~700 total people who have ever been to space = ~17%",
-   "sourceUrl": "https://www.spacedaily.com/d-approximately-120-private-civilians-have-now-flown-to-space-aboard-commercial-rockets-roughly-one-sixth-of-all-the-human-beings-who-have-ever-left-earth-and-the-rate-at-which-citiz/"
+   "sourceUrl": "https://www.spacedaily.com/d-approximately-120-private-civilians-have-now-flown-to-space-aboard-commercial-rockets-roughly-one-sixth-of-all-the-human-beings-who-have-ever-left-earth-and-the-rate-at-which-citiz/",
+   "exposed": true
   },
   {
    "id": 79,
@@ -124,7 +134,8 @@
    "note": "Leap day comes once every four years — roughly 1 birthday in 1,461.",
    "finale": true,
    "source": "Calendar math: 1 in 1,461 days is February 29 = 0.068%",
-   "sourceUrl": "https://www.novacalculator.com/everyday-life/fun-viral/leap-year-birthday-calculator/"
+   "sourceUrl": "https://www.novacalculator.com/everyday-life/fun-viral/leap-year-birthday-calculator/",
+   "exposed": true
   },
   {
    "id": 80,
@@ -137,7 +148,8 @@
    "source": "Frontiers in Neuroscience (2016): absolute pitch prevalence in Western populations estimated 0.01%-0.07%; Ward (1999): 1 in 10,000",
    "sourceUrl": "https://www.frontiersin.org/articles/10.3389/fnins.2016.00447/full",
    "retired": true,
-   "retiredReason": "impossible to estimate (perfect pitch 0.01%)"
+   "retiredReason": "impossible to estimate (perfect pitch 0.01%)",
+   "exposed": true
   },
   {
    "id": 88,
@@ -148,7 +160,8 @@
    "note": "About two in three US households own their home.",
    "finale": false,
    "source": "U.S. Census Bureau, Quarterly Residential Vacancies and Homeownership, Q2 2026: homeownership rate 65.0%",
-   "sourceUrl": "https://www.census.gov/housing/hvs/files/qtr226/Q226press.pdf?feb0a048_page=2&feb0a048_page=2&a30953bc_page=2&4def30c6_page=2&a30953bc_page=2&feb0a048_page=6"
+   "sourceUrl": "https://www.census.gov/housing/hvs/files/qtr226/Q226press.pdf?feb0a048_page=2&feb0a048_page=2&a30953bc_page=2&4def30c6_page=2&a30953bc_page=2&feb0a048_page=6",
+   "exposed": true
   },
   {
    "id": 156,
@@ -159,7 +172,8 @@
    "note": null,
    "finale": true,
    "source": "UN World Population Prospects 2024 (via World Population Clock, mid-2026 estimates)",
-   "sourceUrl": "https://worldpopulationclock.net/continents-population/"
+   "sourceUrl": "https://worldpopulationclock.net/continents-population/",
+   "exposed": true
   },
   {
    "id": 157,
@@ -170,7 +184,8 @@
    "note": "Same OnePoll/Victorinox 2,000-adult survey as Q69; 13% said they had never flown in a plane.",
    "finale": false,
    "source": "OnePoll/Victorinox survey of 2,000 Americans",
-   "sourceUrl": "https://yourmileagemayvary.com/2025/10/12/survey-percentage-of-americans-whove-never-flown-traveled-outside-their-birth-state-owned-luggage-more/"
+   "sourceUrl": "https://yourmileagemayvary.com/2025/10/12/survey-percentage-of-americans-whove-never-flown-traveled-outside-their-birth-state-owned-luggage-more/",
+   "exposed": true
   },
   {
    "id": 158,
@@ -181,7 +196,8 @@
    "note": null,
    "finale": false,
    "source": "Pew Research Center, spring 2023 survey of 3,576 US adults",
-   "sourceUrl": "https://www.pewresearch.org/short-reads/2023/12/06/americans-who-have-traveled-internationally-stand-out-in-their-views-and-knowledge-of-foreign-affairs/"
+   "sourceUrl": "https://www.pewresearch.org/short-reads/2023/12/06/americans-who-have-traveled-internationally-stand-out-in-their-views-and-knowledge-of-foreign-affairs/",
+   "exposed": true
   },
   {
    "id": 169,
@@ -192,7 +208,8 @@
    "note": "NCES National Teacher and Principal Survey 2020-21: about three-quarters of public K-12 teachers were female (77%).",
    "finale": false,
    "source": "NCES, Characteristics of 2020-21 Public and Private K-12 School Teachers (NTPS), 2022",
-   "sourceUrl": "https://nces.ed.gov/pubs2022/2022113-Summary.pdf"
+   "sourceUrl": "https://nces.ed.gov/pubs2022/2022113-Summary.pdf",
+   "exposed": true
   },
   {
    "id": 170,
@@ -203,7 +220,8 @@
    "note": "StatCounter full-year 2025 US share: Chrome 53.16%, Safari 29.8%; remaining share is Edge, Firefox and others, so 53 is Chrome's share of all US browsing, not a two-way total.",
    "finale": false,
    "source": "StatCounter Global Stats 2025 (US, all platforms), via SQ Magazine",
-   "sourceUrl": "https://sqmagazine.co.uk/web-browser-statistics/"
+   "sourceUrl": "https://sqmagazine.co.uk/web-browser-statistics/",
+   "exposed": true
   },
   {
    "id": 171,
@@ -214,7 +232,8 @@
    "note": "Papadatou-Pastou et al. 2020 meta-analysis in Psychological Bulletin, pooling 2.3M+ people: 10.6% left-handed, 89.4% right-handed.",
    "finale": false,
    "source": "Papadatou-Pastou et al., Human handedness: A meta-analysis, Psychological Bulletin (2020) (exact published figure 10.6%; rounded to 11% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.psychologytoday.com/ca/blog/the-asymmetric-brain/202601/am-i-left-handed-or-mixed-handed"
+   "sourceUrl": "https://www.psychologytoday.com/ca/blog/the-asymmetric-brain/202601/am-i-left-handed-or-mixed-handed",
+   "exposed": true
   },
   {
    "id": 172,
@@ -225,7 +244,8 @@
    "note": "CDC final 2024 birth data: sex ratio at birth 104.5 boys per 100 girls, i.e. about 51.1% of births are boys.",
    "finale": false,
    "source": "CDC/NCHS, Births: Final Data for 2024, National Vital Statistics Reports Vol. 75 No. 2 (2026)",
-   "sourceUrl": "http://origin.cdc.gov/nchs/data/nvsr/nvsr75/nvsr75-02.pdf"
+   "sourceUrl": "http://origin.cdc.gov/nchs/data/nvsr/nvsr75/nvsr75-02.pdf",
+   "exposed": true
   },
   {
    "id": 173,
@@ -236,7 +256,8 @@
    "note": "Census ACS 2024 Table B08301: 69.2% of US workers drove alone to work; the rest carpooled (9.2%), worked from home (13.3%), took transit (3.7%), walked or biked.",
    "finale": false,
    "source": "U.S. Census Bureau, American Community Survey 2024, Table B08301",
-   "sourceUrl": "https://www.ebikeway.com/how-long-is-the-average-commute"
+   "sourceUrl": "https://www.ebikeway.com/how-long-is-the-average-commute",
+   "exposed": true
   },
   {
    "id": 174,
@@ -247,7 +268,8 @@
    "note": "Pew Research Center Mobile Fact Sheet (2026): 91% of US adults own a smartphone, 98% own a cellphone of some kind; n=5,511, Jan-Jun 2026.",
    "finale": false,
    "source": "Pew Research Center, Americans' Use of Mobile Devices in 2026 (Mobile Fact Sheet)",
-   "sourceUrl": "https://www.pewresearch.org/internet/fact-sheet/mobile/?utm_"
+   "sourceUrl": "https://www.pewresearch.org/internet/fact-sheet/mobile/?utm_",
+   "exposed": true
   },
   {
    "id": 179,
@@ -1069,7 +1091,8 @@
    ],
    "unlisted": [],
    "source": "American Kennel Club registration statistics, 2025 rankings (released 18 Mar 2026, 202 breeds): French Bulldog #1 for the 4th straight year, Labrador Retriever #2, Golden Retriever #3, German Shepherd Dog #4, Dachshund #5, Poodle #6, Beagle #7, Rottweiler #8, German Shorthaired Pointer #9, Bulldog #10; 11. Cane Corso, 12. Cavalier King Charles Spaniel, 13. Yorkshire Terrier, 14. Australian Shepherd, 15. Doberman Pinscher, 16. Pembroke Welsh Corgi, 17. Miniature Schnauzer, 18. Boxer, 19. Pomeranian, 20. Bernese Mountain Dog, 21. Shih Tzu, 22. Great Dane, 23. Boston Terrier, 24. Chihuahua, 25. Havanese, 26. Border Collie, 27. English Springer Spaniel, 28. Miniature American Shepherd, 29. Shetland Sheepdog, 30. Siberian Husky, 31. Brittany, 32. Belgian Malinois. Ranks 1-32 reordered to this list; ranks 33+ keep their previous relative order (not re-sorted to AKC 33-96 in this pass).",
-   "sourceUrl": "https://www.akc.org/expert-advice/dog-breeds/most-popular-dog-breeds-2025/"
+   "sourceUrl": "https://www.akc.org/expert-advice/dog-breeds/most-popular-dog-breeds-2025/",
+   "exposed": true
   },
   {
    "id": 181,
@@ -1080,7 +1103,8 @@
    "note": null,
    "finale": false,
    "source": "World Atlas — How Big Was the Roman Empire at Its Peak? (60-70 million people, about 20% of the world's population)",
-   "sourceUrl": "https://www.worldatlas.com/ancient-world/how-big-was-the-roman-empire-at-its-peak.html"
+   "sourceUrl": "https://www.worldatlas.com/ancient-world/how-big-was-the-roman-empire-at-its-peak.html",
+   "exposed": true
   },
   {
    "id": 182,
@@ -1091,7 +1115,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Census Bureau, 1860 Census — 3,953,760 enslaved of 31,443,321 total (summarised by The World Data) (exact published figure 12.6%; rounded to 13% for play — the game scores whole percentages)",
-   "sourceUrl": "https://theworlddata.com/1860-us-population-statistics/"
+   "sourceUrl": "https://theworlddata.com/1860-us-population-statistics/",
+   "exposed": true
   },
   {
    "id": 183,
@@ -1102,7 +1127,8 @@
    "note": null,
    "finale": false,
    "source": "Encyclopaedia Britannica — Black Death: an estimated one-fourth to one-third of Europe's population, 25 million people",
-   "sourceUrl": "https://www.britannica.com/event/Black-Death/Effects-and-significance"
+   "sourceUrl": "https://www.britannica.com/event/Black-Death/Effects-and-significance",
+   "exposed": true
   },
   {
    "id": 184,
@@ -1113,7 +1139,8 @@
    "note": null,
    "finale": false,
    "source": "US Forest Service / Springer, Grove 2009 — in 1800 about 3% of the world's population lived in urban areas",
-   "sourceUrl": "https://research.fs.usda.gov/treesearch/36218"
+   "sourceUrl": "https://research.fs.usda.gov/treesearch/36218",
+   "exposed": true
   },
   {
    "id": 185,
@@ -1124,7 +1151,8 @@
    "note": null,
    "finale": false,
    "source": "British Board of Trade / U.S. Senate inquiry figures — about 706 of 2,224 aboard survived, ~32%",
-   "sourceUrl": "https://diffsense.com/how-many-people-survived-the-titanic-crash-the-numbers-and-the-names-that-actually-matter-ybi"
+   "sourceUrl": "https://diffsense.com/how-many-people-survived-the-titanic-crash-the-numbers-and-the-names-that-actually-matter-ybi",
+   "exposed": true
   },
   {
    "id": 186,
@@ -1135,7 +1163,8 @@
    "note": null,
    "finale": false,
    "source": "Encyclopedia.com — Biological Impacts of European Expansion: population fell from about 50-60 million in 1492 to 6.5 million in 1650, a decline of about 90%",
-   "sourceUrl": "https://www.encyclopedia.com/history/encyclopedias-almanacs-transcripts-and-maps/biological-impacts-european-expansion-americas"
+   "sourceUrl": "https://www.encyclopedia.com/history/encyclopedias-almanacs-transcripts-and-maps/biological-impacts-european-expansion-americas",
+   "exposed": true
   },
   {
    "id": 187,
@@ -1146,7 +1175,8 @@
    "note": null,
    "finale": false,
    "source": "Wikipedia summary of WWII casualties — about 21-25 million military deaths and 50-55 million civilian deaths (via AskHistoryAI summary)",
-   "sourceUrl": "https://askhistoryai.com/guides/how-many-people-died-in-world-war-2"
+   "sourceUrl": "https://askhistoryai.com/guides/how-many-people-died-in-world-war-2",
+   "exposed": true
   },
   {
    "id": 188,
@@ -1157,7 +1187,8 @@
    "note": null,
    "finale": false,
    "source": "National Park Service Civil War casualty figures — 360,222 Union deaths and 258,000 Confederate deaths",
-   "sourceUrl": "https://thecivilwarcenter.wordpress.com/2022/04/08/40-american-civil-war-statistics-facts-2022/"
+   "sourceUrl": "https://thecivilwarcenter.wordpress.com/2022/04/08/40-american-civil-war-statistics-facts-2022/",
+   "exposed": true
   },
   {
    "id": 189,
@@ -1996,7 +2027,8 @@
     "Mayan Empire",
     "Aztec Empire",
     "Zulu Empire"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 190,
@@ -2768,7 +2800,8 @@
     "Genghis Khan"
    ],
    "retired": true,
-   "retiredReason": "too obscure (longest-reigning monarch)"
+   "retiredReason": "too obscure (longest-reigning monarch)",
+   "exposed": true
   },
   {
    "id": 191,
@@ -3584,7 +3617,8 @@
     "War of 1812",
     "Falklands War",
     "Gulf War"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 192,
@@ -4348,7 +4382,8 @@
     "MIT"
    ],
    "retired": true,
-   "retiredReason": "too obscure (oldest university)"
+   "retiredReason": "too obscure (oldest university)",
+   "exposed": true
   },
   {
    "id": 193,
@@ -4359,7 +4394,8 @@
    "note": null,
    "finale": false,
    "source": "Wiley — Psyche: A Journal of Entomology (2024 systematic review of insect decline)",
-   "sourceUrl": "https://onlinelibrary.wiley.com/doi/full/10.1155/2024/5998962"
+   "sourceUrl": "https://onlinelibrary.wiley.com/doi/full/10.1155/2024/5998962",
+   "exposed": true
   },
   {
    "id": 194,
@@ -4370,7 +4406,8 @@
    "note": null,
    "finale": false,
    "source": "NASA — Ocean Worlds",
-   "sourceUrl": "https://www.nasa.gov/specials/ocean-worlds/index.html"
+   "sourceUrl": "https://www.nasa.gov/specials/ocean-worlds/index.html",
+   "exposed": true
   },
   {
    "id": 195,
@@ -4381,7 +4418,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Geological Survey — Distribution of Water on, in, and above the Earth (exact published figure 2.5%; rounded to 3% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.usgs.gov/media/images/distribution-water-and-above-earth"
+   "sourceUrl": "https://www.usgs.gov/media/images/distribution-water-and-above-earth",
+   "exposed": true
   },
   {
    "id": 196,
@@ -4392,7 +4430,8 @@
    "note": null,
    "finale": false,
    "source": "Wikipedia — Bat (citing Mammal Species of the World / IUCN taxonomy)",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Bat"
+   "sourceUrl": "https://en.wikipedia.org/wiki/Bat",
+   "exposed": true
   },
   {
    "id": 197,
@@ -4403,7 +4442,8 @@
    "note": null,
    "finale": false,
    "source": "NOAA National Ocean Service — How much oxygen comes from the ocean?",
-   "sourceUrl": "https://oceanservice.noaa.gov/facts/ocean-oxygen.html"
+   "sourceUrl": "https://oceanservice.noaa.gov/facts/ocean-oxygen.html",
+   "exposed": true
   },
   {
    "id": 198,
@@ -4414,7 +4454,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Geological Survey — The Water in You: Water and the Human Body",
-   "sourceUrl": "https://www.usgs.gov/water-science-school/science/water-you-water-and-human-body"
+   "sourceUrl": "https://www.usgs.gov/water-science-school/science/water-you-water-and-human-body",
+   "exposed": true
   },
   {
    "id": 199,
@@ -4425,7 +4466,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. National Park Service — Other Invertebrates (Shenandoah National Park)",
-   "sourceUrl": "https://www.nps.gov/shen/naturescience/otherinvertebrates.htm"
+   "sourceUrl": "https://www.nps.gov/shen/naturescience/otherinvertebrates.htm",
+   "exposed": true
   },
   {
    "id": 200,
@@ -4436,7 +4478,8 @@
    "note": null,
    "finale": false,
    "source": "Wikipedia — Rodent (citing Mammal Species of the World / American Society of Mammalogists)",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Rodent"
+   "sourceUrl": "https://en.wikipedia.org/wiki/Rodent",
+   "exposed": true
   },
   {
    "id": 201,
@@ -5272,7 +5315,8 @@
     "Kangaroo rat",
     "Sidewinder snake",
     "Cuttlefish"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 202,
@@ -6102,7 +6146,8 @@
     "Woolly mammoth",
     "Tyrannosaurus rex",
     "Giant squid"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 203,
@@ -6915,7 +6960,8 @@
     "Hydra"
    ],
    "retired": true,
-   "retiredReason": "too obscure (longest-living animal)"
+   "retiredReason": "too obscure (longest-living animal)",
+   "exposed": true
   },
   {
    "id": 204,
@@ -7790,7 +7836,8 @@
     "Lake Eyre",
     "Lake Maracaibo",
     "Loch Ness"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 205,
@@ -7801,7 +7848,8 @@
    "note": null,
    "finale": false,
    "source": "United Nations Atlas of the Oceans",
-   "sourceUrl": "https://www.oceansatlas.org/subtopic/en/c/606/"
+   "sourceUrl": "https://www.oceansatlas.org/subtopic/en/c/606/",
+   "exposed": true
   },
   {
    "id": 206,
@@ -7812,7 +7860,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Geological Survey (USGS), Deserts: Geology and Resources",
-   "sourceUrl": "https://pubs.usgs.gov/publication/7000004"
+   "sourceUrl": "https://pubs.usgs.gov/publication/7000004",
+   "exposed": true
   },
   {
    "id": 207,
@@ -7823,7 +7872,8 @@
    "note": null,
    "finale": false,
    "source": "Food and Agriculture Organization of the United Nations (FAO), Global Forest Resources Assessment",
-   "sourceUrl": "https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/indicator-1511---forest-area-as-a-percentage-of-total-land-area/sdg-15---indicators-of-sustainable-forests-and-mountains/en"
+   "sourceUrl": "https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/indicator-1511---forest-area-as-a-percentage-of-total-land-area/sdg-15---indicators-of-sustainable-forests-and-mountains/en",
+   "exposed": true
   },
   {
    "id": 208,
@@ -7834,7 +7884,8 @@
    "note": null,
    "finale": false,
    "source": "United Nations World Population Prospects 2024 (via Wikipedia, Hemispheres of Earth)",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Hemispheres_of_Earth"
+   "sourceUrl": "https://en.wikipedia.org/wiki/Hemispheres_of_Earth",
+   "exposed": true
   },
   {
    "id": 209,
@@ -7845,7 +7896,8 @@
    "note": null,
    "finale": false,
    "source": "United Nations, World Urbanization Prospects 2025 / World Bank",
-   "sourceUrl": "https://www.un.org/sustainabledevelopment/blog/2025/11/press-release-wup2025/"
+   "sourceUrl": "https://www.un.org/sustainabledevelopment/blog/2025/11/press-release-wup2025/",
+   "exposed": true
   },
   {
    "id": 210,
@@ -8787,7 +8839,8 @@
     "Puerto Rico",
     "Scotland",
     "Greenland"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 211,
@@ -9728,7 +9781,8 @@
     "Alaska",
     "Queensland",
     "Sahara"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 212,
@@ -10786,7 +10840,8 @@
     "Seine",
     "Tiber",
     "Shannon"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 213,
@@ -11545,7 +11600,8 @@
     "Monaco",
     "Dubai",
     "Bali"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 214,
@@ -11556,7 +11612,8 @@
    "note": null,
    "finale": false,
    "source": "NASA Earth Observatory — about 10% of Earth's surface is covered by ice",
-   "sourceUrl": "https://science.nasa.gov/resource/interactive-global-ice-viewer/"
+   "sourceUrl": "https://science.nasa.gov/resource/interactive-global-ice-viewer/",
+   "exposed": true
   },
   {
    "id": 215,
@@ -11567,7 +11624,8 @@
    "note": null,
    "finale": false,
    "source": "World Bank (exact published figure 36.9%; rounded to 37% for play — the game scores whole percentages)",
-   "sourceUrl": "https://farmland.land/"
+   "sourceUrl": "https://farmland.land/",
+   "exposed": true
   },
   {
    "id": 216,
@@ -11578,7 +11636,8 @@
    "note": null,
    "finale": false,
    "source": "NASA Earth Observatory",
-   "sourceUrl": "https://earthobservatory.nasa.gov/images/1161/mouth-of-the-amazon"
+   "sourceUrl": "https://earthobservatory.nasa.gov/images/1161/mouth-of-the-amazon",
+   "exposed": true
   },
   {
    "id": 217,
@@ -11589,7 +11648,8 @@
    "note": null,
    "finale": false,
    "source": "ITU, Facts and Figures 2024",
-   "sourceUrl": "https://www.itu.int/itu-d/reports/statistics/2024/11/10/ff24-internet-use/"
+   "sourceUrl": "https://www.itu.int/itu-d/reports/statistics/2024/11/10/ff24-internet-use/",
+   "exposed": true
   },
   {
    "id": 218,
@@ -11600,7 +11660,8 @@
    "note": null,
    "finale": false,
    "source": "Look Up / Le Point Space Barometer, Oct 2025",
-   "sourceUrl": "https://www.lookupspace.com/blog/look-up-and-le-point-unveil-their-first-exclusive-space-barometer"
+   "sourceUrl": "https://www.lookupspace.com/blog/look-up-and-le-point-unveil-their-first-exclusive-space-barometer",
+   "exposed": true
   },
   {
    "id": 219,
@@ -11611,7 +11672,8 @@
    "note": null,
    "finale": false,
    "source": "GSMA, State of Mobile Internet Connectivity 2025",
-   "sourceUrl": "https://www.gsma.com/somic/wp-content/uploads/2025/09/The-State-of-Mobile-Internet-Connectivity-2025-Trends-in-Mobile-Internet-Connectivity.pdf"
+   "sourceUrl": "https://www.gsma.com/somic/wp-content/uploads/2025/09/The-State-of-Mobile-Internet-Connectivity-2025-Trends-in-Mobile-Internet-Connectivity.pdf",
+   "exposed": true
   },
   {
    "id": 220,
@@ -11622,7 +11684,8 @@
    "note": null,
    "finale": false,
    "source": "Ember, Global Electricity Review 2025 (2024 data) (exact published figure 6.9%; rounded to 7% for play — the game scores whole percentages)",
-   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/global-electricity-source-trends/"
+   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/global-electricity-source-trends/",
+   "exposed": true
   },
   {
    "id": 221,
@@ -11633,7 +11696,8 @@
    "note": null,
    "finale": false,
    "source": "Pew Research Center, June 2025",
-   "sourceUrl": "https://www.pewresearch.org/short-reads/2025/06/25/34-of-us-adults-have-used-chatgpt-about-double-the-share-in-2023/"
+   "sourceUrl": "https://www.pewresearch.org/short-reads/2025/06/25/34-of-us-adults-have-used-chatgpt-about-double-the-share-in-2023/",
+   "exposed": true
   },
   {
    "id": 222,
@@ -11644,7 +11708,8 @@
    "note": null,
    "finale": false,
    "source": "ITU, Facts and Figures 2024",
-   "sourceUrl": "https://www.itu.int/itu-d/reports/statistics/2024/11/10/ff24-mobile-network-coverage/"
+   "sourceUrl": "https://www.itu.int/itu-d/reports/statistics/2024/11/10/ff24-mobile-network-coverage/",
+   "exposed": true
   },
   {
    "id": 223,
@@ -11655,7 +11720,8 @@
    "note": null,
    "finale": false,
    "source": "StatCounter GlobalStats, desktop vs mobile, March 2025 (exact published figure 63.3%; rounded to 63% for play — the game scores whole percentages)",
-   "sourceUrl": "https://gs.statcounter.com/platform-market-share/desktop-mobile/worldwide"
+   "sourceUrl": "https://gs.statcounter.com/platform-market-share/desktop-mobile/worldwide",
+   "exposed": true
   },
   {
    "id": 224,
@@ -12517,7 +12583,8 @@
     "Ask Jeeves",
     "Lycos",
     "AltaVista"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 225,
@@ -13271,7 +13338,8 @@
     "Google+",
     "Clubhouse",
     "BeReal"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 226,
@@ -14133,7 +14201,8 @@
     "Anthropic",
     "ByteDance",
     "Stripe"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 227,
@@ -14144,7 +14213,8 @@
    "note": null,
    "finale": false,
    "source": "Ethnologue, 2025 (exact published figure 18.5%; rounded to 19% for play — the game scores whole percentages)",
-   "sourceUrl": "https://blog.rosettastone.com/how-many-people-speak-english/"
+   "sourceUrl": "https://blog.rosettastone.com/how-many-people-speak-english/",
+   "exposed": true
   },
   {
    "id": 228,
@@ -14155,7 +14225,8 @@
    "note": null,
    "finale": false,
    "source": "Ethnologue, 2025 (exact published figure 11.4%; rounded to 11% for play — the game scores whole percentages)",
-   "sourceUrl": "https://studycli.org/learn-chinese/most-spoken-languages-in-world/"
+   "sourceUrl": "https://studycli.org/learn-chinese/most-spoken-languages-in-world/",
+   "exposed": true
   },
   {
    "id": 232,
@@ -14166,7 +14237,8 @@
    "note": null,
    "finale": false,
    "source": "FIFA, January 2023 (exact published figure 18.8%; rounded to 19% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.footballcounter.com/2023/one-month-on-5-billion-engaged-with-the-fifa-world-cup-qatar-2022/"
+   "sourceUrl": "https://www.footballcounter.com/2023/one-month-on-5-billion-engaged-with-the-fifa-world-cup-qatar-2022/",
+   "exposed": true
   },
   {
    "id": 233,
@@ -14177,7 +14249,8 @@
    "note": null,
    "finale": false,
    "source": "Ethnologue, 2025 (exact published figure 25.5%; rounded to 26% for play — the game scores whole percentages)",
-   "sourceUrl": "https://blog.rosettastone.com/how-many-people-speak-english/"
+   "sourceUrl": "https://blog.rosettastone.com/how-many-people-speak-english/",
+   "exposed": true
   },
   {
    "id": 234,
@@ -14188,7 +14261,8 @@
    "note": null,
    "finale": false,
    "source": "FIFA World Cup winners list, 1930-2022 (exact published figure 54.5%; rounded to 55% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.futbolupdate.com/fifa-world-cup-winners/"
+   "sourceUrl": "https://www.futbolupdate.com/fifa-world-cup-winners/",
+   "exposed": true
   },
   {
    "id": 235,
@@ -14954,7 +15028,8 @@
     "Latin",
     "Ancient Greek",
     "Sanskrit"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 236,
@@ -16026,7 +16101,8 @@
     "Pulp Fiction",
     "The Shawshank Redemption",
     "Jaws"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 237,
@@ -16799,7 +16875,8 @@
     "Nepal",
     "Sri Lanka",
     "Bangladesh"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 238,
@@ -17734,7 +17811,8 @@
     "Goldberg",
     "Boudreaux",
     "Yoder"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 239,
@@ -17745,7 +17823,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Census Bureau, American Community Survey 2024 (Table B15003) (exact published figure 35.7%; rounded to 36% for play — the game scores whole percentages)",
-   "sourceUrl": "https://a2indy.com/statistics/united-states/bachelors-degree"
+   "sourceUrl": "https://a2indy.com/statistics/united-states/bachelors-degree",
+   "exposed": true
   },
   {
    "id": 240,
@@ -17756,7 +17835,8 @@
    "note": null,
    "finale": false,
    "source": "FAO / ILO, Employment indicators 2023 (exact published figure 26.1%; rounded to 26% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.fao.org/statistics/highlights-archive/highlights-detail/employment-indicators-2000-2023-(july-2025-update)"
+   "sourceUrl": "https://www.fao.org/statistics/highlights-archive/highlights-detail/employment-indicators-2000-2023-(july-2025-update)",
+   "exposed": true
   },
   {
    "id": 241,
@@ -17767,7 +17847,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Bureau of Labor Statistics, Union Members 2024 (exact published figure 9.9%; rounded to 10% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.bls.gov/opub/ted/2026/union-membership-rate-10-0-percent-in-2025.htm"
+   "sourceUrl": "https://www.bls.gov/opub/ted/2026/union-membership-rate-10-0-percent-in-2025.htm",
+   "exposed": true
   },
   {
    "id": 242,
@@ -17778,7 +17859,8 @@
    "note": null,
    "finale": false,
    "source": "USDA Economic Research Service, Food Expenditure Series 2023 (exact published figure 58.5%; rounded to 59% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.ers.usda.gov/amber-waves/2024/october/u-s-consumers-increased-spending-on-food-away-from-home-in-2023-driving-overall-food-spending-growth?cpid=email"
+   "sourceUrl": "https://www.ers.usda.gov/amber-waves/2024/october/u-s-consumers-increased-spending-on-food-away-from-home-in-2023-driving-overall-food-spending-growth?cpid=email",
+   "exposed": true
   },
   {
    "id": 243,
@@ -17789,7 +17871,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Bureau of Labor Statistics, Current Employment Statistics 2025 (exact published figure 85.2%; rounded to 85% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.bls.gov/opub/ted/2026/serving-up-employment-data-on-pi-day.htm"
+   "sourceUrl": "https://www.bls.gov/opub/ted/2026/serving-up-employment-data-on-pi-day.htm",
+   "exposed": true
   },
   {
    "id": 244,
@@ -17800,7 +17883,8 @@
    "note": null,
    "finale": false,
    "source": "U.S. Bureau of Labor Statistics, Work Experience of the Population 2024 (exact published figure 80.7%; rounded to 81% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.bls.gov/news.release/work.t01.htm"
+   "sourceUrl": "https://www.bls.gov/news.release/work.t01.htm",
+   "exposed": true
   },
   {
    "id": 245,
@@ -18697,7 +18781,8 @@
     "Social media influencers",
     "Professional athletes",
     "Private detectives"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 246,
@@ -19439,7 +19524,8 @@
     "Liechtenstein",
     "San Marino",
     "Andorra"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 247,
@@ -20228,7 +20314,8 @@
     "Quinoa",
     "Hops",
     "Saffron"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 248,
@@ -20239,7 +20326,8 @@
    "note": null,
    "finale": false,
    "source": "Gallup, Economy and Personal Finance survey, April 2026: 58% of US adults own stock, down from 62% in 2025",
-   "sourceUrl": "https://news.gallup.com/poll/266807/percentage-americans-owns-stock.aspx"
+   "sourceUrl": "https://news.gallup.com/poll/266807/percentage-americans-owns-stock.aspx",
+   "exposed": true
   },
   {
    "id": 249,
@@ -21123,7 +21211,8 @@
     "dentistry",
     "astrology",
     "underwater basket weaving"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 250,
@@ -21134,7 +21223,8 @@
    "note": null,
    "finale": false,
    "source": "World Health Organization (WHO)",
-   "sourceUrl": "https://www.who.int/news-room/fact-sheets/detail/hypertension"
+   "sourceUrl": "https://www.who.int/news-room/fact-sheets/detail/hypertension",
+   "exposed": true
   },
   {
    "id": 251,
@@ -21145,7 +21235,8 @@
    "note": null,
    "finale": false,
    "source": "CDC / National Center for Health Statistics (NHANES) (exact published figure 40.3%; rounded to 40% for play — the game scores whole percentages)",
-   "sourceUrl": "https://www.cdc.gov/nchs/products/databriefs/db508.htm"
+   "sourceUrl": "https://www.cdc.gov/nchs/products/databriefs/db508.htm",
+   "exposed": true
   },
   {
    "id": 252,
@@ -21156,7 +21247,8 @@
    "note": null,
    "finale": false,
    "source": "National Eye Institute (NIH)",
-   "sourceUrl": "https://seed.nih.gov/portfolio/stories/EnChroma"
+   "sourceUrl": "https://seed.nih.gov/portfolio/stories/EnChroma",
+   "exposed": true
   },
   {
    "id": 253,
@@ -21167,7 +21259,8 @@
    "note": null,
    "finale": false,
    "source": "American Red Cross",
-   "sourceUrl": "https://fmtgle.redcrossblood.org/donate-blood/blood-types.html"
+   "sourceUrl": "https://fmtgle.redcrossblood.org/donate-blood/blood-types.html",
+   "exposed": true
   },
   {
    "id": 254,
@@ -21178,7 +21271,8 @@
    "note": null,
    "finale": false,
    "source": "International Diabetes Federation (IDF Diabetes Atlas, 10th edition) (exact published figure 10.5%; rounded to 11% for play — the game scores whole percentages)",
-   "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11057359/"
+   "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11057359/",
+   "exposed": true
   },
   {
    "id": 255,
@@ -21191,7 +21285,8 @@
    "source": "American Red Cross",
    "sourceUrl": "https://fmtgle.redcrossblood.org/donate-blood/blood-types.html",
    "retired": true,
-   "retiredReason": "near-duplicate of O-positive"
+   "retiredReason": "near-duplicate of O-positive",
+   "exposed": true
   },
   {
    "id": 256,
@@ -21966,7 +22061,8 @@
     "Arthritis",
     "Asthma",
     "Stomach flu"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 257,
@@ -22720,7 +22816,8 @@
     "Pepto-Bismol"
    ],
    "retired": true,
-   "retiredReason": "too obscure (most prescribed drug)"
+   "retiredReason": "too obscure (most prescribed drug)",
+   "exposed": true
   },
   {
    "id": 258,
@@ -23513,7 +23610,8 @@
     "Old age",
     "Smoking",
     "COVID-19"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 259,
@@ -24285,7 +24383,8 @@
     "Colon polyp",
     "Prostate enlargement",
     "Thyroid nodule"
-   ]
+   ],
+   "exposed": true
   },
   {
    "id": 260,
@@ -24296,7 +24395,8 @@
    "note": "About 500 million people — roughly one in three people alive — caught the 1918 flu.",
    "finale": false,
    "source": "CDC, 1918 Pandemic (H1N1 virus): an estimated 500 million people, or one-third of the world's population, became infected",
-   "sourceUrl": "https://archive.cdc.gov/www_cdc_gov/flu/pandemic-resources/1918-pandemic-h1n1.html"
+   "sourceUrl": "https://archive.cdc.gov/www_cdc_gov/flu/pandemic-resources/1918-pandemic-h1n1.html",
+   "exposed": true
   },
   {
    "id": 261,
@@ -24307,7 +24407,8 @@
    "note": "About 6 million of Poland's 35 million people died — the highest share of any country in the war.",
    "finale": false,
    "source": "Wikipedia, World War II casualties (by country table): Poland ~5.9-6.0 million deaths of 34.8 million, ~17%",
-   "sourceUrl": "https://en.wikipedia.org/wiki/World_War_II_casualties"
+   "sourceUrl": "https://en.wikipedia.org/wiki/World_War_II_casualties",
+   "exposed": true
   },
   {
    "id": 262,
@@ -24318,7 +24419,8 @@
    "note": "About 1 million of roughly 8.5 million people died; another million emigrated.",
    "finale": false,
    "source": "Wikipedia, Great Famine (Ireland): approximately 1 million deaths from a pre-famine population of about 8.5 million",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Great_Famine_(Ireland)"
+   "sourceUrl": "https://en.wikipedia.org/wiki/Great_Famine_(Ireland)",
+   "exposed": true
   },
   {
    "id": 263,
@@ -24329,7 +24431,8 @@
    "note": "By 2000 it was under 2%.",
    "finale": false,
    "source": "USDA Economic Research Service, The 20th Century Transformation of U.S. Agriculture and Farm Policy (2005): 41% of the workforce in 1900, 1.9% in 2000",
-   "sourceUrl": "https://www.ers.usda.gov/publications/pub-details?pubid=44198"
+   "sourceUrl": "https://www.ers.usda.gov/publications/pub-details?pubid=44198",
+   "exposed": true
   },
   {
    "id": 264,
@@ -24340,7 +24443,8 @@
    "note": "14.7% in 1910 — a record that stood for over a century.",
    "finale": false,
    "source": "US Census Bureau, Historical Census Statistics on the Foreign-Born Population: 14.7% foreign-born in 1910",
-   "sourceUrl": "https://www.census.gov/library/working-papers/2006/demo/POP-twps0081.html"
+   "sourceUrl": "https://www.census.gov/library/working-papers/2006/demo/POP-twps0081.html",
+   "exposed": true
   },
   {
    "id": 265,
@@ -24351,7 +24455,8 @@
    "note": null,
    "finale": false,
    "source": "Our World in Data (Gapminder & UN IGME), Child mortality: 43.3% of children died before age five in 1800",
-   "sourceUrl": "https://ourworldindata.org/child-mortality"
+   "sourceUrl": "https://ourworldindata.org/child-mortality",
+   "exposed": true
   },
   {
    "id": 266,
@@ -24362,7 +24467,8 @@
    "note": "Today it's about 87%.",
    "finale": false,
    "source": "Our World in Data, Literacy: an estimated 12% of the world population aged 15+ was literate in 1820",
-   "sourceUrl": "https://ourworldindata.org/literacy"
+   "sourceUrl": "https://ourworldindata.org/literacy",
+   "exposed": true
   },
   {
    "id": 267,
@@ -24373,7 +24479,8 @@
    "note": "About 73,000 of the roughly 156,000 troops who landed on June 6, 1944.",
    "finale": false,
    "source": "The National WWII Museum, D-Day: 156,000 Allied troops landed, about 73,000 of them American",
-   "sourceUrl": "https://www.nationalww2museum.org/students-teachers/student-resources/research-starters/d-day-june-6-1944"
+   "sourceUrl": "https://www.nationalww2museum.org/students-teachers/student-resources/research-starters/d-day-june-6-1944",
+   "exposed": true
   },
   {
    "id": 268,
@@ -24384,7 +24491,8 @@
    "note": null,
    "finale": false,
    "source": "World Gold Council, Above-ground stocks: around two-thirds of all gold ever mined has been mined since 1950",
-   "sourceUrl": "https://www.gold.org/goldhub/data/how-much-gold"
+   "sourceUrl": "https://www.gold.org/goldhub/data/how-much-gold",
+   "exposed": true
   },
   {
    "id": 269,
@@ -24395,7 +24503,8 @@
    "note": null,
    "finale": false,
    "source": "USGS Water Science School, Where is Earth's Water?: 68.7% of freshwater is in ice caps, glaciers and permanent snow",
-   "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/where-earth-water"
+   "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/where-earth-water",
+   "exposed": true
   },
   {
    "id": 270,
@@ -24406,7 +24515,8 @@
    "note": "The usual estimate is more than 99%.",
    "finale": false,
    "source": "Encyclopaedia Britannica, Extinction: more than 99% of all species that ever lived are extinct",
-   "sourceUrl": "https://www.britannica.com/science/extinction-biology"
+   "sourceUrl": "https://www.britannica.com/science/extinction-biology",
+   "exposed": true
   },
   {
    "id": 271,
@@ -24417,7 +24527,8 @@
    "note": null,
    "finale": false,
    "source": "Raichle & Gusnard, PNAS 2002, Appraising the brain's energy budget: the brain is ~2% of body mass but uses ~20% of the body's energy",
-   "sourceUrl": "https://www.pnas.org/doi/10.1073/pnas.172399499"
+   "sourceUrl": "https://www.pnas.org/doi/10.1073/pnas.172399499",
+   "exposed": true
   },
   {
    "id": 272,
@@ -24428,7 +24539,8 @@
    "note": "Silicon is a distant second at about 28%.",
    "finale": false,
    "source": "Encyclopaedia Britannica / USGS, abundance of elements in Earth's crust: oxygen ~46% by weight",
-   "sourceUrl": "https://www.britannica.com/science/oxygen"
+   "sourceUrl": "https://www.britannica.com/science/oxygen",
+   "exposed": true
   },
   {
    "id": 273,
@@ -24439,7 +24551,8 @@
    "note": "98.8%, rounded for play.",
    "finale": false,
    "source": "Smithsonian National Museum of Natural History, Genetics: humans and chimpanzees share 98.8% of their DNA",
-   "sourceUrl": "https://humanorigins.si.edu/evidence/genetics"
+   "sourceUrl": "https://humanorigins.si.edu/evidence/genetics",
+   "exposed": true
   },
   {
    "id": 274,
@@ -24450,7 +24563,8 @@
    "note": "Still the single largest source, though its share keeps falling.",
    "finale": false,
    "source": "Ember, Global Electricity Review 2025 (2024 data): coal 34.4% of global electricity",
-   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/"
+   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/",
+   "exposed": true
   },
   {
    "id": 275,
@@ -24461,7 +24575,8 @@
    "note": null,
    "finale": false,
    "source": "Ember, Global Electricity Review 2025 (2024 data): nuclear 9.0% of global electricity",
-   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/"
+   "sourceUrl": "https://ember-energy.org/latest-insights/global-electricity-review-2025/",
+   "exposed": true
   },
   {
    "id": 276,
@@ -24472,7 +24587,8 @@
    "note": null,
    "finale": false,
    "source": "Global Carbon Project, Global Carbon Budget 2023: China 31% of global fossil CO2 emissions (2022)",
-   "sourceUrl": "https://globalcarbonbudget.org/"
+   "sourceUrl": "https://globalcarbonbudget.org/",
+   "exposed": true
   },
   {
    "id": 277,
@@ -24483,7 +24599,8 @@
    "note": "The rest is dark matter (~27%) and dark energy (~68%).",
    "finale": false,
    "source": "NASA Science, Dark Energy and Dark Matter: normal matter adds up to less than 5% of the universe",
-   "sourceUrl": "https://science.nasa.gov/universe/the-universe/dark-energy/"
+   "sourceUrl": "https://science.nasa.gov/universe/the-universe/dark-energy/",
+   "exposed": true
   },
   {
    "id": 278,
@@ -24494,7 +24611,8 @@
    "note": "Most of the rest is helium (~25%).",
    "finale": false,
    "source": "NASA, Sun Fact Sheet / Solar composition: about 73% hydrogen and 25% helium by mass",
-   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html",
+   "exposed": true
   },
   {
    "id": 279,
@@ -24505,7 +24623,8 @@
    "note": "A slight wobble (libration) lets us peek around the edges.",
    "finale": false,
    "source": "NASA Science, Moon: thanks to libration, 59% of the lunar surface is visible from Earth over time",
-   "sourceUrl": "https://science.nasa.gov/moon/facts/"
+   "sourceUrl": "https://science.nasa.gov/moon/facts/",
+   "exposed": true
   },
   {
    "id": 280,
@@ -24516,7 +24635,8 @@
    "note": "$201 billion of $391 billion.",
    "finale": false,
    "source": "Apple Inc. Form 10-K, fiscal 2024: iPhone net sales $201.2B of total $391.0B",
-   "sourceUrl": "https://investor.apple.com/sec-filings/default.aspx"
+   "sourceUrl": "https://investor.apple.com/sec-filings/default.aspx",
+   "exposed": true
   },
   {
    "id": 281,
@@ -24527,7 +24647,8 @@
    "note": "AWS is about a sixth of Amazon's sales but most of its profit.",
    "finale": false,
    "source": "Amazon.com Form 10-K 2024: AWS operating income $39.8B of total $68.6B",
-   "sourceUrl": "https://ir.aboutamazon.com/annual-reports-proxies-and-shareholder-letters/default.aspx"
+   "sourceUrl": "https://ir.aboutamazon.com/annual-reports-proxies-and-shareholder-letters/default.aspx",
+   "exposed": true
   },
   {
    "id": 282,
@@ -24538,7 +24659,8 @@
    "note": "A record 55 in 2025.",
    "finale": false,
    "source": "Fortune, Fortune 500 2025: 55 women CEOs (11%)",
-   "sourceUrl": "https://fortune.com/ranking/fortune500/"
+   "sourceUrl": "https://fortune.com/ranking/fortune500/",
+   "exposed": true
   },
   {
    "id": 283,
@@ -24549,7 +24671,8 @@
    "note": "22.1% for businesses opened in the year to March 2024.",
    "finale": false,
    "source": "US Bureau of Labor Statistics, Business Employment Dynamics: 77.9% of establishments opened in the year ended March 2024 were still operating a year later",
-   "sourceUrl": "https://www.bls.gov/opub/ted/2024/1-year-survival-rates-for-new-business-establishments-by-year-and-location.htm"
+   "sourceUrl": "https://www.bls.gov/opub/ted/2024/1-year-survival-rates-for-new-business-establishments-by-year-and-location.htm",
+   "exposed": true
   },
   {
    "id": 284,
@@ -24560,7 +24683,8 @@
    "note": null,
    "finale": false,
    "source": "UNCTAD, Review of Maritime Transport: over 80% of the volume of international trade in goods is carried by sea",
-   "sourceUrl": "https://unctad.org/topic/transport-and-trade-logistics/review-of-maritime-transport"
+   "sourceUrl": "https://unctad.org/topic/transport-and-trade-logistics/review-of-maritime-transport",
+   "exposed": true
   },
   {
    "id": 285,
@@ -24571,7 +24695,8 @@
    "note": "About 212 million of 302 million at the end of 2024.",
    "finale": false,
    "source": "Netflix Q4 2024 shareholder letter: 301.6M paid memberships, 89.6M in US & Canada",
-   "sourceUrl": "https://ir.netflix.net/financials/quarterly-earnings/default.aspx"
+   "sourceUrl": "https://ir.netflix.net/financials/quarterly-earnings/default.aspx",
+   "exposed": true
   },
   {
    "id": 286,
@@ -24582,7 +24707,8 @@
    "note": "263 million of 675 million at the end of 2024.",
    "finale": false,
    "source": "Spotify Q4 2024 results: 675M monthly active users, 263M Premium subscribers",
-   "sourceUrl": "https://investors.spotify.com/financials/default.aspx"
+   "sourceUrl": "https://investors.spotify.com/financials/default.aspx",
+   "exposed": true
   },
   {
    "id": 287,
@@ -24593,7 +24719,8 @@
    "note": "About $93 billion of $188 billion in 2024.",
    "finale": false,
    "source": "Newzoo, Global Games Market Report 2024: mobile $92.6B of $187.7B",
-   "sourceUrl": "https://newzoo.com/resources/blog/global-games-market-revenue-estimates-and-forecasts-in-2024"
+   "sourceUrl": "https://newzoo.com/resources/blog/global-games-market-revenue-estimates-and-forecasts-in-2024",
+   "exposed": true
   },
   {
    "id": 288,
@@ -24604,7 +24731,8 @@
    "note": null,
    "finale": false,
    "source": "US Bureau of Economic Analysis, NIPA Table 1.1.10: personal consumption expenditures ~68% of GDP",
-   "sourceUrl": "https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey"
+   "sourceUrl": "https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey",
+   "exposed": true
   },
   {
    "id": 289,
@@ -24615,7 +24743,8 @@
    "note": "47.5% in the latest UBS estimate, rounded for play.",
    "finale": false,
    "source": "UBS / Credit Suisse Global Wealth Report (2023 data, via inequality.org): the top 1% of adults hold 47.5% of global household wealth",
-   "sourceUrl": "https://inequality.org/facts/global-inequality/"
+   "sourceUrl": "https://inequality.org/facts/global-inequality/",
+   "exposed": true
   },
   {
    "id": 290,
@@ -24626,7 +24755,8 @@
    "note": null,
    "finale": false,
    "source": "Federal Reserve (FRED series CURRVAL100): $100 notes ~$1.9 trillion of ~$2.3 trillion total currency in circulation, 2024",
-   "sourceUrl": "https://fred.stlouisfed.org/series/CURRVAL100"
+   "sourceUrl": "https://fred.stlouisfed.org/series/CURRVAL100",
+   "exposed": true
   },
   {
    "id": 291,
@@ -24637,7 +24767,8 @@
    "note": "57.8% at the end of 2024; the euro is second at about 20%.",
    "finale": false,
    "source": "IMF, Currency Composition of Official Foreign Exchange Reserves (COFER), Q4 2024",
-   "sourceUrl": "https://data.imf.org/regular.aspx?key=41175"
+   "sourceUrl": "https://data.imf.org/regular.aspx?key=41175",
+   "exposed": true
   },
   {
    "id": 292,
@@ -24648,7 +24779,8 @@
    "note": "About 2.9 billion of 8.2 billion people.",
    "finale": false,
    "source": "United Nations, World Population Prospects 2024",
-   "sourceUrl": "https://population.un.org/wpp/"
+   "sourceUrl": "https://population.un.org/wpp/",
+   "exposed": true
   },
   {
    "id": 293,
@@ -24659,7 +24791,8 @@
    "note": null,
    "finale": false,
    "source": "United Nations DESA, World Population Prospects 2024: about 60% of Africa's population is under age 25",
-   "sourceUrl": "https://population.un.org/wpp/"
+   "sourceUrl": "https://population.un.org/wpp/",
+   "exposed": true
   },
   {
    "id": 294,
@@ -24670,7 +24803,8 @@
    "note": null,
    "finale": false,
    "source": "Australian Bureau of Statistics, Regional Population 2022-23: 67% of Australians live in capital cities",
-   "sourceUrl": "https://www.abs.gov.au/statistics/people/population/regional-population/latest-release"
+   "sourceUrl": "https://www.abs.gov.au/statistics/people/population/regional-population/latest-release",
+   "exposed": true
   },
   {
    "id": 295,
@@ -24681,7 +24815,8 @@
    "note": "17.1 million of about 149 million square kilometres.",
    "finale": false,
    "source": "CIA World Factbook: Russia 17.1M km²; world land area 148.9M km²",
-   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/russia/"
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/russia/",
+   "exposed": true
   },
   {
    "id": 296,
@@ -24692,7 +24827,8 @@
    "note": null,
    "finale": false,
    "source": "WWF, Amazon facts: about 60% of the Amazon rainforest is in Brazil",
-   "sourceUrl": "https://www.worldwildlife.org/places/amazon"
+   "sourceUrl": "https://www.worldwildlife.org/places/amazon",
+   "exposed": true
   },
   {
    "id": 297,
@@ -24703,7 +24839,8 @@
    "note": "More than carbon dioxide by a factor of about twenty.",
    "finale": true,
    "source": "NASA Earth Fact Sheet: argon 9,340 ppm (0.93%) of the atmosphere",
-   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html"
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html",
+   "exposed": true
   },
   {
    "id": 298,
@@ -24714,7 +24851,8 @@
    "note": "About 423 ppm in 2024 — small, but up by half since the 1700s.",
    "finale": true,
    "source": "NOAA Global Monitoring Laboratory, Trends in atmospheric CO2: 2024 global annual mean ~423 ppm (0.04%)",
-   "sourceUrl": "https://gml.noaa.gov/ccgg/trends/global.html"
+   "sourceUrl": "https://gml.noaa.gov/ccgg/trends/global.html",
+   "exposed": true
   },
   {
    "id": 299,
@@ -24727,7 +24865,8 @@
    "source": "USGS ocean volume (~1.33 billion km³ of seawater ≈ 1.4×10²¹ kg) divided by Earth's mass (5.97×10²⁴ kg, NASA Earth Fact Sheet)",
    "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/how-much-water-there-earth",
    "retired": true,
-   "retiredReason": "impossible to estimate (oceans % of Earth mass)"
+   "retiredReason": "impossible to estimate (oceans % of Earth mass)",
+   "exposed": true
   },
   {
    "id": 300,
@@ -24738,7 +24877,8 @@
    "note": "About 1%; much of the rest regulates those genes.",
    "finale": true,
    "source": "National Human Genome Research Institute: only about 1 percent of DNA is made up of protein-coding genes",
-   "sourceUrl": "https://www.genome.gov/about-genomics/fact-sheets/Introduction-to-Genomics"
+   "sourceUrl": "https://www.genome.gov/about-genomics/fact-sheets/Introduction-to-Genomics",
+   "exposed": true
   },
   {
    "id": 301,
@@ -24749,7 +24889,8 @@
    "note": "About 8 billion of roughly 117 billion humans ever born.",
    "finale": true,
    "source": "Population Reference Bureau, How Many People Have Ever Lived on Earth? (2022): ~117 billion ever born",
-   "sourceUrl": "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/"
+   "sourceUrl": "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/",
+   "exposed": true
   },
   {
    "id": 302,
@@ -24760,7 +24901,7255 @@
    "note": "Three of 97: The Hurt Locker, Nomadland and CODA.",
    "finale": true,
    "source": "Academy of Motion Picture Arts and Sciences, Oscars database: Best Picture winners through the 97th Academy Awards (2025)",
-   "sourceUrl": "https://www.oscars.org/oscars/ceremonies"
+   "sourceUrl": "https://www.oscars.org/oscars/ceremonies",
+   "exposed": true
+  },
+  {
+   "id": 303,
+   "kind": "guess",
+   "category": "History",
+   "text": "During World War II, what % of the US population served in the armed forces?",
+   "answer": 12,
+   "note": "About 16 million Americans served, out of roughly 132 million.",
+   "finale": false,
+   "source": "The National WWII Museum: 16.1 million Americans served; 1940 Census population 132 million",
+   "sourceUrl": "https://www.nationalww2museum.org/students-teachers/student-resources/research-starters/research-starters-us-military-numbers"
+  },
+  {
+   "id": 304,
+   "kind": "guess",
+   "category": "History",
+   "text": "What % of the popular vote did Abraham Lincoln win in the 1860 election?",
+   "answer": 40,
+   "note": "39.8% — four candidates split the vote.",
+   "finale": false,
+   "source": "The American Presidency Project (UC Santa Barbara), 1860 election results: Lincoln 39.8% of the popular vote",
+   "sourceUrl": "https://www.presidency.ucsb.edu/statistics/elections/1860"
+  },
+  {
+   "id": 305,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1820, what % of the world's population lived in China?",
+   "answer": 37,
+   "note": "About 381 million of roughly 1.04 billion people.",
+   "finale": false,
+   "source": "Maddison Project / Angus Maddison, The World Economy: Historical Statistics — China 381M of 1,041M world population in 1820",
+   "sourceUrl": "https://www.rug.nl/ggdc/historicaldevelopment/maddison/"
+  },
+  {
+   "id": 306,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1950, what % of US households owned a television?",
+   "answer": 9,
+   "note": "By 1960 it was 87%.",
+   "finale": false,
+   "source": "US Census Bureau / Nielsen, Television households: 9% of US homes in 1950, 87% in 1960",
+   "sourceUrl": "https://www.census.gov/library/publications/1975/compendia/hist_stats_colonial-1970.html"
+  },
+  {
+   "id": 307,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1930, what % of American farms had electricity?",
+   "answer": 10,
+   "note": "About 90% of city homes had power, but only about 1 in 10 farms — the gap the Rural Electrification Administration was created to close.",
+   "finale": false,
+   "source": "USDA Rural Development / FDR Library, Rural Electrification Administration history: about 10% of farms electrified in 1930",
+   "sourceUrl": "https://www.fdrlibrary.org/rea"
+  },
+  {
+   "id": 308,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1790, about what % of the US workforce worked in farming?",
+   "answer": 90,
+   "note": "Today it's under 2%.",
+   "finale": false,
+   "source": "USDA National Agricultural Library, A History of American Agriculture: farmers were about 90% of the labor force in 1790",
+   "sourceUrl": "https://www.agclassroom.org/gan/timeline/farmers_land.htm"
+  },
+  {
+   "id": 309,
+   "kind": "guess",
+   "category": "History",
+   "text": "About what % of the world's 1939 population died in World War II?",
+   "answer": 3,
+   "note": "Roughly 70–85 million deaths out of about 2.3 billion people.",
+   "finale": false,
+   "source": "Wikipedia, World War II casualties: 70–85 million deaths, about 3% of the 1940 world population (2.3 billion)",
+   "sourceUrl": "https://en.wikipedia.org/wiki/World_War_II_casualties"
+  },
+  {
+   "id": 310,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1965, what % of US adults smoked cigarettes?",
+   "answer": 42,
+   "note": "About 12% do today.",
+   "finale": false,
+   "source": "CDC, Trends in current cigarette smoking among US adults: 42.4% in 1965",
+   "sourceUrl": "https://www.cdc.gov/tobacco/data_statistics/fact_sheets/adult_data/cig_smoking/index.htm"
+  },
+  {
+   "id": 311,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1900, what % of Americans lived in urban areas?",
+   "answer": 40,
+   "note": "39.6% in 1900; about 80% today.",
+   "finale": false,
+   "source": "US Census Bureau, Urban and Rural Population: 1900 to 1990 — 39.6% urban in 1900",
+   "sourceUrl": "https://www.census.gov/population/censusdata/urpop0090.txt"
+  },
+  {
+   "id": 312,
+   "kind": "guess",
+   "category": "History",
+   "text": "In 1950, what % of American women were in the labor force?",
+   "answer": 34,
+   "note": "33.9% in 1950; about 57% today.",
+   "finale": false,
+   "source": "US Bureau of Labor Statistics, Women in the labor force: participation rate 33.9% in 1950",
+   "sourceUrl": "https://www.bls.gov/opub/mlr/2002/05/art2full.pdf"
+  },
+  {
+   "id": 313,
+   "kind": "guess",
+   "category": "History",
+   "text": "What % of US presidents were born in Virginia?",
+   "answer": 18,
+   "note": "Eight of the 45 people who have been president — more than any other state.",
+   "finale": false,
+   "source": "White House / National Archives, presidential birthplaces: 8 presidents born in Virginia",
+   "sourceUrl": "https://www.whitehouse.gov/about-the-white-house/presidents/"
+  },
+  {
+   "id": 314,
+   "kind": "guess",
+   "category": "History",
+   "text": "What % of all Nobel Prize winners have been women?",
+   "answer": 7,
+   "note": "About 65 women out of roughly 1,000 laureates.",
+   "finale": false,
+   "source": "The Nobel Prize, Nobel Prize awarded women: 65 women among about 976 individual laureates through 2024",
+   "sourceUrl": "https://www.nobelprize.org/prizes/lists/nobel-prize-awarded-women/"
+  },
+  {
+   "id": 315,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of the bones in your body are in your hands and feet?",
+   "answer": 51,
+   "note": "106 of your 206 bones.",
+   "finale": false,
+   "source": "Cleveland Clinic / standard anatomy: 54 bones in the hands, 52 in the feet, 206 in the adult skeleton",
+   "sourceUrl": "https://my.clevelandclinic.org/health/body/25176-skeletal-system"
+  },
+  {
+   "id": 316,
+   "kind": "guess",
+   "category": "Space",
+   "text": "The Moon's gravity is what % of Earth's?",
+   "answer": 17,
+   "note": "About one-sixth — 16.5%.",
+   "finale": false,
+   "source": "NASA, Moon Fact Sheet: surface gravity 1.62 m/s² vs Earth's 9.81 m/s² (0.165)",
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html"
+  },
+  {
+   "id": 317,
+   "kind": "guess",
+   "category": "Space",
+   "text": "Gravity on Mars is what % of Earth's?",
+   "answer": 38,
+   "note": null,
+   "finale": false,
+   "source": "NASA, Mars Fact Sheet: surface gravity 3.71 m/s² vs Earth's 9.81 m/s² (0.378)",
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
+  },
+  {
+   "id": 318,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of your brain is water?",
+   "answer": 73,
+   "note": null,
+   "finale": false,
+   "source": "USGS Water Science School, The Water in You: the brain and heart are composed of 73% water",
+   "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/water-you-water-and-human-body"
+  },
+  {
+   "id": 319,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of all the plastic ever made has been recycled?",
+   "answer": 9,
+   "note": "About 12% was burned and 79% is in landfills or the environment.",
+   "finale": false,
+   "source": "Geyer, Jambeck & Law, Science Advances 2017, Production, use, and fate of all plastics ever made: 9% recycled",
+   "sourceUrl": "https://www.science.org/doi/10.1126/sciadv.1700782"
+  },
+  {
+   "id": 320,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of the world's energy supply comes from fossil fuels?",
+   "answer": 80,
+   "note": "Oil, coal and gas still supply about four-fifths of the world's energy.",
+   "finale": false,
+   "source": "IEA, World Energy Outlook: fossil fuels about 80% of total global energy supply",
+   "sourceUrl": "https://www.iea.org/reports/world-energy-outlook-2024"
+  },
+  {
+   "id": 321,
+   "kind": "guess",
+   "category": "Science",
+   "text": "By mass, what % of planet Earth is iron?",
+   "answer": 32,
+   "note": "Most of it is in the core.",
+   "finale": false,
+   "source": "Morgan & Anders, PNAS 1980, Chemical composition of Earth: iron 32.1% by mass",
+   "sourceUrl": "https://www.pnas.org/doi/10.1073/pnas.77.12.6973"
+  },
+  {
+   "id": 322,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of the human genome is made of DNA left behind by ancient viruses?",
+   "answer": 8,
+   "note": null,
+   "finale": false,
+   "source": "National Institutes of Health / Nature: endogenous retroviruses make up about 8% of the human genome",
+   "sourceUrl": "https://www.nih.gov/news-events/nih-research-matters/ancient-viral-dna-human-genome"
+  },
+  {
+   "id": 323,
+   "kind": "guess",
+   "category": "Science",
+   "text": "What % of the world's ocean floor has been mapped in high resolution?",
+   "answer": 26,
+   "note": "26.1% as of mid-2024.",
+   "finale": false,
+   "source": "The Nippon Foundation–GEBCO Seabed 2030 Project: 26.1% of the seafloor mapped (2024)",
+   "sourceUrl": "https://seabed2030.org/"
+  },
+  {
+   "id": 324,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Earth's surface does the Pacific Ocean cover?",
+   "answer": 32,
+   "note": "About 165 million of 510 million square kilometres — bigger than all land combined.",
+   "finale": false,
+   "source": "NOAA / Encyclopaedia Britannica: Pacific Ocean area about 165 million km²; Earth's surface 510 million km²",
+   "sourceUrl": "https://www.britannica.com/place/Pacific-Ocean"
+  },
+  {
+   "id": 325,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of the smartphones shipped worldwide in 2024 were iPhones?",
+   "answer": 19,
+   "note": "18.7% — Samsung was a hair behind.",
+   "finale": false,
+   "source": "IDC Worldwide Quarterly Mobile Phone Tracker, 2024: Apple 18.7% market share",
+   "sourceUrl": "https://www.idc.com/promo/smartphone-market-share"
+  },
+  {
+   "id": 326,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of US adults have at least one credit card?",
+   "answer": 82,
+   "note": null,
+   "finale": false,
+   "source": "Federal Reserve, Economic Well-Being of US Households (SHED) 2023: 82% had a credit card",
+   "sourceUrl": "https://www.federalreserve.gov/publications/2024-economic-well-being-of-us-households-in-2023-banking-and-credit.htm"
+  },
+  {
+   "id": 327,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of all US retail sales happen online?",
+   "answer": 16,
+   "note": "16.3% in 2025.",
+   "finale": false,
+   "source": "US Census Bureau, Quarterly Retail E-Commerce Sales, Q2 2025: e-commerce 16.3% of total retail sales",
+   "sourceUrl": "https://www.census.gov/retail/ecommerce.html"
+  },
+  {
+   "id": 328,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of US federal spending goes to Social Security?",
+   "answer": 22,
+   "note": "$1.46 trillion of $6.75 trillion in fiscal 2024.",
+   "finale": false,
+   "source": "Congressional Budget Office, The Federal Budget in Fiscal Year 2024: Social Security $1.46T of $6.75T outlays",
+   "sourceUrl": "https://www.cbo.gov/publication/61181"
+  },
+  {
+   "id": 329,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of US federal spending goes to national defense?",
+   "answer": 13,
+   "note": "About $874 billion in fiscal 2024.",
+   "finale": false,
+   "source": "Congressional Budget Office, The Federal Budget in Fiscal Year 2024: defense $874B of $6.75T outlays",
+   "sourceUrl": "https://www.cbo.gov/publication/61181"
+  },
+  {
+   "id": 330,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of US households don't have a bank account?",
+   "answer": 4,
+   "note": "4.2% in 2023, a record low.",
+   "finale": false,
+   "source": "FDIC National Survey of Unbanked and Underbanked Households 2023: 4.2% unbanked",
+   "sourceUrl": "https://www.fdic.gov/household-survey"
+  },
+  {
+   "id": 331,
+   "kind": "guess",
+   "category": "Business",
+   "text": "What % of US GDP comes from manufacturing?",
+   "answer": 10,
+   "note": null,
+   "finale": false,
+   "source": "US Bureau of Economic Analysis, Value added by industry: manufacturing about 10% of GDP",
+   "sourceUrl": "https://www.bea.gov/data/gdp/gdp-industry"
+  },
+  {
+   "id": 332,
+   "kind": "guess",
+   "category": "Money",
+   "text": "What % of the world's GDP does China produce?",
+   "answer": 17,
+   "note": "About $18.7 trillion of $110 trillion in 2024.",
+   "finale": false,
+   "source": "IMF World Economic Outlook, April 2025: China 2024 GDP $18.7T, world $110.1T",
+   "sourceUrl": "https://www.imf.org/en/Publications/WEO"
+  },
+  {
+   "id": 333,
+   "kind": "guess",
+   "category": "Business",
+   "text": "In 2024, what % of new cars sold in Norway were fully electric?",
+   "answer": 89,
+   "note": "88.9% — the highest share of any country.",
+   "finale": false,
+   "source": "Norwegian Road Federation (OFV), 2024 new car registrations: 88.9% battery electric",
+   "sourceUrl": "https://ofv.no/registreringsstatistikk"
+  },
+  {
+   "id": 334,
+   "kind": "guess",
+   "category": "Business",
+   "text": "In 2024, what % of new cars sold worldwide were electric (battery or plug-in hybrid)?",
+   "answer": 20,
+   "note": "More than 17 million electric cars were sold — over one in five.",
+   "finale": false,
+   "source": "IEA, Global EV Outlook 2025: electric cars exceeded 20% of global car sales in 2024",
+   "sourceUrl": "https://www.iea.org/reports/global-ev-outlook-2025"
+  },
+  {
+   "id": 335,
+   "kind": "guess",
+   "category": "Society",
+   "text": "What % of US adults have at least one tattoo?",
+   "answer": 32,
+   "note": null,
+   "finale": false,
+   "source": "Pew Research Center, 32% of Americans have a tattoo (2023)",
+   "sourceUrl": "https://www.pewresearch.org/short-reads/2023/08/15/32-of-americans-have-a-tattoo-including-22-who-have-more-than-one/"
+  },
+  {
+   "id": 336,
+   "kind": "guess",
+   "category": "Pop culture",
+   "text": "What % of US adults use TikTok?",
+   "answer": 33,
+   "note": null,
+   "finale": false,
+   "source": "Pew Research Center, Americans' Social Media Use (2024): 33% use TikTok",
+   "sourceUrl": "https://www.pewresearch.org/internet/2024/01/31/americans-social-media-use/"
+  },
+  {
+   "id": 337,
+   "kind": "guess",
+   "category": "Pop culture",
+   "text": "What % of US adults use Facebook?",
+   "answer": 68,
+   "note": null,
+   "finale": false,
+   "source": "Pew Research Center, Americans' Social Media Use (2024): 68% use Facebook",
+   "sourceUrl": "https://www.pewresearch.org/internet/2024/01/31/americans-social-media-use/"
+  },
+  {
+   "id": 338,
+   "kind": "guess",
+   "category": "Pop culture",
+   "text": "What % of NBA players are Black?",
+   "answer": 70,
+   "note": null,
+   "finale": false,
+   "source": "The Institute for Diversity and Ethics in Sport (TIDES), 2024 NBA Racial and Gender Report Card: 70.4% of players",
+   "sourceUrl": "https://www.tidesport.org/nba"
+  },
+  {
+   "id": 339,
+   "kind": "guess",
+   "category": "Pop culture",
+   "text": "What % of American video game players are women?",
+   "answer": 46,
+   "note": null,
+   "finale": false,
+   "source": "Entertainment Software Association, Essential Facts About the US Video Game Industry 2024: 46% of players are women",
+   "sourceUrl": "https://www.theesa.com/resources/essential-facts-about-the-us-video-game-industry/2024-data/"
+  },
+  {
+   "id": 340,
+   "kind": "guess",
+   "category": "Pop culture",
+   "text": "What % of US teens use YouTube?",
+   "answer": 90,
+   "note": "More than use TikTok (63%) or Instagram (61%).",
+   "finale": false,
+   "source": "Pew Research Center, Teens, Social Media and Technology 2024: 90% of teens use YouTube",
+   "sourceUrl": "https://www.pewresearch.org/internet/2024/12/12/teens-social-media-and-technology-2024/"
+  },
+  {
+   "id": 341,
+   "kind": "guess",
+   "category": "Society",
+   "text": "What % of US adults smoke cigarettes today?",
+   "answer": 12,
+   "note": "11.6% in 2022, down from 42% in 1965.",
+   "finale": false,
+   "source": "CDC, Current cigarette smoking among adults in the United States: 11.6% (2022)",
+   "sourceUrl": "https://www.cdc.gov/tobacco/php/data-statistics/adult-data-cigarettes/index.html"
+  },
+  {
+   "id": 342,
+   "kind": "guess",
+   "category": "Body",
+   "text": "What % of your body heat escapes through your head?",
+   "answer": 10,
+   "note": "The old \"half your heat\" claim is a myth — your head is about 10% of your skin.",
+   "finale": false,
+   "source": "BMJ 2008, Medical myths: 'We lose most of our heat through our heads' — about 10%",
+   "sourceUrl": "https://www.bmj.com/content/337/bmj.a2769"
+  },
+  {
+   "id": 343,
+   "kind": "guess",
+   "category": "Body",
+   "text": "What % of the world's adults have trouble digesting lactose?",
+   "answer": 68,
+   "note": null,
+   "finale": false,
+   "source": "NIH, National Institute of Diabetes and Digestive and Kidney Diseases / Storhaug et al., Lancet Gastroenterol Hepatol 2017: 68% of the world population has lactose malabsorption",
+   "sourceUrl": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(17)30154-1/fulltext"
+  },
+  {
+   "id": 344,
+   "kind": "guess",
+   "category": "Body",
+   "text": "What % of the iron in your body is in hemoglobin?",
+   "answer": 70,
+   "note": null,
+   "finale": false,
+   "source": "NIH Office of Dietary Supplements, Iron fact sheet: about 70% of the body's iron is in hemoglobin",
+   "sourceUrl": "https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/"
+  },
+  {
+   "id": 345,
+   "kind": "guess",
+   "category": "Body",
+   "text": "What % of US adults regularly sleep less than 7 hours a night?",
+   "answer": 35,
+   "note": null,
+   "finale": false,
+   "source": "CDC, Sleep and Sleep Disorders: about a third (35%) of US adults sleep less than 7 hours",
+   "sourceUrl": "https://www.cdc.gov/sleep/data-research/facts-stats/adults-sleep-facts-and-stats.html"
+  },
+  {
+   "id": 346,
+   "kind": "guess",
+   "category": "Body",
+   "text": "What % of human blood is plasma?",
+   "answer": 55,
+   "note": "The rest is mostly red blood cells.",
+   "finale": false,
+   "source": "American Red Cross, Blood components: plasma makes up about 55% of blood",
+   "sourceUrl": "https://www.redcrossblood.org/donate-blood/how-to-donate/types-of-blood-donations/plasma-donation.html"
+  },
+  {
+   "id": 347,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the Netherlands lies below sea level?",
+   "answer": 26,
+   "note": null,
+   "finale": false,
+   "source": "Rijkswaterstaat / Netherlands Environmental Assessment Agency: about 26% of the Netherlands is below sea level",
+   "sourceUrl": "https://www.pbl.nl/en/correction-wording-flood-risks"
+  },
+  {
+   "id": 348,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Iceland is covered by glaciers?",
+   "answer": 11,
+   "note": null,
+   "finale": false,
+   "source": "Icelandic Meteorological Office, Glaciers in Iceland: about 11% of the country",
+   "sourceUrl": "https://en.vedur.is/glaciers"
+  },
+  {
+   "id": 349,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the world's fresh surface water is in the Great Lakes?",
+   "answer": 21,
+   "note": null,
+   "finale": false,
+   "source": "US EPA, Facts and Figures about the Great Lakes: 21% of the world's surface fresh water",
+   "sourceUrl": "https://www.epa.gov/greatlakes/facts-and-figures-about-great-lakes"
+  },
+  {
+   "id": 350,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Japan is mountainous?",
+   "answer": 73,
+   "note": null,
+   "finale": false,
+   "source": "Japan Ministry of Land, Infrastructure, Transport and Tourism: about 73% of Japan's land is mountainous",
+   "sourceUrl": "https://www.mlit.go.jp/en/"
+  },
+  {
+   "id": 351,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Americans live in California?",
+   "answer": 12,
+   "note": "About 39 million of 340 million.",
+   "finale": false,
+   "source": "US Census Bureau, Vintage 2024 population estimates: California 39.4M, US 340.1M",
+   "sourceUrl": "https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html"
+  },
+  {
+   "id": 352,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Australians live in Sydney or Melbourne?",
+   "answer": 40,
+   "note": "About 11 million of 27 million.",
+   "finale": false,
+   "source": "Australian Bureau of Statistics, Regional population 2023-24: Greater Sydney 5.56M, Greater Melbourne 5.35M, Australia 27.2M",
+   "sourceUrl": "https://www.abs.gov.au/statistics/people/population/regional-population/latest-release"
+  },
+  {
+   "id": 353,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Russia's land area is in Asia?",
+   "answer": 77,
+   "note": "But about three-quarters of Russians live in the European part.",
+   "finale": false,
+   "source": "Encyclopaedia Britannica, Russia: Asian Russia (Siberia and the Far East) is about 77% of the territory",
+   "sourceUrl": "https://www.britannica.com/place/Russia"
+  },
+  {
+   "id": 354,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of Africa's land area is the Sahara?",
+   "answer": 30,
+   "note": "About 9.2 million of 30.4 million square kilometres.",
+   "finale": false,
+   "source": "Encyclopaedia Britannica: Sahara about 9.2 million km²; Africa 30.4 million km²",
+   "sourceUrl": "https://www.britannica.com/place/Sahara-desert-Africa"
+  },
+  {
+   "id": 355,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the world's countries are landlocked?",
+   "answer": 23,
+   "note": "44 of 195 countries.",
+   "finale": false,
+   "source": "CIA World Factbook / UN: 44 landlocked countries",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/"
+  },
+  {
+   "id": 356,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "Including water, what % of the United States' total area is Alaska?",
+   "answer": 18,
+   "note": "665,000 of 3.8 million square miles.",
+   "finale": false,
+   "source": "US Census Bureau, State area measurements: Alaska 665,384 sq mi of 3,796,742 sq mi total",
+   "sourceUrl": "https://www.census.gov/geographies/reference-files/2010/geo/state-area.html"
+  },
+  {
+   "id": 357,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the world's people live in the tropics?",
+   "answer": 40,
+   "note": "Expected to be about half by 2050.",
+   "finale": false,
+   "source": "State of the Tropics report (James Cook University, 2014): about 40% of the world's population lives in the tropics",
+   "sourceUrl": "https://www.jcu.edu.au/state-of-the-tropics"
+  },
+  {
+   "id": 358,
+   "kind": "guess",
+   "category": "Geography",
+   "text": "What % of the world's population lives in Europe?",
+   "answer": 9,
+   "note": "About 745 million of 8.2 billion.",
+   "finale": false,
+   "source": "United Nations, World Population Prospects 2024: Europe 745 million",
+   "sourceUrl": "https://population.un.org/wpp/"
+  },
+  {
+   "id": 359,
+   "kind": "guess",
+   "category": "Space · Finale",
+   "text": "What % of the Solar System's total mass is Jupiter?",
+   "answer": 0.1,
+   "note": "Jupiter has more than twice the mass of all other planets combined — but the Sun is 99.86%.",
+   "finale": true,
+   "source": "NASA Jupiter Fact Sheet (1.898×10²⁷ kg) and Sun Fact Sheet (1.989×10³⁰ kg)",
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html"
+  },
+  {
+   "id": 360,
+   "kind": "guess",
+   "category": "Society · Finale",
+   "text": "What % of US adults are vegan?",
+   "answer": 1,
+   "note": null,
+   "finale": true,
+   "source": "Gallup, 2023 Consumption Habits poll: 1% of US adults say they are vegan",
+   "sourceUrl": "https://news.gallup.com/poll/510038/identify-vegetarian-vegan.aspx"
+  },
+  {
+   "id": 361,
+   "kind": "guess",
+   "category": "Body · Finale",
+   "text": "What % of US births are twins?",
+   "answer": 3,
+   "note": "About 31 twins per 1,000 births.",
+   "finale": true,
+   "source": "CDC National Center for Health Statistics, Births: Final Data for 2023 — twin birth rate 30.7 per 1,000",
+   "sourceUrl": "https://www.cdc.gov/nchs/fastats/multiple.htm"
+  },
+  {
+   "id": 362,
+   "kind": "guess",
+   "category": "Geography · Finale",
+   "text": "What % of Americans live in Wyoming?",
+   "answer": 0.17,
+   "note": "About 588,000 people — the smallest state population.",
+   "finale": true,
+   "source": "US Census Bureau, Vintage 2024 estimates: Wyoming 587,618; US 340.1 million",
+   "sourceUrl": "https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html"
+  },
+  {
+   "id": 363,
+   "kind": "guess",
+   "category": "Geography · Finale",
+   "text": "What % of the world's population lives in Australia?",
+   "answer": 0.33,
+   "note": "About 27 million of 8.2 billion.",
+   "finale": true,
+   "source": "United Nations, World Population Prospects 2024 / ABS: Australia 27.2 million",
+   "sourceUrl": "https://population.un.org/wpp/"
+  },
+  {
+   "id": 364,
+   "kind": "guess",
+   "category": "Geography · Finale",
+   "text": "What % of Earth's land area is the United Kingdom?",
+   "answer": 0.16,
+   "note": "About 244,000 of 149 million square kilometres.",
+   "finale": true,
+   "source": "CIA World Factbook: UK 243,610 km²; world land 148.9 million km²",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/united-kingdom/"
+  },
+  {
+   "id": 365,
+   "kind": "guess",
+   "category": "Geography · Finale",
+   "text": "What % of the world's population lives in Canada?",
+   "answer": 0.51,
+   "note": "About 41.5 million of 8.2 billion.",
+   "finale": true,
+   "source": "Statistics Canada population clock (41.5 million, 2025) / UN World Population Prospects 2024",
+   "sourceUrl": "https://www.statcan.gc.ca/en/subjects-start/population_and_demography"
+  },
+  {
+   "id": 366,
+   "kind": "guess",
+   "category": "Science · Finale",
+   "text": "What % of Earth's fresh water is in lakes and rivers?",
+   "answer": 0.27,
+   "note": "Almost all fresh water is ice (69%) or underground (30%).",
+   "finale": true,
+   "source": "USGS, Where is Earth's Water?: fresh lakes 91,000 km³ + rivers 2,120 km³ of 35 million km³ fresh water",
+   "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/where-earth-water"
+  },
+  {
+   "id": 367,
+   "kind": "guess",
+   "category": "Money · Finale",
+   "text": "What % of the US federal budget goes to NASA?",
+   "answer": 0.37,
+   "note": "About $25 billion of $6.75 trillion in fiscal 2024.",
+   "finale": true,
+   "source": "NASA FY2024 appropriation $24.9B; CBO total outlays $6.75T",
+   "sourceUrl": "https://www.nasa.gov/budgets-plans-and-reports/"
+  },
+  {
+   "id": 368,
+   "kind": "guess",
+   "category": "Science · Finale",
+   "text": "What % of US electricity comes from geothermal power?",
+   "answer": 0.4,
+   "note": null,
+   "finale": true,
+   "source": "US Energy Information Administration, Electricity explained: geothermal 0.4% of US utility-scale generation (2023)",
+   "sourceUrl": "https://www.eia.gov/energyexplained/electricity/electricity-in-the-us.php"
+  },
+  {
+   "id": 369,
+   "kind": "guess",
+   "category": "Money · Finale",
+   "text": "What % of the US federal budget goes to foreign aid?",
+   "answer": 1,
+   "note": "Polls find Americans guess about 25%.",
+   "finale": true,
+   "source": "KFF, The US Government and Global Health / foreign aid about 1% of the federal budget",
+   "sourceUrl": "https://www.kff.org/global-health-policy/issue-brief/the-u-s-government-and-global-health/"
+  },
+  {
+   "id": 370,
+   "kind": "guess",
+   "category": "Society · Finale",
+   "text": "What % of Americans are American Indian or Alaska Native (alone)?",
+   "answer": 1,
+   "note": "1.1% in the 2020 Census; 2.9% including people of more than one race.",
+   "finale": true,
+   "source": "US Census Bureau, 2020 Census: American Indian and Alaska Native alone 1.1%",
+   "sourceUrl": "https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html"
+  },
+  {
+   "id": 371,
+   "kind": "guess",
+   "category": "Geography · Finale",
+   "text": "What % of the United States' land area is Rhode Island?",
+   "answer": 0.03,
+   "note": "1,034 square miles of land.",
+   "finale": true,
+   "source": "US Census Bureau, State area measurements: Rhode Island 1,034 sq mi land; US 3,531,905 sq mi land",
+   "sourceUrl": "https://www.census.gov/geographies/reference-files/2010/geo/state-area.html"
+  },
+  {
+   "id": 372,
+   "kind": "guess",
+   "category": "Geography · Finale",
+   "text": "What % of Earth's land area is Japan?",
+   "answer": 0.25,
+   "note": "About 378,000 of 149 million square kilometres.",
+   "finale": true,
+   "source": "CIA World Factbook: Japan 377,915 km²; world land 148.9 million km²",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/japan/"
+  },
+  {
+   "id": 373,
+   "kind": "text",
+   "category": "Space",
+   "text": "Name the #1 planet with the most known moons.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "NASA: Saturn 274 confirmed moons (IAU, March 2025), Jupiter 95, Uranus 29, Neptune 16, Mars 2, Earth 1",
+   "sourceUrl": "https://science.nasa.gov/saturn/moons/",
+   "top1": "Saturn",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Saturn"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Jupiter"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Uranus"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Neptune"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Mars"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Earth"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Mercury",
+    "Venus",
+    "Pluto",
+    "Sun"
+   ]
+  },
+  {
+   "id": 374,
+   "kind": "text",
+   "category": "Space",
+   "text": "Name the #1 hottest planet in the Solar System.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "NASA planetary fact sheets: mean surface temperature Venus 464°C, Mercury 167°C, Earth 15°C, Mars −65°C…",
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+   "top1": "Venus",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Venus"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Mercury"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Earth"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Mars"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Jupiter"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Saturn"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Uranus"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Neptune"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Sun",
+    "Pluto"
+   ]
+  },
+  {
+   "id": 375,
+   "kind": "text",
+   "category": "Space",
+   "text": "Name the #1 largest moon in the Solar System.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "NASA, moon diameters: Ganymede 5,268 km, Titan 5,150 km, Callisto 4,821 km, Io 3,643 km, the Moon 3,475 km…",
+   "sourceUrl": "https://science.nasa.gov/solar-system/moons/",
+   "top1": "Ganymede",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Ganymede"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Titan"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Callisto"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Io"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "the Moon",
+      "Moon",
+      "Earth's moon",
+      "Luna",
+      "our moon"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Europa"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Triton"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Titania"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Rhea"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Oberon"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Iapetus"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Charon"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Umbriel"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Ariel"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Dione"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Tethys"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Enceladus"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Miranda"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Proteus"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Mimas"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Nereid"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Hyperion"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Phoebe"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Phobos"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Deimos"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Sun"
+   ]
+  },
+  {
+   "id": 376,
+   "kind": "text",
+   "category": "World",
+   "text": "Name the #1 largest country in Africa by area.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "CIA World Factbook, country areas: Algeria 2.38M km², DR Congo 2.34M, Sudan 1.86M, Libya 1.76M…",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/field/area/country-comparison/",
+   "top1": "Algeria",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Algeria"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "DR Congo",
+      "Democratic Republic of the Congo",
+      "DRC",
+      "D.R. Congo",
+      "Congo-Kinshasa",
+      "Congo Kinshasa",
+      "Zaire"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Sudan"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Libya"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Chad"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Niger"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Angola"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Mali"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "South Africa"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Ethiopia"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Mauritania"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Egypt"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Tanzania"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Nigeria"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Namibia"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Mozambique"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Zambia"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "South Sudan"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Somalia"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Central African Republic",
+      "CAR"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Madagascar"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Botswana"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Kenya"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Cameroon"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Morocco"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Zimbabwe"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Republic of the Congo",
+      "Congo-Brazzaville",
+      "Congo Brazzaville",
+      "Congo Republic"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Côte d'Ivoire",
+      "Ivory Coast",
+      "Cote d'Ivoire",
+      "Cote dIvoire"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Burkina Faso"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Gabon"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Guinea"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "Uganda"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Ghana"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "Senegal"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Tunisia"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "Malawi"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Eritrea"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Benin"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Liberia"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "Sierra Leone"
+     ]
+    },
+    {
+     "rank": 41,
+     "texts": [
+      "Togo"
+     ]
+    },
+    {
+     "rank": 42,
+     "texts": [
+      "Guinea-Bissau"
+     ]
+    },
+    {
+     "rank": 43,
+     "texts": [
+      "Lesotho"
+     ]
+    },
+    {
+     "rank": 44,
+     "texts": [
+      "Equatorial Guinea"
+     ]
+    },
+    {
+     "rank": 45,
+     "texts": [
+      "Burundi"
+     ]
+    },
+    {
+     "rank": 46,
+     "texts": [
+      "Rwanda"
+     ]
+    },
+    {
+     "rank": 47,
+     "texts": [
+      "Djibouti"
+     ]
+    },
+    {
+     "rank": 48,
+     "texts": [
+      "Eswatini",
+      "Swaziland"
+     ]
+    },
+    {
+     "rank": 49,
+     "texts": [
+      "Gambia",
+      "The Gambia"
+     ]
+    },
+    {
+     "rank": 50,
+     "texts": [
+      "Cape Verde",
+      "Cabo Verde"
+     ]
+    },
+    {
+     "rank": 51,
+     "texts": [
+      "Comoros"
+     ]
+    },
+    {
+     "rank": 52,
+     "texts": [
+      "Mauritius"
+     ]
+    },
+    {
+     "rank": 53,
+     "texts": [
+      "São Tomé and Príncipe",
+      "Sao Tome and Principe",
+      "Sao Tome",
+      "São Tomé"
+     ]
+    },
+    {
+     "rank": 54,
+     "texts": [
+      "Seychelles"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Africa",
+    "Sahara"
+   ]
+  },
+  {
+   "id": 377,
+   "kind": "text",
+   "category": "World",
+   "text": "Name the #1 most populous country in Africa.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "United Nations, World Population Prospects 2024: Nigeria 232M, Ethiopia 132M, Egypt 116M, DR Congo 109M…",
+   "sourceUrl": "https://population.un.org/wpp/",
+   "top1": "Nigeria",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Nigeria"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Ethiopia"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Egypt"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "DR Congo",
+      "Democratic Republic of the Congo",
+      "DRC",
+      "D.R. Congo",
+      "Congo-Kinshasa",
+      "Congo Kinshasa",
+      "Zaire"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Tanzania"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "South Africa"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Kenya"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Sudan"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Uganda"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Algeria"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Morocco"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Angola"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Mozambique"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Ghana"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Madagascar"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Côte d'Ivoire",
+      "Ivory Coast",
+      "Cote d'Ivoire",
+      "Cote dIvoire"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Cameroon"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Niger"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Mali"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Burkina Faso"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Malawi"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Zambia"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Chad"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Somalia"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Senegal"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Zimbabwe"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Guinea"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Benin"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Rwanda"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Burundi"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Tunisia"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "South Sudan"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Togo"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "Sierra Leone"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Libya"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "Republic of the Congo",
+      "Congo-Brazzaville",
+      "Congo Brazzaville",
+      "Congo Republic"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Liberia"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Central African Republic",
+      "CAR"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Mauritania"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "Eritrea"
+     ]
+    },
+    {
+     "rank": 41,
+     "texts": [
+      "Namibia"
+     ]
+    },
+    {
+     "rank": 42,
+     "texts": [
+      "Gambia",
+      "The Gambia"
+     ]
+    },
+    {
+     "rank": 43,
+     "texts": [
+      "Botswana"
+     ]
+    },
+    {
+     "rank": 44,
+     "texts": [
+      "Gabon"
+     ]
+    },
+    {
+     "rank": 45,
+     "texts": [
+      "Lesotho"
+     ]
+    },
+    {
+     "rank": 46,
+     "texts": [
+      "Guinea-Bissau"
+     ]
+    },
+    {
+     "rank": 47,
+     "texts": [
+      "Equatorial Guinea"
+     ]
+    },
+    {
+     "rank": 48,
+     "texts": [
+      "Mauritius"
+     ]
+    },
+    {
+     "rank": 49,
+     "texts": [
+      "Eswatini",
+      "Swaziland"
+     ]
+    },
+    {
+     "rank": 50,
+     "texts": [
+      "Djibouti"
+     ]
+    },
+    {
+     "rank": 51,
+     "texts": [
+      "Comoros"
+     ]
+    },
+    {
+     "rank": 52,
+     "texts": [
+      "Cape Verde",
+      "Cabo Verde"
+     ]
+    },
+    {
+     "rank": 53,
+     "texts": [
+      "São Tomé and Príncipe",
+      "Sao Tome and Principe",
+      "Sao Tome",
+      "São Tomé"
+     ]
+    },
+    {
+     "rank": 54,
+     "texts": [
+      "Seychelles"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Africa"
+   ]
+  },
+  {
+   "id": 378,
+   "kind": "text",
+   "category": "World",
+   "text": "Name the #1 most populous country in the European Union.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Eurostat, Population on 1 January 2024: Germany 83.4M, France 68.4M, Italy 59.0M, Spain 48.6M, Poland 36.6M…",
+   "sourceUrl": "https://ec.europa.eu/eurostat/web/population-demography",
+   "top1": "Germany",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Germany"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "France"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Italy"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Spain"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Poland"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Romania"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Netherlands",
+      "Holland",
+      "the Netherlands"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Belgium"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Czechia",
+      "Czech Republic"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Portugal"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Sweden"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Greece"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Hungary"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Austria"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Bulgaria"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Denmark"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Finland"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Slovakia"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Ireland"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Croatia"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Lithuania"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Slovenia"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Latvia"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Estonia"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Cyprus"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Luxembourg"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Malta"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Russia",
+    "United Kingdom|UK|U.K.|Britain|Great Britain|the United Kingdom",
+    "Ukraine",
+    "Türkiye|Turkey|Turkiye",
+    "Norway",
+    "Switzerland",
+    "England"
+   ]
+  },
+  {
+   "id": 379,
+   "kind": "text",
+   "category": "World",
+   "text": "Name the #1 largest country entirely within Europe, by area.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "CIA World Factbook areas (countries wholly in Europe; Russia, Turkey and Kazakhstan span two continents): Ukraine 603,550 km², France (metropolitan) 551,500 km², Spain 505,370 km²…",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/field/area/country-comparison/",
+   "top1": "Ukraine",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Ukraine"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "France"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Spain"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Sweden"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Germany"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Finland"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Norway"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Poland"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Italy"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "United Kingdom",
+      "UK",
+      "U.K.",
+      "Britain",
+      "Great Britain",
+      "the United Kingdom"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Romania"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Belarus"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Greece"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Bulgaria"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Iceland"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Hungary"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Portugal"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Austria"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Czechia",
+      "Czech Republic"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Serbia"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Ireland"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Lithuania"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Latvia"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Croatia"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Bosnia and Herzegovina",
+      "Bosnia"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Slovakia"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Estonia"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Denmark"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Netherlands",
+      "Holland",
+      "the Netherlands"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Switzerland"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Moldova"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "Belgium"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Albania"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "North Macedonia",
+      "Macedonia"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Slovenia"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "Montenegro"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Kosovo"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Luxembourg"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Andorra"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "Malta"
+     ]
+    },
+    {
+     "rank": 41,
+     "texts": [
+      "Liechtenstein"
+     ]
+    },
+    {
+     "rank": 42,
+     "texts": [
+      "San Marino"
+     ]
+    },
+    {
+     "rank": 43,
+     "texts": [
+      "Monaco"
+     ]
+    },
+    {
+     "rank": 44,
+     "texts": [
+      "Vatican City",
+      "Vatican",
+      "Holy See"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Russia",
+    "Türkiye|Turkey|Turkiye",
+    "Kazakhstan",
+    "England",
+    "Scotland"
+   ]
+  },
+  {
+   "id": 380,
+   "kind": "text",
+   "category": "World",
+   "text": "Name the #1 smallest country in the world by area.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "CIA World Factbook, country areas: Vatican City 0.44 km², Monaco 2 km², Nauru 21 km², Tuvalu 26 km², San Marino 61 km²…",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/field/area/country-comparison/",
+   "top1": "Vatican City",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Vatican City",
+      "Vatican",
+      "Holy See"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Monaco"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Nauru"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Tuvalu"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "San Marino"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Liechtenstein"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Marshall Islands"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Saint Kitts and Nevis",
+      "St Kitts and Nevis",
+      "St. Kitts"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Maldives"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Malta"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Grenada"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Saint Vincent and the Grenadines",
+      "St Vincent"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Barbados"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Antigua and Barbuda",
+      "Antigua"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Seychelles"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Palau"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Andorra"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Saint Lucia",
+      "St Lucia"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Micronesia",
+      "Federated States of Micronesia"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Singapore"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Tonga"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Dominica"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Bahrain"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Kiribati"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "São Tomé and Príncipe",
+      "Sao Tome and Principe",
+      "Sao Tome",
+      "São Tomé"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Comoros"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Mauritius"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Luxembourg"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Samoa"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Cape Verde",
+      "Cabo Verde"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Gibraltar",
+    "Puerto Rico",
+    "Hong Kong",
+    "Macau"
+   ]
+  },
+  {
+   "id": 381,
+   "kind": "text",
+   "category": "Nature",
+   "text": "Name the #1 country with the longest coastline.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "CIA World Factbook, Coastline: Canada 202,080 km, Indonesia 54,716 km, Russia 37,653 km, Philippines 36,289 km, Japan 29,751 km…",
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/field/coastline/",
+   "top1": "Canada",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Canada"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Indonesia"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Russia"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Philippines"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Japan"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Australia"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Norway"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "United States",
+      "USA",
+      "US",
+      "U.S.",
+      "U.S.A.",
+      "America",
+      "United States of America",
+      "the States"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "New Zealand"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "China"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Greece"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "United Kingdom",
+      "UK",
+      "U.K.",
+      "Britain",
+      "Great Britain",
+      "the United Kingdom"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Mexico"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Italy"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Brazil"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Denmark"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Türkiye",
+      "Turkey",
+      "Turkiye"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "India"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Chile"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Croatia"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Papua New Guinea",
+      "PNG"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Argentina"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Iceland"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Spain"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "France"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Madagascar"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Malaysia"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Estonia"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Cuba"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Vietnam"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Thailand"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "Sweden"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Somalia"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "Saudi Arabia"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Bahamas",
+      "The Bahamas"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "Ireland"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Peru"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Colombia"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Ecuador"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "Fiji"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Greenland",
+    "Antarctica"
+   ]
+  },
+  {
+   "id": 382,
+   "kind": "text",
+   "category": "Nature",
+   "text": "Name the #1 largest desert in the world.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Wikipedia, List of deserts by area (incl. polar deserts): Antarctic 14.2M km², Arctic 13.9M km², Sahara 9.2M km²…",
+   "sourceUrl": "https://en.wikipedia.org/wiki/List_of_deserts_by_area",
+   "top1": "Antarctic Desert",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Antarctic Desert",
+      "Antarctic",
+      "Antarctica",
+      "Antarctic polar desert"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Arctic Desert",
+      "Arctic",
+      "Arctic polar desert"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Sahara",
+      "Sahara Desert"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Arabian Desert",
+      "Arabian"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Gobi",
+      "Gobi Desert"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Kalahari",
+      "Kalahari Desert"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Patagonian Desert",
+      "Patagonia",
+      "Patagonian"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Syrian Desert",
+      "Syrian"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Great Basin Desert",
+      "Great Basin"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Chihuahuan Desert",
+      "Chihuahuan"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Great Victoria Desert",
+      "Great Victoria"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Karakum Desert",
+      "Karakum"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Colorado Plateau"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Sonoran Desert",
+      "Sonoran"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Kyzylkum Desert",
+      "Kyzylkum"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Great Sandy Desert",
+      "Great Sandy"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Taklamakan Desert",
+      "Taklamakan",
+      "Taklimakan"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Thar Desert",
+      "Thar"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Gibson Desert",
+      "Gibson"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Mojave Desert",
+      "Mojave"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Atacama Desert",
+      "Atacama"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Namib Desert",
+      "Namib"
+     ]
+    }
+   ],
+   "unlisted": []
+  },
+  {
+   "id": 383,
+   "kind": "text",
+   "category": "Nature",
+   "text": "Name the #1 largest island in the world.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Encyclopaedia Britannica / Wikipedia, islands by area: Greenland 2.13M km², New Guinea 786,000 km², Borneo 743,000 km²… (Australia counts as a continent)",
+   "sourceUrl": "https://en.wikipedia.org/wiki/List_of_islands_by_area",
+   "top1": "Greenland",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Greenland"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "New Guinea"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Borneo"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Madagascar"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Baffin Island",
+      "Baffin"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Sumatra"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Honshu",
+      "Honshū"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Victoria Island"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Great Britain",
+      "Britain"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Ellesmere Island",
+      "Ellesmere"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Sulawesi",
+      "Celebes"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "South Island",
+      "South Island New Zealand"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Java"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "North Island",
+      "North Island New Zealand"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Luzon"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Newfoundland"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Cuba"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Iceland"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Mindanao"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Ireland"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Hokkaido",
+      "Hokkaidō"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Hispaniola"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Sakhalin"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Banks Island"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Sri Lanka"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Tasmania"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Devon Island"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Alexander Island"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Tierra del Fuego",
+      "Isla Grande de Tierra del Fuego"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Severny Island"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Australia",
+    "Antarctica"
+   ]
+  },
+  {
+   "id": 384,
+   "kind": "text",
+   "category": "World",
+   "text": "Name the #1 most populous island in the world.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Wikipedia, List of islands by population (national census data): Java ~156M, Honshu ~104M, Great Britain ~66M, Luzon ~64M, Sumatra ~60M…",
+   "sourceUrl": "https://en.wikipedia.org/wiki/List_of_islands_by_population",
+   "top1": "Java",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Java"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Honshu",
+      "Honshū"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Great Britain",
+      "Britain"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Luzon"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Sumatra"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Madagascar"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Mindanao"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Hispaniola"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Borneo"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Taiwan"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Sri Lanka"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Sulawesi",
+      "Celebes"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "New Guinea"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Kyushu",
+      "Kyūshū"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Cuba"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Hainan"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Long Island"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Ireland"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Singapore",
+      "Singapore Island"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Hokkaido",
+      "Hokkaidō"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Negros"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Panay"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Cebu"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Shikoku"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Puerto Rico"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Bali"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Lombok"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "North Island",
+      "North Island New Zealand"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Sicily"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Australia",
+    "Greenland",
+    "Japan",
+    "Indonesia",
+    "Philippines",
+    "Manhattan"
+   ]
+  },
+  {
+   "id": 385,
+   "kind": "text",
+   "category": "US states",
+   "text": "Name the #1 longest river in the United States.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "USGS, Largest Rivers in the United States (length): Missouri 2,341 mi, Mississippi 2,202 mi, Yukon 1,979 mi, Rio Grande 1,900 mi…",
+   "sourceUrl": "https://pubs.usgs.gov/of/1987/ofr87-242/",
+   "top1": "Missouri River",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Missouri River",
+      "Missouri"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Mississippi River",
+      "Mississippi"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Yukon River",
+      "Yukon"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Rio Grande"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "St. Lawrence River",
+      "St Lawrence",
+      "Saint Lawrence"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Arkansas River",
+      "Arkansas"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Colorado River",
+      "Colorado"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Atchafalaya River",
+      "Atchafalaya"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Ohio River",
+      "Ohio"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Red River",
+      "Red"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Brazos River",
+      "Brazos"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Columbia River",
+      "Columbia"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Snake River",
+      "Snake"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Platte River",
+      "Platte"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Pecos River",
+      "Pecos"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Canadian River",
+      "Canadian"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Tennessee River",
+      "Tennessee"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "North Canadian River",
+      "North Canadian"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Mobile River",
+      "Mobile"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Kansas River",
+      "Kansas"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Kuskokwim River",
+      "Kuskokwim"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Yellowstone River",
+      "Yellowstone"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Tanana River",
+      "Tanana"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Gila River",
+      "Gila"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Milk River",
+      "Milk"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Ouachita River",
+      "Ouachita"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Cumberland River",
+      "Cumberland"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Hudson River",
+      "Hudson"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Potomac River",
+      "Potomac"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Sacramento River",
+      "Sacramento"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Nile",
+    "Amazon"
+   ]
+  },
+  {
+   "id": 386,
+   "kind": "text",
+   "category": "Nature",
+   "text": "Name the #1 longest river in Europe.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Encyclopaedia Britannica / Wikipedia, rivers of Europe by length: Volga 3,530 km, Danube 2,850 km, Ural 2,428 km, Dnieper 2,201 km…",
+   "sourceUrl": "https://en.wikipedia.org/wiki/List_of_rivers_of_Europe",
+   "top1": "Volga",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Volga"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Danube"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Ural"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Dnieper"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Don"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Pechora"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Kama"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Oka"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Belaya"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Dniester"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Rhine"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Elbe"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Vistula"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Daugava",
+      "Western Dvina"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Loire"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Tagus",
+      "Tajo",
+      "Tejo"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Meuse",
+      "Maas"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Ebro"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Oder"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Rhône",
+      "Rhone"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Seine"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Douro",
+      "Duero"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Po"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Garonne"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Northern Dvina"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Neman",
+      "Nemunas"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Mures",
+      "Mureș"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Tisza"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Shannon"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Thames"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Nile",
+    "Amazon"
+   ]
+  },
+  {
+   "id": 387,
+   "kind": "text",
+   "category": "US states",
+   "text": "Name the #1 US state with the most people per square mile.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "US Census Bureau, 2020 Census population density by state: New Jersey 1,263/sq mi, Rhode Island 1,061, Massachusetts 901, Connecticut 745, Maryland 636…",
+   "sourceUrl": "https://www.census.gov/data/tables/time-series/dec/density-data-text.html",
+   "top1": "New Jersey",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "New Jersey",
+      "NJ"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Rhode Island",
+      "RI"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Massachusetts",
+      "MA",
+      "Mass"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Connecticut",
+      "CT"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Maryland",
+      "MD"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Delaware",
+      "DE"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "New York",
+      "NY",
+      "New York State"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Florida",
+      "FL"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Pennsylvania",
+      "PA"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Ohio",
+      "OH"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "California",
+      "CA",
+      "Cali"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Illinois",
+      "IL"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Hawaii",
+      "HI"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Virginia",
+      "VA"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "North Carolina",
+      "NC"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Indiana"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Georgia",
+      "GA"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Michigan",
+      "MI"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "South Carolina",
+      "SC"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Tennessee",
+      "TN"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "New Hampshire",
+      "NH"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Washington",
+      "WA",
+      "Washington State"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Kentucky",
+      "KY"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Texas",
+      "TX"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Wisconsin",
+      "WI"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Louisiana",
+      "LA"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Alabama",
+      "AL"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Missouri",
+      "MO"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "West Virginia",
+      "WV"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Minnesota",
+      "MN"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Vermont",
+      "VT"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "Arizona",
+      "AZ"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Mississippi",
+      "MS"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "Arkansas",
+      "AR"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Oklahoma",
+      "OK"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "Iowa",
+      "IA"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Colorado",
+      "CO"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Oregon"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Maine",
+      "ME"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "Utah",
+      "UT"
+     ]
+    },
+    {
+     "rank": 41,
+     "texts": [
+      "Kansas",
+      "KS"
+     ]
+    },
+    {
+     "rank": 42,
+     "texts": [
+      "Nevada",
+      "NV"
+     ]
+    },
+    {
+     "rank": 43,
+     "texts": [
+      "Nebraska",
+      "NE"
+     ]
+    },
+    {
+     "rank": 44,
+     "texts": [
+      "Idaho",
+      "ID"
+     ]
+    },
+    {
+     "rank": 45,
+     "texts": [
+      "New Mexico",
+      "NM"
+     ]
+    },
+    {
+     "rank": 46,
+     "texts": [
+      "South Dakota",
+      "SD"
+     ]
+    },
+    {
+     "rank": 47,
+     "texts": [
+      "North Dakota",
+      "ND"
+     ]
+    },
+    {
+     "rank": 48,
+     "texts": [
+      "Montana",
+      "MT"
+     ]
+    },
+    {
+     "rank": 49,
+     "texts": [
+      "Wyoming",
+      "WY"
+     ]
+    },
+    {
+     "rank": 50,
+     "texts": [
+      "Alaska",
+      "AK"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Washington DC",
+    "District of Columbia",
+    "DC",
+    "Puerto Rico"
+   ]
+  },
+  {
+   "id": 388,
+   "kind": "text",
+   "category": "US states",
+   "text": "Name the #1 least populous US state.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "US Census Bureau, Vintage 2024 population estimates: Wyoming 587,618, Vermont 648,493, Alaska 740,133, North Dakota 796,568…",
+   "sourceUrl": "https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html",
+   "top1": "Wyoming",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Wyoming",
+      "WY"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Vermont",
+      "VT"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Alaska",
+      "AK"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "North Dakota",
+      "ND"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "South Dakota",
+      "SD"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Delaware",
+      "DE"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Rhode Island",
+      "RI"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Montana",
+      "MT"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Maine",
+      "ME"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "New Hampshire",
+      "NH"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Hawaii",
+      "HI"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "West Virginia",
+      "WV"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Idaho",
+      "ID"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Nebraska",
+      "NE"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "New Mexico",
+      "NM"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Mississippi",
+      "MS"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Kansas",
+      "KS"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Arkansas",
+      "AR"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Iowa",
+      "IA"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Nevada",
+      "NV"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Utah",
+      "UT"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Connecticut",
+      "CT"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Oklahoma",
+      "OK"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Oregon"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Kentucky",
+      "KY"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Louisiana",
+      "LA"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Alabama",
+      "AL"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "South Carolina",
+      "SC"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Minnesota",
+      "MN"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Colorado",
+      "CO"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Wisconsin",
+      "WI"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "Missouri",
+      "MO"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Maryland",
+      "MD"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "Indiana"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Massachusetts",
+      "MA",
+      "Mass"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "Tennessee",
+      "TN"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Arizona",
+      "AZ"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Washington",
+      "WA",
+      "Washington State"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Virginia",
+      "VA"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "New Jersey",
+      "NJ"
+     ]
+    },
+    {
+     "rank": 41,
+     "texts": [
+      "Michigan",
+      "MI"
+     ]
+    },
+    {
+     "rank": 42,
+     "texts": [
+      "North Carolina",
+      "NC"
+     ]
+    },
+    {
+     "rank": 43,
+     "texts": [
+      "Georgia",
+      "GA"
+     ]
+    },
+    {
+     "rank": 44,
+     "texts": [
+      "Ohio",
+      "OH"
+     ]
+    },
+    {
+     "rank": 45,
+     "texts": [
+      "Illinois",
+      "IL"
+     ]
+    },
+    {
+     "rank": 46,
+     "texts": [
+      "Pennsylvania",
+      "PA"
+     ]
+    },
+    {
+     "rank": 47,
+     "texts": [
+      "New York",
+      "NY",
+      "New York State"
+     ]
+    },
+    {
+     "rank": 48,
+     "texts": [
+      "Florida",
+      "FL"
+     ]
+    },
+    {
+     "rank": 49,
+     "texts": [
+      "Texas",
+      "TX"
+     ]
+    },
+    {
+     "rank": 50,
+     "texts": [
+      "California",
+      "CA",
+      "Cali"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Washington DC",
+    "District of Columbia",
+    "DC",
+    "Puerto Rico",
+    "Guam"
+   ]
+  },
+  {
+   "id": 389,
+   "kind": "text",
+   "category": "US states",
+   "text": "Name the #1 most populous US state capital.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "US Census Bureau, Vintage 2023 city population estimates: Phoenix 1.65M, Austin 979,882, Columbus 913,175, Indianapolis 879,293, Denver 716,577…",
+   "sourceUrl": "https://www.census.gov/data/tables/time-series/demo/popest/2020s-total-cities-and-towns.html",
+   "top1": "Phoenix",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Phoenix"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Austin"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Columbus"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Indianapolis",
+      "Indy"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Denver"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Oklahoma City",
+      "OKC"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Nashville"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Boston"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Sacramento"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Atlanta"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Raleigh"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Honolulu"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Saint Paul",
+      "St. Paul",
+      "St Paul"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Lincoln"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Madison"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Boise"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Richmond"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Baton Rouge"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Des Moines"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Salt Lake City",
+      "SLC"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Little Rock"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Tallahassee"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Montgomery"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Providence"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Salem"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Jackson"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Columbia"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Topeka"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Hartford"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Springfield"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Lansing"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "Albany"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Trenton"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "Santa Fe"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Bismarck"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "Cheyenne"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Carson City"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Olympia"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Harrisburg"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "Charleston"
+     ]
+    },
+    {
+     "rank": 41,
+     "texts": [
+      "Concord"
+     ]
+    },
+    {
+     "rank": 42,
+     "texts": [
+      "Jefferson City"
+     ]
+    },
+    {
+     "rank": 43,
+     "texts": [
+      "Annapolis"
+     ]
+    },
+    {
+     "rank": 44,
+     "texts": [
+      "Dover"
+     ]
+    },
+    {
+     "rank": 45,
+     "texts": [
+      "Helena"
+     ]
+    },
+    {
+     "rank": 46,
+     "texts": [
+      "Juneau"
+     ]
+    },
+    {
+     "rank": 47,
+     "texts": [
+      "Frankfort"
+     ]
+    },
+    {
+     "rank": 48,
+     "texts": [
+      "Augusta"
+     ]
+    },
+    {
+     "rank": 49,
+     "texts": [
+      "Pierre"
+     ]
+    },
+    {
+     "rank": 50,
+     "texts": [
+      "Montpelier"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Washington DC",
+    "Washington",
+    "New York City",
+    "Los Angeles",
+    "Houston",
+    "Chicago"
+   ]
+  },
+  {
+   "id": 390,
+   "kind": "text",
+   "category": "Travel",
+   "text": "Name the #1 most visited US national park.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "National Park Service visitor statistics, 2024 recreation visits: Great Smoky Mountains 12.2M, Zion 4.9M, Grand Canyon 4.9M, Yellowstone 4.7M, Rocky Mountain 4.2M…",
+   "sourceUrl": "https://irma.nps.gov/Stats/",
+   "top1": "Great Smoky Mountains",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Great Smoky Mountains",
+      "Smoky Mountains",
+      "the Smokies",
+      "Great Smokies",
+      "Smokies"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Zion"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Grand Canyon"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Yellowstone"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Rocky Mountain",
+      "Rocky Mountains",
+      "Rockies"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Yosemite"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Acadia"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Grand Teton",
+      "Tetons",
+      "Grand Tetons"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Olympic"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Glacier"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Joshua Tree"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Cuyahoga Valley"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Indiana Dunes"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Bryce Canyon",
+      "Bryce"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Hot Springs"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Arches"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Hawaii Volcanoes",
+      "Hawaiʻi Volcanoes",
+      "Volcanoes"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Gateway Arch",
+      "St. Louis Arch"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Shenandoah"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Mount Rainier",
+      "Rainier"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Sequoia"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Capitol Reef"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Haleakala",
+      "Haleakalā"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Death Valley"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Badlands"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Everglades"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Saguaro"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Kings Canyon"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Mammoth Cave"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Canyonlands"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Theodore Roosevelt"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "Big Bend"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Crater Lake"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "Petrified Forest"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Redwood",
+      "Redwoods"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "White Sands"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Mesa Verde"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Carlsbad Caverns",
+      "Carlsbad"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Lassen Volcanic",
+      "Lassen"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "New River Gorge"
+     ]
+    },
+    {
+     "rank": 41,
+     "texts": [
+      "Wind Cave"
+     ]
+    },
+    {
+     "rank": 42,
+     "texts": [
+      "Biscayne"
+     ]
+    },
+    {
+     "rank": 43,
+     "texts": [
+      "Great Sand Dunes"
+     ]
+    },
+    {
+     "rank": 44,
+     "texts": [
+      "Pinnacles"
+     ]
+    },
+    {
+     "rank": 45,
+     "texts": [
+      "Glacier Bay"
+     ]
+    },
+    {
+     "rank": 46,
+     "texts": [
+      "Denali"
+     ]
+    },
+    {
+     "rank": 47,
+     "texts": [
+      "Black Canyon of the Gunnison",
+      "Black Canyon"
+     ]
+    },
+    {
+     "rank": 48,
+     "texts": [
+      "Voyageurs"
+     ]
+    },
+    {
+     "rank": 49,
+     "texts": [
+      "Congaree"
+     ]
+    },
+    {
+     "rank": 50,
+     "texts": [
+      "Channel Islands"
+     ]
+    },
+    {
+     "rank": 51,
+     "texts": [
+      "Guadalupe Mountains"
+     ]
+    },
+    {
+     "rank": 52,
+     "texts": [
+      "Great Basin"
+     ]
+    },
+    {
+     "rank": 53,
+     "texts": [
+      "Virgin Islands"
+     ]
+    },
+    {
+     "rank": 54,
+     "texts": [
+      "Dry Tortugas"
+     ]
+    },
+    {
+     "rank": 55,
+     "texts": [
+      "Kenai Fjords"
+     ]
+    },
+    {
+     "rank": 56,
+     "texts": [
+      "North Cascades"
+     ]
+    },
+    {
+     "rank": 57,
+     "texts": [
+      "Isle Royale"
+     ]
+    },
+    {
+     "rank": 58,
+     "texts": [
+      "Katmai"
+     ]
+    },
+    {
+     "rank": 59,
+     "texts": [
+      "Wrangell-St. Elias",
+      "Wrangell St Elias",
+      "Wrangell"
+     ]
+    },
+    {
+     "rank": 60,
+     "texts": [
+      "American Samoa"
+     ]
+    },
+    {
+     "rank": 61,
+     "texts": [
+      "Lake Clark"
+     ]
+    },
+    {
+     "rank": 62,
+     "texts": [
+      "Kobuk Valley"
+     ]
+    },
+    {
+     "rank": 63,
+     "texts": [
+      "Gates of the Arctic"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Golden Gate",
+    "Central Park",
+    "Blue Ridge Parkway",
+    "Statue of Liberty",
+    "Mount Rushmore",
+    "Niagara Falls"
+   ]
+  },
+  {
+   "id": 391,
+   "kind": "text",
+   "category": "Travel",
+   "text": "Name the #1 busiest airport in the world by passengers.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Airports Council International, World's busiest airports 2024: Atlanta 108.1M, Dubai 92.3M, Dallas Fort Worth 87.8M, Tokyo Haneda 85.9M, London Heathrow 83.9M…",
+   "sourceUrl": "https://aci.aero/2025/07/08/worlds-busiest-airports-revealed-in-final-global-rankings/",
+   "top1": "Atlanta",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Atlanta",
+      "Hartsfield-Jackson",
+      "ATL",
+      "Hartsfield Jackson Atlanta",
+      "Atlanta airport"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Dubai",
+      "DXB",
+      "Dubai International"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Dallas Fort Worth",
+      "DFW",
+      "Dallas"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Tokyo Haneda",
+      "Haneda",
+      "HND"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "London Heathrow",
+      "Heathrow",
+      "LHR"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Denver",
+      "DEN"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Istanbul",
+      "IST",
+      "Istanbul Airport"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Chicago O'Hare",
+      "O'Hare",
+      "ORD",
+      "Ohare"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Delhi",
+      "New Delhi",
+      "DEL",
+      "Indira Gandhi"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Shanghai Pudong",
+      "Pudong",
+      "PVG"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Los Angeles",
+      "LAX"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Guangzhou",
+      "CAN",
+      "Guangzhou Baiyun"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Paris Charles de Gaulle",
+      "Charles de Gaulle",
+      "CDG"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Seoul Incheon",
+      "Incheon",
+      "ICN"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Amsterdam Schiphol",
+      "Schiphol",
+      "Amsterdam",
+      "AMS"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Singapore Changi",
+      "Changi",
+      "Singapore",
+      "SIN"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Madrid",
+      "Barajas",
+      "MAD"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Frankfurt",
+      "FRA"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "New York JFK",
+      "JFK",
+      "John F. Kennedy"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Charlotte",
+      "CLT"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Beijing Capital",
+      "Beijing",
+      "PEK"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Bangkok Suvarnabhumi",
+      "Suvarnabhumi",
+      "Bangkok",
+      "BKK"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Las Vegas",
+      "Harry Reid",
+      "LAS"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Orlando",
+      "MCO"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Miami",
+      "MIA"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Mumbai",
+      "BOM"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Jakarta",
+      "Soekarno-Hatta",
+      "CGK"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Hong Kong",
+      "HKG"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Doha",
+      "Hamad",
+      "DOH"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Mexico City",
+      "MEX"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Tokyo Narita",
+    "Narita",
+    "London Gatwick",
+    "Gatwick",
+    "Newark",
+    "LaGuardia"
+   ]
+  },
+  {
+   "id": 392,
+   "kind": "text",
+   "category": "World",
+   "text": "Name the #1 largest metropolitan area in South America by population.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "UN World Urbanization Prospects / national statistics offices (IBGE, INDEC, INEI, DANE): São Paulo ~22M, Buenos Aires ~15M, Rio de Janeiro ~13M, Lima ~11M, Bogotá ~11M…",
+   "sourceUrl": "https://population.un.org/wup/",
+   "top1": "São Paulo",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "São Paulo",
+      "Sao Paulo",
+      "SP"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Buenos Aires"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Rio de Janeiro",
+      "Rio"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Lima"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Bogotá",
+      "Bogota"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Santiago"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Belo Horizonte"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Brasília",
+      "Brasilia"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Caracas"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Porto Alegre"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Recife"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Fortaleza"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Salvador"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Medellín",
+      "Medellin"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Guayaquil"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Curitiba"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Campinas"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Cali"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Quito"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Maracaibo"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Barranquilla"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Goiânia",
+      "Goiania"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Belém",
+      "Belem"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Manaus"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Asunción",
+      "Asuncion"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Montevideo"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "La Paz"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Santa Cruz",
+      "Santa Cruz de la Sierra"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Valencia"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Córdoba",
+      "Cordoba"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Mexico City",
+    "Brazil",
+    "Argentina"
+   ]
+  },
+  {
+   "id": 393,
+   "kind": "text",
+   "category": "World",
+   "text": "Name the #1 most populous province or territory in Canada.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Statistics Canada, population estimates (2024): Ontario 16.1M, Quebec 9.0M, British Columbia 5.7M, Alberta 4.9M…",
+   "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710000901",
+   "top1": "Ontario",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Ontario",
+      "ON"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Quebec",
+      "Québec",
+      "QC"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "British Columbia",
+      "BC"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Alberta",
+      "AB"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Manitoba",
+      "MB"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Saskatchewan",
+      "SK"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Nova Scotia",
+      "NS"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "New Brunswick",
+      "NB"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Newfoundland and Labrador",
+      "Newfoundland",
+      "NL"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Prince Edward Island",
+      "PEI"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Yukon",
+      "YT"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Northwest Territories",
+      "NWT"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Nunavut",
+      "NU"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Toronto",
+    "Vancouver",
+    "Montreal"
+   ]
+  },
+  {
+   "id": 394,
+   "kind": "text",
+   "category": "US states",
+   "text": "Name the #1 most populous state or territory in Australia.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Australian Bureau of Statistics, National, state and territory population (2024): New South Wales 8.5M, Victoria 7.0M, Queensland 5.6M…",
+   "sourceUrl": "https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/latest-release",
+   "top1": "New South Wales",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "New South Wales",
+      "NSW"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Victoria",
+      "VIC"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Queensland",
+      "QLD"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Western Australia",
+      "WA"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "South Australia",
+      "SA"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Tasmania",
+      "TAS"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Australian Capital Territory",
+      "ACT",
+      "Canberra"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Northern Territory",
+      "NT"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Sydney",
+    "Melbourne"
+   ]
+  },
+  {
+   "id": 395,
+   "kind": "text",
+   "category": "Science",
+   "text": "Name the #1 most abundant element in the human body by mass.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "OpenStax Anatomy & Physiology / Encyclopaedia Britannica: oxygen ~65%, carbon ~18.5%, hydrogen ~9.5%, nitrogen ~3.2%, calcium ~1.5%…",
+   "sourceUrl": "https://openstax.org/books/anatomy-and-physiology-2e/pages/2-1-elements-and-atoms-the-building-blocks-of-matter",
+   "top1": "Oxygen",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Oxygen"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Carbon"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Hydrogen"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Nitrogen"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Calcium",
+      "Ca"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Phosphorus"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Potassium"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Sulfur",
+      "Sulphur"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Sodium",
+      "Na"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Chlorine",
+      "Cl"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Magnesium",
+      "Mg"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Iron",
+      "Fe"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Fluorine"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Zinc",
+      "Zn"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Silicon",
+      "Si"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Copper",
+      "Cu"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Iodine"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Selenium",
+      "Se"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Manganese",
+      "Mn"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Cobalt",
+      "Co"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Water",
+    "Protein",
+    "Gold",
+    "Helium"
+   ]
+  },
+  {
+   "id": 396,
+   "kind": "text",
+   "category": "Business",
+   "text": "Name the #1 country that produces the most coffee.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "USDA Foreign Agricultural Service, Coffee: World Markets and Trade (2024/25): Brazil, Vietnam, Colombia, Indonesia, Ethiopia…",
+   "sourceUrl": "https://www.fas.usda.gov/data/coffee-world-markets-and-trade",
+   "top1": "Brazil",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Brazil"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Vietnam"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Colombia"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Indonesia"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Ethiopia"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Honduras"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Uganda"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Peru"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "India"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Mexico"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Guatemala"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Nicaragua"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Laos"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "China"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Costa Rica"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Côte d'Ivoire",
+      "Ivory Coast",
+      "Cote d'Ivoire",
+      "Cote dIvoire"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Tanzania"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Kenya"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Papua New Guinea",
+      "PNG"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "El Salvador"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Thailand"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Venezuela"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Ecuador"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Cameroon"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Philippines"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Madagascar"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Dominican Republic"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Haiti"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Bolivia"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Rwanda"
+     ]
+    },
+    {
+     "rank": 31,
+     "texts": [
+      "Burundi"
+     ]
+    },
+    {
+     "rank": 32,
+     "texts": [
+      "Yemen"
+     ]
+    },
+    {
+     "rank": 33,
+     "texts": [
+      "Guinea"
+     ]
+    },
+    {
+     "rank": 34,
+     "texts": [
+      "Togo"
+     ]
+    },
+    {
+     "rank": 35,
+     "texts": [
+      "Sierra Leone"
+     ]
+    },
+    {
+     "rank": 36,
+     "texts": [
+      "Panama"
+     ]
+    },
+    {
+     "rank": 37,
+     "texts": [
+      "Zambia"
+     ]
+    },
+    {
+     "rank": 38,
+     "texts": [
+      "Malawi"
+     ]
+    },
+    {
+     "rank": 39,
+     "texts": [
+      "Zimbabwe"
+     ]
+    },
+    {
+     "rank": 40,
+     "texts": [
+      "Jamaica"
+     ]
+    },
+    {
+     "rank": 41,
+     "texts": [
+      "Cuba"
+     ]
+    },
+    {
+     "rank": 42,
+     "texts": [
+      "DR Congo",
+      "Democratic Republic of the Congo",
+      "DRC",
+      "D.R. Congo",
+      "Congo-Kinshasa",
+      "Congo Kinshasa",
+      "Zaire"
+     ]
+    },
+    {
+     "rank": 43,
+     "texts": [
+      "Central African Republic",
+      "CAR"
+     ]
+    },
+    {
+     "rank": 44,
+     "texts": [
+      "Angola"
+     ]
+    },
+    {
+     "rank": 45,
+     "texts": [
+      "Nepal"
+     ]
+    },
+    {
+     "rank": 46,
+     "texts": [
+      "Myanmar"
+     ]
+    },
+    {
+     "rank": 47,
+     "texts": [
+      "Sri Lanka"
+     ]
+    },
+    {
+     "rank": 48,
+     "texts": [
+      "Timor-Leste",
+      "East Timor"
+     ]
+    },
+    {
+     "rank": 49,
+     "texts": [
+      "United States",
+      "USA",
+      "US",
+      "U.S.",
+      "U.S.A.",
+      "America",
+      "United States of America",
+      "the States"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Starbucks",
+    "Italy"
+   ]
+  },
+  {
+   "id": 397,
+   "kind": "text",
+   "category": "Business",
+   "text": "Name the #1 country that produces the most oil.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "US Energy Information Administration, total petroleum and other liquids production (2024): United States ~22M barrels/day, Saudi Arabia, Russia, Canada, China…",
+   "sourceUrl": "https://www.eia.gov/international/rankings/world",
+   "top1": "United States",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "United States",
+      "USA",
+      "US",
+      "U.S.",
+      "U.S.A.",
+      "America",
+      "United States of America",
+      "the States"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Saudi Arabia"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Russia"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Canada"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "China"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Iraq"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Brazil"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "United Arab Emirates",
+      "UAE",
+      "U.A.E.",
+      "Emirates"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Iran"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Kuwait"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Mexico"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Kazakhstan"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Norway"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Qatar"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Nigeria"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Algeria"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Libya"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Angola"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Oman"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Colombia"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Argentina"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Guyana"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Venezuela"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Indonesia"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "India"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Malaysia"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Egypt"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Azerbaijan"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Ecuador"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "United Kingdom",
+      "UK",
+      "U.K.",
+      "Britain",
+      "Great Britain",
+      "the United Kingdom"
+     ]
+    }
+   ],
+   "unlisted": [
+    "OPEC",
+    "Texas",
+    "Dubai"
+   ]
+  },
+  {
+   "id": 398,
+   "kind": "text",
+   "category": "Business",
+   "text": "Name the #1 biggest company in the world by revenue.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Fortune Global 500 (2025): Walmart $681B, Amazon $638B, State Grid $548B, Saudi Aramco $480B, China National Petroleum…",
+   "sourceUrl": "https://fortune.com/ranking/global500/",
+   "top1": "Walmart",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Walmart"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Amazon"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "State Grid",
+      "State Grid Corporation of China"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Saudi Aramco",
+      "Aramco"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "China National Petroleum",
+      "CNPC",
+      "PetroChina"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Sinopec",
+      "China Petrochemical"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "UnitedHealth",
+      "UnitedHealth Group"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Apple"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "CVS",
+      "CVS Health"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Berkshire Hathaway",
+      "Berkshire"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Volkswagen",
+      "VW"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "ExxonMobil",
+      "Exxon",
+      "Exxon Mobil"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Alphabet",
+      "Google"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "McKesson"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Toyota"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Shell"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Cencora",
+      "AmerisourceBergen"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "China State Construction",
+      "China State Construction Engineering"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Microsoft"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Costco"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "JPMorgan Chase",
+      "JPMorgan",
+      "Chase"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Glencore"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "Trafigura"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Samsung",
+      "Samsung Electronics"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Industrial and Commercial Bank of China",
+      "ICBC"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Cardinal Health"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Chevron"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Cigna"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Stellantis"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Ford",
+      "Ford Motor"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Nvidia",
+    "Tesla",
+    "Meta",
+    "Facebook"
+   ]
+  },
+  {
+   "id": 399,
+   "kind": "text",
+   "category": "Pop culture",
+   "text": "Name the #1 best-selling music artist of all time.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Wikipedia, List of best-selling music artists (claimed sales): The Beatles, Elvis Presley, Michael Jackson, Elton John, Queen, Madonna, Led Zeppelin, Rihanna…",
+   "sourceUrl": "https://en.wikipedia.org/wiki/List_of_best-selling_music_artists",
+   "top1": "The Beatles",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "The Beatles",
+      "Beatles"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Elvis Presley",
+      "Elvis"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Michael Jackson",
+      "MJ"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Elton John"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Queen"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Madonna"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Led Zeppelin"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Rihanna"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Pink Floyd"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Eminem"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Taylor Swift"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Mariah Carey"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Celine Dion",
+      "Céline Dion"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Garth Brooks"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "AC/DC",
+      "ACDC"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "Whitney Houston"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "The Rolling Stones",
+      "Rolling Stones"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Drake"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Bruno Mars"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Kanye West",
+      "Ye"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Justin Bieber"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "Bee Gees"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "ABBA"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Frank Sinatra"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Billy Joel"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Barbra Streisand"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "U2"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Bon Jovi"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Metallica"
+     ]
+    },
+    {
+     "rank": 30,
+     "texts": [
+      "Beyoncé",
+      "Beyonce"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Mozart",
+    "Beethoven"
+   ]
+  },
+  {
+   "id": 400,
+   "kind": "text",
+   "category": "Pop culture",
+   "text": "Name the #1 highest-grossing Pixar movie of all time.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "source": "Box Office Mojo, Pixar worldwide grosses: Inside Out 2 $1.70B, Incredibles 2 $1.24B, Toy Story 4 $1.07B, Toy Story 3 $1.07B, Finding Dory $1.03B…",
+   "sourceUrl": "https://www.boxofficemojo.com/brand/bn3976141826/",
+   "top1": "Inside Out 2",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Inside Out 2"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Incredibles 2",
+      "The Incredibles 2"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Toy Story 4"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Toy Story 3"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Finding Dory"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Finding Nemo"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Inside Out"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Coco"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Monsters University"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Up"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "The Incredibles",
+      "Incredibles"
+     ]
+    },
+    {
+     "rank": 12,
+     "texts": [
+      "Ratatouille"
+     ]
+    },
+    {
+     "rank": 13,
+     "texts": [
+      "Monsters, Inc.",
+      "Monsters Inc"
+     ]
+    },
+    {
+     "rank": 14,
+     "texts": [
+      "Cars 2"
+     ]
+    },
+    {
+     "rank": 15,
+     "texts": [
+      "Brave"
+     ]
+    },
+    {
+     "rank": 16,
+     "texts": [
+      "WALL-E",
+      "Wall-E",
+      "Walle"
+     ]
+    },
+    {
+     "rank": 17,
+     "texts": [
+      "Toy Story 2"
+     ]
+    },
+    {
+     "rank": 18,
+     "texts": [
+      "Elemental"
+     ]
+    },
+    {
+     "rank": 19,
+     "texts": [
+      "Cars"
+     ]
+    },
+    {
+     "rank": 20,
+     "texts": [
+      "Toy Story"
+     ]
+    },
+    {
+     "rank": 21,
+     "texts": [
+      "Cars 3"
+     ]
+    },
+    {
+     "rank": 22,
+     "texts": [
+      "A Bug's Life",
+      "Bugs Life"
+     ]
+    },
+    {
+     "rank": 23,
+     "texts": [
+      "The Good Dinosaur",
+      "Good Dinosaur"
+     ]
+    },
+    {
+     "rank": 24,
+     "texts": [
+      "Lightyear"
+     ]
+    },
+    {
+     "rank": 25,
+     "texts": [
+      "Elio"
+     ]
+    },
+    {
+     "rank": 26,
+     "texts": [
+      "Onward"
+     ]
+    },
+    {
+     "rank": 27,
+     "texts": [
+      "Soul"
+     ]
+    },
+    {
+     "rank": 28,
+     "texts": [
+      "Luca"
+     ]
+    },
+    {
+     "rank": 29,
+     "texts": [
+      "Turning Red"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Frozen",
+    "Shrek",
+    "Zootopia",
+    "Moana",
+    "The Lion King",
+    "Despicable Me",
+    "Minions"
+   ]
   }
  ]
 }

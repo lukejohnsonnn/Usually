@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as G from "../src/game/index.js";
-import { loadBank } from "../src/load.js";
+import { loadBank, loadSchedule } from "../src/load.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const bank = loadBank(path.join(root, "data", "bank.json"));
@@ -137,21 +137,25 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 142, "retired questions stay in the file");
+  assert.equal(bank.length, 240, "retired questions stay in the file");
   const active = bank.filter((q) => !q.retired);
-  assert.equal(active.length, 135);
+  assert.equal(active.length, 233);
   const count = (k) => active.filter((q) => G.poolOf(q) === k).length;
-  assert.equal(count("guess"), 100);
-  assert.equal(count("finale"), 11);
+  assert.equal(count("guess"), 156);
+  assert.equal(count("finale"), 25);
+  const fresh = active.filter((q) => !q.exposed);
+  assert.equal(fresh.length, 98, "98 brand-new questions nobody has seen");
   for (const id of [190, 192, 203, 257, 299, 80, 255]) assert.equal(bank.find((q) => q.id === id).retired, true, `q${id} retired`);
   assert.ok(!bank.some((q) => q.kind === "split" || "leftLabel" in q || "rightLabel" in q), "no Split questions remain");
-  assert.equal(count("text"), 24);
+  assert.equal(count("text"), 52);
   for (const q of bank) {
     assert.ok(q.source && q.source.length > 10, `q${q.id} has a source`);
     assert.ok(!("votable" in q), `q${q.id} has no voting field`);
     assert.doesNotMatch(`${q.text} ${q.category} ${q.note || ""}`, /crowd/i, `q${q.id} has no "crowd" theming`);
     if (q.kind === "text") {
-      assert.ok(q.textAnswers.length >= 76 && q.textAnswers.length <= 100, `q${q.id} has 76–100 ranks`);
+      // older lists are long open lists; the new ones are complete closed lists (every planet, every state…)
+      if (q.exposed) assert.ok(q.textAnswers.length >= 76 && q.textAnswers.length <= 100, `q${q.id} has 76–100 ranks`);
+      else assert.ok(q.textAnswers.length >= 6, `q${q.id} has a real list`);
       const ranks = q.textAnswers.map((s) => s.rank);
       assert.deepEqual(ranks, ranks.map((_, i) => i + 1), `q${q.id} ranks are 1..n`);
       assert.equal(G.matchTextAnswer(q, q.top1).rank, 1, `q${q.id} top1 label matches rank 1`);
@@ -206,4 +210,24 @@ test("composition never picks a retired question", () => {
 
 test("a guess of 50 when the answer is 27 is Lukewarm, not Cold", () => {
   assert.equal(G.scoreNumeric(27, 50).tier, "Lukewarm");
+});
+
+test("schedule: the next two weeks are brand-new questions, each used once, in Daily order", () => {
+  const days = loadSchedule(path.join(root, "data", "schedule.json"), bank);
+  assert.equal(days.length, 14);
+  assert.equal(days[0].date, "2026-11-20");
+  assert.equal(days.at(-1).date, "2026-12-03");
+  const all = days.flatMap((d) => d.ids);
+  assert.equal(new Set(all).size, 98, "no question twice");
+  for (const d of days) {
+    assert.ok(G.isValidSet(d.ids, bank), `${d.date} is a valid Daily`);
+    for (const id of d.ids) {
+      const q = byId.get(id);
+      assert.ok(!q.exposed && !q.retired, `${d.date}: q${id} is brand new`);
+    }
+    assert.equal(d.resetPlays, false, "the schedule never clears anyone's game");
+  }
+  // none of these were ever in Endless practice or an earlier Daily
+  const seenBefore = new Set(bank.filter((q) => q.exposed).map((q) => q.id));
+  assert.ok(all.every((id) => !seenBefore.has(id)));
 });

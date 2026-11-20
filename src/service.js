@@ -3,7 +3,7 @@
 import {
   ROUNDS, MAX_SCORE, composeSet, isValidSet, publicQuestion, poolOf,
   validateGuess, cleanGuess, scoreNumeric, scoreRank,
-  matchTextAnswer, normalizeText, easternDate, addDays, shareText, isDateStr,
+  matchTextAnswer, normalizeText, easternDate, addDays, shareText, isDateStr, FIRST_DAILY, dayNumber,
 } from "./game/index.js";
 
 // Runtime-neutral: runs unchanged on Node (local dev, tests) and Cloudflare
@@ -39,7 +39,7 @@ function bankProblem(q, seen) {
     if (validateGuess(q.answer)) return `bad answer ${q.answer}`;
   }
   if (q.kind === "text") {
-    if (!Array.isArray(q.textAnswers) || q.textAnswers.length < 10) return "text round without a ranked list";
+    if (!Array.isArray(q.textAnswers) || q.textAnswers.length < 5) return "text round without a ranked list";
     if (!q.top1) return "text round without a #1 label";
   }
   if (q.kind !== "guess" && q.finale) return "only guess questions can be finales";
@@ -98,7 +98,7 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       const again = await store.getDailySet(date);
       if (healthy(again)) return again.ids;
       if (pin) return applyPin(date, pin, again);
-      const ids = composeSet(bank, `daily:${date}`);
+      const ids = await composeFresh(date);
       const stored = await store.putDailySet(date, ids, { replace: Boolean(again) });
       if (!isValidSet(stored.ids, bank)) throw new Error(`daily set for ${date} failed validation after save`);
       if (again) {
@@ -112,6 +112,34 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       }
       return stored.ids;
     });
+  }
+
+  /**
+   * A new Daily never repeats a question from an earlier Daily (Past games
+   * make every earlier one playable), and prefers questions nobody has seen
+   * yet. It only falls back when a pool runs dry, so the game never stops.
+   */
+  async function composeFresh(date) {
+    const used = await store.usedDailyIds(date);
+    const active = bank.filter((q) => !q.retired);
+    const tiers = [
+      active.filter((q) => !used.has(q.id) && !q.exposed),
+      active.filter((q) => !used.has(q.id) && q.exposed),
+      active.filter((q) => used.has(q.id)),
+    ];
+    const need = { guess: 4, text: 2, finale: 1 };
+    const pool = [];
+    for (const kind of Object.keys(need)) {
+      let have = 0;
+      for (const [i, tier] of tiers.entries()) {
+        if (have >= need[kind]) break;
+        const add = tier.filter((q) => poolOf(q) === kind);
+        if (i > 0 && add.length) console.warn(`[daily] ${date}: fresh ${kind} questions ran low, using tier ${i + 1}`);
+        pool.push(...add);
+        have += add.length;
+      }
+    }
+    return composeSet(pool, `daily:${date}`);
   }
 
   /** Swap in a hand-picked set (runs once: afterwards the stored set matches the pin). */
@@ -130,6 +158,7 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       id: play.id,
       mode: play.mode,
       date: play.date,
+      number: dayNumber(play.date),
       round: play.results.length,
       rounds: ROUNDS,
       score: play.score,
@@ -140,16 +169,32 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     };
   }
 
-  async function startPlay(playerId, mode) {
-    if (mode !== "daily" && mode !== "endless") throw new GameError(400, "mode must be daily or endless");
-    const date = today();
+  /**
+   * Start or resume a play. "daily" is today's set; "archive" replays an
+   * earlier Daily (Past games). Each player gets one play per day: if they
+   * already played a day as its Daily, that play is what they get back.
+   */
+  async function startPlay(playerId, mode, requestedDate) {
+    if (mode === "endless") throw new GameError(400, "Endless practice is now Past games.");
+    if (mode !== "daily" && mode !== "archive") throw new GameError(400, "mode must be daily or archive");
+    let date = today();
     let ids;
     if (mode === "daily") {
       ids = await ensureDailySet(date);
       const existing = await store.findDailyPlay(playerId, date);
       if (existing) return playView(existing);
     } else {
-      ids = composeSet(bank, `endless:${crypto.randomUUID()}`);
+      if (!isDateStr(requestedDate) || requestedDate < FIRST_DAILY || requestedDate >= today()) {
+        throw new GameError(400, "Pick a past game from the list.");
+      }
+      date = requestedDate;
+      const set = await store.getDailySet(date);
+      if (!set || !isValidSet(set.ids, bank)) throw new GameError(404, "That day's game isn't available.");
+      ids = set.ids;
+      const asDaily = await store.findDailyPlay(playerId, date);
+      if (asDaily) return playView(asDaily);
+      const existing = await store.findDailyPlay(playerId, date, "archive");
+      if (existing) return playView(existing);
     }
     const play = {
       id: newId("p-"),
@@ -227,6 +272,31 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     return play ? playView(play) : null;
   }
 
+  /** Past games: every earlier Daily, newest first, with this player's result. */
+  async function archive(playerId) {
+    const t = today();
+    const dates = (await store.dailySetDates()).filter((d) => d >= FIRST_DAILY && d < t).sort().reverse();
+    const mine = new Map();
+    for (const p of await store.playerPlays(playerId)) {
+      if (p.mode !== "daily" && p.mode !== "archive") continue;
+      const prev = mine.get(p.date);
+      if (!prev || (p.completed && !prev.completed)) mine.set(p.date, p);
+    }
+    return {
+      today: t,
+      games: dates.map((date) => {
+        const p = mine.get(date);
+        return {
+          date,
+          number: dayNumber(date),
+          status: !p ? "new" : p.completed ? "done" : "playing",
+          score: p?.completed ? p.score : null,
+          playedAs: p?.mode ?? null,
+        };
+      }),
+    };
+  }
+
   async function stats(playerId) {
     const plays = await store.completedPlays(playerId);
     const daily = plays.filter((p) => p.mode === "daily");
@@ -271,5 +341,5 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     return { date, rounds: ROUNDS, maxScore: MAX_SCORE, questions: ids.map((id) => publicQuestion(byId.get(id))) };
   }
 
-  return { ensureDailySet, startPlay, submit, dailyResults, stats, yesterday, share, todaySet, today, bankSize: bank.filter((q) => !q.retired).length };
+  return { ensureDailySet, startPlay, submit, dailyResults, stats, yesterday, share, todaySet, today, archive, bankSize: bank.filter((q) => !q.retired).length };
 }

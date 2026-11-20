@@ -73,17 +73,18 @@ export function createD1Store(db) {
     },
 
     async getPlay(id) { return rowToPlay(await first("SELECT * FROM hd_plays WHERE id = ?", id)); },
-    async findDailyPlay(playerId, date) {
-      return rowToPlay(await first("SELECT * FROM hd_plays WHERE mode = 'daily' AND player_id = ? AND date = ?", playerId, date));
+    /** A player's play of a day, as its Daily (mode "daily") or as a Past game (mode "archive"). */
+    async findDailyPlay(playerId, date, mode = "daily") {
+      return rowToPlay(await first("SELECT * FROM hd_plays WHERE mode = ? AND player_id = ? AND date = ?", mode, playerId, date));
     },
     /** Creates the play; for a Daily, returns the existing one if the player already has it. */
     async createPlay(p) {
-      // daily_key enforces one Daily per player per day (NULL for Endless plays).
-      const dailyKey = p.mode === "daily" ? `${p.playerId}|${p.date}` : null;
+      // daily_key enforces one play per player per day and mode (NULL for old Endless plays).
+      const dailyKey = p.mode === "daily" ? `${p.playerId}|${p.date}` : p.mode === "archive" ? `archive|${p.playerId}|${p.date}` : null;
       await exec(`INSERT INTO hd_plays (id, player_id, mode, daily_key, date, question_ids, snapshot, results, score, completed_at)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING`,
       p.id, p.playerId, p.mode, dailyKey, p.date, j(p.questionIds), j(p.snapshot), j(p.results), p.score, p.completedAt ?? null);
-      return p.mode === "daily" ? this.findDailyPlay(p.playerId, p.date) : this.getPlay(p.id);
+      return p.mode === "daily" || p.mode === "archive" ? this.findDailyPlay(p.playerId, p.date, p.mode) : this.getPlay(p.id);
     },
     async savePlay(p) {
       await exec("UPDATE hd_plays SET results = ?, score = ?, completed_at = ? WHERE id = ?", j(p.results), p.score, p.completedAt ?? null, p.id);
@@ -98,6 +99,18 @@ export function createD1Store(db) {
     },
     async dailyPlayIds(date) {
       return (await all("SELECT id FROM hd_plays WHERE mode = 'daily' AND date = ?", date)).map((r) => r.id);
+    },
+    async dailySetDates() {
+      return (await all("SELECT date FROM hd_daily_sets")).map((r) => r.date);
+    },
+    async usedDailyIds(exceptDate) {
+      const used = new Set();
+      for (const r of await all("SELECT ids FROM hd_daily_sets WHERE date <> ?", exceptDate ?? "")) for (const id of JSON.parse(r.ids)) used.add(id);
+      return used;
+    },
+    async playerPlays(playerId) {
+      const rows = await all("SELECT mode, date, score, completed_at FROM hd_plays WHERE player_id = ?", playerId);
+      return rows.map((r) => ({ mode: r.mode, date: r.date, score: r.score, completed: Boolean(r.completed_at) }));
     },
     async completedPlays(playerId) {
       return all("SELECT mode, date, score FROM hd_plays WHERE player_id = ? AND completed_at IS NOT NULL", playerId);

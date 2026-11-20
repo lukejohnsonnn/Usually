@@ -106,3 +106,28 @@ test("worker: the game plays in a real browser", { skip: playwright ? false : "p
     assert.deepEqual(errors, []);
   } finally { await browser.close(); }
 });
+
+test("worker: search-engine files and link-preview tags", async () => {
+  const robots = await call("/robots.txt");
+  assert.match(robots.text, /Sitemap: https:\/\/honeydle\.com\/sitemap\.xml/);
+  assert.match(robots.text, /Disallow: \/api\//);
+  assert.match((await call("/sitemap.xml")).text, /<loc>https:\/\/honeydle\.com\/<\/loc>/);
+  const home = (await call("/")).text;
+  assert.match(home, /<link rel="canonical" href="https:\/\/honeydle\.com\/">/);
+  assert.match(home, /property="og:image" content="https:\/\/honeydle\.com\/img\/og-card\.png"/);
+  const ld = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+  assert.equal(ld["@graph"][0].name, "Honeydle");
+  assert.match(home, /a free daily guessing game built on real numbers/i, "readable without JavaScript");
+  assert.match((await call("/img/og-card.png")).type, /image\/png/);
+});
+
+test("worker: www and workers.dev redirect permanently to honeydle.com", async () => {
+  const { canonicalRedirect } = await import("../src/canonical.js");
+  const r1 = canonicalRedirect(new Request("https://www.honeydle.com/some/page?x=1"));
+  assert.equal(r1.status, 301);
+  assert.equal(r1.headers.get("location"), "https://honeydle.com/some/page?x=1");
+  const r2 = canonicalRedirect(new Request("https://honeydle.lukejohnson.workers.dev/"));
+  assert.equal(r2.headers.get("location"), "https://honeydle.com/");
+  assert.equal(canonicalRedirect(new Request("https://honeydle.com/")), null);
+  assert.equal(canonicalRedirect(new Request("http://127.0.0.1:8787/")), null, "local dev is left alone");
+});

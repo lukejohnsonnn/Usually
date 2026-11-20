@@ -57,7 +57,8 @@ export function createHandler({ service, store, assets, rateLimit = 200 }) {
 
   const routes = [
     ["GET", /^\/api\/today$/, async () => service.todaySet()],
-    ["POST", /^\/api\/play$/, async (req) => service.startPlay(player(req), (await body(req)).mode)],
+    ["POST", /^\/api\/play$/, async (req) => { const b = await body(req); return service.startPlay(player(req), b.mode, b.date); }],
+    ["GET", /^\/api\/archive$/, async (req) => service.archive(player(req))],
     ["POST", /^\/api\/play\/([^/]+)\/submit$/, async (req, _url, m) => {
       const b = await body(req);
       return service.submit(player(req), decodeURIComponent(m[1]), { round: Number(b.round), value: b.value, timedOut: b.timedOut === true });

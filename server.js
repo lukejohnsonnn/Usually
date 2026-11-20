@@ -3,7 +3,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createService } from "./src/service.js";
-import { loadBank, loadOverrides } from "./src/load.js";
+import { loadBank, loadOverrides, loadSchedule } from "./src/load.js";
 import { createHandler } from "./src/http.js";
 import { createFileStore } from "./src/store/file.js";
 import { listen, serveStatic } from "./src/node-server.js";
@@ -16,7 +16,10 @@ process.on("uncaughtException", (err) => console.error("[process] uncaught excep
 const bank = loadBank(path.join(root, "data", "bank.json"));
 const store = createFileStore(process.env.LOCAL_DATA_PATH || path.join(root, "data", "local.json"));
 await store.init();
-const overrides = loadOverrides(path.join(root, "data", "daily-overrides.json"), bank);
+const overrides = [
+  ...loadSchedule(path.join(root, "data", "schedule.json"), bank),
+  ...loadOverrides(path.join(root, "data", "daily-overrides.json"), bank), // hand-picks win over the schedule
+];
 const service = createService({ store, bank, overrides });
 
 try {
