@@ -70,19 +70,19 @@ const sameIds = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 // ---------- standings ----------
 /**
- * A smoothed curve of the day's scores (a kernel density): 48 steps across a
- * range that frames everyone's scores, heights scaled so the peak is 1.
- * Smoothing is wider while there are few players so the line stays soft.
+ * The day's scores as a bell curve: a normal curve with the scores' mean and
+ * spread, 48 steps across mean ± 3 spreads (widened to include your score),
+ * heights scaled so the peak is 1. Smooth whatever the number of players.
  */
 export function scoreCurve(scores, yours) {
-  const bw = scores.length < 30 ? 70 : scores.length < 200 ? 50 : 35;
-  const lo = Math.max(0, Math.floor((Math.min(yours, ...scores) - 2.5 * bw) / 50) * 50);
-  const hi = Math.min(MAX_SCORE, Math.ceil((Math.max(yours, ...scores) + 2.5 * bw) / 50) * 50);
+  const mean = scores.reduce((a, s) => a + s, 0) / scores.length;
+  const sd = Math.max(60, Math.sqrt(scores.reduce((a, s) => a + (s - mean) ** 2, 0) / scores.length));
+  const lo = Math.max(0, Math.floor(Math.min(yours - 40, mean - 3 * sd) / 50) * 50);
+  const hi = Math.min(MAX_SCORE, Math.ceil(Math.max(yours + 40, mean + 3 * sd) / 50) * 50);
   const xs = Array.from({ length: 49 }, (_, i) => Math.round(lo + ((hi - lo) * i) / 48));
-  const ys = xs.map((x) => scores.reduce((a, s) => a + Math.exp(-0.5 * ((x - s) / bw) ** 2), 0));
-  const peak = Math.max(...ys) || 1;
-  return { from: lo, to: hi, points: xs.map((x, i) => [x, Math.round((ys[i] / peak) * 1000) / 1000]) };
+  return { from: lo, to: hi, mean: Math.round(mean), points: xs.map((x) => [x, Math.round(Math.exp(-0.5 * ((x - mean) / sd) ** 2) * 1000) / 1000]) };
 }
+
 /** Real players a day needs before the estimated scores drop out. */
 export const SEED_UNTIL = 20;
 /** Five estimated scores for a day: a typical spread, nudged by the date so days differ. */

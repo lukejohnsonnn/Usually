@@ -171,7 +171,10 @@ describe("server", () => {
       assert.equal(st.beat, 100);
       assert.equal(st.curve.points.length, 49);
       assert.ok(st.curve.from <= 440 && st.curve.to >= mine && st.curve.to <= 1225, "the curve frames every score and yours");
-      assert.equal(Math.max(...st.curve.points.map((p) => p[1])), 1, "peak scaled to 1");
+      const ys = st.curve.points.map((p) => p[1]);
+      const peak = ys.indexOf(Math.max(...ys));
+      assert.ok(Math.max(...ys) > 0.98, "peak scaled to about 1");
+      assert.ok(ys.every((y, i) => i === 0 || (i <= peak ? y >= ys[i - 1] : y <= ys[i - 1])), "one smooth hump: a bell curve");
       assert.ok(st.curve.points.every(([x, d], i, a) => d >= 0 && d <= 1 && (i === 0 || x > a[i - 1][0])));
       // the estimated scores are steady for a day and differ between days
       const G = await import("../src/service.js");
