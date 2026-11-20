@@ -9,7 +9,8 @@
 @font-face { font-family: "Libre Franklin"; src: url("/public/fonts/libre-franklin-latin-800-normal.woff2") format("woff2"); font-weight: 700 900; }
 :root { --yellow: #ffd60a; --gold: #cf9a06; --soft: #f3d27a; --muted: #a8a8a8; --chip: #241d00; }
 * { box-sizing: border-box; margin: 0; }
-html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; color: #fff; font-family: "Libre Franklin", sans-serif; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; color: #fff; font-family: "Press Start 2P", "Noto Color Emoji", monospace; }
+* { font-synthesis: none; font-weight: 400 !important; }
 #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
 #bgGlow { position: absolute; inset: -200px; }
 #dots { position: absolute; inset: -100px; opacity: .45;
@@ -26,7 +27,7 @@ em { font-style: normal; color: var(--yellow); }
 
 /* hook */
 #hook { justify-content: center; text-align: center; gap: 10px; }
-#hook .w { font-size: 150px; font-weight: 900; line-height: 1.0; letter-spacing: -2px; }
+#hook .w { font-size: 118px; line-height: 1.35; }
 #hook .w.y { color: var(--yellow); text-shadow: 0 0 60px rgba(255,214,10,.5); }
 #drips { position: absolute; top: 0; left: 0; right: 0; height: 0; }
 .drip { position: absolute; top: -10px; background: linear-gradient(#ffd60a, #e8a800); border-radius: 0 0 40px 40px;
@@ -37,10 +38,10 @@ em { font-style: normal; color: var(--yellow); }
 #game { padding-top: 220px; }
 .meta { display: flex; gap: 22px; align-items: center; }
 .chip { background: var(--chip); color: var(--yellow); border: 3px solid #4d4116; padding: 14px 26px; border-radius: 999px;
-  font-size: 30px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  font-size: 24px; letter-spacing: .08em; text-transform: uppercase; }
 .round { font-size: 24px; color: var(--muted); }
-.q { margin-top: 36px; font-size: 68px; font-weight: 900; line-height: 1.08; text-align: center; padding: 0 50px; height: 250px; }
-.q .wd { display: inline-block; margin: 0 .12em; }
+.q { margin-top: 40px; font-size: 42px; line-height: 1.5; text-align: center; padding: 0 40px; height: 250px; }
+.q .wd { display: inline-block; margin: 0 .32em; }
 .num { margin-top: 34px; font-size: 150px; color: var(--yellow); text-shadow: 0 0 50px rgba(255,214,10,.5); height: 190px; }
 #combHost { position: relative; margin-top: 10px; width: 940px; height: 560px; display: grid; place-items: center; }
 #combHost > canvas { grid-area: 1 / 1; image-rendering: pixelated; }
@@ -52,7 +53,7 @@ em { font-style: normal; color: var(--yellow); }
 #touch { position: absolute; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%;
   background: rgba(255,255,255,.28); border: 5px solid rgba(255,255,255,.85); }
 .btn { position: absolute; top: 1640px; left: 110px; right: 110px; height: 150px; border-radius: 28px; background: var(--yellow);
-  color: #000; display: grid; place-items: center; font-size: 56px; font-weight: 900; box-shadow: 0 12px 0 var(--gold); }
+  color: #000; display: grid; place-items: center; font-size: 46px; box-shadow: 0 12px 0 var(--gold); }
 #ripple { position: absolute; width: 100px; height: 100px; margin: -50px 0 0 -50px; border-radius: 50%; border: 8px solid #fff; opacity: 0; }
 #stamp { position: absolute; top: 1440px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 30px; }
 #stamp .rays { position: absolute; left: 50%; top: 50%; width: 1400px; height: 1400px; margin: -700px 0 0 -700px; opacity: 0;
@@ -60,15 +61,15 @@ em { font-style: normal; color: var(--yellow); }
   -webkit-mask: radial-gradient(circle, #000 15%, transparent 60%); mask: radial-gradient(circle, #000 15%, transparent 60%); }
 #stamp img { position: relative; width: 330px; height: 330px; image-rendering: pixelated; }
 #stamp .txt { position: relative; }
-#stamp .tier { font-size: 92px; font-weight: 900; color: var(--yellow); line-height: .95; text-shadow: 0 6px 0 #7a5a00; }
-#stamp .pts { font-size: 54px; margin-top: 22px; }
+#stamp .tier { font-size: 64px; color: var(--yellow); line-height: 1.25; text-shadow: 0 6px 0 #7a5a00; }
+#stamp .pts { font-size: 46px; margin-top: 22px; }
 
 /* tier montage */
 #tiers { justify-content: center; }
 .tcard { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; }
 .tcard img { width: 700px; height: 700px; image-rendering: pixelated; filter: drop-shadow(0 30px 40px rgba(0,0,0,.5)); }
-.tcard .nm { font-size: 130px; font-weight: 900; line-height: 1; margin-top: 10px; text-shadow: 0 8px 0 rgba(0,0,0,.35); text-align: center; }
-.tcard .rg { font-size: 44px; font-weight: 800; margin-top: 30px; letter-spacing: .1em; text-transform: uppercase; opacity: .9; }
+.tcard .nm { font-size: 76px; line-height: 1.3; margin-top: 20px; padding: 0 40px; text-shadow: 0 8px 0 rgba(0,0,0,.35); text-align: center; }
+.tcard .rg { font-size: 32px; margin-top: 30px; letter-spacing: .05em; text-transform: uppercase; opacity: .9; }
 #tierHead { position: absolute; top: 200px; left: 0; right: 0; text-align: center; font-size: 33px; letter-spacing: .1em; }
 #tierCount { position: absolute; bottom: 200px; left: 0; right: 0; display: flex; justify-content: center; gap: 22px; }
 #tierCount i { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.25); }
@@ -76,7 +77,7 @@ em { font-style: normal; color: var(--yellow); }
 
 /* daily + share */
 #daily { padding-top: 250px; text-align: center; }
-#daily .line { font-size: 110px; font-weight: 900; line-height: 1.08; }
+#daily .line { font-size: 52px; line-height: 1.9; }
 #shareBox { position: absolute; top: 900px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
 #shareCard { background: #111; border: 4px solid #3a3112; border-radius: 36px; padding: 50px 60px 44px; text-align: center;
   box-shadow: 0 0 80px rgba(255,214,10,.18); }
@@ -85,14 +86,14 @@ em { font-style: normal; color: var(--yellow); }
 #emos span { display: inline-block; }
 #shareScore { font-size: 84px; color: var(--yellow); margin-top: 34px; }
 #shareScore span { color: var(--muted); font-size: 52px; }
-#shareMsg { margin-top: 60px; font-size: 76px; font-weight: 900; line-height: 1.1; }
+#shareMsg { margin-top: 70px; font-size: 52px; line-height: 1.5; }
 /* end */
 #end { justify-content: center; gap: 46px; text-align: center; }
 #end .logo { font-size: 108px; }
-#end .tag { font-size: 74px; font-weight: 900; }
+#end .tag { font-size: 50px; }
 #parade { position: relative; width: 1000px; height: 300px; }
 #parade img { position: absolute; width: 160px; height: 160px; image-rendering: pixelated; }
-#end .cta { background: var(--yellow); color: #000; font-size: 60px; font-weight: 900; padding: 44px 90px; border-radius: 30px; box-shadow: 0 12px 0 var(--gold); }
+#end .cta { background: var(--yellow); color: #000; font-size: 44px; padding: 48px 70px; border-radius: 30px; box-shadow: 0 12px 0 var(--gold); }
 #end .url { font-size: 42px; color: var(--soft); letter-spacing: 2px; }
 
 #brand { position: absolute; top: 90px; left: 0; right: 0; text-align: center; font-size: 46px; opacity: 0; }
