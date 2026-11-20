@@ -88,7 +88,7 @@ const swatch = (color, ring) => h("img", { class: "sw", alt: "", src: pipSvg(col
 // ---------------------------------------------------------------- chrome
 function wordmark() {
   return h("h1", { class: "wordmark" }, h("a", { href: "/", onclick: (e) => { e.preventDefault(); goHome(); }, "aria-label": "Honeydle — home" },
-    "HONE", h("span", { class: "kY" }, "Y"), "D", h("span", { class: "kL" }, "L"), "E", h("span", { class: "dot" }, ".")));
+    "HONE", h("span", { class: "kY" }, "Y"), "D", h("span", { class: "kL" }, "L"), "E"));
 }
 
 function masthead({ compact = false, date, streak } = {}) {
