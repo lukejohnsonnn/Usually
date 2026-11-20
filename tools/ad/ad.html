@@ -74,23 +74,24 @@ em { font-style: normal; color: var(--yellow); }
 #tierCount i { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.25); }
 #tierCount i.on { background: #fff; }
 
-/* daily + ruby */
+/* daily + share */
 #daily { padding-top: 250px; text-align: center; }
 #daily .line { font-size: 110px; font-weight: 900; line-height: 1.08; }
-#rubyBox { position: absolute; top: 960px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
-#rubyBee { position: relative; width: 440px; height: 440px; }
-#rubyBee img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
-#rubyScore { font-size: 84px; color: var(--yellow); margin-top: 26px; }
-#rubyScore span { color: var(--muted); font-size: 52px; }
-#rubyMsg { margin-top: 40px; font-size: 62px; font-weight: 900; line-height: 1.1; }
-#rubyMsg em { color: #ff3b6b; }
-
+#shareBox { position: absolute; top: 900px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
+#shareCard { background: #111; border: 4px solid #3a3112; border-radius: 36px; padding: 50px 60px 44px; text-align: center;
+  box-shadow: 0 0 80px rgba(255,214,10,.18); }
+#shareCard .top { font-size: 30px; color: var(--soft); letter-spacing: 2px; }
+#emos { margin-top: 34px; display: flex; gap: 14px; justify-content: center; font-family: "Noto Color Emoji", sans-serif; font-size: 92px; }
+#emos span { display: inline-block; }
+#shareScore { font-size: 84px; color: var(--yellow); margin-top: 34px; }
+#shareScore span { color: var(--muted); font-size: 52px; }
+#shareMsg { margin-top: 60px; font-size: 76px; font-weight: 900; line-height: 1.1; }
 /* end */
 #end { justify-content: center; gap: 46px; text-align: center; }
 #end .logo { font-size: 108px; }
 #end .tag { font-size: 74px; font-weight: 900; }
-#parade { position: relative; width: 1000px; height: 360px; }
-#parade img { position: absolute; width: 190px; height: 190px; image-rendering: pixelated; }
+#parade { position: relative; width: 1000px; height: 300px; }
+#parade img { position: absolute; width: 160px; height: 160px; image-rendering: pixelated; }
 #end .cta { background: var(--yellow); color: #000; font-size: 60px; font-weight: 900; padding: 44px 90px; border-radius: 30px; box-shadow: 0 12px 0 var(--gold); }
 #end .url { font-size: 42px; color: var(--soft); letter-spacing: 2px; }
 
@@ -117,7 +118,7 @@ em { font-style: normal; color: var(--yellow); }
       <div class="w slam" id="h2">can't</div>
       <div class="w y slam" id="h3">guess</div>
       <div class="w slam" id="h4">this.</div>
-      <img id="flyBee" src="/public/img/bee-normal.png" alt="">
+      <img id="flyBee" src="/public/img/bee-honey.png" alt="">
     </section>
 
     <section id="game" class="layer">
@@ -146,10 +147,9 @@ em { font-style: normal; color: var(--yellow); }
       <div class="line slam" id="l1"><em>7</em> rounds.</div>
       <div class="line slam" id="l2">Same for <em>everyone.</em></div>
       <div class="line slam" id="l3">Once a day.</div>
-      <div id="rubyBox">
-        <div id="rubyBee"><img src="/public/img/bee-ruby-shadow.png" alt="" id="rshadow"><img src="/public/img/bee-ruby.png" alt="" id="rreal"></div>
-        <div class="pixel" id="rubyScore">0 <span>/ 1225</span></div>
-        <div id="rubyMsg" class="slam">Hit 800 to unlock<br>the secret <em>ruby bee</em></div>
+      <div id="shareBox">
+        <div id="shareCard"><div class="top pixel">MY HONEYDLE</div><div id="emos"></div><div class="pixel" id="shareScore">0 <span>/ 1225</span></div></div>
+        <div id="shareMsg" class="slam">Can your friends<br><em>beat it?</em></div>
       </div>
     </section>
 
@@ -222,7 +222,10 @@ TIERS.forEach((t) => $("tcards").insertAdjacentHTML("beforeend",
 const tcards = [...$("tcards").children];
 TIERS.forEach(() => $("tierCount").append(document.createElement("i")));
 const dotsEl = [...$("tierCount").children];
-const PARADE = ["yucky", "bitter", "lukewarm", "honey", "golden", "diamond", "ruby", "normal"];
+const PARADE = ["yucky", "bitter", "lukewarm", "honey", "golden", "diamond"];
+const EMOS = ["💎", "✨", "😋", "😐", "😋", "😖", "✨"];
+EMOS.forEach((e) => $("emos").insertAdjacentHTML("beforeend", `<span>${e}</span>`));
+const emoEls = [...$("emos").children];
 PARADE.forEach((b) => $("parade").insertAdjacentHTML("beforeend", `<img src="/public/img/bee-${b}.png" alt="">`));
 const paradeEls = [...$("parade").children];
 
@@ -230,7 +233,7 @@ const paradeEls = [...$("parade").children];
 const BURSTS = [
   [REVEAL + 0.85, 540, 1600, ["#ffd60a", "#fff3a3", "#ffffff"]],
   ...TIERS.map((t, i) => [T_START + i * T_EACH + 0.02, 540, 760, [t.bg[1], "#ffffff"]]),
-  [17.1, 540, 1180, ["#ff3b6b", "#ff9db4", "#ffffff"]],
+  [17.1, 540, 1150, ["#ffd60a", "#7cc6ff", "#ffffff"]],
   [18.85, 540, 700, ["#ffd60a", "#ffffff", "#7cc6ff"]],
 ];
 const bursts = BURSTS.map(([at, x, y, cols]) => {
@@ -301,7 +304,7 @@ function render(t) {
   let glow = "rgba(255,190,0,0.20)";
   const ti = Math.floor((t - T_START) / T_EACH);
   if (t >= T_START && ti >= 0 && ti < 6) glow = TIERS[ti].bg[1] + "66";
-  if (t > 16.9 && t < 18.8) glow = `rgba(255,40,90,${0.35 * prog(t, 16.9, 17.2)})`;
+  if (t > 16.9 && t < 18.8) glow = `rgba(255,190,0,${0.2 + 0.2 * prog(t, 16.9, 17.2)})`;
   $("bgGlow").style.background = `radial-gradient(circle at 50% 45%, ${glow}, transparent 55%)`;
   if (t >= T_START && ti >= 0 && ti < 6) {
     const [dark] = TIERS[ti].bg;
@@ -416,34 +419,26 @@ function render(t) {
   dotsEl.forEach((d, i) => d.classList.toggle("on", t >= T_START + i * T_EACH));
   slam($("tierHead"), t, T_START - 0.05, { from: 1.6, rot: 0 });
 
-  // ---- daily + ruby ----
+  // ---- daily + share ----
   slam($("l1"), t, 14.8); slam($("l2"), t, 15.15, { rot: 5 }); slam($("l3"), t, 15.5);
-  const rb = $("rubyBee");
-  popUp($("rubyBox"), t, 15.7, 0.4, 120);
-  const sc = Math.round(812 * easeInOut(prog(t, 15.9, 17.0)));
-  $("rubyScore").innerHTML = `${sc} <span>/ 1225</span>`;
-  $("rubyScore").style.color = sc >= 800 ? "#ff3b6b" : "";
-  const tension = prog(t, 16.0, 17.1);
-  const unlocked = t >= 17.1;
-  $("rshadow").style.opacity = unlocked ? 0 : 1;
-  $("rreal").style.opacity = unlocked ? 1 : 0;
-  const up = prog(t, 17.1, 17.6);
-  rb.style.transform = unlocked
-    ? `scale(${0.8 + 0.25 * back(up, 3)}) rotate(${Math.sin(t * 5) * 5}deg) translateY(${Math.sin(t * 6) * 12}px)`
-    : `translate(${Math.sin(t * 90) * 14 * tension}px, ${Math.cos(t * 77) * 6 * tension}px) scale(${1 + 0.06 * tension})`;
-  rb.style.filter = unlocked ? `drop-shadow(0 0 ${60 * (1 - up) + 30}px rgba(255,40,90,.8))` : "";
-  slam($("rubyMsg"), t, 17.25, { from: 2.2, rot: -5 });
+  popUp($("shareBox"), t, 15.75, 0.4, 120);
+  emoEls.forEach((e, i) => slam(e, t, 15.95 + i * 0.12, { from: 3, rot: i % 2 ? 12 : -12, dur: 0.3 }));
+  const sc = Math.round(815 * easeInOut(prog(t, 16.0, 17.05)));
+  const ss = $("shareScore");
+  ss.innerHTML = `${sc} <span>/ 1225</span>`;
+  ss.style.transform = `scale(${t > 17.05 ? 1 + 0.3 * Math.exp(-(t - 17.05) * 7) : 1})`;
+  slam($("shareMsg"), t, 17.25, { from: 2.2, rot: -5 });
 
   // ---- end card ----
   slam($("elogo"), t, 18.75, { from: 3.5, rot: -8, dur: 0.45 });
   $("elogo").style.textShadow = `8px 8px 0 #7a5a00, 0 0 ${50 + 30 * Math.sin(t * 5)}px rgba(255,214,10,.7)`;
   slam($("etag"), t, 19.2, { from: 2, rot: 4 });
   paradeEls.forEach((b, i) => {
-    const row = i < 4 ? 0 : 1, col = i % 4;
+    const row = 0, col = i;
     const p = prog(t, 19.35 + i * 0.07, 19.75 + i * 0.07);
-    const x = 15 + col * 240 + (row ? 70 : 0);
+    const x = 5 + col * 166;
     const hop = Math.abs(Math.sin(t * 5 + i * 0.8)) * 22;
-    b.style.left = `${x}px`; b.style.top = `${row * 165}px`;
+    b.style.left = `${x}px`; b.style.top = "90px";
     b.style.opacity = clamp(p * 2);
     b.style.transform = `translateY(${(1 - back(p, 2.8)) * 500 - hop}px) rotate(${Math.sin(t * 4 + i) * 7}deg)`;
   });
