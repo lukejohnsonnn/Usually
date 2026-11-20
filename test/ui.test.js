@@ -216,7 +216,7 @@ test("home parade: the bee crew runs worst to best", { skip }, async () => {
   await page.goto(s.base);
   await page.waitForSelector(".parade .bee-slot");
   const crew = await page.$$eval(".parade .bee-slot", (els) => els.map((e) => e.className.replace("bee-slot ", "")));
-  assert.deepEqual(crew, ["wayoff", "cold", "lukewarm", "warm", "drop", "honey", "golden", "diamond"]);
+  assert.deepEqual(crew, ["wayoff", "cold", "lukewarm", "honey", "golden", "diamond"]);
   const row = await page.locator(".crew-row").boundingBox();
   assert.ok(row.x >= 0 && row.x + row.width <= 390, "the whole parade fits the phone");
   assert.ok(await page.isVisible(".mystery .mystery-bee"), "the ruby bee sits apart from the crew");

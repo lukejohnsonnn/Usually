@@ -17,28 +17,27 @@ export const RUBY_THRESHOLD = 800; // a finished run scoring this or more unlock
 // Difference tiers for Guess and Finale rounds. Names are player copy.
 // The curve rewards a good estimate: within 6 points keeps well over half
 // the round, and a decent run of 7 lands around 650–800 out of 1225.
+// Six tiers on one temperature scale, from dead on to way off.
 export const TIERS = [
   { maxDiff: 0, points: 175, name: "Bullseye", emoji: "🎯", bee: "diamond" },
-  { maxDiff: 1, points: 150, name: "One Off", emoji: "✅", bee: "golden" },
-  { maxDiff: 3, points: 135, name: "Razor Close", emoji: "🔥", bee: "honey" },
-  { maxDiff: 6, points: 115, name: "Close", emoji: "🙂", bee: "drop" },
-  { maxDiff: 12, points: 95, name: "Warm", emoji: "😐", bee: "warm" },
-  { maxDiff: 25, points: 70, name: "Lukewarm", emoji: "😬", bee: "lukewarm" },
+  { maxDiff: 3, points: 150, name: "Hot", emoji: "🔥", bee: "golden" },
+  { maxDiff: 12, points: 115, name: "Warm", emoji: "☀️", bee: "honey" },
+  { maxDiff: 25, points: 70, name: "Lukewarm", emoji: "😐", bee: "lukewarm" },
   { maxDiff: 40, points: 40, name: "Cold", emoji: "🥶", bee: "cold" },
   { maxDiff: Infinity, points: 10, name: "Way Off", emoji: "❌", bee: "wayoff" },
 ];
+// Names used before the six-tier scale, so older saved results still show the right bee and emoji.
+const LEGACY_TIERS = { "One Off": "Hot", "Razor Close": "Hot", "Close": "Warm" };
 export const BLANK = { points: 0, name: "Blank", emoji: "⬜" };
 
 // Text rounds: rank bands mapped onto the same named tiers.
 const RANK_BANDS = [
-  { maxRank: 1, tier: 0 },
-  { maxRank: 3, tier: 1 },
-  { maxRank: 6, tier: 2 },
-  { maxRank: 10, tier: 3 },
-  { maxRank: 15, tier: 4 },
-  { maxRank: 20, tier: 5 },
-  { maxRank: 30, tier: 6 },
-  { maxRank: Infinity, tier: 7 },
+  { maxRank: 1, tier: 0 },   // Bullseye
+  { maxRank: 3, tier: 1 },   // Hot
+  { maxRank: 10, tier: 2 },  // Warm
+  { maxRank: 20, tier: 3 },  // Lukewarm
+  { maxRank: 30, tier: 4 },  // Cold
+  { maxRank: Infinity, tier: 5 }, // Way Off
 ];
 
 export function tierForDiff(diff) {
@@ -46,7 +45,8 @@ export function tierForDiff(diff) {
 }
 
 export function tierByName(name) {
-  return TIERS.find((t) => t.name === name) || (name === BLANK.name ? BLANK : null);
+  const n = LEGACY_TIERS[name] || name;
+  return TIERS.find((t) => t.name === n) || (name === BLANK.name ? BLANK : null);
 }
 
 /** Whole-percent and hundredth-percent values compare exactly via integers. */

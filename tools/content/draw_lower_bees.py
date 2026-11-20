@@ -50,15 +50,6 @@ def flake(d, cx, cy, c, core):
 
 SPOTS = [(250, 470), (1290, 400), (300, 1170), (1300, 1240)]   # symmetric-ish, like the golden bee's sparkles
 
-# ---- WARM (Warm, 95 pts): sunny amber, rosy cheeks, warm sparkles
-warm = recolor(base, lambda r, g, b: rgb(0.105, hsv(r,g,b)[1] * 1.08, hsv(r,g,b)[2]) if yellow(*hsv(r, g, b)) else (r, g, b))
-d = ImageDraw.Draw(warm)
-for x0 in (612, 935):
-    d.rectangle([x0, 680, x0 + 2 * U - 1, 680 + U - 1], fill=(255, 120, 80, 255))
-for i, (x, y) in enumerate(SPOTS):
-    plus(d, x, y, (255, 150, 30, 255), arm=1 if i % 2 else 2, core=(255, 230, 140, 255))
-warm.save(f"{OUT}/bee-warm.png")
-
 # ---- LUKEWARM (70): a bit faded, flat mouth, a nervous sweat drop
 luke = mouth(base.copy(), "flat")
 luke = recolor(luke, lambda r, g, b: rgb(hsv(r,g,b)[0], hsv(r,g,b)[1] * 0.55, hsv(r,g,b)[2] * 0.96) if yellow(*hsv(r, g, b)) else (r, g, b))

@@ -56,7 +56,7 @@ async function api(path, { method = "GET", body } = {}) {
 }
 
 const BEE_SRC = (name) => `/img/bee-${name}.png`;
-const ENTRANCE = { golden: "enter-burst", diamond: "enter-diamond", honey: "enter-splash", drop: "enter-pop", warm: "enter-pulse", lukewarm: "enter-gentle", cold: "enter-gentle", wayoff: "enter-gentle", normal: "enter-pulse", thirsty: "enter-gentle", ruby: "enter-diamond" };
+const ENTRANCE = { golden: "enter-burst", diamond: "enter-diamond", honey: "enter-splash", lukewarm: "enter-gentle", cold: "enter-gentle", wayoff: "enter-gentle", normal: "enter-pulse", thirsty: "enter-gentle", ruby: "enter-diamond" };
 
 function fullDate(dateStr) {
   const [y, m, d] = dateStr.split("-").map(Number);
@@ -82,7 +82,7 @@ const PIP = {
   warm: pipSvg("#f3d27a", "#b8952f"),
   cold: pipSvg("#5a5a5a", "#3e3e3e"),
 };
-const pipFor = (r) => (r.points >= 135 ? PIP.hot : r.points >= 95 ? PIP.warm : PIP.cold);
+const pipFor = (r) => (r.points >= 150 ? PIP.hot : r.points >= 115 ? PIP.warm : PIP.cold);
 const swatch = (color, ring) => h("img", { class: "sw", alt: "", src: pipSvg(color, ring || color) });
 
 // ---------------------------------------------------------------- chrome
@@ -142,7 +142,7 @@ function renderHome() {
   const statCard = (v, l) => h("div", { class: "stat" }, h("span", { class: "v" }, fmt(v)), h("span", { class: "l" }, l));
   // the crew, worst to best — the score ladder made visible
   // the crew, worst to best — and, apart from them, the hidden ruby bee
-  const crew = ["wayoff", "cold", "lukewarm", "warm", "drop", "honey", "golden", "diamond"];
+  const crew = ["wayoff", "cold", "lukewarm", "honey", "golden", "diamond"];
   const parade = h("div", { class: "parade-wrap", "aria-hidden": "true" }, h("div", { class: "parade" },
     crew.map((b, i) => h("div", { class: `bee-slot ${b}`, style: `--i:${i}` },
       h("div", { class: "bee-fly" }, h("img", { src: `/img/bee-${b}-96.png`, srcset: `/img/bee-${b}-96.png 2x, /img/bee-${b}-144.png 3x`, alt: "", width: 44, height: 44, draggable: "false" })),
@@ -320,7 +320,7 @@ function renderHunt() {
 
 function huntBee(score, total) {
   const f = total ? score / total : 0;
-  return f >= 0.9 ? "diamond" : f >= 0.7 ? "golden" : f >= 0.5 ? "honey" : f >= 0.35 ? "drop" : f >= 0.2 ? "warm" : f >= 0.1 ? "cold" : "wayoff";
+  return f >= 0.9 ? "diamond" : f >= 0.7 ? "golden" : f >= 0.5 ? "honey" : f >= 0.3 ? "lukewarm" : f >= 0.15 ? "cold" : "wayoff";
 }
 
 function renderHuntResults(hunt) {
@@ -629,7 +629,7 @@ function heroFor(result, { center = false, line = null } = {}) {
   }
   const chip = bee === "ruby" ? h("span", { class: "chip ruby-chip" }, "Only runs that finish 800+ ever see me.")
     : result.timedOut ? h("span", { class: "chip" }, "⏱ Time's up — locked in for you.")
-      : result.tier === "One Off" ? h("span", { class: "chip" }, "One away — so close to a Bullseye.") : null;
+      : (result.diff === 1 || result.rank === 2) ? h("span", { class: "chip" }, "One away — so close to a Bullseye.") : null;
   const words = h("div", {},
     h("p", { class: "tier" }, result.tier),
     h("p", { class: "pts" }, `+${result.points}`, h("small", {}, "points")),
