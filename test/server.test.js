@@ -173,6 +173,7 @@ describe("server", () => {
       const st = (await t.call("/api/standings", { player: P(0) })).json.standings;
       assert.equal(st.score, mine);
       assert.equal(st.players, 6, "you plus five estimated scores");
+      assert.equal(st.games, 1, "games played counts real finished games only");
       assert.equal(st.beat, 100);
       assert.equal(st.curve.points.length, 49);
       assert.ok(st.curve.from <= 440 && st.curve.to >= mine && st.curve.to <= 1225, "the curve frames every score and yours");
@@ -195,6 +196,7 @@ describe("server", () => {
       }
       const later = (await t.call("/api/standings", { player: P(0) })).json.standings;
       assert.equal(later.players, G.SEED_UNTIL, "real players only");
+      assert.equal(later.games, G.SEED_UNTIL, "every real finished game, never the estimates");
       assert.equal(later.beat, 100);
       const low = (await t.call("/api/standings", { player: P(1) })).json.standings;
       assert.equal(low.beat, 0, "ties and better scores are not beaten");
