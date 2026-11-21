@@ -117,7 +117,7 @@ test("share card: tiers only, never answers", () => {
 
 test("a question can carry a clarifying hint for players", () => {
   const island = byId.get(383);
-  assert.match(G.publicQuestion(island).hint, /water on every side/);
+  assert.match(G.publicQuestion(island).hint, /completely surrounded by water and smaller than a continent/);
   assert.equal(G.publicQuestion(byId.get(37)).hint, undefined, "no hint unless one is set");
 });
 
