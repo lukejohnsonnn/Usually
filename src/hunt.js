@@ -15,7 +15,9 @@ export function prepareHunts(raw) {
     if (!ok) console.warn(`[hunt] skipping invalid list ${l?.id}`);
     return ok;
   });
-  return { start: isDateStr(raw?.start) ? raw.start : "2026-11-20", lists };
+  // optional per-day clock: { "2026-11-21": 150 } gives that day's hunt 150 seconds
+  const seconds = Object.fromEntries(Object.entries(raw?.seconds || {}).filter(([d, s]) => isDateStr(d) && Number.isInteger(s) && s >= 10 && s <= 600));
+  return { start: isDateStr(raw?.start) ? raw.start : "2026-11-20", lists, seconds };
 }
 
 const huntNumber = (start, date) => {
@@ -33,7 +35,8 @@ const newId = () => "h-" + btoa(String.fromCharCode(...crypto.getRandomValues(ne
   .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 
 export function createHunt({ store, hunts, now = () => new Date(), today }) {
-  const { start, lists } = hunts;
+  const { start, lists, seconds = {} } = hunts;
+  const secondsOn = (date) => seconds[date] || HUNT_SECONDS;
   const questions = new Map(lists.map((l) => [l.id, asQuestion(l)]));
 
   /** Today's list, in rotation from the start date. */
@@ -45,13 +48,14 @@ export function createHunt({ store, hunts, now = () => new Date(), today }) {
 
   const label = (list, i) => list.entries[i][0];
   const startedAt = (play) => Date.parse(play.snapshot[0].startedAt);
-  const timeLeftMs = (play) => Math.max(0, startedAt(play) + HUNT_SECONDS * 1000 - now().getTime());
+  const endsAt = (play) => startedAt(play) + secondsOn(play.date) * 1000;
+  const timeLeftMs = (play) => Math.max(0, endsAt(play) - now().getTime());
 
   /** What the client may see. Missed entries only once the hunt is over. */
   function view(list, number, date, play) {
     // The list is a surprise: before the clock starts, neither the prompt nor its size goes out.
-    if (!play) return { date, number, prompt: null, total: null, seconds: HUNT_SECONDS, status: "new", found: [], score: 0 };
-    const out = { date, number, prompt: list.prompt, total: list.entries.length, seconds: HUNT_SECONDS, status: "new", found: [], score: 0 };
+    if (!play) return { date, number, prompt: null, total: null, seconds: secondsOn(date), status: "new", found: [], score: 0 };
+    const out = { date, number, prompt: list.prompt, total: list.entries.length, seconds: secondsOn(date), status: "new", found: [], score: 0 };
     out.found = play.results.map((i) => label(list, i));
     out.score = play.results.length;
     if (play.completedAt) {
@@ -67,8 +71,8 @@ export function createHunt({ store, hunts, now = () => new Date(), today }) {
   }
 
   async function finishIfExpired(play) {
-    if (play && !play.completedAt && now().getTime() > startedAt(play) + HUNT_SECONDS * 1000 + GRACE_MS) {
-      play.completedAt = new Date(startedAt(play) + HUNT_SECONDS * 1000).toISOString();
+    if (play && !play.completedAt && now().getTime() > endsAt(play) + GRACE_MS) {
+      play.completedAt = new Date(endsAt(play)).toISOString();
       await store.savePlay(play);
     }
     return play;

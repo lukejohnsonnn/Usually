@@ -181,6 +181,9 @@ function renderHome() {
 // ---------------------------------------------------------------- hive hunt
 const HEX = { empty: pipSvg("#151515", "#2e2e2e"), found: pipSvg("#ffd60a", "#d9a300"), missed: pipSvg("#3a3020", "#5a4a20") };
 
+/** "60 seconds", "2.5 minutes", "2 minutes". */
+const huntTime = (s) => (s <= 90 ? `${s} seconds` : `${+(s / 60).toFixed(1)} minutes`);
+
 /** The bonus card on the home screen. */
 function huntCard(hunt) {
   const done = hunt.status === "done";
@@ -189,7 +192,7 @@ function huntCard(hunt) {
     h("p", { class: "hunt-prompt" }, hunt.prompt || "Start the hunt to find out today's list!"),
     done
       ? h("p", { class: "done" }, "You found ", h("b", {}, `${hunt.score} of ${hunt.total}`), ".")
-      : h("p", { class: "hint", style: "text-align:left" }, `${hunt.seconds} seconds — name as many as you can.`),
+      : h("p", { class: "hint", style: "text-align:left" }, `${huntTime(hunt.seconds)} — name as many as you can.`),
     h("button", { class: `btn ${done ? "ghost" : "primary"} small`, onclick: () => openHunt() }, done ? "See the hunt" : hunt.status === "playing" ? "Back to the hunt" : "Start the hunt"));
 }
 
@@ -244,7 +247,7 @@ function renderHunt() {
 
   if (hunt.status === "new") {
     screen.append(h("section", { class: "controls" },
-      h("p", { class: "hint" }, `You get ${hunt.seconds} seconds: type an answer and press Enter — then the next. Typos are fine.`),
+      h("p", { class: "hint" }, `You get ${huntTime(hunt.seconds)}: type an answer and press Enter — then the next. Typos are fine.`),
       h("button", { class: "btn primary", onclick: async (e) => {
         e.currentTarget.disabled = true;
         try { state.hunt = await api("/hunt/start", { method: "POST", body: {} }); } catch (err) { toast(err.message); return; }

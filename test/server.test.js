@@ -387,7 +387,7 @@ describe("hive hunt", () => {
       const P = "u-hunter000000000", Q = "u-hunter000000001";
       const a = (await t.call("/api/hunt", { player: P })).json;
       const b = (await t.call("/api/hunt", { player: Q })).json;
-      assert.deepEqual([a.number, a.status, a.seconds], [2, "new", 60]);
+      assert.deepEqual([a.number, a.status, a.seconds], [2, "new", 150]);
       assert.deepEqual([a.prompt, a.total, b.prompt], [null, null, null], "the list is a surprise until the clock starts");
       const startedA = (await t.call("/api/hunt/start", { method: "POST", player: Q, body: {} })).json;
       assert.equal(startedA.prompt, "Name the 50 US states.", "revealed once started");
@@ -409,24 +409,29 @@ describe("hive hunt", () => {
     } finally { await t.close(); }
   });
 
-  test("the clock is the server's: guesses after 60 seconds don't count, and the hunt ends", async () => {
+  test("the clock is the server's: guesses after time's up don't count, and the hunt ends", async () => {
     const t = await startServer({ at: "2026-11-21T15:00:00Z" });
     try {
       const P = "u-latehunter00000";
+      // Nov 21 has a longer clock: 2.5 minutes instead of the usual 60 seconds
+      assert.equal((await t.call("/api/hunt", { player: P })).json.seconds, 150);
       await t.call("/api/hunt/start", { method: "POST", player: P, body: {} });
       await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "ohio" } });
       t.clock.set("2026-11-21T15:01:05Z");
+      const inTime = (await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "utah" } })).json;
+      assert.equal(inTime.result, "found", "65 seconds in still counts on a 150-second day");
+      t.clock.set("2026-11-21T15:02:35Z");
       const late = (await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "texas" } })).json;
       assert.equal(late.result, "over");
-      assert.equal(late.hunt.score, 1);
-      assert.equal(late.hunt.missed.length, 49, "the rest is revealed once it's over");
+      assert.equal(late.hunt.score, 2);
+      assert.equal(late.hunt.missed.length, 48, "the rest is revealed once it's over");
       assert.deepEqual(late.hunt.missed, [...late.hunt.missed].sort((x, y) => x.localeCompare(y)), "alphabetical, never ranked");
       // restarting the same day gives back the finished hunt
       assert.equal((await t.call("/api/hunt/start", { method: "POST", player: P, body: {} })).json.status, "done");
       // a new day, a new list
       t.clock.addDays(1);
       const next = (await t.call("/api/hunt", { player: P })).json;
-      assert.deepEqual([next.number, next.status], [3, "new"]);
+      assert.deepEqual([next.number, next.status, next.seconds], [3, "new", 60], "other days keep 60 seconds");
       // and hunts never touch the Daily stats
       assert.deepEqual((await t.call("/api/stats", { player: P })).json, { streak: 0, games: 0, best: null, avg: null });
     } finally { await t.close(); }
