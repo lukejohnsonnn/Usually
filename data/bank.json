@@ -32197,7 +32197,9 @@
    "note": "About 8 billion of roughly 117 billion people ever born — 6.8%.",
    "finale": true,
    "source": "Population Reference Bureau, How Many People Have Ever Lived on Earth? (2022): 6.8% of those ever born were living",
-   "sourceUrl": "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/"
+   "sourceUrl": "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/",
+   "retired": true,
+   "exposed": true
   },
   {
    "id": 405,
@@ -32407,6 +32409,17 @@
    "finale": false,
    "source": "Fraunhofer ISE (Energy-Charts), Public electricity generation 2024: renewables 62.7% of net public generation",
    "sourceUrl": "https://www.ise.fraunhofer.de/en/press-media/press-releases/2025/public-electricity-generation-2024-renewable-energies-cover-more-than-60-percent-of-german-electricity-consumption-for-the-first-time.html"
+  },
+  {
+   "id": 424,
+   "kind": "guess",
+   "category": "Society · Finale",
+   "text": "What % of everyone alive today is under 15 years old?",
+   "answer": 25,
+   "note": "About 1 in 4 people on Earth is a child under 15 — in low-income countries it's over 40%.",
+   "finale": true,
+   "source": "World Bank / UN World Population Prospects: population ages 0–14 = 24.73% of the world total in 2024",
+   "sourceUrl": "https://fred.stlouisfed.org/data/SPPOP0014TOZSWLD"
   }
  ]
 }
