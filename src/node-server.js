@@ -19,6 +19,7 @@ export async function serveStatic(req) {
   const url = new URL(req.url);
   let rel = decodeURIComponent(url.pathname);
   if (rel.endsWith("/")) rel += "index.html";
+  else if (!path.extname(rel) && fs.existsSync(path.join(PUBLIC_DIR, rel + ".html"))) rel += ".html"; // /privacy → privacy.html, like Cloudflare
   const file = path.normalize(path.join(PUBLIC_DIR, rel));
   const inside = file.startsWith(PUBLIC_DIR + path.sep);
   const target = inside && fs.existsSync(file) && fs.statSync(file).isFile() ? file : path.join(PUBLIC_DIR, "index.html");

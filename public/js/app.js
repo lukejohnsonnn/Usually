@@ -107,7 +107,8 @@ function masthead({ compact = false, date, streak } = {}) {
 function footer() {
   return h("footer", { class: "footer" },
     h("button", { class: "linkbtn", onclick: showHowTo }, "How to play"),
-    h("button", { class: "linkbtn", onclick: showYesterday }, "Yesterday's answers"));
+    h("button", { class: "linkbtn", onclick: showYesterday }, "Yesterday's answers"),
+    h("a", { class: "linkbtn", href: "/privacy" }, "Privacy"));
 }
 
 function mount(screen) {
