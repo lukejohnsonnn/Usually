@@ -10,7 +10,8 @@ import os
 import sys
 import numpy as np
 from synth import (SR, put, env, square, sine, t_axis, noise, hz, lowpass, kick, snare, hat, thud, whoosh, blip,
-                   arp, sparkle, cymbal, buzz, boing, pop, bloop, deflate, thunder, bleh, glass, squeak, write_wav)
+                   arp, sparkle, cymbal, buzz, boing, pop, bloop, deflate, thunder, bleh, glass, squeak, glitch, drone,
+                   write_wav)
 
 DUR = 24.0
 N = int(SR * DUR)
@@ -98,9 +99,14 @@ put(sfx, 5.75, bloop(650, 160), 0.3)
 put(sfx, 6.0, deflate(0.45), 0.2)
 put(sfx, 6.5, thunder(0.5), 0.5)
 put(sfx, 7.0, bleh(0.4), 0.14)
-# 7.5–9.5 the swarm orbits (buzz rises through the break), the drop at 8.5
-put(sfx, 7.5, buzz(2.0, 160, 340), 0.3)
-put(sfx, 7.5, buzz(2.0, 210, 420, 33), 0.18)
+# 7.5–8.5 lights out: the secret bee flickers in (its flicker blips on the 16ths at 8.25–8.36)
+put(sfx, 7.5, glitch(0.25), 0.5)
+put(sfx, 7.5, drone(1.0), 0.35)
+put(sfx, 7.75, pop(700), 0.3)
+for at in (8.25, 8.3125):
+    put(sfx, at, glitch(0.06), 0.4)
+# 8.5–9.5 the swarm orbits after the drop
+put(sfx, 8.5, buzz(1.0, 220, 380), 0.25)
 put(sfx, 8.3, whoosh(0.2), 0.3)
 put(sfx, 8.5, thud(1.2), 1.0)
 put(sfx, 8.5, cymbal(1.2), 0.22)
@@ -147,7 +153,10 @@ for lock in (13.5, 17.0):
     put(sfx, lock + 0.5, sparkle(0.7), 0.16)
     put(sfx, lock + 0.5, boing(300), 0.2)  # cameo pops up
     put(sfx, lock + 0.75, pop(1200), 0.3)
-for at in (11.5, 16.0, 19.5):  # captions
+put(sfx, 20.0, glitch(0.22), 0.45)  # the shadow bee peeks over the results
+put(sfx, 20.25, pop(700), 0.25)
+put(sfx, 22.5, glitch(0.15), 0.35)  # …and takes the 7th seat on the end card
+for at in (11.5, 16.0, 19.25, 20.25):  # captions
     put(sfx, at, thud(0.5), 0.45)
     put(sfx, at, pop(800), 0.25)
 put(sfx, 19.0, blip(84, 0.03, "sq", 0.5), 0.3)  # "See my score"

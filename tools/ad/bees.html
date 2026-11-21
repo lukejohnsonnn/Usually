@@ -39,11 +39,13 @@ img.px { image-rendering: pixelated; }
 #stink b { position: absolute; width: 18px; height: 120px; border: 8px solid #7ed957; border-color: transparent #7ed957 transparent #7ed957; border-radius: 50%; opacity: .8; }
 .dots { font-size: 60px; color: #fff; }
 
+.myst { position: absolute; left: 0; top: 0; }
+.myst img, img.shade { width: 100%; height: 100%; image-rendering: pixelated; filter: drop-shadow(0 0 3px rgba(255,255,255,.55)) drop-shadow(0 0 34px rgba(255,70,110,.5)); }
+.myst .q { position: absolute; left: 50%; transform: translateX(-50%); color: #8a8a8a; font-size: 90px; text-shadow: 0 0 24px rgba(255,255,255,.25); }
+
 /* gameplay */
 #game { opacity: 0; }
 #frame { position: absolute; inset: 0; width: 1080px; height: 1920px; }
-#touch { position: absolute; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%; background: rgba(255,255,255,.3); border: 6px solid rgba(255,255,255,.9); opacity: 0; box-shadow: 0 0 20px rgba(0,0,0,.4); }
-#ripple { position: absolute; width: 100px; height: 100px; margin: -50px 0 0 -50px; border-radius: 50%; border: 8px solid #fff; opacity: 0; }
 .cap { position: absolute; left: 50%; top: 0; transform-origin: 50% 50%; background: var(--yellow); color: #000; border: 7px solid #000; border-radius: 22px;
   padding: 26px 34px; font-size: 44px; line-height: 1.3; white-space: nowrap; box-shadow: 10px 10px 0 #000; opacity: 0; text-align: center; }
 .cameo { position: absolute; width: 330px; height: 330px; opacity: 0; }
@@ -58,6 +60,7 @@ img.px { image-rendering: pixelated; }
 #end .logo { font-size: 108px; color: var(--yellow); text-shadow: 8px 8px 0 #7a5a00, 0 0 50px rgba(255,214,10,.6); }
 #end .tag { font-size: 48px; }
 #end .row { position: relative; width: 1000px; height: 200px; }
+#end .row .q { position: absolute; }
 #end .row img { position: absolute; width: 160px; height: 160px; image-rendering: pixelated; }
 #end .cta { background: var(--yellow); color: #000; font-size: 44px; padding: 48px 70px; border-radius: 30px; box-shadow: 0 12px 0 var(--gold); }
 #end .url { font-size: 42px; color: var(--soft); }
@@ -89,13 +92,13 @@ img.px { image-rendering: pixelated; }
       <div id="bees" class="layer"></div>
       <div id="bubbles" class="layer"></div>
       <div id="t1" class="title" style="top: 330px; font-size: 74px;">MEET THE<br><br>HIVE</div>
+      <div id="myst" class="myst" style="width:560px;height:560px;"><img src="/public/img/bee-ruby-shadow.png" alt=""><div class="q" style="top:-120px;font-size:120px;">?</div></div>
+      <div id="t3" class="title" style="top: 200px; font-size: 58px; line-height: 1.6; color: #fff;">PSST... THERE'S<br>A <em style="color:#ff5c7a">SECRET</em> BEE</div>
       <div id="t2" class="title" style="top: 360px; font-size: 86px; line-height: 1.5; color: #fff;">WHICH BEE<br>ARE <em>YOU?</em></div>
     </section>
 
     <section id="game" class="layer">
       <img id="frame" alt="">
-      <div id="touch"></div>
-      <div id="ripple"></div>
       <div id="caps"></div>
       <div id="cameos"></div>
     </section>
@@ -140,11 +143,13 @@ const CLIPS = [
 const CAPS = [ // [in, out, text, y, rot]
   [11.5, 13.4, "Slide your guess", 1700, -3],
   [16.0, 16.95, "Go for <b style='color:#0e5aa6'>Divine</b>", 1700, 3],
-  [19.5, 21.5, "7 rounds. Once a day.", 1690, -2],
+  [19.25, 20.25, "7 rounds. Once a day.", 1690, -2],
+  [20.25, 21.5, "Only pros find bee #7", 1690, 2],
 ];
 const CAMEOS = [ // [in, out, bee, line, side]
   [14.0, 15.9, "golden", "That's me!", "right"],
   [17.5, 18.95, "diamond", "Nailed it!", "left"],
+  [20.0, 21.45, "ruby-shadow", "???", "right"],
 ];
 const IMPACTS = [[0.5, .6], [1.5, .4], [2.5, .8], [4.5, .6], [5, .6], [5.5, .6], [6, .6], [6.5, .6], [7, .9], [8.5, 1.3], [SLAM, 2.2], [13.5, .3], [17.0, .3], [END, 1.2], [22.5, .6]];
 const FLASHES = [[8.5, .4], [SLAM, 1], [END, .5]];
@@ -184,7 +189,7 @@ const mkBee = (name, host = "bees", size = 360) => {
 const beeEls = BEES.map((b) => mkBee(b));
 const shadowEls = BEES.map(() => { const s = document.createElement("div"); s.className = "shadow"; $("shadows").append(s); return s; });
 const bubble = (html) => { const b = document.createElement("div"); b.className = "bubble"; b.innerHTML = html; $("bubbles").append(b); return b; };
-const b1 = bubble("Psst!"), b2 = bubble("Quiz time!");
+const b1 = bubble("Psst!"), b2 = bubble("Quiz time!"), b3 = bubble("Who's THAT?!");
 const spotBubbles = SPOT.map((s) => bubble(s.say));
 const TRAIL = [...Array(14)].map(() => { const d = document.createElement("div"); d.className = "trail"; $("trails").append(d); return d; });
 const SPEED = [...Array(40)].map(() => { const b = document.createElement("b"); $("speed").append(b); return { b, a: rnd() * Math.PI * 2, r: 200 + rnd() * 500, w: 120 + rnd() * 260, ph: rnd() }; });
@@ -193,14 +198,16 @@ const RAIN = [...Array(16)].map(() => { const b = document.createElement("b"); $
 const STINK = [...Array(5)].map((_, i) => { const b = document.createElement("b"); $("stink").append(b); return { b, x: 380 + i * 80, ph: i * 0.2 }; });
 const capEls = CAPS.map(([, , html]) => { const c = document.createElement("div"); c.className = "cap"; c.innerHTML = html; $("caps").append(c); return c; });
 const cameoEls = CAMEOS.map(([, , b, line]) => {
-  const c = document.createElement("div"); c.className = "cameo"; c.innerHTML = `<img src="/public/img/bee-${b}.png" alt="">`; $("cameos").append(c);
+  const c = document.createElement("div"); c.className = "cameo"; c.innerHTML = `<img class="${b === "ruby-shadow" ? "shade" : ""}" src="/public/img/bee-${b}.png" alt="">`; $("cameos").append(c);
   const bb = document.createElement("div"); bb.className = "bubble"; bb.innerHTML = line; $("cameos").append(bb);
   return { c, bb };
 });
 const splatEls = BEES.map((b) => mkBee(b, "splats", 480));
 const SPLAT_POS = [[300, 700, -14], [760, 640, 12], [540, 980, 4], [250, 1260, 9], [820, 1220, -10], [540, 1500, -4]];
-BEES.forEach((b) => $("erow").insertAdjacentHTML("beforeend", `<img src="/public/img/bee-${b}.png" alt="">`));
-const endBees = [...$("erow").children];
+[...BEES, "ruby-shadow"].forEach((b) => $("erow").insertAdjacentHTML("beforeend", `<img src="/public/img/bee-${b}.png" alt="">`));
+$("erow").lastElementChild.classList.add("shade");
+$("erow").insertAdjacentHTML("beforeend", `<div id="eq" class="q" style="position:absolute;color:#8a8a8a;font-size:56px;opacity:0">?</div>`);
+const endBees = [...$("erow").querySelectorAll("img")];
 
 // glass crack: jagged rays + rings around the impact point
 {
@@ -256,20 +263,15 @@ function frameSrc(t) {
   const i = clamp(Math.round(ct * 30), 0, m.frames - 1);
   return { src: `/tools/ad/gameplay/${clip.name}/${String(i).padStart(4, "0")}.jpg`, clip, ct, m };
 }
-function pointer(clip, m, ct) { // where the (invisible) finger is in the recording, if down
-  const ms = m.markers;
-  let down = false, x = 0, y = 0, tap = null;
-  for (const k of ms) {
-    if (k.t > ct) break;
-    if (k.label === "down") down = true;
-    if (k.label === "up") down = false;
-    if (k.x != null) { x = k.x; y = k.y; }
-    if (k.label === "lock" || k.label === "score") tap = k;
-  }
-  return { down, x, y, tap };
-}
-
 // ---- helpers -----------------------------------------------------------------
+/** the hidden bee's glitchy flicker (the site's keyframes, one cycle per 2 beats) */
+function flicker(t, t0) {
+  const p = (((t - t0) % 1) + 1) % 1;
+  if (p >= 0.75 && p < 0.78) return { o: 0.12, x: 6 };
+  if (p >= 0.78 && p < 0.82) return { o: 0.85, x: -3 };
+  if (p >= 0.82 && p < 0.86) return { o: 0.04, x: 3 };
+  return { o: 0.9, x: 0 };
+}
 function popIn(el, t, at, { dur = 0.35, from = 0.2, rot = 0 } = {}) {
   const p = prog(t, at, at + dur);
   el.style.opacity = t < at ? 0 : clamp(p * 4);
@@ -343,17 +345,6 @@ async function render(t) {
     const cut = Math.max(...CLIPS.filter((c) => t >= c.at).map((c) => c.at));
     const ci = prog(t, cut, cut + 0.35);
     frameImg.style.transform = `scale(${1 + 0.06 * (1 - easeOut(ci))})`;
-    const pt = pointer(clip, m, ct);
-    const touch = $("touch");
-    const tapRecent = pt.tap && ct - pt.tap.t < 0.22;
-    touch.style.opacity = pt.down || tapRecent ? 1 : 0;
-    if (pt.down) { touch.style.left = `${pt.x}px`; touch.style.top = `${pt.y}px`; touch.style.transform = "scale(1)"; }
-    if (tapRecent) { touch.style.left = `${pt.tap.x}px`; touch.style.top = `${pt.tap.y}px`; touch.style.transform = "scale(.8)"; }
-    const rip = $("ripple");
-    if (pt.tap && ct - pt.tap.t < 0.5) {
-      const rp = (ct - pt.tap.t) / 0.5;
-      rip.style.left = `${pt.tap.x}px`; rip.style.top = `${pt.tap.y}px`; rip.style.opacity = 1 - rp; rip.style.transform = `scale(${1 + rp * 7})`;
-    } else rip.style.opacity = 0;
   }
   CAPS.forEach(([a, b, , y, rot], i) => {
     const c = capEls[i];
@@ -367,9 +358,11 @@ async function render(t) {
     const { c, bb } = cameoEls[i];
     if (t < a || t >= b) { c.style.opacity = 0; bb.style.opacity = 0; return; }
     const p = prog(t, a, a + 0.35), q = prog(t, b - 0.3, b);
-    const x = side === "right" ? 720 : 30, y = 1920 - 330 * easeOut(p) * (1 - easeIn(q)) - 20;
-    c.style.opacity = 1;
-    c.style.transform = `translate(${x}px, ${y - hop(t) * 26}px) rotate(${(side === "right" ? -8 : 8) + Math.sin(t * 6) * 5}deg)`;
+    const lift = CAMEOS[i][2] === "ruby-shadow" ? 600 : 330; // the shadow bee sits above its caption
+    const x = side === "right" ? 720 : 30, y = 1920 - lift * easeOut(p) * (1 - easeIn(q)) - 20;
+    const fk = CAMEOS[i][2] === "ruby-shadow" ? flicker(t, a) : { o: 1, x: 0 };
+    c.style.opacity = fk.o;
+    c.style.transform = `translate(${x + fk.x * 3}px, ${y - hop(t) * 26}px) rotate(${(side === "right" ? -8 : 8) + Math.sin(t * 6) * 5}deg)`;
     sayAt(bb, t, a + 0.25, b - 0.2, x + (side === "right" ? -110 : 440), y + 140, side === "right" ? -4 : 4);
   });
 
@@ -382,8 +375,10 @@ async function render(t) {
   $("etag").style.transform = popIn($("etag"), t, END + 0.5, { from: 2, rot: 4 });
   endBees.forEach((b, i) => {
     const at = END + 0.75 + i * 0.125, p = prog(t, at, at + 0.35);
-    b.style.left = `${5 + i * 166}px`; b.style.top = "20px";
-    b.style.opacity = t >= at ? 1 : 0;
+    b.style.left = `${10 + i * 141}px`; b.style.top = "40px"; b.style.width = b.style.height = "140px";
+    const fk = i === 6 ? flicker(t, at) : { o: 1 };
+    b.style.opacity = t >= at ? fk.o : 0;
+    if (i === 6) { const q = $("eq"); q.style.left = `${10 + i * 141 + 46}px`; q.style.top = `${-30 - hop(t) * 20}px`; q.style.opacity = t >= at + 0.2 ? 0.6 : 0; }
     b.style.transform = `translateY(${(1 - back(p, 2.8)) * 400 - hop(t + i * 0.0625) * 26}px) rotate(${Math.sin(t * 4 + i) * 7}deg)`;
   });
   $("cta").style.transform = popIn($("cta"), t, 22.5, { from: 2.4, rot: -4 }) + (t > 22.9 ? ` scale(${1 + 0.07 * Math.exp(-beatPhase(t) * 4.5)})` : "");
@@ -420,7 +415,7 @@ function renderWorld(t) {
   for (const id of ["halo", "cloud", "rays", "spot"]) $(id).style.opacity = 0;
   RAIN.forEach((r) => (r.b.style.opacity = 0)); STINK.forEach((s) => (s.b.style.opacity = 0)); DRIPS.forEach((d) => (d.d.style.height = "0px"));
   SPEED.forEach((s) => (s.b.style.opacity = 0));
-  $("t1").style.opacity = 0; $("t2").style.opacity = 0;
+  $("t1").style.opacity = 0; $("t2").style.opacity = 0; $("t3").style.opacity = 0; $("myst").style.opacity = 0; b3.style.opacity = 0;
 
   // 0 – 2.5: the golden bee zips in on a loop, lands, and talks
   if (t < 2.5) {
@@ -500,9 +495,26 @@ function renderWorld(t) {
   }
   beeEls[5].style.filter = si === 5 ? beeEls[5].style.filter : "";
 
-  // 7.5 – 9.5: the hive orbits; the question lands on the drop (8.5)
-  if (t >= 7.5 && t < 9.5) {
-    const sp = lerp(2.5, 7, prog(t, 7.5, 8.5));
+  // 7.5 – 8.5: lights out; a shadow bee flickers in and the hive huddles, shaking
+  if (t >= 7.5 && t < 8.5) {
+    const spot = $("spot"); spot.style.opacity = 1;
+    spot.style.background = "radial-gradient(circle at 50% 50%, rgba(255,60,100,.10), #050505 55%, #000 90%)";
+    const m = $("myst"), fk = flicker(t, 7.5), p = prog(t, 7.5, 7.8);
+    m.style.opacity = fk.o * p;
+    place(m, 540 - 280 + fk.x * 4, 930 - 280 + Math.sin(t * 3) * 14, `scale(${0.8 + 0.2 * easeOut(p)}) rotate(${Math.sin(t * 2.5) * 3}deg)`);
+    $("t3").style.transform = popIn($("t3"), t, 7.5, { from: 0.4, rot: 0 });
+    BEES.forEach((_, i) => {
+      const b = beeEls[i];
+      b.style.opacity = 1; b.style.zIndex = 10;
+      const x = 160 + i * 152, y = 1560 + (i % 2) * 60;
+      place(b, x + Math.sin(t * 60 + i) * 5, y, `scale(0.62) rotate(${(i < 3 ? 10 : -10) + Math.sin(t * 50 + i) * 2}deg)`);
+    });
+    sayAt(b3, t, 7.75, 8.5, 540, 1440, -4);
+  }
+
+  // 8.5 – 9.5: the hive orbits; the question lands on the drop (8.5)
+  if (t >= 8.5 && t < 9.5) {
+    const sp = lerp(4, 7, prog(t, 8.5, 9.0));
     BEES.forEach((_, i) => {
       const a = t * sp + i * (Math.PI * 2 / 6);
       const r = 330 + 40 * Math.sin(t * 4 + i);

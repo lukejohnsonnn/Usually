@@ -221,3 +221,20 @@ def write_wav(path, mix):
         w.setsampwidth(2)
         w.setframerate(SR)
         w.writeframes(pcm.tobytes())
+
+
+def glitch(d=0.18):
+    """digital stutter: bit-crushed noise chopped into 16 ms slices"""
+    n = int(SR * d)
+    x = noise(d)
+    x = np.round(x * 3) / 3
+    gate = (np.arange(n) // int(SR * 0.016)) % 2
+    tone = square(hz(30 + int(rng.integers(0, 12))), d, 0.5) * 0.5
+    return (x * 0.7 + tone) * gate * env(n, 0.001, d=d / 2)
+
+
+def drone(d=1.0, note=33):
+    """low uneasy hum with a slow beating second voice"""
+    t = t_axis(d)
+    x = sine(hz(note), d) + 0.6 * sine(hz(note) * 1.5 + 0.7, d) + 0.25 * square(hz(note + 12) * (1 + 0.004 * np.sin(2 * np.pi * 3 * t)), d, 0.5)
+    return lowpass(x, 0.2) * np.sin(np.pi * np.minimum(1, t / d)) ** 0.5
