@@ -562,7 +562,8 @@ function buildNumberRound({ screen, q, timer, jar }) {
 
 function buildTextRound({ screen, q, timer, jar }) {
   const input = h("input", { class: "field text", type: "text", placeholder: "Your answer", "aria-label": "Your answer", autocomplete: "off", autocapitalize: "sentences", spellcheck: "false", maxlength: 80, enterkeyhint: "go" });
-  const hint = h("p", { class: "hint", "aria-live": "polite" }, "Tip: name the most common answer.");
+  const tip = q.hint || "Tip: name the most common answer.";
+  const hint = h("p", { class: "hint", "aria-live": "polite" }, tip);
   const form = h("form", { class: "controls text-controls" }, input, hint, lockButton());
   screen.append(form);
   setTimeout(() => input.focus({ preventScroll: true }), 50);
@@ -572,7 +573,7 @@ function buildTextRound({ screen, q, timer, jar }) {
   const setHint = (text, kind = "") => { hint.textContent = text; hint.className = `hint ${kind}`; };
   input.addEventListener("input", () => {
     input.classList.remove("suggested", "refused");
-    if (hint.classList.contains("suggest") || hint.classList.contains("refuse")) setHint("Tip: name the most common answer.");
+    if (hint.classList.contains("suggest") || hint.classList.contains("refuse")) setHint(tip);
   });
 
   async function send({ timedOut = false } = {}) {

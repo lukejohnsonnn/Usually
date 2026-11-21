@@ -85,13 +85,16 @@ export function scoreCurve(scores, yours) {
 
 /** Real players a day needs before the estimated scores drop out. */
 export const SEED_UNTIL = 20;
+/** Per-day nudges to the estimated scores, for days whose questions run harder or easier. */
+const SEED_SHIFT = { "2026-11-21": -50 };
 /** Five estimated scores for a day: a typical spread, nudged by the date so days differ. */
 export function seedScores(date) {
+  const shift = SEED_SHIFT[date] || 0;
   let h = 2166136261;
   for (const c of date) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
   return [470, 585, 650, 715, 820].map((base, i) => {
     h = Math.imul(h ^ (i + 1), 2654435761) >>> 0;
-    return base + ((h % 61) - 30);
+    return base + ((h % 61) - 30) + shift;
   });
 }
 
@@ -214,7 +217,8 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       score: play.score,
       maxScore: MAX_SCORE,
       completed: Boolean(play.completedAt),
-      questions: play.snapshot.map(publicQuestion),
+      // hints come from the live bank, so one added mid-day reaches plays already under way
+      questions: play.snapshot.map((q) => publicQuestion(byId.get(q.id)?.hint ? { ...q, hint: byId.get(q.id).hint } : q)),
       results: play.results,
     };
   }

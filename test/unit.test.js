@@ -115,10 +115,16 @@ test("share card: tiers only, never answers", () => {
   assert.equal(G.shareText("d", [{ tier: "Yucky" }, { tier: "Blank" }], 5), "Honeydle d\n🤢⬜\n🍯 5");
 });
 
+test("a question can carry a clarifying hint for players", () => {
+  const island = byId.get(383);
+  assert.match(G.publicQuestion(island).hint, /water on every side/);
+  assert.equal(G.publicQuestion(byId.get(37)).hint, undefined, "no hint unless one is set");
+});
+
 test("public question shape carries no answer data", () => {
   for (const q of bank) {
     const p = G.publicQuestion(q);
-    const allowed = ["id", "kind", "category", "text", "finale"];
+    const allowed = ["id", "kind", "category", "text", "finale", "hint"];
     assert.deepEqual(Object.keys(p).filter((k) => !allowed.includes(k)), [], `q${q.id}`);
   }
 });
