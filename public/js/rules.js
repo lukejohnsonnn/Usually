@@ -202,6 +202,7 @@ export function isRuby(score, completed) {
 /** The only fields of a question that may ever reach a client before submit. */
 export function publicQuestion(q) {
   const out = { id: q.id, kind: q.kind === "guess" && q.finale ? "finale" : q.kind, category: q.category, text: q.text, finale: Boolean(q.finale) };
+  if (q.hint) out.hint = q.hint; // an optional clarification shown under the answer box
   return out;
 }
 

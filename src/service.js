@@ -214,7 +214,8 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       score: play.score,
       maxScore: MAX_SCORE,
       completed: Boolean(play.completedAt),
-      questions: play.snapshot.map(publicQuestion),
+      // hints come from the live bank, so one added mid-day reaches plays already under way
+      questions: play.snapshot.map((q) => publicQuestion(byId.get(q.id)?.hint ? { ...q, hint: byId.get(q.id).hint } : q)),
       results: play.results,
     };
   }
