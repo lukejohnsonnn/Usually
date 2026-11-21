@@ -462,3 +462,76 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
 /* text rounds: the full ranked list */
 .text-reveal .all-btn { align-self: center; }
 .full-list { margin: 0 0 14px; }
+
+/* ================================================================
+   Taste pass (preview only): tap sizes, a hover/press layer,
+   equal edges, a honeycomb ground, a calmer reveal legend.
+   ================================================================ */
+
+/* a faint honeycomb ground in place of the dot lattice, strongest at the top */
+body { background-image: none; }
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zm0 0v34' fill='none' stroke='%23ffd60a' stroke-opacity='.06' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-size: 56px 100px;
+  -webkit-mask-image: radial-gradient(120% 70% at 50% 0%, #000 0%, rgba(0,0,0,.35) 60%, transparent 100%);
+          mask-image: radial-gradient(120% 70% at 50% 0%, #000 0%, rgba(0,0,0,.35) 60%, transparent 100%);
+}
+
+/* every control at least 44px tall */
+.icon-btn { width: 44px; height: 44px; }
+.masthead.compact { grid-template-columns: 44px 1fr 44px; }
+.sub1-btn { height: 44px; min-width: 44px; }
+.linkbtn { display: inline-flex; align-items: center; min-height: 44px; padding: 0; margin: 0 4px; }
+
+/* buttons step up on hover and press on click */
+.btn { transition: transform 120ms cubic-bezier(.2,.8,.3,1), filter 120ms ease-out; }
+.btn:hover:not(:disabled) { transform: translateY(-2px); }
+.btn.primary:hover:not(:disabled) { filter: brightness(1.08) drop-shadow(0 6px 14px rgba(255,200,0,.22)); }
+.btn.ghost:hover:not(:disabled) { color: var(--yellow); filter: brightness(1.35); }
+.icon-btn { transition: transform 120ms ease-out, color 120ms ease-out; }
+.icon-btn:hover { color: var(--yellow); transform: translateY(-1px); }
+.icon-btn:active { transform: translateY(1px); }
+.sub1-btn { transition: border-color 120ms ease-out, color 120ms ease-out; }
+.sub1-btn:hover { border-color: var(--gold); color: var(--soft); }
+
+/* text links: the underline draws in on hover */
+.linkbtn {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor), linear-gradient(rgba(243,210,122,.35), rgba(243,210,122,.35));
+  background-size: 0% 1px, 100% 1px; background-position: 0 calc(50% + 0.75em), 0 calc(50% + 0.75em); background-repeat: no-repeat;
+  transition: background-size 220ms ease-out, color 120ms ease-out;
+}
+.linkbtn:hover { background-size: 100% 1px, 100% 1px; color: var(--yellow); }
+
+/* past-games rows answer the pointer */
+.pg-row { transition: background-color 120ms ease-out; }
+.pg-row:hover { background-color: rgba(255,214,10,.04); }
+
+/* the Daily is the one main action: it gets the gold frame */
+.daily-card { border-image: var(--px-cardgold) / 6px; }
+
+/* equal edges: balance the ruby bee so the crew sits on the centre line */
+.crew-row { padding-left: 46px; }
+@media (max-width: 360px) { .crew-row { padding-left: 34px; } }
+
+/* the home screen arrives once, top to bottom */
+.screen.home > * { animation: gentle 480ms cubic-bezier(.2,.8,.3,1) both; }
+.screen.home > :nth-child(2) { animation-delay: 60ms; }
+.screen.home > :nth-child(3) { animation-delay: 120ms; }
+.screen.home > :nth-child(4) { animation-delay: 180ms; }
+.screen.home > :nth-child(5) { animation-delay: 240ms; }
+
+/* the round timer reads at a glance */
+.timer-num { font-size: 11px; color: var(--soft); }
+
+/* reveal legend: one quiet key line instead of three framed chips */
+.legend { justify-content: center; gap: 4px 14px; }
+.legend .chip { border: 0; border-image: none; padding: 0; margin: 0; color: var(--muted); font-weight: 500; font-size: 11.5px; }
+
+
+/* wider screens: a touch more room and a framed column */
+@media (min-width: 900px) {
+  :root { --max: 600px; }
+  .question { font-size: 23px; }
+}

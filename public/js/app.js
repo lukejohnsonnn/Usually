@@ -567,7 +567,7 @@ function buildTextRound({ screen, q, timer, jar }) {
   const input = h("input", { class: "field text", type: "text", placeholder: "Your answer", "aria-label": "Your answer", autocomplete: "off", autocapitalize: "sentences", spellcheck: "false", maxlength: 80, enterkeyhint: "go" });
   const tip = q.hint || "Tip: name the most common answer.";
   const hint = h("p", { class: "hint", "aria-live": "polite" }, tip);
-  const form = h("form", { class: "controls text-controls" }, input, hint, lockButton());
+  const form = h("form", { class: "controls text-controls pinnable" }, input, hint, lockButton());
   screen.append(form);
   setTimeout(() => input.focus({ preventScroll: true }), 50);
   let sending = false;
