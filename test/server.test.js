@@ -186,6 +186,8 @@ describe("server", () => {
       assert.deepEqual(G.seedScores("2026-11-24"), G.seedScores("2026-11-24"));
       assert.notDeepEqual(G.seedScores("2026-11-24"), G.seedScores("2026-11-25"));
       assert.ok(G.seedScores("2026-11-24").every((x) => x >= 440 && x <= 850));
+      // Nov 21 runs 50 points lower than its unshifted spread would be
+      assert.ok(G.seedScores("2026-11-21").every((x) => x >= 390 && x <= 800));
       // once enough real players finish, the estimates drop out
       for (let n = 1; n < G.SEED_UNTIL; n++) {
         const p = (await t.call("/api/play", { method: "POST", player: P(n), body: { mode: "daily" } })).json;
