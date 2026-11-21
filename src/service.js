@@ -354,6 +354,7 @@ export function createService({ store, bank, now = () => new Date(), overrides =
       score: play.score,
       mode: play.mode,
       players: others.length + 1,
+      games: await store.gamesPlayed(), // every finished game ever, shown under the curve
       beat: others.length ? Math.round((below / others.length) * 100) : null,
       curve: scoreCurve(shown, play.score),
     };

@@ -745,7 +745,7 @@ function standingsCard(play) {
       ? h("p", { class: "beat" }, "You're the first today!")
       : h("p", { class: "beat" }, "You beat ", h("b", {}, `${s.beat}%`), s.mode === "archive" ? " of that day's players" : " of players today");
     card.replaceChildren(h("p", { class: "kicker" }, "How you stack up"), headline, scoreCurveChart(s),
-      h("p", { class: "hint" }, `${s.players} ${s.players === 1 ? "player" : "players"}${s.mode === "archive" ? " that day" : " so far today"}`));
+      h("p", { class: "hint" }, `${s.games.toLocaleString("en-US")} ${s.games === 1 ? "game" : "games"} played`));
   }).catch(() => card.remove());
   return card;
 }

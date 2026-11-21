@@ -113,6 +113,11 @@ export function createD1Store(db) {
       const rows = await all("SELECT mode, date, score, completed_at FROM hd_plays WHERE player_id = ?", playerId);
       return rows.map((r) => ({ mode: r.mode, date: r.date, score: r.score, completed: Boolean(r.completed_at) }));
     },
+    /** Finished games, ever: every completed Daily and Past game (not Hive Hunts). */
+    async gamesPlayed() {
+      const r = await first("SELECT COUNT(*) AS n FROM hd_plays WHERE mode IN ('daily', 'archive') AND completed_at IS NOT NULL");
+      return Number(r?.n || 0);
+    },
     /** Every finished Daily score for a date (not Past-game replays). */
     async dailyScores(date) {
       return (await all("SELECT score FROM hd_plays WHERE mode = 'daily' AND date = ? AND completed_at IS NOT NULL", date)).map((r) => r.score);
