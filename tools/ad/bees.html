@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Honeydle bee ad</title>
+<style>
+@font-face { font-family: "Press Start 2P"; src: url("/public/fonts/press-start-2p.woff2") format("woff2"); }
+:root { --yellow: #ffd60a; --gold: #cf9a06; --soft: #f3d27a; --muted: #a8a8a8; }
+* { box-sizing: border-box; margin: 0; font-synthesis: none; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; color: #fff; font-family: "Press Start 2P", "Noto Color Emoji", monospace; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+.abs { position: absolute; }
+.layer { position: absolute; inset: 0; }
+em { font-style: normal; color: var(--yellow); }
+img.px { image-rendering: pixelated; }
+
+/* cartoon world */
+#world { background: radial-gradient(circle at 50% 40%, #3a2600 0%, #120b00 55%, #000 100%); }
+#comb { position: absolute; inset: -200px; opacity: .22; }
+#pollen i { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #ffe680; box-shadow: 0 0 12px #ffd60a; }
+#spot { position: absolute; inset: 0; opacity: 0; }
+.bee { position: absolute; left: 0; top: 0; width: 300px; height: 300px; margin: -150px 0 0 -150px; will-change: transform; }
+.bee img { width: 100%; height: 100%; image-rendering: pixelated; filter: drop-shadow(0 18px 18px rgba(0,0,0,.45)); }
+.shadow { position: absolute; width: 200px; height: 34px; margin: -17px 0 0 -100px; border-radius: 50%; background: rgba(0,0,0,.45); filter: blur(4px); }
+.bubble { position: absolute; left: 0; top: 0; background: #fff; color: #000; border: 7px solid #000; border-radius: 30px; padding: 26px 34px;
+  font-size: 56px; line-height: 1.25; white-space: nowrap; transform-origin: 50% 100%; box-shadow: 8px 8px 0 rgba(0,0,0,.35); opacity: 0; }
+.bubble::after { content: ""; position: absolute; left: 50%; bottom: -34px; margin-left: -22px; border: 22px solid transparent; border-top: 22px solid #000; }
+.bubble::before { content: ""; position: absolute; left: 50%; bottom: -21px; margin-left: -14px; border: 14px solid transparent; border-top: 14px solid #fff; z-index: 1; }
+.title { position: absolute; left: 0; right: 0; text-align: center; color: var(--yellow); text-shadow: 7px 7px 0 #7a5a00, 0 0 40px rgba(255,214,10,.5); opacity: 0; }
+.trail { position: absolute; width: 18px; height: 18px; margin: -9px; border-radius: 50%; background: #fff; opacity: 0; }
+.speed { position: absolute; left: 540px; top: 960px; width: 0; height: 0; }
+.speed b { position: absolute; left: 0; top: -4px; height: 8px; background: rgba(255,255,255,.8); transform-origin: 0 50%; border-radius: 4px; }
+#halo { width: 190px; height: 50px; border: 12px solid #bfe6ff; border-radius: 50%; box-shadow: 0 0 30px #7cc6ff; }
+#rays { width: 1600px; height: 1600px; margin: -800px 0 0 -800px; background: repeating-conic-gradient(rgba(255,214,10,.3) 0 8deg, transparent 8deg 20deg);
+  -webkit-mask: radial-gradient(circle, #000 10%, transparent 62%); mask: radial-gradient(circle, #000 10%, transparent 62%); }
+.drip { position: absolute; top: -10px; background: linear-gradient(#ffd60a, #e8a800); border-radius: 0 0 40px 40px; box-shadow: 0 0 30px rgba(255,190,0,.5); }
+#cloud { font-size: 230px; line-height: 1; font-family: "Noto Color Emoji"; filter: grayscale(.4) brightness(.8); }
+#rain b { position: absolute; width: 8px; height: 60px; background: #8fb7ff; border-radius: 4px; opacity: .8; }
+#stink b { position: absolute; width: 18px; height: 120px; border: 8px solid #7ed957; border-color: transparent #7ed957 transparent #7ed957; border-radius: 50%; opacity: .8; }
+.dots { font-size: 60px; color: #fff; }
+
+/* gameplay */
+#game { opacity: 0; }
+#frame { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+#touch { position: absolute; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%; background: rgba(255,255,255,.3); border: 6px solid rgba(255,255,255,.9); opacity: 0; box-shadow: 0 0 20px rgba(0,0,0,.4); }
+#ripple { position: absolute; width: 100px; height: 100px; margin: -50px 0 0 -50px; border-radius: 50%; border: 8px solid #fff; opacity: 0; }
+.cap { position: absolute; left: 50%; top: 0; transform-origin: 50% 50%; background: var(--yellow); color: #000; border: 7px solid #000; border-radius: 22px;
+  padding: 26px 34px; font-size: 44px; line-height: 1.3; white-space: nowrap; box-shadow: 10px 10px 0 #000; opacity: 0; text-align: center; }
+.cameo { position: absolute; width: 330px; height: 330px; opacity: 0; }
+.cameo img { width: 100%; height: 100%; image-rendering: pixelated; filter: drop-shadow(0 0 20px rgba(0,0,0,.6)); }
+
+/* slam */
+#crack { position: absolute; inset: 0; opacity: 0; }
+#splats .bee img { filter: drop-shadow(0 10px 6px rgba(0,0,0,.5)); }
+
+/* end card */
+#end { opacity: 0; background: rgba(0,0,0,.82); backdrop-filter: blur(14px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 56px; text-align: center; }
+#end .logo { font-size: 108px; color: var(--yellow); text-shadow: 8px 8px 0 #7a5a00, 0 0 50px rgba(255,214,10,.6); }
+#end .tag { font-size: 48px; }
+#end .row { position: relative; width: 1000px; height: 200px; }
+#end .row img { position: absolute; width: 160px; height: 160px; image-rendering: pixelated; }
+#end .cta { background: var(--yellow); color: #000; font-size: 44px; padding: 48px 70px; border-radius: 30px; box-shadow: 0 12px 0 var(--gold); }
+#end .url { font-size: 42px; color: var(--soft); }
+
+#fx { position: absolute; inset: 0; pointer-events: none; }
+.spark { position: absolute; width: 0; height: 0; }
+.spark b { position: absolute; display: block; margin: -11px 0 0 -11px; width: 22px; height: 22px; }
+.ring { position: absolute; border-radius: 50%; border: 12px solid var(--yellow); }
+#flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+#vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,.5)); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="cam" class="layer">
+    <section id="world" class="layer">
+      <svg id="comb"></svg>
+      <div id="pollen" class="layer"></div>
+      <div id="spot"></div>
+      <div id="rays" class="abs"></div>
+      <div id="drips" class="layer"></div>
+      <div id="speed" class="speed"></div>
+      <div id="trails" class="layer"></div>
+      <div id="shadows" class="layer"></div>
+      <div id="halo" class="abs"></div>
+      <div id="cloud" class="abs">☁️</div>
+      <div id="rain" class="layer"></div>
+      <div id="stink" class="layer"></div>
+      <div id="bees" class="layer"></div>
+      <div id="bubbles" class="layer"></div>
+      <div id="t1" class="title" style="top: 330px; font-size: 74px;">MEET THE<br><br>HIVE</div>
+      <div id="t2" class="title" style="top: 360px; font-size: 86px; line-height: 1.5; color: #fff;">WHICH BEE<br>ARE <em>YOU?</em></div>
+    </section>
+
+    <section id="game" class="layer">
+      <img id="frame" alt="">
+      <div id="touch"></div>
+      <div id="ripple"></div>
+      <div id="caps"></div>
+      <div id="cameos"></div>
+    </section>
+    <div id="splats" class="layer"></div>
+    <svg id="crack" viewBox="0 0 1080 1920"></svg>
+  </div>
+
+  <section id="end" class="layer">
+    <div class="logo" id="elogo">HONEYDLE</div>
+    <div class="tag" id="etag">Which bee<br><br>will <em>you</em> get?</div>
+    <div class="row" id="erow"></div>
+    <div class="cta" id="cta">Play free today</div>
+    <div class="url" id="url">HONEYDLE.COM</div>
+  </section>
+  <div id="fx"></div>
+  <div id="flash"></div>
+  <div id="vignette"></div>
+</div>
+
+<script type="module">
+// Timeline: 120 BPM (beat = 0.5s), bars start at 0.5s. Every hit sits on that grid so it
+// lands with the soundtrack in bees_audio.py; change both together.
+export const DURATION = 24;
+const SLAM = 10.5;                 // bees hit the glass; real gameplay underneath from here
+const END = 21.5;                  // end card
+const BEES = ["diamond", "golden", "honey", "lukewarm", "bitter", "yucky"];
+const SPOT = [ // character spotlights, one per beat from 4.5
+  { bee: "diamond", say: "Dead on!", bg: ["#0e3a66", "#7cc6ff"] },
+  { bee: "golden", say: "So close!", bg: ["#5a3b00", "#ffd60a"] },
+  { bee: "honey", say: "Sweet!", bg: ["#4a2300", "#ff9f0a"] },
+  { bee: "lukewarm", say: "meh.", bg: ["#2a2a24", "#8f8b78"] },
+  { bee: "bitter", say: "Ugh!", bg: ["#1c1f2a", "#5d6b8a"] },
+  { bee: "yucky", say: "Bleh!", bg: ["#13300f", "#6fbf3a"] },
+];
+const SPOT_T = 4.5, SPOT_EACH = 0.5;
+// gameplay clips: [start in the ad, offset into the clip] — chosen so each real tap lands on a beat
+const CLIPS = [
+  { name: "round1", at: SLAM, off: 0.755 },   // lock tap at 13.5
+  { name: "round2", at: 16.0, off: 1.124 },   // lock tap at 17.0
+  { name: "results", at: 19.0, off: 0.322 },  // "See my score" tap at 19.0
+];
+const CAPS = [ // [in, out, text, y, rot]
+  [11.5, 13.4, "Slide your guess", 1700, -3],
+  [16.0, 16.95, "Go for <b style='color:#0e5aa6'>Divine</b>", 1700, 3],
+  [19.5, 21.5, "7 rounds. Once a day.", 1690, -2],
+];
+const CAMEOS = [ // [in, out, bee, line, side]
+  [14.0, 15.9, "golden", "That's me!", "right"],
+  [17.5, 18.95, "diamond", "Nailed it!", "left"],
+];
+const IMPACTS = [[0.5, .6], [1.5, .4], [2.5, .8], [4.5, .6], [5, .6], [5.5, .6], [6, .6], [6.5, .6], [7, .9], [8.5, 1.3], [SLAM, 2.2], [13.5, .3], [17.0, .3], [END, 1.2], [22.5, .6]];
+const FLASHES = [[8.5, .4], [SLAM, 1], [END, .5]];
+
+const $ = (id) => document.getElementById(id);
+let seed = 11;
+const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+const easeIn = (p) => p * p * p;
+const easeInOut = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+const back = (p, c = 2.2) => 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2);
+const elastic = (p) => (p === 0 || p === 1 ? p : Math.pow(2, -10 * p) * Math.sin((p * 10 - 0.75) * (2 * Math.PI) / 3) + 1);
+const beatPhase = (t) => (((t - 0.5) % 0.5) + 0.5) % 0.5 / 0.5; // 0 on every beat → 1
+const hop = (t) => Math.sin(Math.PI * beatPhase(t)); // one hop per beat
+
+// ---- static DOM ------------------------------------------------------------
+// honeycomb wall
+{
+  const svg = $("comb"); svg.setAttribute("viewBox", "0 0 1480 2320"); svg.setAttribute("width", 1480); svg.setAttribute("height", 2320);
+  let p = "";
+  const R = 70, W = R * Math.sqrt(3);
+  for (let row = 0; row < 24; row++) for (let col = 0; col < 11; col++) {
+    const cx = col * W + (row % 2 ? W / 2 : 0), cy = row * R * 1.5;
+    const pts = [...Array(6)].map((_, k) => { const a = Math.PI / 6 + k * Math.PI / 3; return `${(cx + R * 0.92 * Math.cos(a)).toFixed(1)},${(cy + R * 0.92 * Math.sin(a)).toFixed(1)}`; }).join(" ");
+    p += `<polygon points="${pts}" fill="${rnd() < 0.18 ? "#ffb300" : "none"}" fill-opacity="0.35" stroke="#ffd60a" stroke-width="6"/>`;
+  }
+  svg.innerHTML = p;
+}
+const POLLEN = [...Array(28)].map(() => { const i = document.createElement("i"); $("pollen").append(i); return { i, x: rnd() * 1080, y: rnd() * 1920, s: 0.5 + rnd(), sp: 10 + rnd() * 40, ph: rnd() * 6 }; });
+const mkBee = (name, host = "bees", size = 360) => {
+  const d = document.createElement("div"); d.className = "bee"; d.style.width = d.style.height = `${size}px`; d.style.margin = `${-size / 2}px 0 0 ${-size / 2}px`;
+  d.innerHTML = `<img src="/public/img/bee-${name}.png" alt="">`; $(host).append(d); return d;
+};
+const beeEls = BEES.map((b) => mkBee(b));
+const shadowEls = BEES.map(() => { const s = document.createElement("div"); s.className = "shadow"; $("shadows").append(s); return s; });
+const bubble = (html) => { const b = document.createElement("div"); b.className = "bubble"; b.innerHTML = html; $("bubbles").append(b); return b; };
+const b1 = bubble("Psst!"), b2 = bubble("Quiz time!");
+const spotBubbles = SPOT.map((s) => bubble(s.say));
+const TRAIL = [...Array(14)].map(() => { const d = document.createElement("div"); d.className = "trail"; $("trails").append(d); return d; });
+const SPEED = [...Array(40)].map(() => { const b = document.createElement("b"); $("speed").append(b); return { b, a: rnd() * Math.PI * 2, r: 200 + rnd() * 500, w: 120 + rnd() * 260, ph: rnd() }; });
+const DRIPS = [...Array(11)].map((_, i) => { const d = document.createElement("div"); d.className = "drip"; d.style.left = `${i * 100 - 10 + rnd() * 40}px`; d.style.width = `${50 + rnd() * 70}px`; $("drips").append(d); return { d, len: 150 + rnd() * 380 }; });
+const RAIN = [...Array(16)].map(() => { const b = document.createElement("b"); $("rain").append(b); return { b, x: 380 + rnd() * 320, ph: rnd() }; });
+const STINK = [...Array(5)].map((_, i) => { const b = document.createElement("b"); $("stink").append(b); return { b, x: 380 + i * 80, ph: i * 0.2 }; });
+const capEls = CAPS.map(([, , html]) => { const c = document.createElement("div"); c.className = "cap"; c.innerHTML = html; $("caps").append(c); return c; });
+const cameoEls = CAMEOS.map(([, , b, line]) => {
+  const c = document.createElement("div"); c.className = "cameo"; c.innerHTML = `<img src="/public/img/bee-${b}.png" alt="">`; $("cameos").append(c);
+  const bb = document.createElement("div"); bb.className = "bubble"; bb.innerHTML = line; $("cameos").append(bb);
+  return { c, bb };
+});
+const splatEls = BEES.map((b) => mkBee(b, "splats", 480));
+const SPLAT_POS = [[300, 700, -14], [760, 640, 12], [540, 980, 4], [250, 1260, 9], [820, 1220, -10], [540, 1500, -4]];
+BEES.forEach((b) => $("erow").insertAdjacentHTML("beforeend", `<img src="/public/img/bee-${b}.png" alt="">`));
+const endBees = [...$("erow").children];
+
+// glass crack: jagged rays + rings around the impact point
+{
+  const cx = 540, cy = 1000; let d = "";
+  const rays = [];
+  for (let i = 0; i < 18; i++) {
+    const a = (i / 18) * Math.PI * 2 + rnd() * 0.2; let x = cx, y = cy, path = `M${cx},${cy}`;
+    const pts = [];
+    for (let k = 1; k <= 6; k++) { const r = k * (130 + rnd() * 90); x = cx + Math.cos(a + (rnd() - 0.5) * 0.25) * r; y = cy + Math.sin(a + (rnd() - 0.5) * 0.25) * r; path += ` L${x.toFixed(0)},${y.toFixed(0)}`; pts.push([x, y]); }
+    rays.push(pts); d += path + " ";
+  }
+  for (let ring = 1; ring <= 3; ring++) {
+    let path = "";
+    rays.forEach((pts, i) => { const [x, y] = pts[ring]; path += `${i ? "L" : "M"}${x.toFixed(0)},${y.toFixed(0)} `; });
+    d += path + "Z ";
+  }
+  $("crack").innerHTML = `<path d="${d}" fill="none" stroke="rgba(0,0,0,.55)" stroke-width="12" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="${cx}" cy="${cy}" r="70" fill="rgba(255,255,255,.35)" stroke="#fff" stroke-width="6"/>`;
+}
+
+// sparkle bursts: [time, x, y, colors]
+const BURSTS = [
+  [0.5, 540, 1060, ["#ffd60a", "#ffffff"]],
+  ...SPOT.map((s, i) => [SPOT_T + i * SPOT_EACH, 540, 900, [s.bg[1], "#ffffff"]]),
+  [8.5, 540, 700, ["#ffd60a", "#ffffff", "#7cc6ff"]],
+  [SLAM, 540, 1000, ["#ffffff", "#ffd60a", "#bfe6ff"]],
+  [14.0, 860, 1480, ["#ffd60a", "#ffffff"]],
+  [17.5, 230, 1520, ["#7cc6ff", "#ffffff"]],
+  [END, 540, 660, ["#ffd60a", "#ffffff", "#7cc6ff"]],
+];
+const bursts = BURSTS.map(([at, x, y, cols]) => {
+  const el = document.createElement("div"); el.className = "spark"; el.style.left = `${x}px`; el.style.top = `${y}px`;
+  const parts = [];
+  for (let i = 0; i < 26; i++) {
+    const b = document.createElement("b"); b.style.background = cols[i % cols.length];
+    if (i % 3 === 0) b.style.clipPath = "polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)"; else b.style.borderRadius = "3px";
+    el.append(b); parts.push({ b, ang: (i / 26) * Math.PI * 2 + rnd() * 0.3, dist: 240 + rnd() * 380, sc: 0.8 + rnd() * 1.6, spin: rnd() * 720 });
+  }
+  const ring = document.createElement("div"); ring.className = "ring"; ring.style.borderColor = cols[0];
+  $("fx").append(ring, el);
+  return { at, x, y, el, parts, ring };
+});
+
+// gameplay frames
+const manifest = await (await fetch("/tools/ad/gameplay/manifest.json")).json();
+const frameImg = $("frame");
+const cache = new Map();
+function frameSrc(t) {
+  let clip = CLIPS[0];
+  for (const c of CLIPS) if (t >= c.at) clip = c;
+  const m = manifest[clip.name];
+  const ct = t - clip.at + clip.off;
+  const i = clamp(Math.round(ct * 30), 0, m.frames - 1);
+  return { src: `/tools/ad/gameplay/${clip.name}/${String(i).padStart(4, "0")}.jpg`, clip, ct, m };
+}
+function pointer(clip, m, ct) { // where the (invisible) finger is in the recording, if down
+  const ms = m.markers;
+  let down = false, x = 0, y = 0, tap = null;
+  for (const k of ms) {
+    if (k.t > ct) break;
+    if (k.label === "down") down = true;
+    if (k.label === "up") down = false;
+    if (k.x != null) { x = k.x; y = k.y; }
+    if (k.label === "lock" || k.label === "score") tap = k;
+  }
+  return { down, x, y, tap };
+}
+
+// ---- helpers -----------------------------------------------------------------
+function popIn(el, t, at, { dur = 0.35, from = 0.2, rot = 0 } = {}) {
+  const p = prog(t, at, at + dur);
+  el.style.opacity = t < at ? 0 : clamp(p * 4);
+  return `scale(${t < at ? from : lerp(from, 1, elastic(p))}) rotate(${rot * (1 - easeOut(p))}deg)`;
+}
+function shake(t) {
+  let x = 0, y = 0, r = 0;
+  for (const [ti, a] of IMPACTS) {
+    const d = t - ti; if (d < 0 || d > 0.6) continue;
+    const k = a * Math.exp(-d * 10);
+    x += k * 26 * Math.sin(d * 83); y += k * 20 * Math.cos(d * 71); r += k * 1.3 * Math.sin(d * 61);
+  }
+  return { x, y, r };
+}
+const place = (el, x, y, tf = "") => { el.style.transform = `translate(${x}px, ${y}px) ${tf}`; };
+/** a bubble sitting above a point, popping in at `at` and out at `out` */
+function sayAt(b, t, at, out, x, y, rot = 0) {
+  if (t < at || t >= out) { b.style.opacity = 0; return; }
+  const p = prog(t, at, at + 0.3);
+  const w = b.offsetWidth, h = b.offsetHeight;
+  b.style.opacity = 1;
+  b.style.transform = `translate(${x - w / 2}px, ${y - h - 40}px) scale(${lerp(0.2, 1, elastic(p))}) rotate(${rot + Math.sin(t * 7) * 1.5}deg)`;
+}
+
+// ---- render --------------------------------------------------------------------
+async function render(t) {
+  const inWorld = t < SLAM;
+  $("world").style.opacity = inWorld ? 1 : 0;
+  $("game").style.opacity = t >= SLAM && t < END + 0.4 ? 1 : 0;
+
+  // camera
+  const sh = shake(t);
+  let zoom = 1 + 0.015 * Math.sin(t * 1.2);
+  if (inWorld) zoom += 0.04 * prog(t, 0, SLAM);
+  $("cam").style.transform = `translate(${sh.x}px, ${sh.y}px) rotate(${sh.r}deg) scale(${zoom})`;
+  let fl = 0;
+  for (const [ft, a] of FLASHES) { const d = t - ft; if (d >= 0 && d < 0.35) fl = Math.max(fl, a * (1 - d / 0.35)); }
+  if (t > SLAM - 0.12 && t < SLAM) fl = Math.max(fl, prog(t, SLAM - 0.12, SLAM) * 0.7);
+  $("flash").style.opacity = fl;
+
+  if (inWorld) renderWorld(t);
+  else {
+    beeEls.forEach((b) => (b.style.opacity = 0));
+  }
+
+  // ---- slam aftermath: bees squashed on the glass, then slide off ----
+  splatEls.forEach((b, i) => {
+    if (t < SLAM || t > SLAM + 1.6) { b.style.opacity = 0; return; }
+    const [x, y, r] = SPLAT_POS[i];
+    const d = t - SLAM;
+    const squash = 1 - 0.35 * Math.exp(-d * 6) * Math.cos(d * 30);
+    const fall = d < 0.45 ? 0 : Math.pow(d - 0.45, 2) * (1600 + i * 260);
+    const slide = d < 0.45 ? 0 : (d - 0.45) * 60 * (i % 2 ? 1 : -1);
+    b.style.opacity = 1;
+    b.style.transform = `translate(${x + slide}px, ${y + fall}px) rotate(${r + (d > 0.45 ? (d - 0.45) * 90 * (i % 2 ? 1 : -1) : 0)}deg) scale(${1.25 / squash}, ${0.8 * squash})`;
+  });
+  $("crack").style.opacity = t >= SLAM ? 1 - prog(t, SLAM + 0.8, SLAM + 1.3) : 0;
+  $("crack").style.transform = `scale(${t >= SLAM ? 0.6 + 0.4 * easeOut(prog(t, SLAM, SLAM + 0.08)) : 0})`;
+
+  // ---- gameplay ----
+  if (t >= SLAM && t < END + 0.4) {
+    const { src, clip, ct, m } = frameSrc(t);
+    if (frameImg.getAttribute("src") !== src) {
+      let img = cache.get(src);
+      if (!img) { img = new Image(); img.src = src; cache.set(src, img); }
+      await img.decode().catch(() => {});
+      frameImg.src = src;
+      await frameImg.decode().catch(() => {});
+    }
+    // a punch-in on each cut
+    const cut = Math.max(...CLIPS.filter((c) => t >= c.at).map((c) => c.at));
+    const ci = prog(t, cut, cut + 0.35);
+    frameImg.style.transform = `scale(${1 + 0.06 * (1 - easeOut(ci))})`;
+    const pt = pointer(clip, m, ct);
+    const touch = $("touch");
+    const tapRecent = pt.tap && ct - pt.tap.t < 0.22;
+    touch.style.opacity = pt.down || tapRecent ? 1 : 0;
+    if (pt.down) { touch.style.left = `${pt.x}px`; touch.style.top = `${pt.y}px`; touch.style.transform = "scale(1)"; }
+    if (tapRecent) { touch.style.left = `${pt.tap.x}px`; touch.style.top = `${pt.tap.y}px`; touch.style.transform = "scale(.8)"; }
+    const rip = $("ripple");
+    if (pt.tap && ct - pt.tap.t < 0.5) {
+      const rp = (ct - pt.tap.t) / 0.5;
+      rip.style.left = `${pt.tap.x}px`; rip.style.top = `${pt.tap.y}px`; rip.style.opacity = 1 - rp; rip.style.transform = `scale(${1 + rp * 7})`;
+    } else rip.style.opacity = 0;
+  }
+  CAPS.forEach(([a, b, , y, rot], i) => {
+    const c = capEls[i];
+    if (t < a || t >= b) { c.style.opacity = 0; return; }
+    const tf = popIn(c, t, a, { from: 2.2, rot: rot * 3 });
+    const out = prog(t, b - 0.15, b);
+    c.style.opacity = 1 - out;
+    c.style.transform = `translate(-50%, ${y}px) ${tf} rotate(${rot}deg) scale(${1 + 0.04 * hop(t)})`;
+  });
+  CAMEOS.forEach(([a, b, , , side], i) => {
+    const { c, bb } = cameoEls[i];
+    if (t < a || t >= b) { c.style.opacity = 0; bb.style.opacity = 0; return; }
+    const p = prog(t, a, a + 0.35), q = prog(t, b - 0.3, b);
+    const x = side === "right" ? 720 : 30, y = 1920 - 330 * easeOut(p) * (1 - easeIn(q)) - 20;
+    c.style.opacity = 1;
+    c.style.transform = `translate(${x}px, ${y - hop(t) * 26}px) rotate(${(side === "right" ? -8 : 8) + Math.sin(t * 6) * 5}deg)`;
+    sayAt(bb, t, a + 0.25, b - 0.2, x + (side === "right" ? -110 : 440), y + 140, side === "right" ? -4 : 4);
+  });
+
+  // ---- end card ----
+  const ep = prog(t, END, END + 0.3);
+  $("end").style.opacity = ep;
+  $("end").style.backdropFilter = `blur(${14 * ep}px)`;
+  $("elogo").style.transform = popIn($("elogo"), t, END, { from: 3.5, rot: -8, dur: 0.45 });
+  $("elogo").style.opacity = t >= END ? 1 : 0;
+  $("etag").style.transform = popIn($("etag"), t, END + 0.5, { from: 2, rot: 4 });
+  endBees.forEach((b, i) => {
+    const at = END + 0.75 + i * 0.125, p = prog(t, at, at + 0.35);
+    b.style.left = `${5 + i * 166}px`; b.style.top = "20px";
+    b.style.opacity = t >= at ? 1 : 0;
+    b.style.transform = `translateY(${(1 - back(p, 2.8)) * 400 - hop(t + i * 0.0625) * 26}px) rotate(${Math.sin(t * 4 + i) * 7}deg)`;
+  });
+  $("cta").style.transform = popIn($("cta"), t, 22.5, { from: 2.4, rot: -4 }) + (t > 22.9 ? ` scale(${1 + 0.07 * Math.exp(-beatPhase(t) * 4.5)})` : "");
+  $("url").style.transform = popIn($("url"), t, 23.0, { from: 1.8 });
+
+  // ---- fx bursts ----
+  for (const B of bursts) {
+    const d = t - B.at, on = d >= 0 && d < 0.9;
+    B.el.style.opacity = on ? 1 : 0; B.ring.style.opacity = on ? Math.max(0, 1 - d / 0.45) : 0;
+    if (!on) continue;
+    const p = easeOut(clamp(d / 0.9));
+    for (const q of B.parts) {
+      const r = q.dist * p;
+      q.b.style.transform = `translate(${Math.cos(q.ang) * r}px, ${Math.sin(q.ang) * r + 260 * d * d}px) rotate(${q.spin * p}deg) scale(${q.sc * (1 - clamp((d - 0.4) / 0.5))})`;
+    }
+    const rr = 60 + 700 * easeOut(clamp(d / 0.45));
+    Object.assign(B.ring.style, { left: `${B.x - rr}px`, top: `${B.y - rr}px`, width: `${rr * 2}px`, height: `${rr * 2}px`, borderWidth: `${14 * (1 - clamp(d / 0.45)) + 1}px` });
+  }
+}
+
+function renderWorld(t) {
+  $("comb").style.transform = `translate(${-80 + Math.sin(t * 0.4) * 40}px, ${-t * 22}px)`;
+  for (const p of POLLEN) {
+    const y = ((p.y - t * p.sp * 4) % 2000 + 2000) % 2000 - 40;
+    p.i.style.transform = `translate(${p.x + Math.sin(t * 2 + p.ph) * 30}px, ${y}px) scale(${p.s})`;
+    p.i.style.opacity = 0.35 + 0.35 * Math.sin(t * 3 + p.ph);
+  }
+  const GY = 1180; // ground line for the lineup
+  // default: everyone hidden
+  beeEls.forEach((b) => (b.style.opacity = 0));
+  shadowEls.forEach((s) => (s.style.opacity = 0));
+  [b1, b2, ...spotBubbles].forEach((b) => (b.style.opacity = 0));
+  TRAIL.forEach((d) => (d.style.opacity = 0));
+  for (const id of ["halo", "cloud", "rays", "spot"]) $(id).style.opacity = 0;
+  RAIN.forEach((r) => (r.b.style.opacity = 0)); STINK.forEach((s) => (s.b.style.opacity = 0)); DRIPS.forEach((d) => (d.d.style.height = "0px"));
+  SPEED.forEach((s) => (s.b.style.opacity = 0));
+  $("t1").style.opacity = 0; $("t2").style.opacity = 0;
+
+  // 0 – 2.5: the golden bee zips in on a loop, lands, and talks
+  if (t < 2.5) {
+    const g = beeEls[1];
+    let x, y, tf = "";
+    if (t < 0.5) {
+      const p = t / 0.5; // loop-de-loop from off screen left to centre
+      const a = p * Math.PI * 2.2;
+      x = lerp(-250, 540, easeOut(p)) + Math.sin(a) * 180 * (1 - p);
+      y = lerp(500, GY, easeIn(p)) - Math.cos(a) * 160 * (1 - p);
+      tf = `rotate(${(1 - p) * 40}deg) scale(0.8)`;
+      TRAIL.forEach((d, k) => {
+        const tp = clamp(p - k * 0.03), aa = tp * Math.PI * 2.2;
+        const tx = lerp(-250, 540, easeOut(tp)) + Math.sin(aa) * 180 * (1 - tp), ty = lerp(500, GY, easeIn(tp)) - Math.cos(aa) * 160 * (1 - tp);
+        d.style.opacity = tp > 0 && tp < 1 ? 0.7 * (1 - k / 14) : 0; place(d, tx, ty, `scale(${1 - k / 16})`);
+      });
+    } else {
+      const d = t - 0.5;
+      const sq = 1 - 0.3 * Math.exp(-d * 9) * Math.cos(d * 28);
+      x = 540; y = GY - hop(t) * 50 * prog(t, 1.0, 1.2);
+      tf = `scale(${1.25 * (2 - sq)}, ${1.25 * sq}) rotate(${Math.sin(t * 5) * 4}deg)`;
+      sayAt(b1, t, 0.5, 1.5, 540, GY - 220, -4);
+      sayAt(b2, t, 1.5, 2.5, 540, GY - 220, 4);
+      shadowEls[1].style.opacity = 1; place(shadowEls[1], 540, GY + 150, `scale(${1.2 - hop(t) * 0.25})`);
+    }
+    g.style.opacity = 1; place(g, x, y, tf);
+  }
+
+  // 2.5 – 4.5: the hive lines up, one bee per 8th, hopping on the beat
+  if (t >= 2.5 && t < 4.5) {
+    $("t1").style.transform = popIn($("t1"), t, 2.5, { from: 2.6, rot: -5 });
+    BEES.forEach((_, i) => {
+      const at = 2.5 + i * 0.25, b = beeEls[i];
+      if (t < at) return;
+      const p = prog(t, at, at + 0.3);
+      const x = 115 + (i % 3) * 425 + (i >= 3 ? 0 : 0), y = i < 3 ? 900 : 1380;
+      const xx = i < 3 ? 160 + i * 380 : 160 + (i - 3) * 380;
+      const h = hop(t + (i % 2) * 0.25) * 45;
+      b.style.opacity = 1;
+      place(b, xx, y - (1 - back(p, 2.6)) * 900 - h, `scale(${0.85 + 0.15 * (1 - hop(t + (i % 2) * 0.25))}, ${0.85 + 0.15 * hop(t + (i % 2) * 0.25)}) rotate(${Math.sin(t * 5 + i) * 6}deg)`);
+      shadowEls[i].style.opacity = p; place(shadowEls[i], xx, y + 140, `scale(${0.9 - h / 200})`);
+    });
+  }
+
+  // 4.5 – 7.5: spotlights, one bee per beat, each with its own gag
+  const si = Math.floor((t - SPOT_T) / SPOT_EACH);
+  if (t >= SPOT_T && si < SPOT.length) {
+    const s = SPOT[si], at = SPOT_T + si * SPOT_EACH, d = t - at;
+    const spot = $("spot");
+    spot.style.opacity = 1;
+    spot.style.background = `radial-gradient(circle at 50% 48%, ${s.bg[1]}88, ${s.bg[0]} 45%, #000 85%)`;
+    const b = beeEls[BEES.indexOf(s.bee)];
+    const p = prog(t, at, at + 0.25), dir = si % 2 ? 1 : -1;
+    let x = 540 + (1 - easeOut(p)) * 800 * dir, y = 960, sc = 1.85 * (0.6 + 0.4 * back(p, 2.6)), rot = (1 - easeOut(p)) * 30 * dir, sx = 1, sy = 1;
+    if (s.bee === "diamond") {
+      $("halo").style.opacity = p; place($("halo"), 540 - 95, 960 - 400 + Math.sin(t * 8) * 10, `rotate(${Math.sin(t * 6) * 8}deg)`);
+    } else if (s.bee === "golden") {
+      $("rays").style.opacity = p; place($("rays"), 540, 960, `rotate(${t * 60}deg)`);
+    } else if (s.bee === "honey") {
+      DRIPS.forEach((q) => (q.d.style.height = `${q.len * easeOut(clamp(d / 0.45))}px`));
+    } else if (s.bee === "lukewarm") {
+      sy = 1 - 0.12 * easeInOut(clamp(d / 0.45)); sx = 1 + 0.08 * easeInOut(clamp(d / 0.45)); rot += -6 * clamp(d / 0.45);
+    } else if (s.bee === "bitter") {
+      $("cloud").style.opacity = p; place($("cloud"), 540 - 130, 960 - 560 + Math.sin(t * 9) * 8);
+      RAIN.forEach((r) => { const ry = ((d * 2.2 + r.ph) % 1) * 300; r.b.style.opacity = p; place(r.b, r.x, 960 - 380 + ry); });
+      x += Math.sin(t * 70) * 10;
+    } else if (s.bee === "yucky") {
+      sx = 1 + 0.06 * Math.sin(t * 30); sy = 1 - 0.06 * Math.sin(t * 30); rot += Math.sin(t * 20) * 8;
+      b.style.filter = `drop-shadow(0 0 ${40 * p}px #7ed957) drop-shadow(0 0 ${12 * p}px #7ed957)`;
+      STINK.forEach((q) => { const sy2 = ((d * 1.5 + q.ph) % 1); q.b.style.opacity = p * (1 - sy2); place(q.b, q.x, 960 - 300 - sy2 * 220, `rotate(${Math.sin(t * 6 + q.ph * 9) * 20}deg)`); });
+    }
+    if (s.bee !== "yucky") b.style.filter = "";
+    b.style.opacity = 1;
+    place(b, x, y, `scale(${sc * sx}, ${sc * sy}) rotate(${rot}deg)`);
+    sayAt(spotBubbles[si], t, at + 0.06, at + SPOT_EACH, s.bee === "bitter" ? 820 : 540, s.bee === "bitter" ? 690 : 600, dir * 5);
+    if (s.bee === "diamond") sayAt(spotBubbles[si], t, at + 0.06, at + SPOT_EACH, 540, 560, -5);
+  }
+  beeEls[5].style.filter = si === 5 ? beeEls[5].style.filter : "";
+
+  // 7.5 – 9.5: the hive orbits; the question lands on the drop (8.5)
+  if (t >= 7.5 && t < 9.5) {
+    const sp = lerp(2.5, 7, prog(t, 7.5, 8.5));
+    BEES.forEach((_, i) => {
+      const a = t * sp + i * (Math.PI * 2 / 6);
+      const r = 330 + 40 * Math.sin(t * 4 + i);
+      const b = beeEls[i];
+      b.style.opacity = 1;
+      place(b, 540 + Math.cos(a) * r, 1150 + Math.sin(a) * r * 0.55, `scale(${0.6 + 0.12 * Math.sin(a)}) rotate(${Math.cos(a) * 20}deg)`);
+      b.style.zIndex = Math.round(Math.sin(a) * 10) + 10;
+    });
+    if (t >= 8.5) {
+      $("t2").style.transform = popIn($("t2"), t, 8.5, { from: 3, rot: -6 }) + ` scale(${1 + 0.05 * hop(t)})`;
+    }
+  }
+
+  // 9.5 – 10.5: they turn and charge the camera
+  if (t >= 9.5 && t < SLAM) {
+    const p = prog(t, 9.5, SLAM);
+    $("t2").style.opacity = 1 - prog(t, 9.5, 9.8);
+    $("t2").style.transform = `scale(${1 + 2 * easeIn(prog(t, 9.5, 9.8))})`;
+    BEES.forEach((_, i) => {
+      const [fx, fy] = SPLAT_POS[i];
+      const g = easeIn(p);
+      const b = beeEls[i];
+      b.style.opacity = 1; b.style.zIndex = 10;
+      const ox = 540 + (fx - 540) * 0.35, oy = 1000 + (fy - 1000) * 0.35;
+      place(b, lerp(ox, fx, g), lerp(oy, fy, g) + Math.sin(t * 30 + i) * 10 * (1 - g), `scale(${lerp(0.5, 1.75, g)}) rotate(${Math.sin(t * 20 + i) * 10}deg)`);
+    });
+    SPEED.forEach((s) => {
+      const q = (p * 2 + s.ph) % 1;
+      s.b.style.opacity = 0.7 * p; s.b.style.width = `${s.w * (0.5 + q)}px`;
+      s.b.style.transform = `rotate(${s.a}rad) translateX(${s.r + q * 600}px)`;
+    });
+  }
+}
+
+window.DURATION = DURATION;
+window.render = render;
+await document.fonts.ready;
+await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+await render(0);
+window.ready = true;
+</script>
+</body>
+</html>

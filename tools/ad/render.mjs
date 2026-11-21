@@ -1,6 +1,9 @@
 // Renders tools/ad/ad.html to a 1080x1920 (9:16) MP4, frame by frame, so the
 // timing is exact regardless of machine speed.
-// Usage: node tools/ad/render.mjs [out.mp4] [fps]   (needs ffmpeg, and python3 with numpy for the soundtrack)
+// Usage: node tools/ad/render.mjs [--page ad.html] [--audio audio.py] [out.mp4] [fps]
+//        node tools/ad/render.mjs [--page …] --stills DIR t1,t2,…
+// Needs ffmpeg, and python3 with numpy for the soundtrack. bees.html also needs
+// tools/ad/gameplay/ (run tools/ad/capture.mjs first).
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
@@ -11,9 +14,14 @@ const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const OUT = process.argv[2] || "honeydle-ad.mp4";
-const FPS = Number(process.argv[3] || 30);
-const TYPES = { ".html": "text/html", ".js": "text/javascript", ".png": "image/png", ".woff2": "font/woff2", ".css": "text/css" };
+const args = process.argv.slice(2);
+const flag = (name, dflt) => { const i = args.indexOf(name); if (i < 0) return dflt; const v = args[i + 1]; args.splice(i, 2); return v; };
+const PAGE = flag("--page", "ad.html");
+const AUDIO = flag("--audio", "audio.py");
+const STILLS = args[0] === "--stills" ? { dir: args[1], times: args[2].split(",").map(Number) } : null;
+const OUT = args[0] || "honeydle-ad.mp4";
+const FPS = Number(args[1] || 30);
+const TYPES = { ".html": "text/html", ".js": "text/javascript", ".png": "image/png", ".woff2": "font/woff2", ".css": "text/css", ".jpg": "image/jpeg", ".json": "application/json" };
 
 const server = http.createServer((req, res) => {
   const file = path.join(ROOT, decodeURIComponent(new URL(req.url, "http://x").pathname));
@@ -26,14 +34,14 @@ const base = `http://127.0.0.1:${server.address().port}`;
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
-await page.goto(`${base}/tools/ad/ad.html`);
-await page.waitForFunction(() => window.ready === true);
 page.on("pageerror", (e) => console.error("page error:", e.message));
+await page.goto(`${base}/tools/ad/${PAGE}`);
+await page.waitForFunction(() => window.ready === true, null, { timeout: 60000 });
 // --stills DIR t1,t2,…  writes PNG stills at those times instead of a video
-if (process.argv[2] === "--stills") {
-  const dir = process.argv[3];
+if (STILLS) {
+  const dir = STILLS.dir;
   fs.mkdirSync(dir, { recursive: true });
-  for (const t of process.argv[4].split(",").map(Number)) {
+  for (const t of STILLS.times) {
     await page.evaluate((x) => window.render(x), t);
     await page.screenshot({ path: path.join(dir, `still-${t}.png`) });
   }
@@ -58,7 +66,7 @@ await new Promise((r) => ff.on("close", r));
 const run = (cmd, args) => new Promise((res, rej) => spawn(cmd, args, { stdio: "inherit" }).on("close", (c) => (c ? rej(new Error(`${cmd} exited ${c}`)) : res())));
 const wav = `${OUT}.wav`, silent = `${OUT}.silent.mp4`;
 fs.renameSync(OUT, silent);
-await run("python3", [path.join(ROOT, "tools/ad/audio.py"), wav]);
+await run("python3", [path.join(ROOT, "tools/ad", AUDIO), wav]);
 await run("ffmpeg", ["-y", "-loglevel", "error", "-i", silent, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy",
   "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", OUT]);
 fs.rmSync(wav); fs.rmSync(silent);

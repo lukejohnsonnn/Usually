@@ -6,3 +6,7 @@ screenshots/
 .dev.vars
 .env
 .DS_Store
+
+# raw gameplay frames for the bee ad (regenerate: node tools/ad/capture.mjs)
+tools/ad/gameplay/
+__pycache__/
