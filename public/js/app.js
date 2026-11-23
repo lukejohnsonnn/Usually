@@ -107,7 +107,8 @@ function masthead({ compact = false, date, streak } = {}) {
 function footer() {
   return h("footer", { class: "footer" },
     h("button", { class: "linkbtn", onclick: showHowTo }, "How to play"),
-    h("button", { class: "linkbtn", onclick: showYesterday }, "Yesterday's answers"));
+    h("button", { class: "linkbtn", onclick: showYesterday }, "Yesterday's answers"),
+    h("a", { class: "linkbtn", href: "/privacy" }, "Privacy"));
 }
 
 function mount(screen) {
@@ -181,6 +182,9 @@ function renderHome() {
 // ---------------------------------------------------------------- hive hunt
 const HEX = { empty: pipSvg("#151515", "#2e2e2e"), found: pipSvg("#ffd60a", "#d9a300"), missed: pipSvg("#3a3020", "#5a4a20") };
 
+/** "60 seconds", "2.5 minutes", "2 minutes". */
+const huntTime = (s) => (s <= 90 ? `${s} seconds` : `${+(s / 60).toFixed(1)} minutes`);
+
 /** The bonus card on the home screen. */
 function huntCard(hunt) {
   const done = hunt.status === "done";
@@ -189,7 +193,7 @@ function huntCard(hunt) {
     h("p", { class: "hunt-prompt" }, hunt.prompt || "Start the hunt to find out today's list!"),
     done
       ? h("p", { class: "done" }, "You found ", h("b", {}, `${hunt.score} of ${hunt.total}`), ".")
-      : h("p", { class: "hint", style: "text-align:left" }, `${hunt.seconds} seconds — name as many as you can.`),
+      : h("p", { class: "hint", style: "text-align:left" }, `${huntTime(hunt.seconds)} — name as many as you can.`),
     h("button", { class: `btn ${done ? "ghost" : "primary"} small`, onclick: () => openHunt() }, done ? "See the hunt" : hunt.status === "playing" ? "Back to the hunt" : "Start the hunt"));
 }
 
@@ -244,7 +248,7 @@ function renderHunt() {
 
   if (hunt.status === "new") {
     screen.append(h("section", { class: "controls" },
-      h("p", { class: "hint" }, `You get ${hunt.seconds} seconds: type an answer and press Enter — then the next. Typos are fine.`),
+      h("p", { class: "hint" }, `You get ${huntTime(hunt.seconds)}: type an answer and press Enter — then the next. Typos are fine.`),
       h("button", { class: "btn primary", onclick: async (e) => {
         e.currentTarget.disabled = true;
         try { state.hunt = await api("/hunt/start", { method: "POST", body: {} }); } catch (err) { toast(err.message); return; }
@@ -562,8 +566,9 @@ function buildNumberRound({ screen, q, timer, jar }) {
 
 function buildTextRound({ screen, q, timer, jar }) {
   const input = h("input", { class: "field text", type: "text", placeholder: "Your answer", "aria-label": "Your answer", autocomplete: "off", autocapitalize: "sentences", spellcheck: "false", maxlength: 80, enterkeyhint: "go" });
-  const hint = h("p", { class: "hint", "aria-live": "polite" }, "Tip: name the most common answer.");
-  const form = h("form", { class: "controls text-controls" }, input, hint, lockButton());
+  const tip = q.hint || "Tip: name the most common answer.";
+  const hint = h("p", { class: "hint", "aria-live": "polite" }, tip);
+  const form = h("form", { class: "controls text-controls pinnable" }, input, hint, lockButton());
   screen.append(form);
   setTimeout(() => input.focus({ preventScroll: true }), 50);
   let sending = false;
@@ -572,7 +577,7 @@ function buildTextRound({ screen, q, timer, jar }) {
   const setHint = (text, kind = "") => { hint.textContent = text; hint.className = `hint ${kind}`; };
   input.addEventListener("input", () => {
     input.classList.remove("suggested", "refused");
-    if (hint.classList.contains("suggest") || hint.classList.contains("refuse")) setHint("Tip: name the most common answer.");
+    if (hint.classList.contains("suggest") || hint.classList.contains("refuse")) setHint(tip);
   });
 
   async function send({ timedOut = false } = {}) {
@@ -740,7 +745,7 @@ function standingsCard(play) {
       ? h("p", { class: "beat" }, "You're the first today!")
       : h("p", { class: "beat" }, "You beat ", h("b", {}, `${s.beat}%`), s.mode === "archive" ? " of that day's players" : " of players today");
     card.replaceChildren(h("p", { class: "kicker" }, "How you stack up"), headline, scoreCurveChart(s),
-      h("p", { class: "hint" }, `${s.players} ${s.players === 1 ? "player" : "players"}${s.mode === "archive" ? " that day" : " so far today"}`));
+      h("p", { class: "hint" }, `${s.games.toLocaleString("en-US")} ${s.games === 1 ? "game" : "games"} played`));
   }).catch(() => card.remove());
   return card;
 }

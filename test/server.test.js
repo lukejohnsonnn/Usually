@@ -173,6 +173,7 @@ describe("server", () => {
       const st = (await t.call("/api/standings", { player: P(0) })).json.standings;
       assert.equal(st.score, mine);
       assert.equal(st.players, 6, "you plus five estimated scores");
+      assert.equal(st.games, 1, "games played counts real finished games only");
       assert.equal(st.beat, 100);
       assert.equal(st.curve.points.length, 49);
       assert.ok(st.curve.from <= 440 && st.curve.to >= mine && st.curve.to <= 1225, "the curve frames every score and yours");
@@ -186,6 +187,8 @@ describe("server", () => {
       assert.deepEqual(G.seedScores("2026-11-24"), G.seedScores("2026-11-24"));
       assert.notDeepEqual(G.seedScores("2026-11-24"), G.seedScores("2026-11-25"));
       assert.ok(G.seedScores("2026-11-24").every((x) => x >= 440 && x <= 850));
+      // Nov 21 runs 50 points lower than its unshifted spread would be
+      assert.ok(G.seedScores("2026-11-21").every((x) => x >= 390 && x <= 800));
       // once enough real players finish, the estimates drop out
       for (let n = 1; n < G.SEED_UNTIL; n++) {
         const p = (await t.call("/api/play", { method: "POST", player: P(n), body: { mode: "daily" } })).json;
@@ -193,6 +196,7 @@ describe("server", () => {
       }
       const later = (await t.call("/api/standings", { player: P(0) })).json.standings;
       assert.equal(later.players, G.SEED_UNTIL, "real players only");
+      assert.equal(later.games, G.SEED_UNTIL, "every real finished game, never the estimates");
       assert.equal(later.beat, 100);
       const low = (await t.call("/api/standings", { player: P(1) })).json.standings;
       assert.equal(low.beat, 0, "ties and better scores are not beaten");
@@ -385,7 +389,7 @@ describe("hive hunt", () => {
       const P = "u-hunter000000000", Q = "u-hunter000000001";
       const a = (await t.call("/api/hunt", { player: P })).json;
       const b = (await t.call("/api/hunt", { player: Q })).json;
-      assert.deepEqual([a.number, a.status, a.seconds], [2, "new", 60]);
+      assert.deepEqual([a.number, a.status, a.seconds], [2, "new", 150]);
       assert.deepEqual([a.prompt, a.total, b.prompt], [null, null, null], "the list is a surprise until the clock starts");
       const startedA = (await t.call("/api/hunt/start", { method: "POST", player: Q, body: {} })).json;
       assert.equal(startedA.prompt, "Name the 50 US states.", "revealed once started");
@@ -407,24 +411,29 @@ describe("hive hunt", () => {
     } finally { await t.close(); }
   });
 
-  test("the clock is the server's: guesses after 60 seconds don't count, and the hunt ends", async () => {
+  test("the clock is the server's: guesses after time's up don't count, and the hunt ends", async () => {
     const t = await startServer({ at: "2026-11-21T15:00:00Z" });
     try {
       const P = "u-latehunter00000";
+      // Nov 21 has a longer clock: 2.5 minutes instead of the usual 60 seconds
+      assert.equal((await t.call("/api/hunt", { player: P })).json.seconds, 150);
       await t.call("/api/hunt/start", { method: "POST", player: P, body: {} });
       await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "ohio" } });
       t.clock.set("2026-11-21T15:01:05Z");
+      const inTime = (await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "utah" } })).json;
+      assert.equal(inTime.result, "found", "65 seconds in still counts on a 150-second day");
+      t.clock.set("2026-11-21T15:02:35Z");
       const late = (await t.call("/api/hunt/guess", { method: "POST", player: P, body: { value: "texas" } })).json;
       assert.equal(late.result, "over");
-      assert.equal(late.hunt.score, 1);
-      assert.equal(late.hunt.missed.length, 49, "the rest is revealed once it's over");
+      assert.equal(late.hunt.score, 2);
+      assert.equal(late.hunt.missed.length, 48, "the rest is revealed once it's over");
       assert.deepEqual(late.hunt.missed, [...late.hunt.missed].sort((x, y) => x.localeCompare(y)), "alphabetical, never ranked");
       // restarting the same day gives back the finished hunt
       assert.equal((await t.call("/api/hunt/start", { method: "POST", player: P, body: {} })).json.status, "done");
       // a new day, a new list
       t.clock.addDays(1);
       const next = (await t.call("/api/hunt", { player: P })).json;
-      assert.deepEqual([next.number, next.status], [3, "new"]);
+      assert.deepEqual([next.number, next.status, next.seconds], [3, "new", 60], "other days keep 60 seconds");
       // and hunts never touch the Daily stats
       assert.deepEqual((await t.call("/api/stats", { player: P })).json, { streak: 0, games: 0, best: null, avg: null });
     } finally { await t.close(); }

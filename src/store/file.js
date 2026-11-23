@@ -98,6 +98,10 @@ export function createFileStore(filePath) {
         .filter((p) => p.playerId === playerId)
         .map((p) => ({ mode: p.mode, date: p.date, score: p.score, completed: Boolean(p.completedAt) }));
     },
+    /** Finished games, ever: every completed Daily and Past game (not Hive Hunts). */
+    async gamesPlayed() {
+      return Object.values(state.plays).filter((p) => (p.mode === "daily" || p.mode === "archive") && p.completedAt).length;
+    },
     /** Every finished Daily score for a date (not Past-game replays). */
     async dailyScores(date) {
       return Object.values(state.plays).filter((p) => p.mode === "daily" && p.date === date && p.completedAt).map((p) => p.score);
