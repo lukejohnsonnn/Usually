@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Honeydle reel</title>
+<style>
+@font-face { font-family: "Libre Franklin"; src: url("/public/fonts/libre-franklin-latin-800-normal.woff2") format("woff2"); font-weight: 700 900; }
+@font-face { font-family: "Libre Franklin"; src: url("/public/fonts/libre-franklin-latin-600-normal.woff2") format("woff2"); font-weight: 500 600; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: "Libre Franklin", "Noto Color Emoji", system-ui, sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#scr { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 50% 40%; }
+/* native-style caption: white box, black bold text */
+.cap { position: absolute; left: 50%; top: 0; transform-origin: 50% 50%; opacity: 0; max-width: 940px; width: max-content; text-align: center;
+  background: #fff; color: #111; font-weight: 800; font-size: 54px; line-height: 1.22; padding: 20px 30px; border-radius: 22px; }
+.cap.dark { background: rgba(0,0,0,.78); color: #fff; }
+.cap.big { font-size: 150px; padding: 10px 56px; border-radius: 34px; }
+.cap .e { font-family: "Noto Color Emoji", sans-serif; font-weight: 400; }
+.soft { position: absolute; left: 50%; transform: translateX(-50%); width: max-content; text-align: center; color: #fff; font-weight: 600; font-size: 40px; opacity: 0;
+  background: rgba(0,0,0,.72); padding: 14px 26px; border-radius: 16px; }
+#dim { position: absolute; inset: 0; background: #000; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <img id="scr" alt="">
+  <div id="dim"></div>
+  <div id="caps"></div>
+  <div class="soft" id="soft" style="top: 1060px">it's called Honeydle · free, new one every day</div>
+</div>
+<script type="module">
+// An organic reel: real screen recordings with jump cuts and native-style captions.
+// reel_audio.py mirrors these times; change both together.
+export const DURATION = 22;
+// { name, at, off, speed, until } — speed 0 holds a frame (the "pause and guess" moments)
+const CLIPS = [
+  { name: "guess", at: 0, off: 0.0, speed: 0, until: 2.5 },
+  { name: "guess", at: 2.5, off: 0.6, speed: 1, until: 6.0 },     // lock at ~4.55
+  { name: "divine", at: 6.0, off: 0.0, speed: 0, until: 7.0 },
+  { name: "divine", at: 7.0, off: 0.6, speed: 1, until: 10.0 },   // lock at ~8.52
+  { name: "text", at: 10.0, off: 0.6, speed: 1, until: 13.0 },    // Enter at ~11.06
+  { name: "hunt", at: 13.0, off: 1.2, speed: 2, until: 17.0 },    // the hunt at 2x
+  { name: "huntdone", at: 17.0, off: 0.3, speed: 1, until: 19.5 },
+  { name: "huntdone", at: 19.5, off: 2.9, speed: 0, until: 23 },
+];
+const CUTS = CLIPS.map((c) => c.at);
+// [in, out, html, y, style]
+const E = (s) => `<span class="e">${s}</span>`;
+// y positions keep clear of the Reels/TikTok UI (top bar, and the caption + buttons at the bottom)
+const TOP = 300;
+const CAPS = [
+  [0.15, 2.5, `guess before I lock it in ${E("👇")}`, TOP, ""],
+  [0.9, 1.4, "3", 980, "big"], [1.4, 1.9, "2", 980, "big"], [1.9, 2.4, "1", 980, "big"],
+  [4.9, 6.0, `10%... it's 11 ${E("😭")} one off`, TOP, ""],
+  [6.0, 7.0, `ok this one I actually know`, TOP, ""],
+  [8.9, 10.0, `DEAD ON ${E("💎")}`, TOP, ""],
+  [10.0, 11.3, `"name the #1" rounds are my favourite`, TOP, ""],
+  [11.4, 13.0, `called it ${E("🫡")}`, TOP, ""],
+  [13.0, 14.6, `then there's the Hive Hunt ${E("🐝")}<br>name every country in South America`, 1330, ""],
+  [15.05, 16.0, `Mexico is not in South America ${E("🤦")}`, 1330, "dark"],
+  [16.05, 17.0, `"Venezula" counted lol ${E("💀")}`, 1330, "dark"],
+  [17.2, 19.5, `10/12. I forget Guyana and Suriname EVERY time`, TOP, ""],
+  [19.6, 23, `how'd you do? ${E("👇")}`, 960, ""],
+];
+
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+const capEls = CAPS.map(([, , html, , cls]) => { const d = document.createElement("div"); d.className = `cap ${cls}`; d.innerHTML = html; $("caps").append(d); return d; });
+
+const manifest = await (await fetch("/tools/ad/gameplay-fresh/manifest.json")).json();
+function clipAt(t) { let c = CLIPS[0]; for (const k of CLIPS) if (t >= k.at) c = k; return c; }
+async function render(t) {
+  const c = clipAt(t), m = manifest[c.name];
+  const i = clamp(Math.round((c.off + (t - c.at) * c.speed) * 30), 0, m.frames - 1);
+  const src = `/tools/ad/gameplay-fresh/${c.name}/${String(i).padStart(4, "0")}.jpg`;
+  const img = $("scr");
+  if (img.getAttribute("src") !== src) { img.src = src; await img.decode().catch(() => {}); }
+  // jump-cut punch-ins: each cut starts a touch zoomed and settles; holds drift in slowly
+  const cut = Math.max(...CUTS.filter((a) => t >= a));
+  const p = prog(t, cut, cut + 0.25);
+  let z = 1 + 0.05 * (1 - easeOut(p));
+  if (c.speed === 0) z += 0.04 * prog(t, c.at, c.until);
+  // a quick zoom on each reveal, like a creator punching in
+  for (const r of [4.75, 8.75, 11.3]) z += 0.07 * Math.sin(Math.PI * prog(t, r, r + 0.6)) * (t < r + 0.3 ? 1 : 1);
+  img.style.transform = `scale(${z})`;
+  $("dim").style.opacity = t >= 19.5 ? 0.45 * prog(t, 19.5, 19.9) : 0;
+
+  CAPS.forEach(([a, b, , y], k) => {
+    const el = capEls[k];
+    if (t < a || t >= b) { el.style.opacity = 0; return; }
+    const q = easeOut(prog(t, a, a + 0.12));
+    el.style.opacity = 1;
+    el.style.transform = `translate(-50%, ${y}px) translate(0, -50%) scale(${0.92 + 0.08 * q})`;
+  });
+  $("soft").style.opacity = prog(t, 20.2, 20.6);
+}
+
+window.DURATION = DURATION;
+window.render = render;
+await document.fonts.ready;
+await render(0);
+window.ready = true;
+</script>
+</body>
+</html>
