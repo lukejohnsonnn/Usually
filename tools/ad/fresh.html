@@ -98,7 +98,7 @@ img.px { image-rendering: pixelated; }
       <div class="head" id="hd2" style="top:150px">...or type<br>the #1</div>
       <div class="head light" id="hd3" style="top:120px; font-size:58px">Name them all<br>before time's up</div>
     </div>
-    <div class="phone" id="phone"><img class="scr" id="scr" alt=""><div class="notch"></div></div>
+    <div class="phone" id="phone"><img class="scr" id="scr" alt=""><div class="notch" id="notch"></div></div>
     <div id="stickers"></div>
 
     <!-- hive hunt title -->
@@ -129,7 +129,10 @@ img.px { image-rendering: pixelated; }
 <script type="module">
 // 120 BPM (beat = 0.5s), bars start at 0.5s. Every hit sits on the grid; fresh_audio.py
 // mirrors these times — change both together.
-export const DURATION = 22;
+export const DURATION = 23;
+// the hook's four stats get 0.75s each (in real time T); everything after them runs
+// on the original timeline, one second later: t = T - SHIFT
+const SHIFT = 1.0, STAT = 0.75;
 const BEES = ["diamond", "golden", "honey", "lukewarm", "bitter", "yucky"];
 // gameplay clips: { name, at (ad time), off (clip time at `at`), speed, until }
 const CLIPS = [
@@ -139,7 +142,7 @@ const CLIPS = [
   { name: "huntdone", at: 14.5, off: 0.5, speed: 1, until: 16.5 },
 ];
 const HUNT_SPEED = 2;
-const IMPACTS = [[0, .8], [0.5, .8], [1, .8], [1.5, .8], [2, 1.1], [5.5, .6], [6.5, .6], [8, .6], [8.5, 1.6], [14.5, .8], [16.5, .8], [18.5, 1.3]];
+const IMPACTS = [[-1, .8], [-0.25, .8], [0.5, .8], [1.25, .8], [2, 1.1], [5.5, .6], [6.5, .6], [8, .6], [8.5, 1.6], [14.5, .8], [16.5, .8], [18.5, 1.3]];
 const FLASHES = [[8.5, .7], [18.5, .4]];
 
 const $ = (id) => document.getElementById(id);
@@ -236,7 +239,8 @@ function flicker(t, t0) {
 }
 
 // ---- render -------------------------------------------------------------------
-async function render(t) {
+async function render(T) {
+  const t = T - SHIFT;
   const sh = shake(t);
   $("cam").style.transform = `translate(${sh.x}px, ${sh.y}px) rotate(${sh.r}deg)`;
   let fl = 0;
@@ -250,11 +254,11 @@ async function render(t) {
 
   // ---- hook: one real stat per beat, then the question ----
   ["c0", "c1", "c2", "c3"].forEach((id, i) => {
-    const at = i * 0.5;
-    $(id).style.opacity = on(t, at, at + 0.5) ? 1 : 0;
-    slamIn($(`${id}c`), t, at, { from: 0.3, rot: 0 });
-    slamIn($(`${id}n`), t, at, { from: 3, rot: i % 2 ? 8 : -8 });
-    slamIn($(`${id}l`), t, at + 0.125, { from: 1.8, rot: 0 });
+    const at = i * STAT;
+    $(id).style.opacity = on(T, at, at + STAT) ? 1 : 0;
+    slamIn($(`${id}c`), T, at, { from: 0.3, rot: 0 });
+    slamIn($(`${id}n`), T, at, { from: 3, rot: i % 2 ? 8 : -8 });
+    slamIn($(`${id}l`), T, at + 0.125, { from: 1.8, rot: 0 });
   });
   $("c4").style.opacity = on(t, 2.0, 2.75) ? 1 : 0;
   slamIn($("c4a"), t, 2.0, { from: 2, rot: -4 });
@@ -277,6 +281,7 @@ async function render(t) {
     ph.style.transform = `translate(${x - 320}px, ${y - 569}px) rotate(${rot}deg) scale(${sc})`;
   } else ph.style.opacity = 0;
   // zoom into the screen a little in the hunt so the comb reads
+  $("notch").style.display = on(t, 9.5, 14.5) ? "none" : ""; // no camera island over the hunt
   $("scr").style.transform = on(t, 9.5, 14.5) ? "translate(-36px, -6px) scale(1.12)" : "none";
 
   // headlines

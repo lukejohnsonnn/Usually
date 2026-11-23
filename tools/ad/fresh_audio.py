@@ -13,7 +13,17 @@ import numpy as np
 from synth import (SR, put, env, square, sine, t_axis, noise, hz, lowpass, kick, snare, hat, thud, whoosh, blip,
                    arp, sparkle, cymbal, boing, pop, glitch, write_wav)
 
-DUR = 22.0
+# Times below are on the original timeline; SHIFT moves everything one second later
+# (the hook's four stats now get 0.75s each), via the put() wrapper.
+SHIFT = 1.0
+DUR = 23.0
+_put = put
+
+
+def put(buf, at, sig, gain=1.0):
+    _put(buf, at + SHIFT, sig, gain)
+
+
 N = int(SR * DUR)
 music = np.zeros(N)
 sfx = np.zeros(N)
@@ -36,7 +46,7 @@ def clap():
     return out
 
 
-for s in range(-int(GRID0 / S16), int((DUR - GRID0) / S16)):
+for s in range(-int((GRID0 + SHIFT) / S16), int((DUR - GRID0) / S16)):
     at = GRID0 + s * S16
     if at >= END_HIT:
         break
@@ -67,7 +77,7 @@ put(music, END_HIT, sine(hz(21), d) * env(int(SR * d), 0.003, d=0.35), 0.3)
 put(music, END_HIT, kick(), 1.0)
 
 # ---- hook: one stat per beat ----
-for i, at in enumerate((0.0, 0.5, 1.0, 1.5)):
+for i, at in enumerate((-1.0, -0.25, 0.5, 1.25)):  # real time 0, 0.75, 1.5, 2.25
     put(sfx, at, thud(0.9), 0.75)
     put(sfx, at, blip(76 + i * 3, 0.06, "sq", 0.5), 0.12)
     put(sfx, at + 0.125, pop(800 + i * 80), 0.25)
@@ -166,8 +176,8 @@ put(sfx, 20.0, arp([72, 76, 79]), 0.15)
 put(sfx, 20.5, blip(84, 0.08, "sq", 0.5), 0.12)
 
 duck = np.ones(N)
-for at, depth in [(0.0, .35), (2.25, .4), (DROP, .5), (END, .45)]:
-    i, n = int(at * SR), int(0.4 * SR)
+for at, depth in [(-1.0, .35), (2.25, .4), (DROP, .5), (END, .45)]:
+    i, n = int((at + SHIFT) * SR), int(0.4 * SR)
     seg = 1 - depth * np.exp(-np.arange(n) / SR / 0.15)
     duck[i:i + n] = np.minimum(duck[i:i + n], seg[: max(0, min(n, N - i))])
 write_wav(sys.argv[1], music * duck * 0.9 + sfx)
