@@ -268,6 +268,14 @@ test("matcher: joined, split and hyphenated words are understood", () => {
   assert.notEqual(G.matchTextAnswer(caps, "saltlakecity").exact, true);
 });
 
+test("stack-up percentile follows the bell curve", async () => {
+  const { curvePercentile } = await import("../src/service.js");
+  assert.equal(curvePercentile(600, 600, 100), 50);
+  assert.equal(curvePercentile(700, 600, 100), 84);
+  assert.equal(curvePercentile(500, 600, 100), 16);
+  assert.ok(curvePercentile(1225, 600, 100) >= 99);
+});
+
 test("matcher: C# and C++ survive symbol stripping", () => {
   assert.equal(G.normalizeText("C#"), "c sharp");
   assert.equal(G.normalizeText("c ++"), "c plus plus");

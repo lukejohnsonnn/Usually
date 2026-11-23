@@ -80,7 +80,15 @@ export function scoreCurve(scores, yours) {
   const lo = Math.max(0, Math.floor(Math.min(yours - 40, mean - 3 * sd) / 50) * 50);
   const hi = Math.min(MAX_SCORE, Math.ceil(Math.max(yours + 40, mean + 3 * sd) / 50) * 50);
   const xs = Array.from({ length: 49 }, (_, i) => Math.round(lo + ((hi - lo) * i) / 48));
-  return { from: lo, to: hi, mean: Math.round(mean), points: xs.map((x) => [x, Math.round(Math.exp(-0.5 * ((x - mean) / sd) ** 2) * 1000) / 1000]) };
+  return { from: lo, to: hi, mean: Math.round(mean), sd: Math.round(sd), points: xs.map((x) => [x, Math.round(Math.exp(-0.5 * ((x - mean) / sd) ** 2) * 1000) / 1000]) };
+}
+
+/** Share of a normal curve below x, as a whole percent (Abramowitz–Stegun erf). */
+export function curvePercentile(x, mean, sd) {
+  const z = (x - mean) / (sd * Math.SQRT2);
+  const t = 1 / (1 + 0.3275911 * Math.abs(z));
+  const erf = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-z * z);
+  return Math.round(50 * (1 + Math.sign(z) * erf));
 }
 
 /** Real players a day needs before the estimated scores drop out. */
@@ -349,14 +357,18 @@ export function createService({ store, bank, now = () => new Date(), overrides =
     if (play.mode === "daily") { const i = others.indexOf(play.score); if (i >= 0) others.splice(i, 1); }
     const below = others.filter((s) => s < play.score).length;
     const shown = play.mode === "archive" ? all.concat(play.score) : all; // a replay shows in the curve too
+    const curve = scoreCurve(shown, play.score);
     return {
       date,
       score: play.score,
       mode: play.mode,
       players: others.length + 1,
       games: await store.gamesPlayed(), // every finished game ever, shown under the curve
-      beat: others.length ? Math.round((below / others.length) * 100) : null,
-      curve: scoreCurve(shown, play.score),
+      // While the estimates still fill the chart, read "you beat" off the same bell curve the
+      // player sees, so the number matches the shading (never a flat 0% or 100%).
+      // With enough real players it is the plain share of them you beat.
+      beat: !others.length ? null : seeded ? Math.min(99, Math.max(1, curvePercentile(play.score, curve.mean, curve.sd))) : Math.round((below / others.length) * 100),
+      curve,
     };
   }
 

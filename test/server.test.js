@@ -174,7 +174,8 @@ describe("server", () => {
       assert.equal(st.score, mine);
       assert.equal(st.players, 6, "you plus five estimated scores");
       assert.equal(st.games, 1, "games played counts real finished games only");
-      assert.equal(st.beat, 100);
+      // while estimates fill the chart, "you beat" is read off the bell curve: high, never a flat 100
+      assert.ok(st.beat >= 90 && st.beat <= 99, `beat ${st.beat}`);
       assert.equal(st.curve.points.length, 49);
       assert.ok(st.curve.from <= 440 && st.curve.to >= mine && st.curve.to <= 1225, "the curve frames every score and yours");
       const ys = st.curve.points.map((p) => p[1]);
