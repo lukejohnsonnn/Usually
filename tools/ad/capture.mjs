@@ -5,6 +5,7 @@
 // Usage: node tools/ad/capture.mjs [bees|fresh]
 //   bees  → tools/ad/gameplay/        (bees.html)
 //   fresh → tools/ad/gameplay-fresh/  (fresh.html: Daily rounds + Hive Hunt)
+//   stream → tools/ad/gameplay-stream/ (stream.html: the same play, full JPEG quality)
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -38,7 +39,8 @@ cdp.on("Page.screencastFrame", async ({ data, metadata, sessionId }) => {
   if (frames) frames.push({ ts: metadata.timestamp, buf: Buffer.from(data, "base64") });
   try { await cdp.send("Page.screencastFrameAck", { sessionId }); } catch { /* closing */ }
 });
-await cdp.send("Page.startScreencast", { format: "jpeg", quality: 92, maxWidth: 1080, maxHeight: 1920, everyNthFrame: 1 });
+// "stream" keeps every frame at full JPEG quality (it is shown at native 1:1 resolution)
+await cdp.send("Page.startScreencast", { format: "jpeg", quality: SCENARIO === "stream" ? 100 : 92, maxWidth: 1080, maxHeight: 1920, everyNthFrame: 1 });
 
 const manifest = {};
 let seg = null;

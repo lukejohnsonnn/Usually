@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Honeydle bee stream</title>
+<style>
+@font-face { font-family: "Press Start 2P"; src: url("/public/fonts/press-start-2p.woff2") format("woff2"); }
+@font-face { font-family: "Libre Franklin"; src: url("/public/fonts/libre-franklin-latin-800-normal.woff2") format("woff2"); font-weight: 700 900; }
+@font-face { font-family: "Libre Franklin"; src: url("/public/fonts/libre-franklin-latin-600-normal.woff2") format("woff2"); font-weight: 500 600; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: "Libre Franklin", "Noto Color Emoji", sans-serif; color: #fff; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+
+/* the webcam panel */
+#cam { position: absolute; left: 0; top: 0; width: 1080px; height: 640px; overflow: hidden;
+  background: radial-gradient(ellipse at 28% 70%, #3a2a10 0%, #1a1222 55%, #0d0a14 100%); }
+#led { position: absolute; left: 0; right: 0; top: 0; height: 10px; background: #ffb300; box-shadow: 0 0 60px 24px rgba(255,170,0,.35); }
+#poster { position: absolute; left: 470px; top: 70px; width: 120px; height: 150px; border: 5px solid #4d3a12; background: #241a08; }
+#poster svg { width: 100%; height: 100%; }
+#shelf { position: absolute; left: 40px; top: 210px; width: 180px; height: 10px; background: #3a2a14; }
+#jar { position: absolute; left: 70px; top: 142px; width: 64px; height: 68px; image-rendering: pixelated; }
+#desk { position: absolute; left: 0; right: 0; bottom: 0; height: 70px; background: linear-gradient(#2b1d10, #1a1109); border-top: 4px solid #3d2a15; }
+#bee { position: absolute; left: 90px; top: 150px; width: 400px; height: 400px; transform-origin: 50% 90%; }
+#bee img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; opacity: 0; }
+#mic { position: absolute; left: 400px; top: 300px; width: 120px; height: 300px; }
+#live { position: absolute; left: 24px; top: 24px; display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 26px; }
+#live .dot { background: #e3262f; color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 22px; letter-spacing: 1px; }
+#live .name { color: #fff; text-shadow: 0 2px 8px #000; }
+#title { position: absolute; left: 24px; top: 70px; font-weight: 600; font-size: 22px; color: rgba(255,255,255,.7); }
+#chat { position: absolute; left: 600px; top: 40px; width: 456px; height: 500px; background: rgba(0,0,0,.45); border-radius: 18px; overflow: hidden; }
+#chat .hd { position: absolute; left: 0; right: 0; top: 0; padding: 14px 20px; font-size: 18px; font-weight: 800; letter-spacing: 2px; color: rgba(255,255,255,.55); border-bottom: 1px solid rgba(255,255,255,.12); }
+#chat .msg { position: absolute; left: 20px; right: 18px; font-size: 27px; line-height: 1.28; font-weight: 600; color: #f2f2f2; }
+#chat .msg b { font-weight: 800; }
+.e { font-family: "Noto Color Emoji", sans-serif; font-weight: 400; }
+
+/* gameplay window: native 1:1 pixels */
+#game { position: absolute; left: 0; top: 640px; width: 1080px; height: 1280px; overflow: hidden; background: #000; }
+#scr { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#seam { position: absolute; left: 0; right: 0; top: 636px; height: 8px; background: #ffb300; }
+
+/* subtitles over the seam */
+#sub { position: absolute; left: 40px; right: 40px; top: 560px; text-align: center; font-weight: 800; font-size: 50px; line-height: 1.18;
+  color: #fff; -webkit-text-stroke: 9px #000; paint-order: stroke fill; opacity: 0; }
+
+#endcard { position: absolute; left: 0; right: 0; top: 1360px; text-align: center; opacity: 0; }
+#endcard .u { display: inline-block; font-family: "Press Start 2P"; font-size: 40px; color: #ffd60a; background: rgba(0,0,0,.82); padding: 26px 34px; border-radius: 16px; border: 3px solid #ffd60a; }
+#endcard .s { margin-top: 18px; font-weight: 600; font-size: 30px; color: rgba(255,255,255,.85); }
+#fade { position: absolute; left: 0; right: 0; top: 640px; bottom: 0; background: #000; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="game"><img id="scr" alt=""></div>
+  <div id="fade"></div>
+  <div id="cam">
+    <div id="led"></div>
+    <div id="shelf"></div>
+    <img id="jar" src="/public/img/favicon-96.png" alt="">
+    <div id="poster"><svg viewBox="0 0 120 150"><polygon points="60,20 100,43 100,90 60,113 20,90 20,43" fill="none" stroke="#ffd60a" stroke-width="6"/><polygon points="60,45 78,56 78,78 60,89 42,78 42,56" fill="#ffd60a"/><rect x="22" y="126" width="76" height="8" fill="#ffd60a"/></svg></div>
+    <svg id="mic" viewBox="0 0 120 300"><rect x="56" y="120" width="8" height="180" fill="#222"/><rect x="20" y="60" width="80" height="16" rx="4" fill="#111"/><rect x="34" y="0" width="52" height="120" rx="26" fill="#2b2b2b" stroke="#111" stroke-width="4"/><g stroke="#444" stroke-width="3"><line x1="40" y1="20" x2="80" y2="20"/><line x1="38" y1="36" x2="82" y2="36"/><line x1="38" y1="52" x2="82" y2="52"/><line x1="38" y1="68" x2="82" y2="68"/><line x1="38" y1="84" x2="82" y2="84"/></g></svg>
+    <div id="bee"></div>
+    <div id="desk"></div>
+    <div id="live"><span class="dot">LIVE</span><span class="name">bzzt_tv</span></div>
+    <div id="title">day 1 of becoming smart</div>
+    <div id="chat"><div class="hd">CHAT</div></div>
+  </div>
+  <div id="seam"></div>
+  <div id="sub"></div>
+  <div id="endcard"><div class="u">honeydle.com</div><div class="s">same 7 questions for everyone, every day</div></div>
+</div>
+<script type="module">
+// A cartoon bee "streams" real Honeydle gameplay. stream_audio.py mirrors these times.
+export const DURATION = 27;
+const SY = 236; // the gameplay window's top in the 1080x1920 recording (shown 1:1)
+const CLIPS = [ // { name, at, off, speed, until, sy }
+  { name: "guess", at: 0, off: 0.0, speed: 0, until: 3.0 },
+  { name: "guess", at: 3.0, off: 0.6, speed: 1, until: 7.0 },     // lock tap ~5.12
+  { name: "divine", at: 7.0, off: 0.0, speed: 0, until: 9.0 },
+  { name: "divine", at: 9.0, off: 0.6, speed: 1, until: 12.0 },   // lock tap ~10.55
+  { name: "text", at: 12.0, off: 0.6, speed: 1, until: 15.0 },    // Enter ~13.08
+  { name: "hunt", at: 15.0, off: 1.2, speed: 2, until: 20.0, sy: 150 },
+  { name: "huntdone", at: 20.0, off: 0.3, speed: 1, until: 22.6, sy: 200 },
+  { name: "huntdone", at: 22.6, off: 2.9, speed: 0, until: 28, sy: 200 },
+];
+// what the bee says: [start, end, words, face]
+const LINES = [
+  [0.2, 1.5, "left-handed people. easy.", "lukewarm"],
+  [1.6, 2.9, "I've met like four.", "lukewarm"],
+  [3.2, 3.7, "thirty five?", "lukewarm"],
+  [3.8, 4.3, "no. six.", "lukewarm"],
+  [4.4, 5.1, "ten. locking it.", "lukewarm"],
+  [5.35, 6.15, "ONE OFF.", "golden"],
+  [6.2, 7.0, "I'm basically a scientist.", "golden"],
+  [7.1, 8.0, "what % of animals are insects...", "lukewarm"],
+  [8.05, 9.0, "I'm an insect. this is personal.", "lukewarm"],
+  [9.3, 9.85, "ninety two.", "lukewarm"],
+  [9.9, 10.55, "...don't want to look biased.", "lukewarm"],
+  [10.75, 11.95, "it's me. I'm the 80%.", "diamond"],
+  [12.1, 13.05, "largest empire ever. easy.", "golden"],
+  [13.25, 14.95, "the British. they took everything, including this answer.", "golden"],
+  [15.1, 16.3, "every country in South America. watch.", "lukewarm"],
+  [16.4, 17.05, "brazilargentinaperuchile", "lukewarm"],
+  [17.15, 18.05, "Mexico isn't in South America??", "yucky"],
+  [18.2, 19.45, "\"venezula\" counted. this game loves me.", "honey"],
+  [20.2, 21.0, "ten out of twelve.", "lukewarm"],
+  [21.1, 22.45, "Guyana? Suriname? who are you.", "bitter"],
+  [23.6, 25.1, "same seven questions for everyone. every day.", "golden"],
+  [25.2, 26.6, "come lose to me tomorrow.", "golden"],
+];
+const CHAT = [ // [time, user, colour, message]
+  [2.0, "moth_enjoyer", "#ff7ab6", "he has met four people total"],
+  [5.8, "geo_gremlin", "#7cc6ff", "scientist of what"],
+  [6.5, "quietpotato", "#8be28b", "\"i've met like four\" and still got gold"],
+  [8.6, "notabee", "#ffd60a", "conflict of interest"],
+  [11.2, "notabee", "#ffd60a", "self report"],
+  [11.7, "mod_patrol", "#c39bff", "checking his answer key"],
+  [14.2, "tea_and_crumpets", "#ffa36c", "we'd like it back actually"],
+  [17.5, "geo_gremlin", "#7cc6ff", "the map is not a suggestion"],
+  [18.6, "quietpotato", "#8be28b", "spelled it like he was being chased"],
+  [19.4, "suriname_official", "#5fe0c4", "<span class='e'>👀</span>"],
+  [21.6, "suriname_official", "#5fe0c4", "wow"],
+  [22.3, "guyana_tourism", "#ff6b6b", "we've been here the whole time"],
+  [24.6, "moth_enjoyer", "#ff7ab6", "see you tomorrow i guess"],
+];
+const FACES = ["lukewarm", "golden", "diamond", "honey", "bitter", "yucky"];
+
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+
+const faceEls = Object.fromEntries(FACES.map((f) => { const i = document.createElement("img"); i.src = `/public/img/bee-${f}.png`; i.alt = ""; $("bee").append(i); return [f, i]; }));
+const msgEls = CHAT.map(([, user, col, msg]) => { const d = document.createElement("div"); d.className = "msg"; d.innerHTML = `<b style="color:${col}">${user}</b> ${msg}`; $("chat").append(d); return d; });
+
+const manifest = await (await fetch("/tools/ad/gameplay-stream/manifest.json")).json();
+function clipAt(t) { let c = CLIPS[0]; for (const k of CLIPS) if (t >= k.at) c = k; return c; }
+function faceAt(t) { let f = "lukewarm", since = 0; for (const [a, , , face] of LINES) if (t >= a) { if (face !== f) since = a; f = face; } return { f, since }; }
+function lineAt(t) { return LINES.find(([a, b]) => t >= a && t < b); }
+
+async function render(t) {
+  // gameplay, 1:1
+  const c = clipAt(t), m = manifest[c.name];
+  const i = clamp(Math.round((c.off + (t - c.at) * c.speed) * 30), 0, m.frames - 1);
+  const src = `/tools/ad/gameplay-stream/${c.name}/${String(i).padStart(4, "0")}.jpg`;
+  const img = $("scr");
+  if (img.getAttribute("src") !== src) { img.src = src; await img.decode().catch(() => {}); }
+  img.style.transform = `translateY(${-(c.sy ?? SY)}px)`;
+
+  // the bee: face follows the mood, bobs, and squashes while talking
+  const { f, since } = faceAt(t);
+  const pop = 1 + 0.12 * Math.exp(-(t - since) * 14) * (since > 0 ? 1 : 0);
+  for (const k of FACES) faceEls[k].style.opacity = k === f ? 1 : 0;
+  const line = lineAt(t);
+  let talk = 0;
+  if (line) { const fast = line[2] === "brazilargentinaperuchile" ? 22 : 11; talk = Math.abs(Math.sin((t - line[0]) * fast)); }
+  const bob = Math.sin(t * 2.2) * 6;
+  const rant = line && line[3] === "yucky" ? Math.sin(t * 40) * 6 : 0;
+  $("bee").style.transform = `translate(${rant}px, ${bob - talk * 6}px) scale(${pop * (1 + talk * 0.03)}, ${pop * (1 - talk * 0.035)}) rotate(${Math.sin(t * 1.3) * 2}deg)`;
+
+  // subtitles
+  const sub = $("sub");
+  if (line) { sub.textContent = line[2]; sub.style.opacity = 1; sub.style.transform = `scale(${0.94 + 0.06 * easeOut(prog(t, line[0], line[0] + 0.1))})`; }
+  else sub.style.opacity = 0;
+
+  // chat: newest at the bottom, older ones pushed up
+  const shown = CHAT.map((x, k) => [x, k]).filter(([x]) => t >= x[0]);
+  let y = 470;
+  for (let k = msgEls.length - 1; k >= 0; k--) {
+    const el = msgEls[k];
+    if (t < CHAT[k][0]) { el.style.opacity = 0; continue; }
+    const h = el.offsetHeight + 10;
+    const slide = 1 - easeOut(prog(t, CHAT[k][0], CHAT[k][0] + 0.18));
+    y -= h;
+    el.style.top = `${y + slide * 30}px`;
+    el.style.opacity = y < 50 ? 0 : 1 - slide * 0.6;
+  }
+  void shown;
+
+  // end: dim the game a touch and show the address
+  $("fade").style.opacity = 0.45 * prog(t, 23.4, 23.8);
+  $("endcard").style.opacity = prog(t, 23.6, 23.9);
+  $("endcard").style.transform = `translateY(${(1 - easeOut(prog(t, 23.6, 23.9))) * 30}px)`;
+}
+
+window.DURATION = DURATION;
+window.render = render;
+await document.fonts.ready;
+await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+await render(0);
+window.ready = true;
+</script>
+</body>
+</html>
