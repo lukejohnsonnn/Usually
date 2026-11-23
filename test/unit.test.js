@@ -153,7 +153,7 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 269, "retired questions stay in the file");
+  assert.equal(bank.length, 288, "retired questions stay in the file");
   const active = bank.filter((q) => !q.retired);
   assert.equal(active.length, 254);
   const count = (k) => active.filter((q) => G.poolOf(q) === k).length;
@@ -266,6 +266,12 @@ test("matcher: joined, split and hyphenated words are understood", () => {
   assert.equal(G.matchTextAnswer(parks, "grandcanyon").rank, 3);
   // a joined/split fix is a correction: the player confirms it like any autocorrect
   assert.notEqual(G.matchTextAnswer(caps, "saltlakecity").exact, true);
+});
+
+test("matcher: C# and C++ survive symbol stripping", () => {
+  assert.equal(G.normalizeText("C#"), "c sharp");
+  assert.equal(G.normalizeText("c ++"), "c plus plus");
+  assert.notEqual(G.normalizeText("C#"), G.normalizeText("C++"));
 });
 
 test("matcher: accents are ignored, never turned into spaces", () => {
