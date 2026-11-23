@@ -86,7 +86,7 @@ export function scoreCurve(scores, yours) {
 /** Real players a day needs before the estimated scores drop out. */
 export const SEED_UNTIL = 20;
 /** Per-day nudges to the estimated scores, for days whose questions run harder or easier. */
-const SEED_SHIFT = { "2026-11-21": -50 };
+const SEED_SHIFT = { "2026-11-21": -50, "2026-11-23": -50 };
 /** Five estimated scores for a day: a typical spread, nudged by the date so days differ. */
 export function seedScores(date) {
   const shift = SEED_SHIFT[date] || 0;
