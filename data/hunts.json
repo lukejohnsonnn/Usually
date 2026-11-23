@@ -1147,9 +1147,61 @@
     "Nibiru"
    ],
    "source": "International Astronomical Union: 8 planets and 5 recognized dwarf planets"
+  },
+  {
+   "id": 15,
+   "rotate": false,
+   "prompt": "Name the 12 signs of the zodiac.",
+   "entries": [
+    [
+     "Aries"
+    ],
+    [
+     "Taurus"
+    ],
+    [
+     "Gemini"
+    ],
+    [
+     "Cancer"
+    ],
+    [
+     "Leo"
+    ],
+    [
+     "Virgo"
+    ],
+    [
+     "Libra"
+    ],
+    [
+     "Scorpio",
+     "Scorpius"
+    ],
+    [
+     "Sagittarius"
+    ],
+    [
+     "Capricorn",
+     "Capricornus"
+    ],
+    [
+     "Aquarius"
+    ],
+    [
+     "Pisces"
+    ]
+   ],
+   "unlisted": [
+    "Ophiuchus"
+   ],
+   "source": "The twelve signs of the Western (tropical) zodiac."
   }
  ],
  "seconds": {
   "2026-11-21": 150
+ },
+ "days": {
+  "2026-11-23": 15
  }
 }

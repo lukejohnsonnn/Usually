@@ -17,7 +17,10 @@ export function prepareHunts(raw) {
   });
   // optional per-day clock: { "2026-11-21": 150 } gives that day's hunt 150 seconds
   const seconds = Object.fromEntries(Object.entries(raw?.seconds || {}).filter(([d, s]) => isDateStr(d) && Number.isInteger(s) && s >= 10 && s <= 600));
-  return { start: isDateStr(raw?.start) ? raw.start : "2026-11-20", lists, seconds };
+  // optional per-day list swap: { "2026-11-23": 15 } uses list 15 that day instead of the rotation
+  const ids = new Set(lists.map((l) => l.id));
+  const days = Object.fromEntries(Object.entries(raw?.days || {}).filter(([d, id]) => isDateStr(d) && ids.has(id)));
+  return { start: isDateStr(raw?.start) ? raw.start : "2026-11-20", lists, seconds, days };
 }
 
 const huntNumber = (start, date) => {
@@ -35,15 +38,22 @@ const newId = () => "h-" + btoa(String.fromCharCode(...crypto.getRandomValues(ne
   .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 
 export function createHunt({ store, hunts, now = () => new Date(), today }) {
-  const { start, lists, seconds = {} } = hunts;
+  const { start, lists, seconds = {}, days = {} } = hunts;
+  const byId = new Map(lists.map((l) => [l.id, l]));
+  // lists marked "rotate": false are only used when a day asks for them
+  const rotation = lists.filter((l) => l.rotate !== false);
   const secondsOn = (date) => seconds[date] || HUNT_SECONDS;
   const questions = new Map(lists.map((l) => [l.id, asQuestion(l)]));
 
-  /** Today's list, in rotation from the start date. */
-  function listFor(date) {
-    if (!lists.length) throw new GameError(503, "Hive Hunt isn't available right now.");
+  /**
+   * A day's list: a hunt already under way keeps the list it started with; otherwise a
+   * per-day swap if there is one; otherwise the rotation from the start date.
+   */
+  function listFor(date, play = null) {
+    if (!rotation.length) throw new GameError(503, "Hive Hunt isn't available right now.");
     const n = Math.max(1, huntNumber(start, date));
-    return { list: lists[(n - 1) % lists.length], number: n };
+    const started = play && byId.get(play.snapshot?.[0]?.huntList);
+    return { list: started || byId.get(days[date]) || rotation[(n - 1) % rotation.length], number: n };
   }
 
   const label = (list, i) => list.entries[i][0];
@@ -80,16 +90,16 @@ export function createHunt({ store, hunts, now = () => new Date(), today }) {
 
   async function state(playerId) {
     const date = today();
-    const { list, number } = listFor(date);
     const play = await finishIfExpired(await store.findDailyPlay(playerId, date, "hunt"));
+    const { list, number } = listFor(date, play);
     return view(list, number, date, play);
   }
 
   /** Start the clock (or return the hunt already under way / finished). */
   async function begin(playerId) {
     const date = today();
-    const { list, number } = listFor(date);
     let play = await finishIfExpired(await store.findDailyPlay(playerId, date, "hunt"));
+    const { list, number } = listFor(date, play);
     if (!play) {
       play = await store.createPlay({
         id: newId(), playerId, mode: "hunt", date,
@@ -104,9 +114,9 @@ export function createHunt({ store, hunts, now = () => new Date(), today }) {
   /** One typed answer. Never reveals anything that isn't on the player's own found list. */
   async function guess(playerId, value) {
     const date = today();
-    const { list, number } = listFor(date);
     const play = await finishIfExpired(await store.findDailyPlay(playerId, date, "hunt"));
     if (!play) throw new GameError(409, "Start the hunt first.");
+    const { list, number } = listFor(date, play);
     if (play.completedAt) return { result: "over", hunt: view(list, number, date, play) };
     const typed = typeof value === "string" ? value.slice(0, 80) : "";
     if (!normalizeText(typed)) return { result: "blank" };
@@ -124,9 +134,9 @@ export function createHunt({ store, hunts, now = () => new Date(), today }) {
   /** End the hunt (the clock ran out, or the player gave up). */
   async function finish(playerId) {
     const date = today();
-    const { list, number } = listFor(date);
     const play = await store.findDailyPlay(playerId, date, "hunt");
     if (!play) throw new GameError(409, "Start the hunt first.");
+    const { list, number } = listFor(date, play);
     if (!play.completedAt) {
       play.completedAt = now().toISOString();
       await store.savePlay(play);

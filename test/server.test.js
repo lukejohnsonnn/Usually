@@ -384,6 +384,25 @@ describe("server", () => {
 });
 
 describe("hive hunt", () => {
+  test("a day can swap in a different list; a hunt already under way keeps its own", async () => {
+    const t = await startServer({ at: "2026-11-23T15:00:00Z" });
+    try {
+      // someone started the rotation's list (#4, Africa) before the swap went out
+      await t.store.createPlay({ id: "h-early", playerId: "u-earlyhunter0000", mode: "hunt", date: "2026-11-23", questionIds: [4],
+        snapshot: [{ huntList: 4, startedAt: "2026-11-23T14:59:30Z" }], results: [], score: 0, completedAt: null });
+      const early = (await t.call("/api/hunt/guess", { method: "POST", player: "u-earlyhunter0000", body: { value: "Kenya" } })).json;
+      assert.deepEqual([early.result, early.hunt.total], ["found", 54], "their Africa hunt carries on");
+      // everyone else gets the swapped-in list
+      const fresh = (await t.call("/api/hunt/start", { method: "POST", player: "u-latehunter00001", body: {} })).json;
+      assert.deepEqual([fresh.number, fresh.prompt, fresh.total], [4, "Name the 12 signs of the zodiac.", 12]);
+      assert.equal((await t.call("/api/hunt/guess", { method: "POST", player: "u-latehunter00001", body: { value: "scorpius" } })).json.label, "Scorpio");
+      // the swap is one day only, and the extra list never joins the rotation
+      t.clock.addDays(1);
+      const next = (await t.call("/api/hunt/start", { method: "POST", player: "u-latehunter00001", body: {} })).json;
+      assert.equal(next.prompt, "Name Canada's provinces and territories.");
+    } finally { await t.close(); }
+  });
+
   test("one list a day for everyone; hits, typos, repeats, misses and \"which one?\"", async () => {
     const t = await startServer({ at: "2026-11-21T15:00:00Z" });
     try {
