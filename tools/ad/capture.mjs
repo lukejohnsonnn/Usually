@@ -1,8 +1,10 @@
-// Records real gameplay for the bee ad: plays a Daily on the local server in a
-// phone-shaped browser and screencasts it. Each segment is resampled to 30 fps
-// JPEGs in tools/ad/gameplay/<segment>/ with a manifest.json of frame counts,
-// and markers (when taps happen, and where) relative to each segment's start.
-// Usage: node tools/ad/capture.mjs
+// Records real gameplay for the ads: plays on the local server in a phone-shaped
+// browser and screencasts it. Each segment is resampled to 30 fps JPEGs in
+// tools/ad/<out>/<segment>/ with a manifest.json of frame counts and markers
+// (when taps and entries happen, and where) relative to each segment's start.
+// Usage: node tools/ad/capture.mjs [bees|fresh]
+//   bees  → tools/ad/gameplay/        (bees.html)
+//   fresh → tools/ad/gameplay-fresh/  (fresh.html: Daily rounds + Hive Hunt)
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -12,7 +14,8 @@ const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(HERE, "gameplay");
+const SCENARIO = process.argv[2] || "bees";
+const OUT = path.join(HERE, SCENARIO === "bees" ? "gameplay" : `gameplay-${SCENARIO}`);
 const FPS = 30;
 const VIEW = { width: 450, height: 800 }, DSF = 2.4; // 1080 x 1920
 
@@ -20,8 +23,10 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
 const s = await startServer();
-// round 1: bats (20%), round 2: chimp DNA (99%); the rest are played off camera
-await s.store.putDailySet("2026-11-19", [196, 273, 249, 173, 260, 189, 78], { replace: true });
+// bees:  round 1 bats (20%), round 2 chimp DNA (99%)
+// fresh: round 1 left-handed (11%), round 2 insects (80%), round 3 "largest empire" (text)
+// the rest are played off camera, badly enough to stay under 800 (no ruby unlock)
+await s.store.putDailySet("2026-11-19", SCENARIO === "bees" ? [196, 273, 249, 173, 260, 189, 78] : [171, 193, 189, 173, 260, 249, 78], { replace: true });
 
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: VIEW, deviceScaleFactor: DSF, hasTouch: false });
@@ -94,7 +99,8 @@ async function drag(values) {
   mark("up", xFor(from), y);
 }
 
-// ---- play ------------------------------------------------------------------
+// ---- play (bees) -------------------------------------------------------------
+async function playBees() {
 await page.goto(s.base);
 await page.waitForSelector(".parade");
 await page.getByRole("button", { name: "Play today's Daily" }).click();
@@ -140,6 +146,99 @@ await page.waitForTimeout(300);
 await tap(seeScore, "score");
 await page.waitForTimeout(3500);
 await end();
+}
+
+// ---- play (fresh) ------------------------------------------------------------
+async function typeAndEnter(text, label) {
+  const field = page.locator("input.field.text");
+  const c = await center(field);
+  mark(`type:${label}`, c.x, c.y);
+  await page.keyboard.type(text, { delay: 55 });
+  await page.waitForTimeout(120);
+  mark(`enter:${label}`, c.x, c.y);
+  await page.keyboard.press("Enter");
+}
+async function playFresh() {
+  await page.goto(s.base);
+  await page.waitForSelector(".parade");
+  await page.getByRole("button", { name: "Play today's Daily" }).click();
+  await page.waitForSelector(".question");
+  await page.waitForTimeout(400);
+
+  // Round 1 — left-handed (11%): slide to 10, one off (Golden Nectar)
+  await begin("guess");
+  await page.waitForTimeout(700);
+  await drag([[35, 420], [6, 380], [10, 300]]);
+  await page.waitForTimeout(300);
+  await tap(page.getByRole("button", { name: "Lock it in" }), "lock");
+  await page.waitForTimeout(3000);
+  await end();
+
+  await page.getByRole("button", { name: "Next round" }).click();
+  await page.waitForSelector(".question");
+  await page.waitForTimeout(400);
+  // Round 2 — insects (80%): dead on (Divine)
+  await begin("divine");
+  await page.waitForTimeout(600);
+  await drag([[92, 420], [80, 380]]);
+  await page.waitForTimeout(300);
+  await tap(page.getByRole("button", { name: "Lock it in" }), "lock");
+  await page.waitForTimeout(3000);
+  await end();
+
+  await page.getByRole("button", { name: "Next round" }).click();
+  await page.waitForSelector(".question");
+  await page.waitForTimeout(400);
+  // Round 3 — "Name the #1 largest empire": typed
+  await begin("text");
+  await page.waitForTimeout(700);
+  await page.locator("input.field.text").click();
+  await typeAndEnter("British Empire", "empire");
+  mark("lock", null, null);
+  await page.waitForTimeout(3200);
+  await end();
+
+  // rounds 4–7 off camera
+  for (let r = 4; r <= 7; r++) {
+    await page.getByRole("button", { name: "Next round" }).click();
+    await page.waitForSelector(".question");
+    if (r === 6) await page.fill("input.field.text", "Pizza");
+    else await page.fill("input.field", r === 7 ? "40" : "5");
+    await page.getByRole("button", { name: "Lock it in" }).click();
+    await page.waitForTimeout(900);
+  }
+  await page.getByRole("button", { name: "See my score" }).click();
+  await page.waitForSelector(".total");
+  await page.waitForTimeout(600);
+
+  // Hive Hunt
+  await page.goto(s.base);
+  await page.waitForSelector(".parade");
+  await page.getByRole("button", { name: "Start the hunt" }).first().click();
+  await page.waitForSelector(".screen.hunt");
+  await page.waitForTimeout(500);
+  await begin("hunt");
+  await page.waitForTimeout(500);
+  await tap(page.getByRole("button", { name: "Start the hunt" }), "start");
+  await page.waitForSelector("input.field.text");
+  await page.waitForTimeout(500);
+  const tries = ["Brazil", "Argentina", "Peru", "Chile", "Mexico", "Colombia", "Venezula", "Ecuador", "Bolivia", "Uruguay", "Paraguay"];
+  for (const w of tries) {
+    await typeAndEnter(w, w);
+    await page.waitForTimeout(260);
+    const fb = (await page.locator(".hunt-feedback").textContent()) || "";
+    mark(fb.startsWith("✓") ? `found:${w}` : `miss:${w}`, null, null);
+    await page.waitForTimeout(140);
+  }
+  await page.waitForTimeout(500);
+  await end();
+  await page.getByRole("button", { name: /end the hunt/ }).click();
+  await begin("huntdone");
+  await page.waitForTimeout(3000);
+  await end();
+}
+
+if (SCENARIO === "bees") await playBees(); else await playFresh();
 
 fs.writeFileSync(path.join(OUT, "manifest.json"), JSON.stringify(manifest, null, 2));
 await cdp.send("Page.stopScreencast").catch(() => {});

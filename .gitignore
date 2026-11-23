@@ -9,4 +9,5 @@ screenshots/
 
 # raw gameplay frames for the bee ad (regenerate: node tools/ad/capture.mjs)
 tools/ad/gameplay/
+tools/ad/gameplay-*/
 __pycache__/

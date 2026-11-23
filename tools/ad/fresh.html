@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Honeydle fresh ad</title>
+<style>
+@font-face { font-family: "Press Start 2P"; src: url("/public/fonts/press-start-2p.woff2") format("woff2"); }
+:root { --y: #ffd60a; --y2: #f5c400; --y3: #e0a800; --ink: #0d0d0d; }
+* { box-sizing: border-box; margin: 0; font-synthesis: none; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--y); color: var(--ink); font-family: "Press Start 2P", "Noto Color Emoji", monospace; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--y); }
+.layer { position: absolute; inset: 0; }
+.abs { position: absolute; left: 0; top: 0; }
+.emo { font-family: "Noto Color Emoji", sans-serif; }
+
+/* backgrounds */
+#bgY { background: var(--y); }
+#hexY { position: absolute; inset: -240px; opacity: .55; }
+#stripes { position: absolute; inset: -600px; background: repeating-linear-gradient(-35deg, transparent 0 80px, rgba(0,0,0,.05) 80px 160px); }
+#bgB { background: radial-gradient(circle at 50% 45%, #2c2000, #000 70%); opacity: 0; }
+
+/* hook cards */
+.card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 50px; opacity: 0; padding: 0 60px; }
+.card.dark { background: var(--ink); color: var(--y); }
+.card .num { font-size: 186px; letter-spacing: -4px; line-height: 1; }
+.card .lab { font-size: 50px; line-height: 1.55; }
+.card .big { font-size: 158px; line-height: 1; }
+.card .chip { display: inline-block; font-size: 30px; padding: 18px 26px; border: 6px solid currentColor; border-radius: 999px; letter-spacing: 2px; }
+.slam { display: inline-block; will-change: transform; }
+
+/* headline + stickers */
+.head { position: absolute; left: 0; right: 0; text-align: center; font-size: 64px; line-height: 1.4; opacity: 0; }
+.head.light { color: #fff; }
+.sticker { position: absolute; left: 0; top: 0; opacity: 0; background: #fff; color: var(--ink); border: 8px solid var(--ink); border-radius: 26px; padding: 24px 32px;
+  font-size: 50px; line-height: 1.25; white-space: nowrap; box-shadow: 12px 12px 0 var(--ink); }
+.sticker.y { background: var(--y); }
+.sticker.k { background: var(--ink); color: var(--y); border-color: var(--ink); box-shadow: 12px 12px 0 rgba(0,0,0,.25); }
+.sticker.r { background: #ff4d4d; color: #fff; }
+img.px { image-rendering: pixelated; }
+.out { filter: drop-shadow(6px 0 0 var(--ink)) drop-shadow(-6px 0 0 var(--ink)) drop-shadow(0 6px 0 var(--ink)) drop-shadow(0 -6px 0 var(--ink)) drop-shadow(14px 16px 0 rgba(0,0,0,.25)); }
+.outW { filter: drop-shadow(6px 0 0 #fff) drop-shadow(-6px 0 0 #fff) drop-shadow(0 6px 0 #fff) drop-shadow(0 -6px 0 #fff) drop-shadow(14px 16px 0 rgba(0,0,0,.35)); }
+.beeS { position: absolute; left: 0; top: 0; width: 300px; height: 300px; opacity: 0; }
+.beeS img { width: 100%; height: 100%; image-rendering: pixelated; }
+
+/* phone */
+.phone { position: absolute; left: 0; top: 0; width: 640px; height: 1138px; border: 22px solid var(--ink); border-radius: 76px; background: #000; overflow: hidden;
+  box-shadow: 22px 26px 0 rgba(0,0,0,.28); opacity: 0; transform-origin: 50% 50%; }
+.phone img.scr { position: absolute; left: 0; top: 0; width: 596px; height: 1059.5px; transform-origin: 0 0; }
+.phone .notch { position: absolute; left: 50%; top: 10px; width: 150px; height: 34px; margin-left: -75px; border-radius: 20px; background: var(--ink); z-index: 2; }
+
+/* hunt title */
+#hunt { opacity: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 46px; text-align: center; }
+#hunt .t { font-size: 150px; line-height: 1.15; color: var(--y); text-shadow: 10px 10px 0 #7a5a00, 0 0 60px rgba(255,214,10,.5); }
+#hunt .s { font-size: 40px; color: #fff; line-height: 1.6; }
+#hcomb { position: absolute; inset: 0; }
+#hcomb i { position: absolute; width: 120px; height: 138px; margin: -69px 0 0 -60px; background: var(--y);
+  clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); }
+
+/* calendar */
+#cal { position: absolute; left: 540px; top: 1050px; width: 420px; height: 440px; margin-left: -210px; opacity: 0; }
+#cal .pg { position: absolute; inset: 0; background: #fff; border: 10px solid var(--ink); border-radius: 30px; box-shadow: 14px 14px 0 var(--ink); overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+#cal .mon { width: 100%; background: #ff4d4d; color: #fff; text-align: center; font-size: 44px; padding: 26px 0; border-bottom: 10px solid var(--ink); }
+#cal .day { font-size: 170px; margin-top: 50px; }
+
+/* end */
+#end { opacity: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 52px; text-align: center; }
+.logoY { font-size: 112px; color: var(--y); -webkit-text-stroke: 0; text-shadow:
+  6px 0 0 var(--ink), -6px 0 0 var(--ink), 0 6px 0 var(--ink), 0 -6px 0 var(--ink), 6px 6px 0 var(--ink), -6px -6px 0 var(--ink), 6px -6px 0 var(--ink), -6px 6px 0 var(--ink), 16px 18px 0 var(--ink); }
+#end .tag { font-size: 44px; line-height: 1.6; }
+#erow { position: relative; width: 1000px; height: 190px; }
+#erow img { position: absolute; width: 140px; height: 140px; image-rendering: pixelated; }
+#end .cta { background: var(--ink); color: var(--y); font-size: 46px; padding: 48px 70px; border-radius: 30px; box-shadow: 0 14px 0 rgba(0,0,0,.3); }
+#end .url { font-size: 42px; }
+
+#fx { position: absolute; inset: 0; pointer-events: none; }
+.spark { position: absolute; width: 0; height: 0; }
+.spark b { position: absolute; display: block; margin: -13px 0 0 -13px; width: 26px; height: 26px; border: 4px solid var(--ink); }
+#flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+.wipe { position: absolute; left: -200px; top: -200px; width: 1480px; height: 2320px; background: var(--ink); transform-origin: 50% 50%; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="cam" class="layer">
+    <div id="bgY" class="layer"><div id="stripes"></div><svg id="hexY"></svg></div>
+    <div id="bgB" class="layer"></div>
+
+    <!-- hook -->
+    <div class="card" id="c0"><span class="chip slam" id="c0c">REAL STAT</span><div class="num slam" id="c0n">20%</div><div class="lab slam" id="c0l">of all mammals<br>are bats <span class="emo">🦇</span></div></div>
+    <div class="card dark" id="c1"><span class="chip slam" id="c1c">REAL STAT</span><div class="num slam" id="c1n">98.8%</div><div class="lab slam" id="c1l">of your DNA<br>matches a chimp <span class="emo">🐒</span></div></div>
+    <div class="card" id="c2"><span class="chip slam" id="c2c">REAL STAT</span><div class="num slam" id="c2n">20%</div><div class="lab slam" id="c2l">of your energy<br>runs your brain <span class="emo">🧠</span></div></div>
+    <div class="card dark" id="c3"><span class="chip slam" id="c3c">REAL STAT</span><div class="num slam" id="c3n">99%</div><div class="lab slam" id="c3l">of species ever<br>are now extinct <span class="emo">🦖</span></div></div>
+    <div class="card" id="c4"><div class="lab slam" id="c4a" style="font-size:70px">How close<br>would you</div><div class="big slam" id="c4b">GUESS?</div></div>
+
+    <!-- gameplay -->
+    <div id="heads">
+      <div class="head" id="hd1" style="top:150px">Slide<br>your guess</div>
+      <div class="head" id="hd2" style="top:150px">...or type<br>the #1</div>
+      <div class="head light" id="hd3" style="top:120px; font-size:58px">Name them all<br>before time's up</div>
+    </div>
+    <div class="phone" id="phone"><img class="scr" id="scr" alt=""><div class="notch"></div></div>
+    <div id="stickers"></div>
+
+    <!-- hive hunt title -->
+    <section id="hunt" class="layer">
+      <div id="hcomb"></div>
+      <div class="s slam" id="hk">BONUS GAME</div>
+      <div class="t slam" id="ht">HIVE<br>HUNT</div>
+      <div class="s slam" id="hs">every day</div>
+    </section>
+
+    <!-- every day -->
+    <div class="head" id="hd4" style="top:300px; font-size:70px">New puzzles<br><br>every day</div>
+    <div id="cal"><div class="pg"><div class="mon" id="calM">NOV</div><div class="day" id="calD">23</div></div></div>
+
+    <section id="end" class="layer">
+      <div class="logoY slam" id="elogo">HONEYDLE</div>
+      <div class="tag slam" id="etag">Daily trivia<br>+ Hive Hunt</div>
+      <div id="erow"></div>
+      <div class="cta slam" id="cta">Play free today</div>
+      <div class="url slam" id="url">HONEYDLE.COM</div>
+    </section>
+  </div>
+  <div class="wipe" id="wipe"></div>
+  <div id="fx"></div>
+  <div id="flash"></div>
+</div>
+
+<script type="module">
+// 120 BPM (beat = 0.5s), bars start at 0.5s. Every hit sits on the grid; fresh_audio.py
+// mirrors these times — change both together.
+export const DURATION = 22;
+const BEES = ["diamond", "golden", "honey", "lukewarm", "bitter", "yucky"];
+// gameplay clips: { name, at (ad time), off (clip time at `at`), speed, until }
+const CLIPS = [
+  { name: "guess", at: 2.75, off: 0.40, speed: 1, until: 6.5 },   // lock tap lands on 5.0
+  { name: "text", at: 6.5, off: 0.66, speed: 1, until: 8.5 },     // Enter lands on 7.5
+  { name: "hunt", at: 9.5, off: 1.2, speed: 2, until: 14.5 },     // the hunt at double speed
+  { name: "huntdone", at: 14.5, off: 0.5, speed: 1, until: 16.5 },
+];
+const HUNT_SPEED = 2;
+const IMPACTS = [[0, .8], [0.5, .8], [1, .8], [1.5, .8], [2, 1.1], [5.5, .6], [6.5, .6], [8, .6], [8.5, 1.6], [14.5, .8], [16.5, .8], [18.5, 1.3]];
+const FLASHES = [[8.5, .7], [18.5, .4]];
+
+const $ = (id) => document.getElementById(id);
+let seed = 5;
+const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+const easeIn = (p) => p * p * p;
+const easeInOut = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+const back = (p, c = 2.2) => 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2);
+const elastic = (p) => (p === 0 || p === 1 ? p : Math.pow(2, -10 * p) * Math.sin((p * 10 - 0.75) * (2 * Math.PI) / 3) + 1);
+const beatPhase = (t) => ((((t - 0.5) % 0.5) + 0.5) % 0.5) / 0.5;
+const hop = (t) => Math.sin(Math.PI * beatPhase(t));
+const on = (t, a, b) => t >= a && t < b;
+
+// ---- static DOM --------------------------------------------------------------
+{ // honeycomb pattern on the yellow
+  const svg = $("hexY"); svg.setAttribute("viewBox", "0 0 1560 2400"); svg.setAttribute("width", 1560); svg.setAttribute("height", 2400);
+  let p = ""; const R = 80, W = R * Math.sqrt(3);
+  for (let row = 0; row < 22; row++) for (let col = 0; col < 10; col++) {
+    const cx = col * W + (row % 2 ? W / 2 : 0), cy = row * R * 1.5;
+    p += `<polygon points="${[...Array(6)].map((_, k) => { const a = Math.PI / 6 + k * Math.PI / 3; return `${(cx + R * .9 * Math.cos(a)).toFixed(1)},${(cy + R * .9 * Math.sin(a)).toFixed(1)}`; }).join(" ")}" fill="${rnd() < .15 ? "#f0b800" : "none"}" stroke="#e0a800" stroke-width="7"/>`;
+  }
+  svg.innerHTML = p;
+}
+const sticker = (html, cls = "") => { const d = document.createElement("div"); d.className = `sticker ${cls}`; d.innerHTML = html; $("stickers").append(d); return d; };
+const beeSticker = (b, size = 300, cls = "out") => { const d = document.createElement("div"); d.className = "beeS"; d.style.width = d.style.height = `${size}px`; d.innerHTML = `<img class="${cls}" src="/public/img/bee-${b}.png" alt="">`; $("stickers").append(d); return d; };
+const S = {
+  off1: sticker("1 off!", "y"), p150: sticker("+150", "k"),
+  num1: sticker("#1!", "y"), p175: sticker("+175", "k"),
+  nope: sticker("NOPE", "r"), ten: sticker("10 / 12", "y"),
+  secret: sticker("+ a secret bee <span class='emo'>🤫</span>", ""),
+};
+const goldB = beeSticker("golden", 330), divB = beeSticker("diamond", 330), huntB = beeSticker("golden", 300), shadowB = beeSticker("ruby-shadow", 260, "outW");
+// hive hunt title: cells burst out
+const HC = [...Array(22)].map(() => { const i = document.createElement("i"); $("hcomb").append(i); return { i, a: rnd() * Math.PI * 2, r: 380 + rnd() * 520, s: 0.4 + rnd() * 0.8, sp: rnd() * 200 - 100 }; });
+[...BEES, "ruby-shadow"].forEach((b, i) => $("erow").insertAdjacentHTML("beforeend", `<img class="${i === 6 ? "outW" : "out"}" src="/public/img/bee-${b}.png" alt="">`));
+const endBees = [...$("erow").children];
+
+const BURSTS = [[5.5, 820, 1260], [8.0, 820, 1260], [8.5, 540, 900], [14.5, 540, 760], [18.5, 540, 620]];
+const bursts = BURSTS.map(([at, x, y]) => {
+  const el = document.createElement("div"); el.className = "spark"; el.style.left = `${x}px`; el.style.top = `${y}px`;
+  const parts = [...Array(22)].map((_, i) => {
+    const b = document.createElement("b"); b.style.background = ["#fff", "#ffd60a", "#ff4d4d", "#7cc6ff"][i % 4];
+    if (i % 2) b.style.clipPath = "polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)"; else b.style.borderRadius = "4px";
+    el.append(b); return { b, ang: (i / 22) * Math.PI * 2 + rnd() * .3, dist: 260 + rnd() * 360, sc: .8 + rnd() * 1.4, spin: rnd() * 720 };
+  });
+  $("fx").append(el); return { at, el, parts };
+});
+
+// gameplay frames
+const manifest = await (await fetch("/tools/ad/gameplay-fresh/manifest.json")).json();
+const huntMarks = manifest.hunt.markers.filter((m) => m.label.startsWith("found:") || m.label.startsWith("miss:"))
+  .map((m) => ({ hit: m.label.startsWith("found:"), t: CLIPS[2].at + (m.t - CLIPS[2].off) / HUNT_SPEED }))
+  .filter((m) => m.t >= CLIPS[2].at && m.t < CLIPS[2].until)
+  .map((m) => ({ ...m, t: 0.5 + Math.round((m.t - 0.5) / 0.125) * 0.125 })); // snapped to 16ths, like the sound
+huntMarks.forEach((m) => { if (m.hit) m.el = sticker("+1", "y"); });
+function clipAt(t) { let c = null; for (const k of CLIPS) if (t >= k.at && t < k.until) c = k; return c; }
+async function showFrame(c, t) {
+  const m = manifest[c.name];
+  const i = clamp(Math.round((c.off + (t - c.at) * c.speed) * 30), 0, m.frames - 1);
+  const src = `/tools/ad/gameplay-fresh/${c.name}/${String(i).padStart(4, "0")}.jpg`;
+  const img = $("scr");
+  if (img.getAttribute("src") !== src) { img.src = src; await img.decode().catch(() => {}); }
+}
+
+// ---- helpers ------------------------------------------------------------------
+function slamIn(el, t, at, { dur = 0.32, from = 2.6, rot = -6 } = {}) {
+  const p = prog(t, at, at + dur);
+  el.style.opacity = t < at ? 0 : clamp(p * 4);
+  el.style.transform = `scale(${t < at ? from : lerp(from, 1, elastic(p))}) rotate(${rot * (1 - easeOut(p))}deg)`;
+}
+function stick(el, t, a, b, x, y, rot = 0, from = 0.2) {
+  if (!on(t, a, b)) { el.style.opacity = 0; return; }
+  const p = prog(t, a, a + 0.3), q = prog(t, b - 0.12, b);
+  el.style.opacity = 1 - q;
+  el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) scale(${lerp(from, 1, elastic(p)) * (1 + 0.05 * hop(t))}) rotate(${rot + Math.sin(t * 5) * 2}deg)`;
+}
+function shake(t) {
+  let x = 0, y = 0, r = 0;
+  for (const [ti, a] of IMPACTS) {
+    const d = t - ti; if (d < 0 || d > 0.6) continue;
+    const k = a * Math.exp(-d * 11);
+    x += k * 24 * Math.sin(d * 83); y += k * 18 * Math.cos(d * 71); r += k * 1.2 * Math.sin(d * 61);
+  }
+  return { x, y, r };
+}
+function flicker(t, t0) {
+  const p = (((t - t0) % 1) + 1) % 1;
+  if (p >= 0.75 && p < 0.78) return 0.12; if (p >= 0.78 && p < 0.82) return 0.85; if (p >= 0.82 && p < 0.86) return 0.04;
+  return 0.95;
+}
+
+// ---- render -------------------------------------------------------------------
+async function render(t) {
+  const sh = shake(t);
+  $("cam").style.transform = `translate(${sh.x}px, ${sh.y}px) rotate(${sh.r}deg)`;
+  let fl = 0;
+  for (const [ft, a] of FLASHES) { const d = t - ft; if (d >= 0 && d < 0.3) fl = Math.max(fl, a * (1 - d / 0.3)); }
+  $("flash").style.opacity = fl;
+  // background drift; dark during the hunt
+  $("hexY").style.transform = `translate(${-60 + Math.sin(t * .5) * 30}px, ${-(t * 40) % 208}px)`;
+  $("stripes").style.transform = `translateX(${(t * 60) % 226}px)`;
+  const dark = on(t, 8.5, 14.5);
+  $("bgB").style.opacity = dark ? 1 : 0;
+
+  // ---- hook: one real stat per beat, then the question ----
+  ["c0", "c1", "c2", "c3"].forEach((id, i) => {
+    const at = i * 0.5;
+    $(id).style.opacity = on(t, at, at + 0.5) ? 1 : 0;
+    slamIn($(`${id}c`), t, at, { from: 0.3, rot: 0 });
+    slamIn($(`${id}n`), t, at, { from: 3, rot: i % 2 ? 8 : -8 });
+    slamIn($(`${id}l`), t, at + 0.125, { from: 1.8, rot: 0 });
+  });
+  $("c4").style.opacity = on(t, 2.0, 2.75) ? 1 : 0;
+  slamIn($("c4a"), t, 2.0, { from: 2, rot: -4 });
+  slamIn($("c4b"), t, 2.25, { from: 3.2, rot: 6 });
+  if (t > 2.4) $("c4b").style.transform += ` scale(${1 + 0.06 * hop(t)})`;
+
+  // ---- phone: in at 2.75, whip to the text round at 6.5, out at 8.5; back big for the hunt ----
+  const ph = $("phone");
+  const c = clipAt(t);
+  if (c) {
+    await showFrame(c, t);
+    let x = 540, y = 1060, rot = -5, sc = 1, op = 1;
+    if (t < 6.5) { const p = prog(t, 2.75, 3.2); y = lerp(2500, 1100, easeOut(p)); rot = lerp(25, -5, easeOut(p)); }
+    else if (t < 8.5) { const p = prog(t, 6.5, 6.8); rot = lerp(-5, 5, easeOut(p)) + (1 - easeOut(p)) * -30; x = lerp(700, 540, easeOut(p)); y = 1100; }
+    else if (t < 14.5) { const p = prog(t, 9.5, 9.85); y = lerp(2600, 1100, easeOut(p)); rot = lerp(-20, 3, easeOut(p)); sc = 1.32; }
+    else { const p = prog(t, 14.5, 14.8); y = 1100; rot = lerp(3, -4, easeOut(p)); sc = lerp(1.32, 1.12, easeOut(p)); x = 420; }
+    if (t > 16.3) op = 1 - prog(t, 16.3, 16.5);
+    rot += Math.sin(t * 1.7) * 1.2;
+    ph.style.opacity = op;
+    ph.style.transform = `translate(${x - 320}px, ${y - 569}px) rotate(${rot}deg) scale(${sc})`;
+  } else ph.style.opacity = 0;
+  // zoom into the screen a little in the hunt so the comb reads
+  $("scr").style.transform = on(t, 9.5, 14.5) ? "translate(-36px, -6px) scale(1.12)" : "none";
+
+  // headlines
+  const hd = (id, a, b) => { const el = $(id); if (!on(t, a, b)) { el.style.opacity = 0; return; } slamIn(el, t, a, { from: 2, rot: -3 }); el.style.opacity = 1 - prog(t, b - 0.12, b); };
+  hd("hd1", 3.0, 6.5); hd("hd2", 6.5, 8.5); hd("hd3", 9.5, 14.5); hd("hd4", 16.5, 18.5);
+
+  // stickers around the phone
+  stick(S.off1, t, 5.5, 6.5, 300, 1500, -8);
+  stick(S.p150, t, 5.75, 6.5, 820, 900, 6);
+  stick(goldB, t, 5.5, 6.5, 870, 1280, 8);
+  stick(S.num1, t, 8.0, 8.5, 270, 1530, -8);
+  stick(S.p175, t, 8.0, 8.5, 820, 880, 6);
+  stick(divB, t, 8.0, 8.5, 870, 1280, -6);
+  // hunt: a +1 flies off the phone for every find, NOPE on the miss
+  huntMarks.filter((m) => m.hit).forEach((m, k) => {
+    const side = k % 2 ? 1 : -1;
+    const d = t - m.t;
+    if (d < 0 || d >= 0.6 || t >= 14.5) { m.el.style.opacity = 0; return; }
+    m.el.style.opacity = 1 - prog(d, 0.4, 0.6);
+    m.el.style.transform = `translate(${540 + side * (250 + d * 80)}px, ${700 - d * 240}px) translate(-50%, -50%) scale(${lerp(0.3, 1, elastic(prog(d, 0, 0.25)))}) rotate(${side * 10}deg)`;
+  });
+  const miss = huntMarks.find((m) => !m.hit);
+  if (miss) stick(S.nope, t, miss.t, miss.t + 0.5, 830, 1250, 10);
+  stick(S.ten, t, 14.75, 16.5, 850, 1450, 8);
+  stick(huntB, t, 14.5, 16.5, 850, 1050, -6);
+
+  // ---- HIVE HUNT title on the drop ----
+  $("hunt").style.opacity = on(t, 8.5, 9.6) ? 1 - prog(t, 9.45, 9.6) : 0;
+  slamIn($("hk"), t, 8.5, { from: .3, rot: 0 });
+  slamIn($("ht"), t, 8.5, { from: 3.4, rot: -8 });
+  slamIn($("hs"), t, 9.0, { from: .3, rot: 0 });
+  HC.forEach((h) => {
+    const p = easeOut(prog(t, 8.5, 9.3));
+    h.i.style.opacity = on(t, 8.5, 9.6) ? 1 - prog(t, 9.0, 9.5) : 0;
+    h.i.style.transform = `translate(${540 + Math.cos(h.a) * h.r * p}px, ${900 + Math.sin(h.a) * h.r * p}px) scale(${h.s}) rotate(${h.sp * p}deg)`;
+  });
+
+  // ---- every day: calendar pages flip on the 8ths ----
+  const cal = $("cal");
+  if (on(t, 16.5, 18.5)) {
+    cal.style.opacity = 1;
+    const n = Math.min(7, Math.floor((t - 16.75) / 0.25) + 1);
+    $("calD").textContent = String(23 + Math.max(0, n)).padStart(2, "0");
+    const flip = beatPhase(t * 2 - 0.5);
+    cal.style.transform = `rotate(${-4 + (n % 2 ? 3 : -3)}deg) scale(${t < 16.75 ? lerp(0.2, 1, elastic(prog(t, 16.5, 16.8))) : 1 + 0.04 * (1 - flip)})`;
+    if (Number($("calD").textContent) > 30) { $("calM").textContent = "DEC"; $("calD").textContent = String(Number($("calD").textContent) - 30).padStart(2, "0"); } else $("calM").textContent = "NOV";
+  } else cal.style.opacity = 0;
+  stick(S.secret, t, 17.5, 18.5, 560, 1760, -4);
+  stick(shadowB, t, 17.5, 18.5, 190, 1560, 8);
+  if (on(t, 17.5, 18.5)) shadowB.style.opacity = flicker(t, 17.5);
+
+  // ---- end card ----
+  $("end").style.opacity = t >= 18.5 ? 1 : 0;
+  slamIn($("elogo"), t, 18.5, { from: 3.4, rot: -8, dur: 0.42 });
+  slamIn($("etag"), t, 19.0, { from: 2, rot: 4 });
+  endBees.forEach((b, i) => {
+    const at = 19.25 + i * 0.125, p = prog(t, at, at + 0.35);
+    b.style.left = `${10 + i * 141}px`; b.style.top = "30px";
+    b.style.opacity = t >= at ? (i === 6 ? flicker(t, at) : 1) : 0;
+    b.style.transform = `translateY(${(1 - back(p, 2.8)) * 400 - hop(t + i * 0.0625) * 24}px) rotate(${Math.sin(t * 4 + i) * 7}deg)`;
+  });
+  slamIn($("cta"), t, 20.0, { from: 2.4, rot: -4 });
+  if (t > 20.4) $("cta").style.transform = `scale(${1 + 0.07 * Math.exp(-beatPhase(t) * 4.5)})`;
+  slamIn($("url"), t, 20.5, { from: 1.8, rot: 0 });
+
+  // wipes between big sections (a black hex iris)
+  const w = $("wipe");
+  const wipeAt = [8.5 - 0.25, 18.5 - 0.25].find((a) => on(t, a, a + 0.5));
+  if (wipeAt != null) {
+    const p = (t - wipeAt) / 0.5;
+    w.style.opacity = 1;
+    const s = p < 0.5 ? easeIn(p * 2) : 1 - easeOut((p - 0.5) * 2);
+    w.style.clipPath = `circle(${s * 75}% at 50% 50%)`;
+  } else w.style.opacity = 0;
+
+  // bursts
+  for (const B of bursts) {
+    const d = t - B.at, vis = d >= 0 && d < 0.8;
+    B.el.style.opacity = vis ? 1 : 0;
+    if (!vis) continue;
+    const p = easeOut(clamp(d / 0.8));
+    for (const q of B.parts) q.b.style.transform = `translate(${Math.cos(q.ang) * q.dist * p}px, ${Math.sin(q.ang) * q.dist * p + 240 * d * d}px) rotate(${q.spin * p}deg) scale(${q.sc * (1 - clamp((d - 0.35) / 0.45))})`;
+  }
+}
+
+window.DURATION = DURATION;
+window.render = render;
+await document.fonts.ready;
+await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+await render(0);
+window.ready = true;
+</script>
+</body>
+</html>
