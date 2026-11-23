@@ -25022,7 +25022,8 @@
    "note": "Eight of the 45 people who have been president — more than any other state.",
    "finale": false,
    "source": "White House / National Archives, presidential birthplaces: 8 presidents born in Virginia",
-   "sourceUrl": "https://www.whitehouse.gov/about-the-white-house/presidents/"
+   "sourceUrl": "https://www.whitehouse.gov/about-the-white-house/presidents/",
+   "retired": true
   },
   {
    "id": 314,
@@ -25068,7 +25069,8 @@
    "note": null,
    "finale": false,
    "source": "NASA, Mars Fact Sheet: surface gravity 3.71 m/s² vs Earth's 9.81 m/s² (0.378)",
-   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html"
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+   "retired": true
   },
   {
    "id": 318,
@@ -25112,7 +25114,8 @@
    "note": "Most of it is in the core.",
    "finale": false,
    "source": "Morgan & Anders, PNAS 1980, Chemical composition of Earth: iron 32.1% by mass",
-   "sourceUrl": "https://www.pnas.org/doi/10.1073/pnas.77.12.6973"
+   "sourceUrl": "https://www.pnas.org/doi/10.1073/pnas.77.12.6973",
+   "retired": true
   },
   {
    "id": 322,
@@ -25145,7 +25148,8 @@
    "note": "About 165 million of 510 million square kilometres — bigger than all land combined.",
    "finale": false,
    "source": "NOAA / Encyclopaedia Britannica: Pacific Ocean area about 165 million km²; Earth's surface 510 million km²",
-   "sourceUrl": "https://www.britannica.com/place/Pacific-Ocean"
+   "sourceUrl": "https://www.britannica.com/place/Pacific-Ocean",
+   "retired": true
   },
   {
    "id": 325,
@@ -25356,7 +25360,8 @@
    "note": null,
    "finale": false,
    "source": "NIH, National Institute of Diabetes and Digestive and Kidney Diseases / Storhaug et al., Lancet Gastroenterol Hepatol 2017: 68% of the world population has lactose malabsorption",
-   "sourceUrl": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(17)30154-1/fulltext"
+   "sourceUrl": "https://www.thelancet.com/journals/langas/article/PIIS2468-1253(17)30154-1/fulltext",
+   "retired": true
   },
   {
    "id": 344,
@@ -25367,7 +25372,8 @@
    "note": null,
    "finale": false,
    "source": "NIH Office of Dietary Supplements, Iron fact sheet: about 70% of the body's iron is in hemoglobin",
-   "sourceUrl": "https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/"
+   "sourceUrl": "https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/",
+   "retired": true
   },
   {
    "id": 345,
@@ -25411,7 +25417,8 @@
    "note": null,
    "finale": false,
    "source": "Icelandic Meteorological Office, Glaciers in Iceland: about 11% of the country",
-   "sourceUrl": "https://en.vedur.is/glaciers"
+   "sourceUrl": "https://en.vedur.is/glaciers",
+   "retired": true
   },
   {
    "id": 349,
@@ -25444,7 +25451,8 @@
    "note": "About 39 million of 340 million.",
    "finale": false,
    "source": "US Census Bureau, Vintage 2024 population estimates: California 39.4M, US 340.1M",
-   "sourceUrl": "https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html"
+   "sourceUrl": "https://www.census.gov/data/tables/time-series/demo/popest/2020s-state-total.html",
+   "retired": true
   },
   {
    "id": 352,
@@ -25477,7 +25485,8 @@
    "note": "About 9.2 million of 30.4 million square kilometres.",
    "finale": false,
    "source": "Encyclopaedia Britannica: Sahara about 9.2 million km²; Africa 30.4 million km²",
-   "sourceUrl": "https://www.britannica.com/place/Sahara-desert-Africa"
+   "sourceUrl": "https://www.britannica.com/place/Sahara-desert-Africa",
+   "retired": true
   },
   {
    "id": 355,
@@ -25521,7 +25530,8 @@
    "note": "About 745 million of 8.2 billion.",
    "finale": false,
    "source": "United Nations, World Population Prospects 2024: Europe 745 million",
-   "sourceUrl": "https://population.un.org/wpp/"
+   "sourceUrl": "https://population.un.org/wpp/",
+   "retired": true
   },
   {
    "id": 359,
@@ -25532,7 +25542,8 @@
    "note": "Jupiter has more than twice the mass of all other planets combined — but the Sun is 99.86%.",
    "finale": true,
    "source": "NASA Jupiter Fact Sheet (1.898×10²⁷ kg) and Sun Fact Sheet (1.989×10³⁰ kg)",
-   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html"
+   "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html",
+   "retired": true
   },
   {
    "id": 360,
@@ -25576,7 +25587,8 @@
    "note": "About 27 million of 8.2 billion.",
    "finale": true,
    "source": "United Nations, World Population Prospects 2024 / ABS: Australia 27.2 million",
-   "sourceUrl": "https://population.un.org/wpp/"
+   "sourceUrl": "https://population.un.org/wpp/",
+   "retired": true
   },
   {
    "id": 364,
@@ -25587,7 +25599,8 @@
    "note": "About 244,000 of 149 million square kilometres.",
    "finale": true,
    "source": "CIA World Factbook: UK 243,610 km²; world land 148.9 million km²",
-   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/united-kingdom/"
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/united-kingdom/",
+   "retired": true
   },
   {
    "id": 365,
@@ -25598,7 +25611,8 @@
    "note": "About 41.5 million of 8.2 billion.",
    "finale": true,
    "source": "Statistics Canada population clock (41.5 million, 2025) / UN World Population Prospects 2024",
-   "sourceUrl": "https://www.statcan.gc.ca/en/subjects-start/population_and_demography"
+   "sourceUrl": "https://www.statcan.gc.ca/en/subjects-start/population_and_demography",
+   "retired": true
   },
   {
    "id": 366,
@@ -25609,7 +25623,8 @@
    "note": "Almost all fresh water is ice (69%) or underground (30%).",
    "finale": true,
    "source": "USGS, Where is Earth's Water?: fresh lakes 91,000 km³ + rivers 2,120 km³ of 35 million km³ fresh water",
-   "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/where-earth-water"
+   "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/where-earth-water",
+   "retired": true
   },
   {
    "id": 367,
@@ -25677,7 +25692,8 @@
    "note": "About 378,000 of 149 million square kilometres.",
    "finale": true,
    "source": "CIA World Factbook: Japan 377,915 km²; world land 148.9 million km²",
-   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/japan/"
+   "sourceUrl": "https://www.cia.gov/the-world-factbook/countries/japan/",
+   "retired": true
   },
   {
    "id": 373,
@@ -25799,7 +25815,8 @@
    "unlisted": [
     "Sun",
     "Pluto"
-   ]
+   ],
+   "retired": true
   },
   {
    "id": 375,
@@ -29425,7 +29442,8 @@
     "DC",
     "Puerto Rico",
     "Guam"
-   ]
+   ],
+   "retired": true
   },
   {
    "id": 389,
@@ -29752,7 +29770,8 @@
     "Los Angeles",
     "Houston",
     "Chicago"
-   ]
+   ],
+   "retired": true
   },
   {
    "id": 390,
@@ -30759,7 +30778,7 @@
   {
    "id": 394,
    "kind": "text",
-   "category": "US states",
+   "category": "World",
    "text": "Name the #1 most populous state or territory in Australia.",
    "answer": null,
    "note": null,
@@ -32570,6 +32589,451 @@
    "source": "MSCI ACWI Index factsheet (Oct 30, 2026): United States 64.63%, Japan 5.08%",
    "sourceUrl": "https://www.msci.com/documents/10199/255599/msci-acwi-net.pdf",
    "id": 429
+  },
+  {
+   "id": 430,
+   "kind": "guess",
+   "category": "Health",
+   "text": "What % of the world's adults are obese?",
+   "answer": 16,
+   "note": "About 890 million adults in 2022 — the share has more than doubled since 1990.",
+   "finale": false,
+   "source": "WHO obesity and overweight fact sheet: in 2022, 16% of adults were living with obesity",
+   "sourceUrl": "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight"
+  },
+  {
+   "id": 431,
+   "kind": "guess",
+   "category": "Food",
+   "text": "What % of the world's avocados are grown in Mexico?",
+   "answer": 28,
+   "note": "About 3 million tonnes a year — more than any other country by far.",
+   "finale": false,
+   "source": "Statista / FAO data: Mexico 2.97 Mt of 10.47 Mt world avocado production in 2023 (~28%)",
+   "sourceUrl": "https://en.wikipedia.org/wiki/List_of_countries_by_avocado_production"
+  },
+  {
+   "id": 432,
+   "kind": "guess",
+   "category": "Music",
+   "text": "What % of the music industry's recorded-music money now comes from streaming?",
+   "answer": 70,
+   "note": "69.6% in 2025 — over $22 billion. Vinyl, CDs and downloads share most of the rest.",
+   "finale": false,
+   "source": "IFPI Global Music Report 2026: streaming 69.6% of global recorded music revenues in 2025",
+   "sourceUrl": "https://www.billboard.com/pro/ifpi-report-2026-global-music-revenues-30-billion/"
+  },
+  {
+   "id": 433,
+   "kind": "guess",
+   "category": "Stocks",
+   "text": "What % of the S&P 500's total value is in its 10 biggest companies?",
+   "answer": 39,
+   "note": "About 39% in late 2026 — up from 23% in 2017. Nvidia alone is around 8%.",
+   "finale": false,
+   "source": "S&P 500 concentration trackers (Chartrow, S&P Dow Jones Indices): top 10 = 39.0% on Sept 30, 2026",
+   "sourceUrl": "https://chartrow.com/sp500/concentration"
+  },
+  {
+   "id": 434,
+   "kind": "guess",
+   "category": "Food",
+   "text": "What % of all the food energy humans eat comes from just rice, wheat and maize?",
+   "answer": 60,
+   "note": "Three crops feed most of the world — of thousands of edible plants.",
+   "finale": false,
+   "source": "FAO: rice, maize and wheat provide 60 percent of the world's food energy intake",
+   "sourceUrl": "https://www.fao.org/4/U8480E/U8480E07.htm"
+  },
+  {
+   "id": 435,
+   "kind": "guess",
+   "category": "Health",
+   "text": "What % of the world's adults don't get enough exercise?",
+   "answer": 31,
+   "note": "Nearly 1.8 billion people — WHO's bar is 150 minutes of moderate activity a week.",
+   "finale": false,
+   "source": "WHO (June 2024): 31% of adults worldwide did not meet recommended physical activity levels in 2022",
+   "sourceUrl": "https://www.who.int/news/item/26-06-2024-nearly-1.8-billion-adults-at-risk-of-disease-from-not-doing-enough-physical-activity"
+  },
+  {
+   "id": 436,
+   "kind": "guess",
+   "category": "Gaming",
+   "text": "What % of Steam gamers play on Windows?",
+   "answer": 94,
+   "note": "93.7% — Linux has about 4% and Mac about 2%.",
+   "finale": false,
+   "source": "Steam Hardware & Software Survey, October 2026: Windows 93.70%, Linux 3.95%, macOS 2.35%",
+   "sourceUrl": "https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam"
+  },
+  {
+   "id": 437,
+   "kind": "guess",
+   "category": "Tech",
+   "text": "What % of the world's web searches happen on Google?",
+   "answer": 91,
+   "note": "91% — Bing is a distant second at about 5%.",
+   "finale": false,
+   "source": "StatCounter Global Stats, search engine market share worldwide, Oct 2026: Google 91.04%",
+   "sourceUrl": "https://gs.statcounter.com/search-engine-market-share"
+  },
+  {
+   "id": 438,
+   "kind": "guess",
+   "category": "Business",
+   "text": "Of the world's 500 biggest companies by revenue, what % are American?",
+   "answer": 28,
+   "note": "141 of the Fortune Global 500 in 2026 — an 18-year high. Greater China has 122.",
+   "finale": false,
+   "source": "Fortune Global 500 2026: US companies 141 of 500",
+   "sourceUrl": "https://fortunemedia.mediaroom.com/2026-07-28-Fortune-Announces-2026-Fortune-Global-500-List"
+  },
+  {
+   "id": 439,
+   "kind": "guess",
+   "category": "Sports",
+   "text": "Of all the Formula 1 constructors' championships ever awarded, what % has Ferrari won?",
+   "answer": 24,
+   "note": "16 of 68 titles since 1958 — still the record, though Ferrari's last came in 2008.",
+   "finale": false,
+   "source": "Autosport / Wikipedia, List of Formula One World Constructors' Champions: Ferrari 16 titles; 68 championships awarded 1958–2025",
+   "sourceUrl": "https://www.autosport.com/f1/news/154928/which-f1-team-has-the-most-constructors-titles"
+  },
+  {
+   "id": 440,
+   "kind": "guess",
+   "category": "Sports · Finale",
+   "text": "What % of everyone on Earth watched the 2022 World Cup final?",
+   "answer": 18,
+   "note": "1.42 billion people watched Argentina beat France — about 18% of humanity.",
+   "finale": true,
+   "source": "FIFA Global Engagement & Audience Report (Nov 2024): 1.42 billion viewers; world population ~8.0 billion in 2022",
+   "sourceUrl": "https://inside.fifa.com/en/news/reports-detail-record-global-audience-figures-and-positive-sustainability-outcomes-fifa-world-cup-qatar"
+  },
+  {
+   "id": 441,
+   "kind": "guess",
+   "category": "Business · Finale",
+   "text": "What % of McDonald's restaurants are owned by franchisees, not McDonald's itself?",
+   "answer": 95,
+   "note": "About 43,000 of 45,356 restaurants. McDonald's mostly earns rent and fees.",
+   "finale": true,
+   "source": "McDonald's 2025 Form 10-K: approximately 95% of 45,356 restaurants franchised at year-end 2025",
+   "sourceUrl": "https://corporate.mcdonalds.com/content/dam/sites/corp/nfl/pdf/Restaurants%20by%20Market%202025.pdf"
+  },
+  {
+   "id": 442,
+   "kind": "guess",
+   "category": "Clothes · Finale",
+   "text": "What % of all the fibre made for clothes and textiles is polyester?",
+   "answer": 59,
+   "note": "78 million tonnes in 2024 — a plastic, made mostly from oil. Cotton is just 19%.",
+   "finale": true,
+   "source": "Textile Exchange Materials Market Report 2025: polyester 59% of global fibre production in 2024",
+   "sourceUrl": "https://www.textileexchange.org/resources/materials-market-report-2025/"
+  },
+  {
+   "id": 443,
+   "kind": "guess",
+   "category": "Animals · Finale",
+   "text": "What % of an octopus's neurons are in its arms and body, not its brain?",
+   "answer": 67,
+   "note": "About two-thirds of its 500 million neurons — each arm can taste and react on its own.",
+   "finale": true,
+   "source": "OIST / Current Biology; Scientific American: about two-thirds of octopus neurons are in the arms",
+   "sourceUrl": "https://www.scientificamerican.com/blog/octopus-chronicles/even-severed-octopus-arms-have-smart-moves/"
+  },
+  {
+   "id": 444,
+   "kind": "guess",
+   "category": "Tech · Finale",
+   "text": "What % of the world's 500 fastest supercomputers run Linux?",
+   "answer": 100,
+   "note": "Every single one — and it has been all 500 since November 2017.",
+   "finale": true,
+   "source": "TOP500 list: since November 2017, all listed supercomputers use a Linux-based operating system",
+   "sourceUrl": "https://top500.org/lists/top500/"
+  },
+  {
+   "id": 445,
+   "kind": "guess",
+   "category": "Animals · Finale",
+   "text": "By weight, what % of all the mammals on Earth are farm animals?",
+   "answer": 59,
+   "note": "Livestock 59%, humans 36% — every wild mammal combined is just 5%.",
+   "finale": true,
+   "source": "Greenspoon et al., PNAS 2023 (via Our World in Data): livestock 59%, humans 36%, wild mammals 5% of mammal biomass",
+   "sourceUrl": "https://ourworldindata.org/wild-mammal-biomass-dominance"
+  },
+  {
+   "id": 446,
+   "kind": "text",
+   "category": "Business",
+   "text": "Name the #1 most valuable brand in the world (Interbrand 2026).",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "top1": "Apple",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Apple"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Microsoft"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Google",
+      "Alphabet"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Amazon"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Samsung"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Nvidia",
+      "NVIDIA"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Instagram",
+      "Insta",
+      "IG"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Coca-Cola",
+      "Coke",
+      "Coca Cola"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Toyota"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "YouTube"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Tesla",
+    "Nike",
+    "Facebook"
+   ],
+   "source": "Interbrand Best Global Brands 2026: Apple, Microsoft, Google, Amazon, Samsung, NVIDIA, Instagram, Coca-Cola, Toyota, YouTube",
+   "sourceUrl": "https://interbrand.com/best-global-brands/"
+  },
+  {
+   "id": 447,
+   "kind": "text",
+   "category": "Sports",
+   "text": "Name the #1 country for total medals at the Paris 2024 Olympics.",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "top1": "United States",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "United States",
+      "USA",
+      "US",
+      "America",
+      "United States of America"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "China"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Great Britain",
+      "Britain",
+      "United Kingdom",
+      "UK",
+      "Team GB",
+      "England"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "France"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Australia"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Japan"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Italy"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Netherlands",
+      "Holland"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Germany"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "South Korea",
+      "Korea"
+     ]
+    },
+    {
+     "rank": 11,
+     "texts": [
+      "Canada"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Russia",
+    "Brazil",
+    "India"
+   ],
+   "source": "Paris 2024 final medal table by total: USA 126, China 91, Great Britain 65, France 64, Australia 53, Japan 45, Italy 40, Netherlands 34, Germany 33, South Korea 32, Canada 27",
+   "sourceUrl": "https://swimswam.com/us-tops-overall-medal-table-with-40-gold-126-total-medals-at-2024-paris-olympics/"
+  },
+  {
+   "id": 448,
+   "kind": "text",
+   "category": "Tech",
+   "text": "Name the #1 most-used programming language on GitHub (2025).",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "top1": "TypeScript",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "TypeScript",
+      "TS"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Python"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "JavaScript",
+      "JS"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "Java"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "C#",
+      "C sharp",
+      "Csharp"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "PHP"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Shell",
+      "Bash"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "C++",
+      "C plus plus",
+      "cpp"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "HCL",
+      "Terraform"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Go",
+      "Golang"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Rust",
+    "Swift",
+    "Ruby"
+   ],
+   "source": "GitHub Octoverse 2025: TypeScript #1, then Python, JavaScript, Java, C#, PHP, Shell, C++, HCL, Go",
+   "sourceUrl": "https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
   }
  ]
 }

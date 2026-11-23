@@ -19,6 +19,8 @@ export function normalizeText(s) {
     .replace(/[\u0300-\u036f]/g, "") // drop accents: "Québec" = "quebec", "Hövsgöl" = "hovsgol"
     .replace(/[’‘]/g, "'")
     .replace(/&/g, " and ")
+    .replace(/\b([cf])\s*#/g, " $1 sharp ")   // "C#" = "c sharp", before symbols are dropped
+    .replace(/\bc\s*\+\+/g, " c plus plus ") // "C++" = "c plus plus"
     .replace(/[^a-z0-9' ]/g, " ")
     .replace(/\b(a|an|the)\b/g, " ")
     .replace(/\s+/g, " ")
