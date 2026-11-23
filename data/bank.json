@@ -25474,7 +25474,8 @@
    "note": "But about three-quarters of Russians live in the European part.",
    "finale": false,
    "source": "Encyclopaedia Britannica, Russia: Asian Russia (Siberia and the Far East) is about 77% of the territory",
-   "sourceUrl": "https://www.britannica.com/place/Russia"
+   "sourceUrl": "https://www.britannica.com/place/Russia",
+   "retired": true
   },
   {
    "id": 354,
@@ -25485,8 +25486,7 @@
    "note": "About 9.2 million of 30.4 million square kilometres.",
    "finale": false,
    "source": "Encyclopaedia Britannica: Sahara about 9.2 million km²; Africa 30.4 million km²",
-   "sourceUrl": "https://www.britannica.com/place/Sahara-desert-Africa",
-   "retired": true
+   "sourceUrl": "https://www.britannica.com/place/Sahara-desert-Africa"
   },
   {
    "id": 355,
@@ -28491,7 +28491,8 @@
    "unlisted": [
     "Nile",
     "Amazon"
-   ]
+   ],
+   "retired": true
   },
   {
    "id": 386,
@@ -29442,8 +29443,7 @@
     "DC",
     "Puerto Rico",
     "Guam"
-   ],
-   "retired": true
+   ]
   },
   {
    "id": 389,
