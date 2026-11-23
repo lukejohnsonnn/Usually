@@ -32458,7 +32458,8 @@
    "finale": false,
    "source": "W3Techs via Colorlib/WPZoom (Oct 2026): WordPress used by 40.1–40.2% of all websites",
    "sourceUrl": "https://w3techs.com/technologies/details/cm-wordpress",
-   "id": 425
+   "id": 425,
+   "retired": true
   },
   {
    "kind": "text",
@@ -32566,7 +32567,8 @@
    "finale": false,
    "source": "National Watermelon Promotion Board and NC State Extension: watermelon is about 92% water (USDA ARS: about 91%)",
    "sourceUrl": "https://franklin.ces.ncsu.edu/news/watermelon-nutrition-facts-and-benefits/",
-   "id": 427
+   "id": 427,
+   "retired": true
   },
   {
    "kind": "guess",
@@ -33034,6 +33036,28 @@
    ],
    "source": "GitHub Octoverse 2025: TypeScript #1, then Python, JavaScript, Java, C#, PHP, Shell, C++, HCL, Go",
    "sourceUrl": "https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
+  },
+  {
+   "id": 449,
+   "kind": "guess",
+   "category": "Food",
+   "text": "What % of the food available to shoppers and diners worldwide ends up thrown away?",
+   "answer": 19,
+   "note": "1.05 billion tonnes in 2022 — over a billion meals a day. Homes waste the most, about 60% of it.",
+   "finale": false,
+   "source": "UNEP Food Waste Index Report 2024: 19% of food available to consumers was wasted at retail, food service and household level in 2022",
+   "sourceUrl": "https://www.unep.org/resources/publication/food-waste-index-report-2024"
+  },
+  {
+   "id": 450,
+   "kind": "guess",
+   "category": "Food",
+   "text": "In 2025/26, what % of the world's coffee beans were Arabica?",
+   "answer": 53,
+   "note": "About 95 of 179 million bags — the rest is Robusta, which is rising fast.",
+   "finale": false,
+   "source": "USDA FAS (Dec 2025) via Nasdaq/Barchart: world 2025/26 coffee output 178.8 million bags, Arabica 95.5 million (~53%)",
+   "sourceUrl": "https://www.nasdaq.com/articles/coffee-prices-fall-usda-predicts-6-increase-global-coffee-production"
   }
  ]
 }
