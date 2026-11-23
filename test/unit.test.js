@@ -153,7 +153,7 @@ test("matcher: forgiving about typing, conservative about meaning", () => {
 });
 
 test("bank meets the standard", () => {
-  assert.equal(bank.length, 264, "retired questions stay in the file");
+  assert.equal(bank.length, 269, "retired questions stay in the file");
   const active = bank.filter((q) => !q.retired);
   assert.equal(active.length, 254);
   const count = (k) => active.filter((q) => G.poolOf(q) === k).length;

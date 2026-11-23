@@ -25044,7 +25044,9 @@
    "note": "106 of your 206 bones.",
    "finale": false,
    "source": "Cleveland Clinic / standard anatomy: 54 bones in the hands, 52 in the feet, 206 in the adult skeleton",
-   "sourceUrl": "https://my.clevelandclinic.org/health/body/25176-skeletal-system"
+   "sourceUrl": "https://my.clevelandclinic.org/health/body/25176-skeletal-system",
+   "retired": true,
+   "exposed": true
   },
   {
    "id": 316,
@@ -31949,7 +31951,8 @@
    "unlisted": [
     "Mozart",
     "Beethoven"
-   ]
+   ],
+   "retired": true
   },
   {
    "id": 400,
@@ -32221,7 +32224,9 @@
    "note": "Only about 17% — the rest is mostly fructose and glucose, which is why honey keeps for years.",
    "finale": false,
    "source": "USDA analysis of US floral honeys (White et al.): average water content 17.2%",
-   "sourceUrl": "https://www.fao.org/3/w0076e/w0076e04.htm"
+   "sourceUrl": "https://www.fao.org/3/w0076e/w0076e04.htm",
+   "retired": true,
+   "exposed": true
   },
   {
    "id": 407,
@@ -32232,7 +32237,9 @@
    "note": "10.3% in 2024 — projected to double to about 21% by 2074.",
    "finale": false,
    "source": "UNFPA / UN World Population Prospects 2024: 10.3% of the world's population aged 65+ in 2024",
-   "sourceUrl": "https://www.un.org/global-issues/ageing"
+   "sourceUrl": "https://www.un.org/global-issues/ageing",
+   "retired": true,
+   "exposed": true
   },
   {
    "id": 408,
@@ -32243,7 +32250,9 @@
    "note": "About 97,600 tonnes of the 219,900 ever mined. Next biggest: bars and coins.",
    "finale": true,
    "source": "World Gold Council, above-ground stocks (end-2025): jewellery 97,645 t of 219,891 t = 44%",
-   "sourceUrl": "https://www.gold.org/goldhub/data/above-ground-stocks"
+   "sourceUrl": "https://www.gold.org/goldhub/data/above-ground-stocks",
+   "retired": true,
+   "exposed": true
   },
   {
    "id": 409,
@@ -32420,6 +32429,147 @@
    "finale": true,
    "source": "World Bank / UN World Population Prospects: population ages 0–14 = 24.73% of the world total in 2024",
    "sourceUrl": "https://fred.stlouisfed.org/data/SPPOP0014TOZSWLD"
+  },
+  {
+   "kind": "guess",
+   "category": "Tech",
+   "text": "What % of all websites run on WordPress?",
+   "answer": 40,
+   "note": "About 40% of every website on the internet — and roughly 6 in 10 of the sites that use any content system.",
+   "finale": false,
+   "source": "W3Techs via Colorlib/WPZoom (Oct 2026): WordPress used by 40.1–40.2% of all websites",
+   "sourceUrl": "https://w3techs.com/technologies/details/cm-wordpress",
+   "id": 425
+  },
+  {
+   "kind": "text",
+   "category": "Sports",
+   "text": "Name the #1 highest-paid athlete in the world (Forbes 2026).",
+   "answer": null,
+   "note": null,
+   "finale": false,
+   "top1": "Cristiano Ronaldo",
+   "textAnswers": [
+    {
+     "rank": 1,
+     "texts": [
+      "Cristiano Ronaldo",
+      "Ronaldo",
+      "CR7",
+      "Cristiano"
+     ]
+    },
+    {
+     "rank": 2,
+     "texts": [
+      "Canelo Álvarez",
+      "Canelo",
+      "Canelo Alvarez",
+      "Saúl Álvarez",
+      "Saul Alvarez"
+     ]
+    },
+    {
+     "rank": 3,
+     "texts": [
+      "Lionel Messi",
+      "Messi",
+      "Leo Messi"
+     ]
+    },
+    {
+     "rank": 4,
+     "texts": [
+      "LeBron James",
+      "LeBron"
+     ]
+    },
+    {
+     "rank": 5,
+     "texts": [
+      "Shohei Ohtani",
+      "Ohtani"
+     ]
+    },
+    {
+     "rank": 6,
+     "texts": [
+      "Stephen Curry",
+      "Steph Curry",
+      "Curry"
+     ]
+    },
+    {
+     "rank": 7,
+     "texts": [
+      "Jon Rahm",
+      "Rahm"
+     ]
+    },
+    {
+     "rank": 8,
+     "texts": [
+      "Karim Benzema",
+      "Benzema"
+     ]
+    },
+    {
+     "rank": 9,
+     "texts": [
+      "Kevin Durant",
+      "Durant",
+      "KD"
+     ]
+    },
+    {
+     "rank": 10,
+     "texts": [
+      "Lewis Hamilton",
+      "Hamilton"
+     ]
+    }
+   ],
+   "unlisted": [
+    "Michael Jordan",
+    "Tiger Woods",
+    "Usain Bolt"
+   ],
+   "source": "Forbes, The World's 10 Highest-Paid Athletes 2026 (May 22, 2026): Ronaldo $300M, Canelo $170M, Messi $140M, LeBron $137.8M, Ohtani $127.6M, Curry $124.7M, Rahm $107M, Benzema $104M, Durant $103.8M, Hamilton $100M",
+   "sourceUrl": "https://www.forbes.com/sites/brettknight/2026/05/22/the-worlds-10-highest-paid-athletes-2026/",
+   "id": 426
+  },
+  {
+   "kind": "guess",
+   "category": "Food",
+   "text": "What % of a watermelon is water?",
+   "answer": 92,
+   "note": "About 92% — the rest is mostly natural sugar, which is why it's so refreshing.",
+   "finale": false,
+   "source": "National Watermelon Promotion Board and NC State Extension: watermelon is about 92% water (USDA ARS: about 91%)",
+   "sourceUrl": "https://franklin.ces.ncsu.edu/news/watermelon-nutrition-facts-and-benefits/",
+   "id": 427
+  },
+  {
+   "kind": "guess",
+   "category": "Body",
+   "text": "Counting every cell in your body, what % are red blood cells?",
+   "answer": 84,
+   "note": "About 25 of your 30 trillion cells. They're tiny, so they barely count by weight.",
+   "finale": false,
+   "source": "Sender, Fuchs & Milo, PLOS Biology 2016: red blood cells are 84% of human cells by number",
+   "sourceUrl": "https://bionumbers.hms.harvard.edu/bionumber.aspx?id=113005",
+   "id": 428
+  },
+  {
+   "kind": "guess",
+   "category": "Money · Finale",
+   "text": "What % of the value of the world's stock markets is in US companies?",
+   "answer": 65,
+   "note": "64.6% of MSCI's All Country World Index. Japan is next — at just 5%.",
+   "finale": true,
+   "source": "MSCI ACWI Index factsheet (Oct 30, 2026): United States 64.63%, Japan 5.08%",
+   "sourceUrl": "https://www.msci.com/documents/10199/255599/msci-acwi-net.pdf",
+   "id": 429
   }
  ]
 }
